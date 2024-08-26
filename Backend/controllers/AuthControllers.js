@@ -311,59 +311,113 @@ const verifyMobileOtp = async (req, res) => {
 
 //email otp login
 
+// const sendEmailOtp = async (req, res) => {
+//   console.log("Request body:", req.body);
+
+//   const { email } = req.body;
+
+//   if (!email) {
+//     return res.status(400).json({ message: 'Email is required.' });
+//   }
+
+//   try {
+//     // Check if user already exists in the database
+//     let user = await User.findOne({ email });
+
+//     // Generate a new OTP
+//     const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+//     // Function to send OTP email
+//     const sendOtpPromise = sendOtpEmail(email, otp);
+//     console.log(`Generated OTP for ${email}: ${otp}`);
+
+//     if (user) {
+//       // If user exists, update the OTP
+//       user.otp = otp;
+//       user.isEmailVerified = true; // Update email verification status
+//       console.log(`Updating existing user: ${email}`);
+//       await user.save();
+      
+//       // Ensure OTP email is sent after updating the user
+//       await sendOtpPromise;
+
+//       return res.status(200).json({
+//         message: 'OTP sent successfully.',
+//         keyword: user.isEmailVerified ? 'USER_VERIFIED' : 'USER_NOT_VERIFIED'
+//       });
+
+//     } else {
+//       // If user does not exist, create a new user with the OTP and set isEmailVerified to true
+//       const newUser = new User({ email, otp, isEmailVerified: true });
+//       await newUser.save();  // Save the new user
+//       console.log(`Created new user: ${email}`);
+      
+//       // Ensure OTP email is sent after saving the user
+//       await sendOtpPromise;
+
+//       return res.status(200).json({
+//         message: 'OTP sent successfully.',
+//         keyword: 'USER_NOT_VERIFIED'
+//       });
+//     }
+//   } catch (error) {
+//     console.error('Error sending OTP:', error);
+//     res.status(500).json({ message: 'Failed to send OTP.', error: error.message });
+//   }
+// };
 const sendEmailOtp = async (req, res) => {
   console.log("Request body:", req.body);
 
-  const { mobile } = req.body;
+  const { email } = req.body;
 
-  if (!mobile) {
-    return res.status(400).json({ message: 'Mobile number is required.' });
+  if (!email) {
+    return res.status(400).json({ message: 'Email is required.' });
   }
 
   try {
-    // Check if user already exists in the database
-    let user = await User.findOne({ mobile });
-
     // Generate a new OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Send OTP using Twilio
-    await client.messages.create({
-      body: `Your MENTOR TEST OTP is ${otp}`,
-      to: mobile, // User's mobile number
-      from: '+14157924197' // Your Twilio phone number
-    });
-
-    console.log(`OTP sent to ${mobile}: ${otp}`);
+    // Check if user already exists in the database
+    let user = await User.findOne({ email });
 
     if (user) {
-      // If user exists, update the OTP
+      // If user exists, update the OTP and set email verification status
       user.otp = otp;
-
-      // Update verification keyword based on user's verification status
-      const keyword = user.isVerified ? 'USER_VERIFIED' : 'USER_NOT_VERIFIED';
-
-      await user.save();
-      return res.status(200).json({
-        message: 'OTP sent successfully.',
-        keyword
-      });
-
+      user.isEmailVerified = false; // Ensure email verification status is correctly set
+      console.log(`Updating existing user: ${email}`);
     } else {
+      console.log(user,"logging");
+      
       // If user does not exist, create a new user with the OTP
-      const newUser = new User({ mobile, otp });
-      await newUser.save();
+      user = new User({ email, otp, isEmailVerified: false });
+      const saveduser = await user.save();
+      console.log(`Creating new user: ${email}`,saveduser);
 
-      return res.status(200).json({
-        message: 'OTP sent successfully.',
-        keyword: 'USER_NOT_VERIFIED'
-      });
+
     }
+
+    // Save the user with the new OTP
+   
+
+    // Function to send OTP email
+    await sendOtpEmail(email, otp);
+    console.log(`Sent OTP to ${email}: ${otp}`);
+
+    return res.status(200).json({
+      message: 'OTP sent successfully.',
+      keyword: user.isVerified ? 'USER_VERIFIED' : 'USER_NOT_VERIFIED'
+    });
+
   } catch (error) {
     console.error('Error sending OTP:', error);
     res.status(500).json({ message: 'Failed to send OTP.', error: error.message });
   }
 };
+
+
+
+
 
 
 const verifyEmailOtp = async (req, res) => {
@@ -399,6 +453,7 @@ const verifyEmailOtp = async (req, res) => {
     // Save the user
     const savedUser = await user.save();
     console.log('User saved:', savedUser);
+    
 
     // Delete the OTP entry from the database
     // await User.deleteOne({ _id: otpEntry._id }); // Assuming Otp is a model for storing OTPs
