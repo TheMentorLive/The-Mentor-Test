@@ -391,14 +391,11 @@ const sendEmailOtp = async (req, res) => {
       
       // If user does not exist, create a new user with the OTP
       user = new User({ email, otp, isEmailVerified: false });
-      const saveduser = await user.save();
-      console.log(`Creating new user: ${email}`,saveduser);
-
-
+      console.log(`Creating new user: ${email}`,user);
     }
 
     // Save the user with the new OTP
-   
+    await user.save();
 
     // Function to send OTP email
     await sendOtpEmail(email, otp);
@@ -419,34 +416,34 @@ const sendEmailOtp = async (req, res) => {
 
 
 
-
 const verifyEmailOtp = async (req, res) => {
-  const { mobile, otp, name } = req.body;
+  const { email, otp, name } = req.body;
 
-  if (!mobile || !otp) {
+  if (!email || !otp) {
     return res.status(400).json({ message: 'Mobile number and OTP are required.' });
   }
 
   try {
     // Find OTP entry in the database
-    const otpEntry = await User.findOne({ mobile, otp }); // Assuming Otp is a model for storing OTPs
+    const otpEntry = await User.findOne({ email, otp }); // Assuming Otp is a model for storing OTPs
 
     if (!otpEntry) {
       return res.status(400).json({ message: 'Invalid OTP or OTP has expired.' });
     }
 
     // Find or create the user based on the mobile number
-    let user = await User.findOne({ mobile });
+    let user = await User.findOne({ email });
 
     if (!user) {
       // If the user doesn't exist, create a new user
-      user = new User({ mobile, name, isVerified: true, role: 'user' }); // Set isVerified to true for new users
+      user = new User({ email, name, isVerified: true, role: 'user' }); // Set isVerified to true for new users
     } else {
       // If the user exists, update the user's name and set isVerified to true
       if (name) {
         user.name = name;
       }
       user.isVerified = true; // Update isVerified field
+      user.isEmailVerified = true; 
       user.role = 'user'; // Ensure role is set to 'user'
     }
 

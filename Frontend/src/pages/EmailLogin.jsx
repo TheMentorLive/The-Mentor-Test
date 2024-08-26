@@ -13,6 +13,7 @@ export default function EmailOtpLogin() {
   const [otp, setOtp] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState(null);
+  const [isVerifiedUser, setIsVerifiedUser] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -20,11 +21,17 @@ export default function EmailOtpLogin() {
     setLoading(true);
     try {
       const response = await axios.post(`${API_BASE_URL}auth/send-emailotp`, { email });
-      if (response.data.status === 'OTP_SENT') {
-        setStep('verifyOtp');
+
+      console.log(response.data);
+      
+     
+      if (response.data.keyword === "USER_VERIFIED") {
+        setIsVerifiedUser(true); // Set verified user to true
+        
       } else {
-        setError('Failed to send OTP.');
+        setIsVerifiedUser(false); // Set verified user to false
       }
+      setStep('verifyOtp');
     } catch (error) {
       setError(error.response?.data?.message || 'An error occurred');
     } finally {
