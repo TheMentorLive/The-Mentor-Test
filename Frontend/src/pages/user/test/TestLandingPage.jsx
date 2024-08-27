@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button } from '@mui/material'; // Import Button from MUI if you plan to use it
+import { Button } from '@mui/material'; 
 import { Link } from 'react-router-dom';
 
 const TestLandingPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-2">
-      <div className="flex flex-col w-full max-w-5xl bg-white rounded-lg shadow-lg p-8 mb-8">
+    <div className="flex flex-col items-center min-h-screen bg-gray-100 p-2">
+      <div className="flex flex-col w-full max-w-5xl bg-white rounded-lg shadow-lg p-8 mt-8">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/2 md:pr-8">
             <h1 className="text-4xl font-bold mb-4">Welcome to HackerRank Back-End Developer Test</h1>
@@ -34,11 +34,9 @@ const TestLandingPage = () => {
               </li>
             </ol>
             <div className="flex space-x-6">
-                <Link
-                to="/test">
-                    <Button variant="contained" color="primary" className="bg-blue-500 text-white">Continue</Button>
-                </Link>
-              {/* <Button variant="contained" color="primary" className="bg-blue-500 text-white">Continue</Button> */}
+              <Link to="/test">
+                <Button variant="contained" color="primary" className="bg-blue-500 text-white">Continue</Button>
+              </Link>
               <Button variant="outlined" color="primary" className="border-blue-500 text-blue-500">Try Sample Test</Button>
             </div>
           </div>

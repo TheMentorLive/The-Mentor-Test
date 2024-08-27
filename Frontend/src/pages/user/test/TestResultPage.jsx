@@ -3,8 +3,8 @@ import { Button, Typography, Paper } from '@mui/material';
 
 const TestResultsPage = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="flex flex-col w-full max-w-4xl bg-white rounded-lg shadow-lg">
+    <div className="flex flex-col items-center  min-h-screen bg-gray-100 p-4">
+      <div className="flex flex-col w-full max-w-4xl bg-white rounded-lg shadow-lg  p-8 mt-8">
         <div className="flex flex-col md:flex-row">
           {/* Left Side */}
           <div className="md:w-1/2 md:pr-8 p-8 flex flex-col items-center">
