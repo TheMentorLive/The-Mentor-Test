@@ -23,11 +23,9 @@ export default function EmailOtpLogin() {
       const response = await axios.post(`${API_BASE_URL}auth/send-emailotp`, { email });
 
       console.log(response.data);
-      
-     
+
       if (response.data.keyword === "USER_VERIFIED") {
         setIsVerifiedUser(true); // Set verified user to true
-        
       } else {
         setIsVerifiedUser(false); // Set verified user to false
       }
@@ -44,9 +42,14 @@ export default function EmailOtpLogin() {
     try {
       const response = await axios.post(`${API_BASE_URL}auth/verify-emailotp`, { email, otp, name });
       const { token, user } = response.data;
-
+      
+      const response1 = await axios.get('http://localhost:8080/api/auth/userDetails', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      
       localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(response1.data.user));
+   
 
       navigate('/'); // Redirect to home or dashboard
     } catch (error) {
@@ -109,15 +112,17 @@ export default function EmailOtpLogin() {
                   fullWidth
                   required
                 />
-                <TextField
-                  id="name"
-                  label="Name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  fullWidth
-                  required
-                />
+                {!isVerifiedUser && (
+                  <TextField
+                    id="name"
+                    label="Name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    fullWidth
+                    required
+                  />
+                )}
                 <Button type="button" variant="contained" onClick={handleVerifyOtp} fullWidth disabled={loading}>
                   {loading ? 'Verifying OTP...' : 'Verify OTP'}
                 </Button>
@@ -145,9 +150,9 @@ export default function EmailOtpLogin() {
           </div>
           {/* Sign up link */}
           <div className="text-center text-sm">
-            Don't have an account?{' '}
-            <a href="/register" className="underline">
-              Sign Up
+            Login With{' '}
+            <a href="/login" className="underline text-blue-600">
+              Phone Number
             </a>
           </div>
         </div>

@@ -38,9 +38,11 @@ export const MainProvider = ({ children }) => {
     setToken('');
     setUser({});
   };
+  
+ 
 
   return (
-    <mainContext.Provider value={{ token, setToken, user, setUser, signOut }}>
+    <mainContext.Provider value={{ token, setToken, user, setUser, signOut, }}>
       {children}
     </mainContext.Provider>
   );

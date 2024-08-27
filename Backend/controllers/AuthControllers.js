@@ -311,60 +311,7 @@ const verifyMobileOtp = async (req, res) => {
 
 //email otp login
 
-// const sendEmailOtp = async (req, res) => {
-//   console.log("Request body:", req.body);
 
-//   const { email } = req.body;
-
-//   if (!email) {
-//     return res.status(400).json({ message: 'Email is required.' });
-//   }
-
-//   try {
-//     // Check if user already exists in the database
-//     let user = await User.findOne({ email });
-
-//     // Generate a new OTP
-//     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-
-//     // Function to send OTP email
-//     const sendOtpPromise = sendOtpEmail(email, otp);
-//     console.log(`Generated OTP for ${email}: ${otp}`);
-
-//     if (user) {
-//       // If user exists, update the OTP
-//       user.otp = otp;
-//       user.isEmailVerified = true; // Update email verification status
-//       console.log(`Updating existing user: ${email}`);
-//       await user.save();
-      
-//       // Ensure OTP email is sent after updating the user
-//       await sendOtpPromise;
-
-//       return res.status(200).json({
-//         message: 'OTP sent successfully.',
-//         keyword: user.isEmailVerified ? 'USER_VERIFIED' : 'USER_NOT_VERIFIED'
-//       });
-
-//     } else {
-//       // If user does not exist, create a new user with the OTP and set isEmailVerified to true
-//       const newUser = new User({ email, otp, isEmailVerified: true });
-//       await newUser.save();  // Save the new user
-//       console.log(`Created new user: ${email}`);
-      
-//       // Ensure OTP email is sent after saving the user
-//       await sendOtpPromise;
-
-//       return res.status(200).json({
-//         message: 'OTP sent successfully.',
-//         keyword: 'USER_NOT_VERIFIED'
-//       });
-//     }
-//   } catch (error) {
-//     console.error('Error sending OTP:', error);
-//     res.status(500).json({ message: 'Failed to send OTP.', error: error.message });
-//   }
-// };
 const sendEmailOtp = async (req, res) => {
   console.log("Request body:", req.body);
 
@@ -392,6 +339,7 @@ const sendEmailOtp = async (req, res) => {
       // If user does not exist, create a new user with the OTP
       user = new User({ email, otp, isEmailVerified: false });
       console.log(`Creating new user: ${email}`,user);
+      await user.save();
     }
 
     // Save the user with the new OTP

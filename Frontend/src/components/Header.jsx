@@ -68,7 +68,7 @@ const Header = () => {
             <HomeRoundedIcon />
             <span>Home</span>
           </Link>
-          <Link to="/" className="flex items-center space-x-1 py-2 px-3 hover:bg-violet-700 rounded transition-colors duration-300">
+          <Link to="/subjects" className="flex items-center space-x-1 py-2 px-3 hover:bg-violet-700 rounded transition-colors duration-300">
             <span>Subject</span>
           </Link>
           <Link to="/" className="flex items-center space-x-1 py-2 px-3 hover:bg-violet-700 rounded transition-colors duration-300">
@@ -101,7 +101,7 @@ const Header = () => {
             <HomeRoundedIcon className="mr-2" />
             Home
           </Link>
-          <Link to="/" className="block py-2 px-4 text-white hover:bg-gray-700 transition-colors duration-300">
+          <Link to="/subjects" className="block py-2 px-4 text-white hover:bg-gray-700 transition-colors duration-300">
             Subject
           </Link>
           <Link to="/" className="block py-2 px-4 text-white hover:bg-gray-700 transition-colors duration-300">

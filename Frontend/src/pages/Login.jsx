@@ -204,9 +204,9 @@ export default function Login() {
           </div>
           {/* Sign in link */}
           <div className="text-center text-sm">
-            Don't have an account?{' '}
-            <a href="/register" className="underline">
-              Sign Up
+            Continue With{' '}
+            <a href="/emaillogin" className="underline text-blue-600">
+              Email
             </a>
           </div>
         </div>

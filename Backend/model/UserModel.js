@@ -1,10 +1,16 @@
 const mongoose = require('mongoose');
+const { faker } = require('@faker-js/faker');
 
 // Define the UserSchema
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true, // Remove extra spaces
+    },
+    username: {
+        type: String,
+        unique: true,
+        minlength: 3,
     },
     lastName: {
         type: String,
@@ -19,8 +25,6 @@ const UserSchema = new mongoose.Schema({
     },
     mobile: {
         type: String,
-        unique: true,
-        // required: true, // Ensure mobile is provided
         trim: true, // Remove extra spaces
     },
     // password: {
@@ -49,29 +53,32 @@ const UserSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
+
+
+UserSchema.pre('save', async function(next) {
+    if (!this.username) {
+        let generatedUsername;
+        let isUnique = false;
+
+        // Keep generating until a unique username is found
+        while (!isUnique) {
+            generatedUsername = faker.internet.userName();
+
+            // Check if the generated username is unique
+            const existingUser = await mongoose.models.User.findOne({ username: generatedUsername });
+            if (!existingUser) {
+                isUnique = true;
+            }
+        }
+
+        this.username = generatedUsername;
+    }
+
+    next();
+});
+
 // Create and export the model
 module.exports = mongoose.model('User', UserSchema);
 
 
-// Middleware to generate a username
-// UserSchema.pre('save', async function (next) {
-//     if (this.isNew || this.isModified('firstName') || this.isModified('lastName')) {
-//         // Generate a username
-//         let username = (this.firstName && this.lastName)
-//             ? `${this.firstName.toLowerCase()}.${this.lastName.toLowerCase()}`
-//             : this.email.split('@')[0].toLowerCase();
-
-//         // Ensure the username is unique
-//         let user = await mongoose.model('User').findOne({ username });
-//         let counter = 1;
-//         while (user) {
-//             username = `${username}${counter}`;
-//             user = await mongoose.model('User').findOne({ username });
-//             counter++;
-//         }
-
-//         this.username = username;
-//     }
-//     next();
-// });
 
