@@ -7,9 +7,24 @@ const path = require('path');
 const authRoute = require("./routes/AuthRoute");
 const adminRoute = require("./routes/AdminRoute");
 const userRoute = require("./routes/UserRoute");
+const passport = require('passport');
+const session = require('express-session');
+
 const { errorHandler } = require("./middleware/errorhandlers");
 
 dotenv.config()
+
+app.use(
+    session({
+      secret: "process.env.SESSION_SECRET",
+      resave: false,
+      saveUninitialized: false,
+    })
+  );
+
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 app.use(express.json());
 app.use(cors())

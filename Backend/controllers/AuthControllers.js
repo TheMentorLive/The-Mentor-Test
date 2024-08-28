@@ -4,17 +4,18 @@ const jwt= require("jsonwebtoken")
 const dotenv= require("dotenv")
 const nodemailer = require('nodemailer');
 const { OAuth2Client } = require('google-auth-library');
+const passport = require('passport');
+const express = require('express');
+const session = require('express-session');
 dotenv.config();
+const app = express();
 const { generateOtp, sendOtpEmail } = require('../utils/otp');
-
-
 const client = new OAuth2Client(process.env.CLIENTID);
 
+require('../config/passport');
+require('../config/passport-linkedin');
 
-// const twilio = require('twilio');
-// const accountSid = process.env.TWILIO_ACCOUNT_SID;
-// const authToken = process.env.TWILIO_AUTH_TOKEN;
-// const client = new twilio(accountSid, authToken);
+
 
 
 
@@ -154,45 +155,50 @@ const getUserDetails = async (req, res) => {
 };
 
 
-
-const googlelogin = async (req, res) => {
-  const { idToken } = req.body;
-  console.log(req.body);
-  
-
-  if (!idToken) {
-    return res.status(400).send('ID Token is required');
-  }
-
-  try {
-    // Verify Google ID token
-    const ticket = await client.verifyIdToken({
-      idToken,
-      audience: process.env.CLIENTID, // Replace with your actual Google Client ID
-    });
-
-    const payload = ticket.getPayload();
-    const userId = payload.sub;
-    const userEmail = payload.email;
-    const givenName = payload.given_name;
-    const familyName = payload.family_name;
-
-    // Create JWT token for your application
-    const token = jwt.sign(
-      { userId, email: userEmail, givenName, familyName },
-      JWT_SECRET,
-      { expiresIn: '1h' }
-    );
-
-    res.json({ token, user: { userId, email: userEmail, givenName, familyName } });
-  } catch (error) {
-    console.error('Google Login Error:', error.message);
-    res.status(500).send('Internal Server Error');
-  }
+// Google Login
+const googlelogin = (req, res, next) => {
+  passport.authenticate('google', { scope: ['profile', 'email'] })(req, res, next);
 };
 
 
+// Google Callback
+const googleCallback = (req, res) => {
+  passport.authenticate('google', (err, user) => {
+    if (err) {
+      return res.status(500).json({ error: 'Authentication failed' });
+    }
+    if (!user) {
+      return res.status(400).json({ error: 'User not found' });
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return res.status(500).json({ error: 'Login failed' });
+      }
+      // Redirect to the frontend or desired route
+      res.redirect('http://localhost:5173'); // Adjust to your frontend URL
+    });
+  })(req, res);
+};
 
+
+// linked in
+
+const linkedinAuth = passport.authenticate("linkedin", { scope: ["r_emailaddress", "r_liteprofile"] });
+
+// LinkedIn OAuth Callback
+const linkedinCallback = (req, res, next) => {
+  passport.authenticate("linkedin", (err, user) => {
+    if (err || !user) {
+      res.redirect("/");
+    }
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+    return res
+      .cookie("token", token,{httpOnly:true,sameSite:"None",secure:true,maxAge:24*60*60*1000})
+      .redirect("/");
+  })(req, res, next);
+};
 
 
 
@@ -204,5 +210,8 @@ module.exports= {
     getUserDetails,
     sendEmailOtp,
     verifyEmailOtp,
-    googlelogin
+    googlelogin,
+    googleCallback,
+    linkedinAuth,
+    linkedinCallback
 }
