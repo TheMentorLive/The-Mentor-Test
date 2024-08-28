@@ -22,8 +22,8 @@ const AdminHeader = () => {
       <Sidebar />
         </div>
      
-      <Typography variant="h5" component="h1" className="text-xl font-bold text-black md:text-2xl">
-       Test Admin Portal
+      <Typography variant="h5" component="h1" className="text-xl font-bold text-white md:text-2xl">
+       The-Mentor Test Admin Portal
       </Typography>
       <div className="flex items-center gap-2 md:gap-4">
         <IconButton color="inherit">

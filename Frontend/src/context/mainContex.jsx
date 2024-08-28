@@ -1,35 +1,48 @@
 import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
+// Create a context to share token and user information
 export const mainContext = createContext();
 
 export const MainProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem('token') || '');
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || {});
+  const [token, setToken] = useState(() => localStorage.getItem('token') || '');
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')) || {});
+
+  const location = useLocation(); // Hook to get the current location
+
+  // Function to fetch user details
+  const fetchUserDetails = async () => {
+    if (!token) return; // Don't fetch if there is no token
+    try {
+      const response = await axios.get('http://localhost:8080/api/auth/userDetails', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUser(response.data.user);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+      signOut(); // Clear user data on error
+    }
+  };
 
   useEffect(() => {
     if (token) {
       localStorage.setItem('token', token);
-      // Fetch user details from token
-      const fetchUserDetails = async () => {
-        try {
-          const response = await axios.get('http://localhost:8080/api/auth/userDetails', {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          setUser(response.data.user);
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-        } catch (error) {
-          console.error('Error fetching user details:', error);
-        }
-      };
-
-      fetchUserDetails();
+      fetchUserDetails(); // Fetch user details whenever token changes
     } else {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       setUser({});
     }
   }, [token]);
+
+  useEffect(() => {
+    // Fetch user details whenever the route changes
+    if (token) {
+      fetchUserDetails();
+    }
+  }, [location.pathname]); // Trigger effect on path change
 
   const signOut = () => {
     // Clear token and user data from localStorage and reset state
@@ -38,11 +51,9 @@ export const MainProvider = ({ children }) => {
     setToken('');
     setUser({});
   };
-  
- 
 
   return (
-    <mainContext.Provider value={{ token, setToken, user, setUser, signOut, }}>
+    <mainContext.Provider value={{ token, setToken, user, setUser, signOut, fetchUserDetails }}>
       {children}
     </mainContext.Provider>
   );

@@ -8,8 +8,12 @@ import fetchUsers from '../../hooks/fetchUsers';
 
 const Users = () => {
   const { token } = useContext(mainContext);
+  // const [token, setToken] = useState(() => localStorage.getItem('token') || '');
   const [filterDate, setFilterDate] = useState('');
-  const { users, loading, error } = fetchUsers(token);
+  const { users, loading, error } = fetchUsers();
+
+
+
 
   const handleDateChange = (e) => {
     setFilterDate(e.target.value);

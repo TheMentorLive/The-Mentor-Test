@@ -34,7 +34,7 @@ const Banner = () => {
         <div className="flex gap-4 mt-6">
           <button
             onClick={handleGetStartedClick}
-            className="bg-violet-600 text-white py-2 px-4 rounded hover:bg-violet-700 transition"
+            className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-violet-700 transition"
           >
             {isLoggedIn ? 'Go to' : 'Get Started'}
           </button>

@@ -1,47 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { mainContext } from '../../context/mainContex';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, InputAdornment } from '@mui/material';
-import { Link } from 'react-router-dom';
 
 export default function ProfileComponent() {
-  const { user, signOut } = useContext(mainContext);
-  const [open, setOpen] = useState(false);
-  const [verificationType, setVerificationType] = useState('');
-  const [inputValue, setInputValue] = useState('');
-  const [otpSent, setOtpSent] = useState(false);
+    const { user } = useContext(mainContext);
 
-//   useEffect(() => {
-//     // Refresh user data when component mounts
-//     refreshUser();
-//   }, [refreshUser]);
-
-  useEffect(() => {
-    if (!user.isVerified || !user.isEmailVerified) {
-      setVerificationType(!user.isVerified ? 'mobile' : 'email');
-      setOpen(true);
-    }
-  }, [user]);
-
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSend = () => {
-    handleSendOtp(inputValue); // Call function to send OTP
-    setOtpSent(true); // Update state to reflect OTP has been sent
-  };
-
-  const handleVerify = () => {
-    // Handle the verification logic here
-    // For example, send OTP or verification link based on `verificationType`
-    console.log(`Verifying ${verificationType}`);
-    handleClose();
-  };
-
+    useEffect(() => {
+      if (user && Object.keys(user).length > 0) {
+        console.log('User details loaded:', user);
+      }
+    }, [user]);
+   
   return (
     <div className="flex min-h-screen bg-gray-100 p-8">
       <div className="w-full max-w-3xl mx-auto bg-white p-8 sm:p-12 space-y-6 rounded-lg shadow-lg">
@@ -85,7 +53,7 @@ export default function ProfileComponent() {
                     id="phone"
                     type="tel"
                     placeholder="Enter your phone number"
-                    defaultValue={user.phone}
+                    defaultValue={user.p}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     required
                   />
@@ -217,7 +185,7 @@ export default function ProfileComponent() {
           {/* Action Buttons */}
           <div className="flex justify-end gap-4">
             <a
-              to="/"
+              href="#"
               className="inline-flex items-center px-4 py-2 rounded-md text-gray-500 hover:bg-gray-100 transition-colors"
             >
               Cancel
@@ -231,82 +199,8 @@ export default function ProfileComponent() {
           </div>
         </form>
       </div>
-
-      <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>{verificationType === 'mobile' ? 'Verify Mobile' : 'Verify Email'}</DialogTitle>
-      <DialogContent>
-        {!otpSent ? (
-          <>
-            <p>Please enter your {verificationType === 'mobile' ? 'mobile number' : 'email address'}.</p>
-            {verificationType === 'mobile' ? (
-              <TextField
-                autoFocus
-                margin="dense"
-                id="phone"
-                label="Phone Number"
-                type="text"
-                fullWidth
-                variant="outlined"
-                value={inputValue}
-                onChange={handleChange}
-                InputProps={{
-                  startAdornment: <InputAdornment position="start">+91</InputAdornment> // Example for country code (+1 for US)
-                }}
-              />
-            ) : (
-              <TextField
-                autoFocus
-                margin="dense"
-                id="email"
-                label="Email Address"
-                type="email"
-                fullWidth
-                variant="outlined"
-                value={inputValue}
-                onChange={handleChange}
-              />
-            )}
-            <div style={{ marginTop: '16px' }}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSend}
-              >
-                Send OTP
-              </Button>
-            </div>
-          </>
-        ) : (
-          <>
-            <p>Please enter the OTP sent to your {verificationType === 'mobile' ? 'mobile number' : 'email address'}.</p>
-            <TextField
-              margin="dense"
-              id="otp"
-              label="OTP"
-              type="text"
-              fullWidth
-              variant="outlined"
-            />
-            <div style={{ marginTop: '16px' }}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => handleVerify(inputValue)}
-              >
-                Verify
-              </Button>
-            </div>
-          </>
-        )}
-      </DialogContent>
-      <DialogActions>
-        <Link to="/">
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-        </Link>
-      </DialogActions>
-    </Dialog>
-    </div>
+   
+      </div>
+  
   );
 }

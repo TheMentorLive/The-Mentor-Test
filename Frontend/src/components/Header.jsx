@@ -11,7 +11,8 @@ import axios from "axios";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { user, setToken, signOut } = useContext(mainContext);
+  const { user, setToken, signOut,fetchUserDetails } = useContext(mainContext);
+  // const { user, fetchUserDetails } = useContext(mainContext);
   
   const navigate = useNavigate();
 
@@ -32,11 +33,12 @@ const Header = () => {
     setIsLoggedIn( localStorage.getItem('user', JSON.stringify(user)));
     // setIsLoggedIn(Boolean(user && user.name));
   }, [user]);
+  
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-violet-800 text-white shadow-md z-50">
+    <header className="fixed top-0 left-0 w-full bg-blue-800 text-white shadow-md z-50">
       {/* Marquee Section */}
-      <div className="bg-violet-800 text-white flex items-center justify-between py-1 px-4 text-xs font-medium">
+      <div className="bg-blue-800 text-white flex items-center justify-between py-1 px-4 text-xs font-medium">
         <div className="flex items-center gap-2">
           <CampaignIcon className="w-4 h-4" />
           <marquee className="text-xs" style={{ fontFamily: 'Courier New, monospace' }}>
@@ -64,17 +66,17 @@ const Header = () => {
 
         {/* Navigation Links for Desktop */}
         <nav className="hidden lg:flex items-center space-x-4 text-sm">
-          <Link to="/" className="flex items-center space-x-1 py-2 px-3 hover:bg-violet-700 rounded transition-colors duration-300">
+          <Link to="/" className="flex items-center space-x-1 py-2 px-3 hover:bg-blue-700 rounded transition-colors duration-300">
             <HomeRoundedIcon />
             <span>Home</span>
           </Link>
-          <Link to="/subjects" className="flex items-center space-x-1 py-2 px-3 hover:bg-violet-700 rounded transition-colors duration-300">
+          <Link to="/subjects" className="flex items-center space-x-1 py-2 px-3 hover:bg-blue-700 rounded transition-colors duration-300">
             <span>Subject</span>
           </Link>
-          <Link to="/" className="flex items-center space-x-1 py-2 px-3 hover:bg-violet-700 rounded transition-colors duration-300">
+          <Link to="/" className="flex items-center space-x-1 py-2 px-3 hover:bg-blue-700 rounded transition-colors duration-300">
             <span>Upcoming Test</span>
           </Link>
-          <Link to="/" className="flex items-center space-x-1 py-2 px-3 hover:bg-violet-700 rounded transition-colors duration-300">
+          <Link to="/" className="flex items-center space-x-1 py-2 px-3 hover:bg-blue-700 rounded transition-colors duration-300">
             <span>Test History</span>
           </Link>
           {isLoggedIn && (

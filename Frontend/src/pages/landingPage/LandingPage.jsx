@@ -9,7 +9,11 @@ import axios from "axios";
 const Landingpage = () => {
   const [animateName, setAnimateName] = useState(false);
   const servicesRef = useRef(null);
-  const { user ,token} = useContext(mainContext); // Context to get user info
+  const { user ,token,fetchUserDetails} = useContext(mainContext); // Context to get user info
+  
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
 
  
   useEffect(() => {

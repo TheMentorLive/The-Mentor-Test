@@ -9,7 +9,6 @@ import AppRoutes from './routes/Routes';
 import AdminRoutes from './routes/AdminRoutes';
 import Sidebar from './components/adminComponent/Sidebar';
 import AdminHeader from './components/adminComponent/AdminHeader';
-import Login from './pages/Login';
 import Register from './pages/Register';
 import { mainContext } from './context/mainContex';
 import AdminFooter from './components/adminComponent/AdminFooter';
@@ -21,9 +20,10 @@ import EmailOtpLogin from './pages/EmailLogin';
 
 function App() {
 
-const {user}= useContext(mainContext)
+// const {user}= useContext(mainContext)
+const user = JSON.parse(localStorage.getItem('user'))
   return (
-    <Router>
+    <>
       
       <div className="App">
         <ToastContainer
@@ -40,9 +40,9 @@ const {user}= useContext(mainContext)
        
         <Routes>
           {/* Route for admin section */}
-          <Route path="/login" element={<Login/>} />
+          {/* <Route path="/login" element={<Login/>} /> */}
           <Route path="/register" element={<Register/>} />
-          <Route path="/emaillogin" element={<EmailOtpLogin/>} />
+          <Route path="/login" element={<EmailOtpLogin/>} />
           
           <Route path="/admin/*" element={<AdminLayout />} />
           
@@ -52,17 +52,20 @@ const {user}= useContext(mainContext)
           
         </Routes>
       </div>
-    </Router>
+    </>
   );
 }
 
 
 // Layout for admin section 
 function AdminLayout() {
-  const { user } = useContext(mainContext);
+  // const { user } = useContext(mainContext);
+  const localUser = JSON.parse(localStorage.getItem('user')) || {};
+  const role =  localUser.role;
+
   return (
     <>
-     {user.role === 'admin' ? (
+     {role === 'admin' ? (
       
         
         <div className="flex flex-col w-full min-h-screen">
@@ -92,11 +95,14 @@ function AdminLayout() {
 // Layout for non-admin section (with header and footer)
 function DefaultLayout() {
   const { user } = useContext(mainContext);
+  const localUser = JSON.parse(localStorage.getItem('user')) || {};
+  const role =  localUser.role;
+
 
   return (
     <>
      
-      {user.role !== 'admin' ? (
+      {role !== 'admin' ? (
         <>
        
          

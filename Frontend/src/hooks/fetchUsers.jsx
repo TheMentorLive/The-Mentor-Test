@@ -4,7 +4,8 @@ import axios from 'axios';
 import { ADMINENDPOINTS } from '../constants/ApiConstants';
 
 
-const fetchUsers = (token) => {
+const fetchUsers = () => {
+  const [token, setToken] = useState(() => localStorage.getItem('token') || '');
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
