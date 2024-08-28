@@ -163,22 +163,32 @@ const googlelogin = (req, res, next) => {
 
 // Google Callback
 const googleCallback = (req, res) => {
-  passport.authenticate('google', (err, user) => {
+  passport.authenticate('google', (err, userObj) => {
     if (err) {
+      console.error('Authentication error:', err);
       return res.status(500).json({ error: 'Authentication failed' });
     }
-    if (!user) {
+    if (!userObj) {
       return res.status(400).json({ error: 'User not found' });
     }
+
+    const { user, token } = userObj;  // Destructure user and token from the returned object
+
     req.logIn(user, (err) => {
       if (err) {
+        console.error('Login error:', err);
         return res.status(500).json({ error: 'Login failed' });
       }
-      // Redirect to the frontend or desired route
-      res.redirect('http://localhost:5173'); // Adjust to your frontend URL
+
+      // Construct the redirect URL with the token and user ID
+      const redirectUrl = `http://localhost:5173?token=${token}&id=${user._id}&role=${user.role}`;
+
+      // Redirect to the frontend application with the token in the query parameters
+      res.redirect(redirectUrl);
     });
   })(req, res);
 };
+
 
 
 // linked in

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { IconButton, TextField, Button, Divider, Typography } from '@mui/material';
@@ -71,8 +71,11 @@ export default function EmailOtpLogin() {
     }
   };
 
+   // Google OAuth callback handling
+  
 
  
+
   
     const handleLinkedInLogin = () => {
       setLinkedInLoading(true);

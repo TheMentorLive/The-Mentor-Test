@@ -1,12 +1,12 @@
 // passport-setup.js
 const passport = require('passport');
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
-require('dotenv').config();
+const dotenv= require("dotenv").config()
 
 passport.use(new LinkedInStrategy({
   clientID: process.env.LINKEDIN_CLIENT_ID,
   clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
-  callbackURL: 'http://localhost:8080/auth/linkedin/callback',
+  callbackURL: 'http://localhost:8080/api/auth/linkedin/callback',
   scope: ['r_liteprofile', 'r_emailaddress']
 },
 async (accessToken, refreshToken, profile, done) => {
