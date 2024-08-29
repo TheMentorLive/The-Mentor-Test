@@ -73,7 +73,28 @@ export default function EmailOtpLogin() {
 
    // Google OAuth callback handling
   
-
+  //  const handleAuthResponse = async () => {
+  //   try {
+  //     const response = await axios.get(`${API_BASE_URL}auth/google/callback`, {
+  //       withCredentials: true,
+  //     });
+  //     const { token, user } = response.data;
+  
+  //     // Store the token and user details in local storage
+  //     localStorage.setItem('token', token);
+  //     localStorage.setItem('userId', user.id);
+  //     localStorage.setItem('userRole', user.role);
+  
+  //     navigate('/'); // Redirect to home or dashboard
+  //   } catch (error) {
+  //     console.error('Authentication Error:', error);
+  //     setError('An error occurred during authentication');
+  //   }
+  // };
+  
+  // useEffect(() => {
+  //   handleAuthResponse(); // Call this function when the component mounts if needed
+  // }, []);
  
 
   

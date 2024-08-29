@@ -2,13 +2,11 @@ import React, { useContext, useEffect } from 'react';
 import { mainContext } from '../../context/mainContex';
 
 export default function ProfileComponent() {
-    const { user } = useContext(mainContext);
+    // const { user } = useContext(mainContext);
 
-    useEffect(() => {
-      if (user && Object.keys(user).length > 0) {
-        console.log('User details loaded:', user);
-      }
-    }, [user]);
+    
+      const user = JSON.parse(localStorage.getItem('user'))
+   
    
   return (
     <div className="flex min-h-screen bg-gray-100 p-8">

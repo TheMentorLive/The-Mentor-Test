@@ -9,7 +9,7 @@ export const MainProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem('token') || '');
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')) || {});
 
-  const location = useLocation(); // Hook to get the current location
+
 
   // Function to fetch user details
   const fetchUserDetails = async () => {

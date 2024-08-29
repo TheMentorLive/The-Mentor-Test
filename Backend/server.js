@@ -8,6 +8,7 @@ const authRoute = require("./routes/AuthRoute");
 const adminRoute = require("./routes/AdminRoute");
 const userRoute = require("./routes/UserRoute");
 const passport = require('passport');
+const cookieSession = require('cookie-session');
 const session = require('express-session');
 
 const { errorHandler } = require("./middleware/errorhandlers");
@@ -21,6 +22,11 @@ app.use(
       saveUninitialized: false,
     })
   );
+
+//   app.use(cookieSession({
+//     maxAge: 24 * 60 * 60 * 1000, // 24 hours
+//     keys: ['secret-key'] // Replace with your secret key
+//   }));
 
 app.use(passport.initialize())
 app.use(passport.session())

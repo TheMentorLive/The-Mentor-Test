@@ -14,6 +14,7 @@ import { mainContext } from './context/mainContex';
 import AdminFooter from './components/adminComponent/AdminFooter';
 import Header from './components/Header';
 import EmailOtpLogin from './pages/EmailLogin';
+import AuthCallback from './hooks/AuthCallback';
 
 
 
@@ -42,6 +43,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           {/* Route for admin section */}
           {/* <Route path="/login" element={<Login/>} /> */}
           <Route path="/register" element={<Register/>} />
+          <Route path="/auth/callback" element={<AuthCallback/>} />
           <Route path="/login" element={<EmailOtpLogin/>} />
           
           <Route path="/admin/*" element={<AdminLayout />} />
