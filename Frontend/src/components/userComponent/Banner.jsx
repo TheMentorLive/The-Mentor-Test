@@ -15,7 +15,7 @@ const Banner = () => {
 
   const handleGetStartedClick = () => {
     if (isLoggedIn) {
-      navigate('/dashboard'); // Replace with the actual route for logged-in users
+      navigate('/subjects'); // Replace with the actual route for logged-in users
     } else {
       navigate('/login');
     }
@@ -23,8 +23,8 @@ const Banner = () => {
 
   return (
     <div
-      className="relative w-full h-[35vh] bg-cover bg-center flex items-center"
-      style={{ backgroundImage: "url('https://img.freepik.com/free-vector/trendy-modern-white-color-stripes-geometric-business-banner_1055-15061.jpg?semt=ais_hybrid')" }} // Replace with your background image URL
+      className="relative w-full h-[60vh] bg-cover bg-center flex items-center"
+      style={{ backgroundImage: "url('https://www.iitms.co.in/online-examination-system/assets/img/online-examination-system-banner.jpg')" }} // Replace with your background image URL
     >
       <div className="absolute left-8 top-1/2 transform -translate-y-1/2 max-w-md p-6 bg-transparent bg-opacity-70 rounded-lg">
         <h2 className="text-3xl font-bold">Ace the JEE Exam</h2>
@@ -34,11 +34,11 @@ const Banner = () => {
         <div className="flex gap-4 mt-6">
           <button
             onClick={handleGetStartedClick}
-            className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-violet-700 transition"
+            className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
           >
             {isLoggedIn ? 'Go to' : 'Get Started'}
           </button>
-          <button className="border border-violet-600 text-violet-600 py-2 px-4 rounded hover:bg-violet-600 hover:text-white transition">
+          <button className="border border-blue-600 text-black py-2 px-4 rounded hover:bg-blue-600 hover:text-white transition">
             Learn More
           </button>
         </div>

@@ -2,10 +2,22 @@ import React, { useContext, useEffect } from 'react';
 import { mainContext } from '../../context/mainContex';
 
 export default function ProfileComponent() {
-    // const { user } = useContext(mainContext);
+    const { user,fetchUserDetails } = useContext(mainContext);
 
-    
-      const user = JSON.parse(localStorage.getItem('user'))
+    useEffect(() => {
+      const fetchDetails = async () => {
+        try {
+          await fetchUserDetails(); // Fetch user details on component mount
+        } catch (error) {
+          console.error('Error fetching user details:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      fetchDetails();
+    }, [fetchUserDetails])
+      // const user = JSON.parse(localStorage.getItem('user'))
    
    
   return (

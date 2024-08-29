@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 // Create a context to share token and user information
 export const mainContext = createContext();
@@ -8,8 +7,6 @@ export const mainContext = createContext();
 export const MainProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem('token') || '');
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')) || {});
-
-
 
   // Function to fetch user details
   const fetchUserDetails = async () => {
@@ -36,13 +33,6 @@ export const MainProvider = ({ children }) => {
       setUser({});
     }
   }, [token]);
-
-  useEffect(() => {
-    // Fetch user details whenever the route changes
-    if (token) {
-      fetchUserDetails();
-    }
-  }, [location.pathname]); // Trigger effect on path change
 
   const signOut = () => {
     // Clear token and user data from localStorage and reset state

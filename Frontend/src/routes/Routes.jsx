@@ -2,9 +2,7 @@
 import React, { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Landingpage from '../pages/landingPage/LandingPage';
-
 import NotFound from '../pages/PageNotFound';
-import Feed from '../pages/post/Feed';
 import Header from '../components/Header';
 import ProfileComponent from '../pages/user/Profile';
 import Settings from '../pages/user/Settings';
