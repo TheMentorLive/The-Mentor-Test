@@ -84,7 +84,7 @@ export default function Navbar() {
               to="/Main/signup"
               className="rounded-md bg-background px-4 py-2 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 border border-primary w-3/4 text-center"
             >
-              Sign Up
+              Sign Upp
             </Link>
           </nav>
         </div>
