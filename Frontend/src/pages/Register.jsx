@@ -71,7 +71,7 @@ function Register() {
     <div className="flex items-center justify-between">
       <Link href="#" prefetch={false}>
         <a className="inline-flex items-center gap-2">
-        <img src="/The-mentor-logo.png" alt="The Mentor Logo" style={{ width: '100px', height: '40px' }} />
+        <img src="/logo.png" alt="The Mentor Logo" style={{ width: '100px', height: '40px' }} />
 
           {/* <Typography variant="h6" component="span" className="font-bold">
             The Mentor

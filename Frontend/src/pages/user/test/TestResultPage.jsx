@@ -26,7 +26,7 @@ const TestResultsPage = () => {
             <div className="flex flex-col items-center mb-8">
               <div className="flex items-center justify-center mb-6">
                 <img
-                  src="/The-mentor-logo.png"
+                  src="/logo.png"
                   alt="The Mentor"
                   className="h-16 w-auto mx-auto"
                 />

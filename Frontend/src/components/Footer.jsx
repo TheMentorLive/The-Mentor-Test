@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="flex items-center">
           {/* Logo Image */}
           <img
-            src="/The-mentor-logo.png"
+            src="/logo.png"
             alt="mentor-logo"
             className="h-9 w-auto"
           />

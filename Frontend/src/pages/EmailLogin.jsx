@@ -118,7 +118,7 @@ export default function EmailOtpLogin() {
           {/* Logo and menu button */}
           <div className="flex items-center justify-between">
             <a href="#" className="inline-flex items-center gap-2">
-              <img src="/The-mentor-logo.png" alt="The Mentor Logo" style={{ width: '100px', height: '40px' }} />
+              <img src="/logo.png" alt="The Mentor Logo" style={{ width: '100px', height: '40px' }} />
             </a>
             <IconButton>
               <MenuIcon />
