@@ -1,5 +1,15 @@
 import React, { useContext, useState } from "react";
-import { Avatar, Button, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+} from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Dashboard as DashboardIcon,
@@ -7,7 +17,9 @@ import {
   Settings as SettingsIcon,
   Description as FilesIcon,
   Logout as LogOutIcon,
-  Menu as MenuIcon
+  Menu as MenuIcon,
+  ExpandLess,
+  ExpandMore,
 } from "@mui/icons-material";
 import { mainContext } from "../../context/mainContex";
 
@@ -15,6 +27,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const { user, signOut } = useContext(mainContext);
   const [open, setOpen] = useState(false);
+  const [testMenuOpen, setTestMenuOpen] = useState(false); // State for the Test dropdown menu
 
   const handleSignOut = () => {
     signOut();
@@ -30,6 +43,10 @@ const Sidebar = () => {
     if (open) {
       toggleSidebar();
     }
+  };
+
+  const toggleTestMenu = () => {
+    setTestMenuOpen(!testMenuOpen);
   };
 
   return (
@@ -58,7 +75,7 @@ const Sidebar = () => {
           }
         }}
       >
-        <div className="bg-gradient-r bg-yellow-800 to bg-black text-gray-100 h-full w-64 py-8">
+        <div className="bg-gradient-r bg-blue-800 to bg-black text-gray-100 h-full w-64 py-8">
           {/* Profile Section */}
           <div className="flex flex-col items-center gap-6 mb-6">
             <Avatar
@@ -78,10 +95,30 @@ const Sidebar = () => {
               <ListItemIcon><DashboardIcon /></ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItem>
-            <ListItem button onClick={() => handleLinkClick("/admin/test")}>
+            <ListItem button onClick={toggleTestMenu}>
               <ListItemIcon><FilesIcon /></ListItemIcon>
-              <ListItemText primary="test" />
+              <ListItemText primary="Test" />
+              {testMenuOpen ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
+
+            {/* Submenu for Test */}
+            <Collapse in={testMenuOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItem button onClick={() => handleLinkClick("/admin/test/add-subject")} sx={{ pl: 4 }}>
+                  <ListItemText primary="subject" />
+                </ListItem>
+                <ListItem button onClick={() => handleLinkClick("/admin/test/add-test")} sx={{ pl: 4 }}>
+                  <ListItemText primary="Test" />
+                </ListItem>
+                <ListItem button onClick={() => handleLinkClick("/admin/test/main-test")} sx={{ pl: 4 }}>
+                  <ListItemText primary="Main-Test" />
+                </ListItem>
+                <ListItem button onClick={() => handleLinkClick("/admin/test/mock-test")} sx={{ pl: 4 }}>
+                  <ListItemText primary="Mock-Test" />
+                </ListItem>
+              </List>
+            </Collapse>
+
             <ListItem button onClick={() => handleLinkClick("/admin/questions")}>
               <ListItemIcon><FilesIcon /></ListItemIcon>
               <ListItemText primary="Questions" />
@@ -106,120 +143,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useContext } from "react";
-// import { Avatar, Button } from "@mui/material";
-// import { Link, useNavigate } from "react-router-dom";
-// import {
-//   Dashboard as DashboardIcon,
-//   People as UsersIcon,
-//   Settings as SettingsIcon,
-//   Description as FilesIcon,
-//   Logout as LogOutIcon,
-// } from "@mui/icons-material";
-// import { mainContext } from "../../context/mainContex";
-
-// const Sidebar = () => {
-//   const navigate = useNavigate();
-//   const { user, signOut } = useContext(mainContext);
-
-//   const handleSignOut = () => {
-//     signOut();
-//     // Redirect to home page or another appropriate page after sign-out
-//     navigate("/");
-//   };
-
-//   return (
-//     <aside className="bg-gray-900 text-gray-100 border-r flex flex-col items-center justify-between h-screen w-64 py-8">
-//       {/* Profile Section */}
-//       <div className="flex flex-col items-center gap-6">
-//         <Avatar
-//           src="/placeholder-user.jpg"
-//           alt="User Avatar"
-//           sx={{ width: 64, height: 64 }}
-//         />
-//         <div className="text-center">
-//           <h3 className="text-lg font-semibold">{user.name}</h3>
-//           <p className="text-sm">{user.role}</p>
-//         </div>
-//       </div>
-
-//       {/* Navigation Section */}
-//       <nav className="mt-6 flex-1">
-//         <ul className="space-y-4">
-//           <li>
-//             <Button
-//               component={Link}
-//               to="/admin/dashboard"
-//               className="flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-800 hover:text-white w-full"
-//               startIcon={<DashboardIcon />}
-//             >
-//               Dashboard
-//             </Button>
-//           </li>
-          
-//           <li>
-//             <Button
-//               component={Link}
-//               to="/admin/messages"
-//               className="flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-800 hover:text-white w-full"
-//               startIcon={<FilesIcon />}
-//             >
-//              messages
-//             </Button>
-//           </li>
-//           <li>
-//             <Button
-//               component={Link}
-//               to="/admin/settings"
-//               className="flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-800 hover:text-white w-full"
-//               startIcon={<SettingsIcon />}
-//             >
-//               Settings
-//             </Button>
-//           </li>
-//           <li>
-//             <Button
-//               component={Link}
-//               to="/admin/users"
-//               className="flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-800 hover:text-white w-full"
-//               startIcon={<UsersIcon />}
-//             >
-//               Users
-//             </Button>
-//           </li>
-          
-//         </ul>
-//       </nav>
-
-//       {/* Logout Button */}
-//       <Button
-//         variant="text"
-//         className="flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-gray-100 hover:bg-gray-800 w-full"
-//         startIcon={<LogOutIcon />}
-//         onClick={handleSignOut}
-//       >
-//         Logout
-//       </Button>
-//     </aside>
-//   );
-// };
-
-// export default Sidebar;

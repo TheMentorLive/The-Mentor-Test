@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const AWS = require('aws-sdk');
+const Test = require("../model/Test");
 
 
 const apply= async (req, res) => {
@@ -90,10 +91,36 @@ const apply= async (req, res) => {
 //     }
 //   };
 
+const getTests= async (req, res) => {
+ console.log(req.query);
+ 
+  const { subject } = req.query;
+
+  try {
+    if (!subject) {
+      return res.status(400).json({ message: 'Subject is required.' });
+    }
+
+    // Fetch tests based on the subject
+    const tests = await Test.find({ subject });
+    
+    // Check if tests exist for the given subject
+    if (tests.length === 0) {
+      return res.status(404).json({ message: 'No tests found for this subject.' });
+    }
+
+    res.json(tests);
+  } catch (error) {
+    console.error('Error fetching tests:', error);
+    res.status(500).json({ message: 'Server error. Failed to fetch tests.' });
+  }
+};
+
 
 
 
 module.exports={apply,
+  getTests
  
     
 }

@@ -6,6 +6,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from "@mui/icons-material/Person";
 
 const DropdownMenu = ({ isLoggedIn }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,9 +44,9 @@ const DropdownMenu = ({ isLoggedIn }) => {
       {/* Dropdown Button */}
       <button
         onClick={toggleDropdown}
-        className="flex items-center space-x-2 py-2 px-4 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-violet-500"
+        className="flex items-center space-x-2 py-2 px-4 rounded-md  text-white hover:bg-blue-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-violet-500"
       >
-        <span className="font-semibold">My Account</span>
+        <span className="font-semibold"> <PersonIcon /></span>
         <ArrowDropDownIcon />
       </button>
 

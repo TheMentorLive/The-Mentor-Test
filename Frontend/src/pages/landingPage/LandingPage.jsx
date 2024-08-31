@@ -4,6 +4,7 @@ import { mainContext } from "../../context/mainContex";
 import Banner from "../../components/userComponent/Banner";
 import Subject from "../../components/userComponent/landingpageComponents/SubjectComponent";
 import axios from "axios";
+import Analytics from "../../components/userComponent/landingpageComponents/analytics";
 // import Dashboard from "../../components/userComponent/landingpageComponents/UserDashboard";
 
 const Landingpage = () => {
@@ -60,6 +61,7 @@ const Landingpage = () => {
         
         <Banner/>
         <Subject/>
+        <Analytics/>
         {/* <Dashboard/> */}
 
         

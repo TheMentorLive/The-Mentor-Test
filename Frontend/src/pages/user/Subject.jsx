@@ -1,10 +1,50 @@
-import React, { useState } from 'react';
-import { Tabs, Tab, Card, CardContent, Button, InputAdornment } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Tabs, Tab, Card, CardContent, Button } from '@mui/material';
 import BookIcon from '@mui/icons-material/Book';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { ADMINENDPOINTS,USERENDPOINTS } from '../../constants/ApiConstants';
 
 const SubjectComponent = () => {
+  const [token, setToken] = useState(() => localStorage.getItem('token') || '');
   const [activeTab, setActiveTab] = useState('physics');
+  const [subjects, setSubjects] = useState([]);
+  const [tests, setTests] = useState([]);
+  
+  // Fetch subjects when the component mounts
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      try {
+        const response = await axios.get(ADMINENDPOINTS.GETSUBJECTS, { // Update with your endpoint
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setSubjects(response.data);
+        if (response.data.length > 0) {
+          setActiveTab(response.data[0].name); // Set the first subject as the active tab
+        }
+      } catch (error) {
+        console.error('Error fetching subjects:', error);
+      }
+    };
+
+    fetchSubjects();
+  }, []);
+
+  // Fetch tests based on the selected subject
+  useEffect(() => {
+    const fetchTests = async () => {
+      try {
+        const response = await axios.get(USERENDPOINTS.GET`?subject=${activeTab}`, { // Update with your endpoint
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setTests(response.data);
+      } catch (error) {
+        console.error('Error fetching tests:', error);
+      }
+    };
+
+    fetchTests();
+  }, [activeTab]);
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
@@ -23,115 +63,31 @@ const SubjectComponent = () => {
             className="w-full"
             variant="fullWidth"
           >
-            <Tab label="Physics" value="physics" />
-            <Tab label="Chemistry" value="chemistry" />
-            <Tab label="Biology" value="biology" />
-            <Tab label="Full Length" value="full-length" />
+            {subjects.map(subject => (
+              <Tab key={subject.id} label={subject.name} value={subject.name} />
+            ))}
           </Tabs>
           <div className="mt-4">
-            {activeTab === 'physics' && (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                <Card className="h-full">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {tests.map(test => (
+                <Card key={test.id} className="h-full">
                   <CardContent className="flex flex-col items-start justify-between">
                     <div className="flex items-center gap-2">
                       <BookIcon className="w-6 h-6" />
-                      <h3 className="text-lg font-bold">Physics Mock Test</h3>
+                      <h3 className="text-lg font-bold">{test.title}</h3>
                     </div>
-                    <div className="mt-2 text-muted-foreground text-sm">August 22, 2023 - 2 hours, 60 questions</div>
+                    <div className="mt-2 text-muted-foreground text-sm">{test.date} - {test.duration} hours, {test.questions} questions</div>
                     <div className="flex gap-2 mt-4">
-                        <Link
-                        to="/start-test">
-                                <Button variant="contained" className="px-4 py-2 text-sm">Take Test</Button>
-                        </Link>
-                  
-                      <Button variant="outlined" className="px-4 py-2 text-sm">Show Results</Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
-            {activeTab === 'chemistry' && (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                <Card className="h-full">
-                  <CardContent className="flex flex-col items-start justify-between">
-                    <div className="flex items-center gap-2">
-                      <BookIcon className="w-6 h-6" />
-                      <h3 className="text-lg font-bold">Chemistry Mock Test</h3>
-                    </div>
-                    <div className="mt-2 text-muted-foreground text-sm">September 5, 2023 - 2 hours, 50 questions</div>
-                    <div className="flex gap-2 mt-4">
-                      <Button variant="contained" className="px-4 py-2 text-sm">Take Test</Button>
+                      <Link to={`/start-test/${test.id}`}>
+                        <Button variant="contained" className="px-4 py-2 text-sm">Take Test</Button>
+                      </Link>
                       <Button variant="outlined" className="px-4 py-2 text-sm">Show Results</Button>
                     </div>
                   </CardContent>
                   <div className="text-muted-foreground text-sm">Register now to secure your spot.</div>
                 </Card>
-              </div>
-            )}
-            {activeTab === 'biology' && (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                <Card className="h-full">
-                  <CardContent className="flex flex-col items-start justify-between">
-                    <div className="flex items-center gap-2">
-                      <BookIcon className="w-6 h-6" />
-                      <h3 className="text-lg font-bold">Biology Mock Test</h3>
-                    </div>
-                    <div className="mt-2 text-muted-foreground text-sm">September 19, 2023 - 2 hours, 55 questions</div>
-                    <div className="flex gap-2 mt-4">
-                      <Button variant="contained" className="px-4 py-2 text-sm">Take Test</Button>
-                      <Button variant="outlined" className="px-4 py-2 text-sm">Show Results</Button>
-                    </div>
-                  </CardContent>
-                  <div className="text-muted-foreground text-sm">Register now to secure your spot.</div>
-                </Card>
-              </div>
-            )}
-            {activeTab === 'full-length' && (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                <Card className="h-full">
-                  <CardContent className="flex flex-col items-start justify-between">
-                    <div className="flex items-center gap-2">
-                      <BookIcon className="w-6 h-6" />
-                      <h3 className="text-lg font-bold">Kinematics Mock Test</h3>
-                    </div>
-                    <div className="mt-2 text-muted-foreground text-sm">August 29, 2023 - 3 hours, 80 questions</div>
-                    <div className="flex gap-2 mt-4">
-                      <Button variant="contained" className="px-4 py-2 text-sm">Take Test</Button>
-                      <Button variant="outlined" className="px-4 py-2 text-sm">Show Results</Button>
-                    </div>
-                  </CardContent>
-                  <div className="text-muted-foreground text-sm">Register now to secure your spot.</div>
-                </Card>
-                <Card className="h-full">
-                  <CardContent className="flex flex-col items-start justify-between">
-                    <div className="flex items-center gap-2">
-                      <BookIcon className="w-6 h-6" />
-                      <h3 className="text-lg font-bold">Thermodynamics Mock Test</h3>
-                    </div>
-                    <div className="mt-2 text-muted-foreground text-sm">September 12, 2023 - 3 hours, 75 questions</div>
-                    <div className="flex gap-2 mt-4">
-                      <Button variant="contained" className="px-4 py-2 text-sm">Take Test</Button>
-                      <Button variant="outlined" className="px-4 py-2 text-sm">Show Results</Button>
-                    </div>
-                  </CardContent>
-                  <div className="text-muted-foreground text-sm">Register now to secure your spot.</div>
-                </Card>
-                <Card className="h-full">
-                  <CardContent className="flex flex-col items-start justify-between">
-                    <div className="flex items-center gap-2">
-                      <BookIcon className="w-6 h-6" />
-                      <h3 className="text-lg font-bold">Calculus Mock Test</h3>
-                    </div>
-                    <div className="mt-2 text-muted-foreground text-sm">September 26, 2023 - 3 hours, 70 questions</div>
-                    <div className="flex gap-2 mt-4">
-                      <Button variant="contained" className="px-4 py-2 text-sm">Take Test</Button>
-                      <Button variant="outlined" className="px-4 py-2 text-sm">Show Results</Button>
-                    </div>
-                  </CardContent>
-                  <div className="text-muted-foreground text-sm">Register now to secure your spot.</div>
-                </Card>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
         </section>
       </main>

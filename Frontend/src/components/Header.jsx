@@ -87,7 +87,7 @@ const Header = () => {
 
       {/* Sidebar for mobile */}
       <div
-        className={`fixed top-0 left-0 w-64 h-full bg-violet-900 shadow-lg z-50 transform ${
+        className={`fixed top-0 left-0 w-64 h-full bg-blue-800 shadow-lg z-50 transform ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out`}
       >

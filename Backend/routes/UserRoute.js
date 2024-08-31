@@ -28,5 +28,6 @@ const storage = multer.diskStorage({
 
 router.post("/apply",authMiddleware,upload.single('resume'),UserController.apply)
 
+router.get("/gettests",authMiddleware,UserController.getTests)
 
 module.exports= router; 

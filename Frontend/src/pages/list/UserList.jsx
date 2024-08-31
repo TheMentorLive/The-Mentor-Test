@@ -36,7 +36,7 @@ const Users = () => {
     // Define PDF rows data
     const rows = filteredUsers.map(user => [
       user._id,
-      user.firstName,
+      user.name,
       user.email,
       moment(user.createdAt).format("DD/MM/YYYY")
     ]);
@@ -114,7 +114,7 @@ const Users = () => {
                   filteredUsers.map((user) => (
                     <tr key={user.id}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user._id}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{user.firstName}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{user.name}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{moment(user.createdAt).format("DD/MM/YYYY")}</td>
                     </tr>

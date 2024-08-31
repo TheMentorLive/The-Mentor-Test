@@ -17,13 +17,13 @@ const AdminHeader = () => {
   };
 
   return (
-    <header className="bg-black text-white border-b  flex items-center justify-between px-4 py-3 h-12  md:px-6 md:py-4 shadow-lg">
-      <div className="mb-8 text-white">
-      <Sidebar />
-        </div>
+    <header className="bg-blue-900 text-white border-b flex items-center justify-between px-4 py-3 h-16 md:px-6 md:py-4 shadow-lg">
+      <div className="text-white">
+        <Sidebar />
+      </div>
      
       <Typography variant="h5" component="h1" className="text-xl font-bold text-white md:text-2xl">
-       The-Mentor Test Admin Portal
+        The-Mentor Test Admin Portal
       </Typography>
       <div className="flex items-center gap-2 md:gap-4">
         <IconButton color="inherit">
