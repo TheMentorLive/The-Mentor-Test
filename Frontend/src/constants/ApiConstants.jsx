@@ -15,5 +15,8 @@ export const ADMINENDPOINTS = {
 };
 
 export const USERENDPOINTS = {
-   GETTESTS: `${API_BASE_URL}user/getTests`
+   GETTESTS: `${API_BASE_URL}user/getTests`,
+    GETTESTSLANDING: `${API_BASE_URL}user/getTestsLanding`,
+    SUBMITTEST: `${API_BASE_URL}user/submitTest`,
+      GETCURRENTTESTRESULT: `${API_BASE_URL}user/results`
 }
