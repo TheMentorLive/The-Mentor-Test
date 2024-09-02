@@ -2,23 +2,23 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <div style={{ fontFamily: 'Inter, sans-serif' }} className="border-b bg-white border-gray-300">
-      <header className="flex h-16 items-center justify-between bg-background px-4 md:px-6 lg:ml-48 lg:mr-[217px]">
+    <div style={{ fontFamily: 'Inter, sans-serif' }} className="border-b bg-[#2563EB] border-gray-300">
+      <header className="flex h-16 items-center justify-between bg-[#2563EB] px-4 md:px-6 lg:ml-48 lg:mr-[217px]">
         {/* Logo and Home Link */}
-        <div className="flex items-center gap-2">
+        <div className="flex h-36 w-36 items-center gap-2">
           <Link to="/">
             <img
               src="/logo.png"
               alt="Description of image"
               width={120} // Adjust width for responsiveness
-              height={40} // Adjust height for responsiveness
+              height={120} // Adjust height for responsiveness
               className="w-auto h-auto max-w-full max-h-full"
             />
           </Link>
         </div>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex">
+        <nav className="hidden text-white md:flex">
           <ul className="flex items-center gap-6 text-sm font-medium">
             <li>
               <Link to="#" className="hover:underline hover:underline-offset-4">
@@ -42,7 +42,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-4">
           <Link
             to="/Main/signin"
-            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="rounded-md bg-background px-4 py-2 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 border border-primary"
           >
             Sign In
           </Link>
@@ -76,7 +76,7 @@ export default function Navbar() {
             </Link>
             <Link
               to="/Main/signin"
-              className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 w-3/4 text-center"
+              className="rounded-md bg-background px-4 py-2 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 border border-primary w-3/4 text-center"
             >
               Sign In
             </Link>
@@ -84,7 +84,7 @@ export default function Navbar() {
               to="/Main/signup"
               className="rounded-md bg-background px-4 py-2 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 border border-primary w-3/4 text-center"
             >
-              Sign Upp
+              Sign U
             </Link>
           </nav>
         </div>
