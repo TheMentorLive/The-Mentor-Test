@@ -14,7 +14,7 @@ const Footer = () => {
             <div className="mb-6">
               <a href="/" className="flex items-center">
                 <img
-                  src="/The-mentor-logo.png"
+                  src="/logo.webp"
                   alt="GenAI Learning Logo"
                   width={150}
                   height={150}

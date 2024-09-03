@@ -5,6 +5,7 @@ import Banner from "../../components/userComponent/Banner";
 // import Subject from "../../components/userComponent/landingpageComponents/SubjectComponent";
 import axios from "axios";
 import More from "../../components/userComponent/landingpageComponents/More";
+import { API_BASE_URL } from "../../constants/ApiConstants";
 // import Analytics from "../../components/userComponent/landingpageComponents/analytics";
 // import Dashboard from "../../components/userComponent/landingpageComponents/UserDashboard";
 
@@ -29,7 +30,7 @@ const Landingpage = () => {
       navigate('/'); // Redirect to home or dashboard
     } catch (error) {
       console.error('Authentication Error:', error);
-      setError('An error occurred during authentication');
+      // setError('An error occurred during authentication');
     }
   };
   
@@ -64,6 +65,7 @@ const Landingpage = () => {
         {/* <Subject/> */}
         {/* <Analytics/> */}
         {/* <Dashboard/> */}
+        
         <More/>
 
         

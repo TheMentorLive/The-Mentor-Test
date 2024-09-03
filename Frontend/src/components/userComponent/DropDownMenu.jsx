@@ -19,8 +19,8 @@ const DropdownMenu = ({ isLoggedIn }) => {
   const handleLogout = () => {
     signOut();
     setToken("");
-  
     setIsOpen(false);
+    navigate("/login"); // Ensure navigation to login page
   };
 
   const handleClickOutside = (event) => {
@@ -44,7 +44,7 @@ const DropdownMenu = ({ isLoggedIn }) => {
       {/* Dropdown Button */}
       <button
         onClick={toggleDropdown}
-        className="flex items-center space-x-2 py-2 px-4 rounded-md  text-white hover:bg-blue-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-violet-500"
+        className="flex items-center space-x-2 py-2 px-4 rounded-md bg-blue-600 text-white hover:bg-blue-800 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white"
       >
         <span className="font-semibold"> <PersonIcon /></span>
         <ArrowDropDownIcon />
@@ -58,11 +58,11 @@ const DropdownMenu = ({ isLoggedIn }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="absolute right-0 mt-2 w-56 bg-white border border-gray-300 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
+            className="absolute right-0 mt-2 w-56 bg-blue-800 text-white border border-blue-800 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
           >
             <Link
               to="/profile"
-              className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-t-lg transition-colors duration-200"
+              className="flex items-center px-4 py-2 hover:bg-blue-800 rounded-t-lg transition-colors duration-200"
               onClick={() => setIsOpen(false)}
             >
               <AccountCircleIcon className="mr-2" />
@@ -70,7 +70,7 @@ const DropdownMenu = ({ isLoggedIn }) => {
             </Link>
             <Link
               to="/settings"
-              className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200"
+              className="flex items-center px-4 py-2 hover:bg-gray-800 transition-colors duration-200"
               onClick={() => setIsOpen(false)}
             >
               <SettingsIcon className="mr-2" />
@@ -78,7 +78,7 @@ const DropdownMenu = ({ isLoggedIn }) => {
             </Link>
             <Link
               to="/"
-              className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-b-lg transition-colors duration-200"
+              className="flex items-center px-4 py-2 hover:bg-gray-800 rounded-b-lg transition-colors duration-200"
               onClick={handleLogout}
             >
               <LogoutIcon className="mr-2" />
