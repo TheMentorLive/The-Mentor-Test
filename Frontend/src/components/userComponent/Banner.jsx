@@ -35,7 +35,9 @@ const Banner = () => {
   };
 
   return (
-    <div className="relative w-full h-[60vh] flex items-center overflow-hidden">
+    <div
+      className="relative w-full h-[60vh] flex items-center overflow-hidden"
+    >
       <div
         className="absolute top-0 left-0 w-full h-full bg-cover bg-center transition-transform duration-1000"
         style={{ backgroundImage: `url(${images[currentImageIndex]})` }}
