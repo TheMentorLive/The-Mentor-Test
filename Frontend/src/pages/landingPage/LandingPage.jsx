@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef, useContext } from "react";
 import { mainContext } from "../../context/mainContex";
 import Banner from "../../components/userComponent/Banner";
+import Live from "../../components/live";
 // import Subject from "../../components/userComponent/landingpageComponents/SubjectComponent";
 import axios from "axios";
 import More from "../../components/userComponent/landingpageComponents/More";
@@ -64,6 +65,7 @@ const Landingpage = () => {
         {/* <Subject/> */}
         {/* <Analytics/> */}
         {/* <Dashboard/> */}
+        <Live/>
         <More/>
 
         

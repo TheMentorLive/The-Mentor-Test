@@ -35,7 +35,7 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 w-full bg-white  shadow-md z-50">
       {/* Marquee Section */}
-      <div className="bg-blue-800 text-white flex items-center justify-between py-1 px-4 text-xs font-medium">
+      <div className="bg-white text-black flex items-center justify-between py-1 px-4 text-xs font-medium">
         <div className="flex items-center gap-2">
           <CampaignIcon className="w-4 h-4" />
           <marquee className="text-xs" style={{ fontFamily: "Courier New, monospace" }}>
@@ -46,20 +46,23 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between py-2 px-4">
+      <div className="flex items-center  justify-center py-2 px-4">
         {/* Menu Icon */}
         <button onClick={toggleMenu} className="lg:hidden text-black text-2xl mr-4" aria-label="Toggle navigation menu">
           <MenuIcon />
         </button>
 
         {/* Logo and Title */}
+        
         <Link to="/" className="flex-1 flex items-center justify-center lg:justify-start">
-          <h1 className="text-lg font-bold tracking-wide">The Mentor</h1>
-          <p className="text-sm hidden lg:inline">- Test Platform</p>
+        <img 
+        src="/The-mentor-logo.png"
+        className="h-10"/>
         </Link>
 
         {/* Navigation Links for Desktop */}
-        <nav className="hidden lg:flex items-center space-x-4 text-sm">
+        <nav className="hidden lg:flex items-center  space-x-4 text-sm">
+         
           <Link to="/" className="flex items-center space-x-1 py-2 px-3 hover:bg-blue-700 rounded transition-colors duration-300">
             <HomeRoundedIcon />
             <span>Home</span>
@@ -80,21 +83,15 @@ const Header = () => {
           <Link to="/upcoming-test" className="flex items-center space-x-1 py-2 px-3 hover:bg-blue-700 rounded transition-colors duration-300">
             <span>Upcoming Test</span>
           </Link>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 ">
         <Link
           href="/login"
-          className="inline-flex items-center justify-center text-white rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+          className="inline-flex items-center justify-center text-white rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
           prefetch={false}
         >
-          Sign Up
+          Get Started
         </Link>
-        <Link
-          href="/login"
-          className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-          prefetch={false}
-        >
-          Log In
-        </Link>
+        
       </div>
           {isLoggedIn && <DropdownMenu isLoggedIn={isLoggedIn} />}
         </nav>
