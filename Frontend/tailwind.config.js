@@ -2,8 +2,8 @@
 
 module.exports = {
   mode: 'jit', // Just-in-Time compilation mode for faster development builds
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'], // Purge unused styles in production
-  darkMode: false, // or 'media' or 'class'
+  content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'], // Content sources to scan for class names
+  darkMode: 'media', // Use 'media' to enable dark mode based on user system settings, or remove this line if you prefer default behavior
   theme: {
     extend: {
       colors: {
@@ -17,7 +17,7 @@ module.exports = {
         sans: ['Inter', 'sans-serif'],
         serif: ['Georgia', 'serif'],
         mono: ['Menlo', 'monospace'],
-       " dancing-script": ['Dancing Script', 'cursive']
+        'dancing-script': ['Dancing Script', 'cursive']
       },
       // Add more theme customizations as needed
     },

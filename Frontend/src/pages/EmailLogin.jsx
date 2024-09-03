@@ -236,3 +236,65 @@ export default function EmailOtpLogin() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+// /**
+//  * v0 by Vercel.
+//  * @see https://v0.dev/t/hzYSUbI8nLB
+//  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+//  */
+// import Link from "next/link"
+
+// export default function Component() {
+//   return (
+//     <header className="flex items-center justify-between w-full h-16 px-4 md:px-6 bg-background">
+//       <Link href="#" className="flex items-center gap-2" prefetch={false}>
+//         <MountainIcon className="h-6 w-6" />
+//         <span className="text-lg font-semibold">Acme Inc</span>
+//       </Link>
+//       <div className="flex items-center gap-2">
+//         <Link
+//           href="#"
+//           className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+//           prefetch={false}
+//         >
+//           Sign Up
+//         </Link>
+//         <Link
+//           href="#"
+//           className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+//           prefetch={false}
+//         >
+//           Log In
+//         </Link>
+//       </div>
+//     </header>
+//   )
+// }
+
+// function MountainIcon(props) {
+//   return (
+//     <svg
+//       {...props}
+//       xmlns="http://www.w3.org/2000/svg"
+//       width="24"
+//       height="24"
+//       viewBox="0 0 24 24"
+//       fill="none"
+//       stroke="currentColor"
+//       strokeWidth="2"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     >
+//       <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+//     </svg>
+//   )
+// }

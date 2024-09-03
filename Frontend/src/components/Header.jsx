@@ -33,7 +33,7 @@ const Header = () => {
   }, [user]);
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-blue-800 text-white shadow-md z-50">
+    <header className="fixed top-0 left-0 w-full bg-white  shadow-md z-50">
       {/* Marquee Section */}
       <div className="bg-blue-800 text-white flex items-center justify-between py-1 px-4 text-xs font-medium">
         <div className="flex items-center gap-2">
@@ -48,7 +48,7 @@ const Header = () => {
 
       <div className="flex items-center justify-between py-2 px-4">
         {/* Menu Icon */}
-        <button onClick={toggleMenu} className="lg:hidden text-white text-2xl mr-4" aria-label="Toggle navigation menu">
+        <button onClick={toggleMenu} className="lg:hidden text-black text-2xl mr-4" aria-label="Toggle navigation menu">
           <MenuIcon />
         </button>
 
@@ -80,36 +80,52 @@ const Header = () => {
           <Link to="/upcoming-test" className="flex items-center space-x-1 py-2 px-3 hover:bg-blue-700 rounded transition-colors duration-300">
             <span>Upcoming Test</span>
           </Link>
+          <div className="flex items-center gap-2">
+        <Link
+          href="/login"
+          className="inline-flex items-center justify-center text-white rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+          prefetch={false}
+        >
+          Sign Up
+        </Link>
+        <Link
+          href="/login"
+          className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+          prefetch={false}
+        >
+          Log In
+        </Link>
+      </div>
           {isLoggedIn && <DropdownMenu isLoggedIn={isLoggedIn} />}
         </nav>
       </div>
 
       {/* Sidebar for mobile */}
-      <div className={`fixed top-0 left-0 w-64 h-full bg-blue-800 shadow-lg z-50 transform ${
+      <div className={`fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 transform ${
         isMenuOpen ? "translate-x-0" : "-translate-x-full"
       } transition-transform duration-300 ease-in-out`}>
         <div className="flex flex-col py-4 px-6">
-          <button onClick={toggleMenu} className="self-end text-white text-2xl" aria-label="Close navigation menu">
+          <button onClick={toggleMenu} className="self-end text-black text-2xl" aria-label="Close navigation menu">
             <FaTimes />
           </button>
-          <Link to="/" className="block py-2 px-4 text-white hover:bg-gray-700 transition-colors duration-300">
+          <Link to="/" className="block py-2 px-4 text-black hover:bg-gray-700 transition-colors duration-300">
             <HomeRoundedIcon className="mr-2" />
             Home
           </Link>
-          <Link to="/courses" className="block py-2 px-4 text-white hover:bg-gray-700 transition-colors duration-300">
+          <Link to="/courses" className="block py-2 px-4 text-black hover:bg-gray-700 transition-colors duration-300">
             Courses
           </Link>
           {isLoggedIn && (
             <>
-              <Link to="/subjects" className="block py-2 px-4 text-white hover:bg-gray-700 transition-colors duration-300">
+              <Link to="/subjects" className="block py-2 px-4 text-black hover:bg-gray-700 transition-colors duration-300">
                 Subjects
               </Link>
-              <Link to="/test-history" className="block py-2 px-4 text-white hover:bg-gray-700 transition-colors duration-300">
+              <Link to="/test-history" className="block py-2 px-4 text-black hover:bg-gray-700 transition-colors duration-300">
                 Test History
               </Link>
             </>
           )}
-          <Link to="/upcoming-test" className="block py-2 px-4 text-white hover:bg-gray-700 transition-colors duration-300">
+          <Link to="/upcoming-test" className="block py-2 px-4 text-black hover:bg-gray-700 transition-colors duration-300">
             Upcoming Test
           </Link>
           {isLoggedIn && <DropdownMenu isLoggedIn={isLoggedIn} />}
