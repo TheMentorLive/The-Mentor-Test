@@ -8,7 +8,6 @@ const authRoute = require("./routes/AuthRoute");
 const adminRoute = require("./routes/AdminRoute");
 const userRoute = require("./routes/UserRoute");
 const passport = require('passport');
-const cookieSession = require('cookie-session');
 const session = require('express-session');
 
 const { errorHandler } = require("./middleware/errorhandlers");
@@ -23,10 +22,11 @@ app.use(
     })
   );
 
-//   app.use(cookieSession({
-//     maxAge: 24 * 60 * 60 * 1000, // 24 hours
-//     keys: ['secret-key'] // Replace with your secret key
-//   }));
+  app.use(cors({
+    origin: "https://task-menucard-frontend.vercel.app", // Allow only this origin
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allow these HTTP methods
+    credentials: true // Allow credentials if needed
+  }));
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -36,6 +36,11 @@ app.use(express.json());
 app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+app.get("/", (req, res) => {
+  res.json("hello");
+});
+app.options('*', cors());
 
 app.use("/api/auth",authRoute)
 app.use("/api/admin",adminRoute)

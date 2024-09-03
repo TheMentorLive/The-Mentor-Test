@@ -5,7 +5,7 @@ import {TypewriterEffectSmooth} from "../../../utils/typeWritter"; // Ensure thi
 export default function More() {
   const words = [
     {
-      text: "Unlock",
+      text: "Unlock ",
       className: "text-lg sm:text-3xl md:text-5xl",
     },
     {
@@ -17,13 +17,12 @@ export default function More() {
       className: "text-lg sm:text-3xl md:text-5xl",
     },
     {
-      text: "with  ",
+      text: "with",
       className: "text-lg sm:text-3xl md:text-5xl",
     },
     {
       text: "GenAi Learning.",
-      className:
-        "text-blue-500 dark:text-blue-500 text-lg sm:text-3xl md:text-5xl",
+      className: "text-blue-500 dark:text-blue-500 text-lg sm:text-3xl md:text-5xl",
     },
   ];
 

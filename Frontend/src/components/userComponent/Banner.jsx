@@ -10,7 +10,7 @@ const Banner = () => {
 
   const images = [
     "https://www.iitms.co.in/online-examination-system/assets/img/online-examination-system-banner.jpg",
-    "https://images-cdn.ubuy.co.in/66543582ce0cb077474c4252-clear-view-file-folder-with-clear-front.jpg", // Replace with your image URLs
+    "https://www.shutterstock.com/image-photo/copy-space-panorama-banner-asian-260nw-2292732351.jpg", // Replace with your image URLs
   ];
 
   // useEffect to update isLoggedIn based on user object
