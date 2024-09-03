@@ -165,10 +165,10 @@ const AddQuestionPage = () => {
                   onChange={(e) => setCategory(e.target.value)}
                   sx={{ fontSize: '0.75rem' }} // Adjust font size
                 >
-                  <MenuItem value="Math">Exam</MenuItem>
-                  <MenuItem value="Science">NEET</MenuItem>
-                  <MenuItem value="History">JEE</MenuItem>
-                  <MenuItem value="Geography">TEST-EXAM</MenuItem>
+                  <MenuItem value="EXAM">Exam</MenuItem>
+                  <MenuItem value="NEET">NEET</MenuItem>
+                  <MenuItem value="JEE">JEE</MenuItem>
+                  <MenuItem value="OTHER">TEST-EXAM</MenuItem>
                 </Select>
               </FormControl>
               <TextField

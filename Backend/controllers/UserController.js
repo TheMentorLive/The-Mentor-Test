@@ -1,40 +1,6 @@
-const path = require('path');
-const fs = require('fs');
-const AWS = require('aws-sdk');
 const Test = require("../model/Test");
 const ResultModel = require('../model/ResultModel');
 
-
-const apply= async (req, res) => {
-    // console.log(req.body);
-    try {
-      const { firstName, lastName, email, phone, coverLetter } = req.body;
-      const resume = req.file;
-  
-      // Validate required fields
-      if (!firstName || !lastName || !email || !phone || !resume) {
-        return res.status(400).json({ msg: 'Please provide all required fields.' });
-      }
-  
-      // Create a new application instance
-      const application = new applicationModel({
-        firstName,
-        lastName,
-        email,
-        phone,
-        coverLetter,
-        resume: resume.path, // Save the file path to the database
-      });
-  
-      // Save application to the database
-      await application.save();
-      res.status(201).json({ msg: 'Application submitted successfully!' });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ msg: 'Server error' });
-    }
-  };
-  
 
 const getTests= async (req, res) => {
 
@@ -205,12 +171,23 @@ console.log(result);
 };
 
 
+const getHistory = async (req, res) => {
+  try {
+    const tests = await ResultModel.find({ userId: req.user._id }).sort({ completedAt: -1 });
+    res.json(tests);
+  } catch (error) {
+    res.status(500).send('Server error.');
+  }
+};
 
-module.exports={apply,
+
+
+module.exports={
   getTests,
   getTestsLanding,
   getResults,
   SubmitTest,
+  getHistory,
  
     
 }
