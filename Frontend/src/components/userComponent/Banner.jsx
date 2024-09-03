@@ -36,7 +36,7 @@ const Banner = () => {
             onClick={handleGetStartedClick}
             className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
           >
-            {isLoggedIn ? 'Go to' : 'Get Started'}
+            {isLoggedIn ? 'Go to Test' : 'Get Started'}
           </button>
           <button className="border border-blue-600 text-black py-2 px-4 rounded hover:bg-blue-600 hover:text-white transition">
             Learn More

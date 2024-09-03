@@ -11,7 +11,7 @@ router.post("/addSubject",authMiddleware,AdminController.addSubject)
 router.get("/getSubjects",authMiddleware,AdminController.getSubjects)
 router.delete("/deleteSubject/:id",authMiddleware,AdminController.deleteSubject)
 
-router.post("/addTest",authMiddleware,AdminController.createTest)
+router.post("/addTest",authMiddleware,AdminController.createTest);
 
 
 

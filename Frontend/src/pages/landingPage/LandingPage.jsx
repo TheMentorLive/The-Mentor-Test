@@ -2,9 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef, useContext } from "react";
 import { mainContext } from "../../context/mainContex";
 import Banner from "../../components/userComponent/Banner";
-import Subject from "../../components/userComponent/landingpageComponents/SubjectComponent";
+// import Subject from "../../components/userComponent/landingpageComponents/SubjectComponent";
 import axios from "axios";
-import Analytics from "../../components/userComponent/landingpageComponents/analytics";
+import More from "../../components/userComponent/landingpageComponents/More";
+// import Analytics from "../../components/userComponent/landingpageComponents/analytics";
 // import Dashboard from "../../components/userComponent/landingpageComponents/UserDashboard";
 
 const Landingpage = () => {
@@ -60,9 +61,10 @@ const Landingpage = () => {
     
         
         <Banner/>
-        <Subject/>
-        <Analytics/>
+        {/* <Subject/> */}
+        {/* <Analytics/> */}
         {/* <Dashboard/> */}
+        <More/>
 
         
       </main>

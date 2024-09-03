@@ -10,6 +10,8 @@ import SubjectComponent from '../pages/user/Subject';
 import TestLandingPage from '../pages/user/test/TestLandingPage';
 import TestPage from '../pages/user/test/TestPage';
 import TestResultsPage from '../pages/user/test/TestResultPage';
+import UpcomingTestsPage from '../pages/user/test/UpcommingTest';
+import TestHistoryPage from '../pages/user/test/TestHistory';
 
 
 
@@ -28,6 +30,8 @@ const AppRoutes = () => {
           <Route path="/start-test" element={<TestLandingPage />} />
           <Route path="/test" element={<TestPage/>} />
           <Route path="/result" element={<TestResultsPage/>} />
+          <Route path="/upcoming-test" element={<UpcomingTestsPage/>} />
+          <Route path="/test-history" element={<TestHistoryPage/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
