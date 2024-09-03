@@ -3,9 +3,12 @@ import { useEffect, useState, useRef, useContext } from "react";
 import { mainContext } from "../../context/mainContex";
 import Banner from "../../components/userComponent/Banner";
 import Live from "../../components/live";
+import Courses from "../../components/courses";
+import Contact from "../../components/contact";
+// import Examss from "../../components/exams";
 // import Subject from "../../components/userComponent/landingpageComponents/SubjectComponent";
 import axios from "axios";
-import More from "../../components/userComponent/landingpageComponents/More";
+// import More from "../../components/userComponent/landingpageComponents/More";
 import { API_BASE_URL } from "../../constants/ApiConstants";
 // import Analytics from "../../components/userComponent/landingpageComponents/analytics";
 // import Dashboard from "../../components/userComponent/landingpageComponents/UserDashboard";
@@ -66,8 +69,12 @@ const Landingpage = () => {
         {/* <Subject/> */}
         {/* <Analytics/> */}
         {/* <Dashboard/> */}
+        
         <Live/>
-        <More/>
+        <Courses/>
+        <Contact/>
+        {/* <Examss/> */}
+        {/* <More/> */}
 
         
       </main>
