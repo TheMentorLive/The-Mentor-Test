@@ -2,11 +2,8 @@ export default function Live() {
     return (
       <section className="py-16 mt-20">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-primary">What we Offer ?</h2>
-      <br/>
-      <br/>
-
-          <h3 className="mt-4 text-2xl -ml-[900px] font-semibold text-Black">Live - Counselling and Mentorship </h3>
+          <h2 className="text-3xl font-bold">What we Offer ?</h2>
+          <h3 className="mt-4 text-2xl font-semibold text-primary">Live - Counselling and Mentorship </h3>
         </div>
         <br/>
         <br/>

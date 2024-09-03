@@ -99,7 +99,7 @@ const Header = () => {
         {/* Login Button */}
         {!isLoggedIn && (
           <Link to="/login" className="hidden lg:block py-2 px-4 bg-blue-600 text-white hover:bg-blue-800 rounded transition-colors duration-300 font-semibold">
-            Login
+            Get Started
           </Link>
         )}
       </div>
