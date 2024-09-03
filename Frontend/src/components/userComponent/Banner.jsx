@@ -36,7 +36,7 @@ const Banner = () => {
 
   return (
     <div
-      className="relative w-full h-[60vh] flex items-center overflow-hidden"
+      className="relative w-full h-[60vh] mt-16 flex items-center overflow-hidden"
     >
       <div
         className="absolute top-0 left-0 w-full h-full bg-cover bg-center animate-slide"

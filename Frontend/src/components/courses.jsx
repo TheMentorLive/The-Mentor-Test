@@ -6,27 +6,27 @@ function Courses() {
   const courses = [
     {
       id: 1,
-      category: "Photography",
-      title: "Fundamental of DSLR Photography",
+      category: "Data Analyst",
+      title: "Fundamental of Data Analyst",
       price: "$50",
-      image: "/placeholder.svg",
-      alt: "Fundamental of DSLR Photography",
+      image: "/data-analyst.png",
+      alt: "Fundamental of Data Analyst",
     },
     {
       id: 2,
-      category: "Painting",
-      title: "A beginner's guide to start painting",
+      category: "MTP",
+      title: "A beginner's guide to start MTP",
       price: "$50",
-      image: "/placeholder.svg",
-      alt: "A beginner's guide to start painting",
+      image: "/mtp.png",
+      alt: "A beginner's guide to start MTP",
     },
     {
       id: 3,
-      category: "Typography",
-      title: "Customising Type with Hkamd",
+      category: "Digital Marketing",
+      title: "Digital Marketing - Basics",
       price: "$50",
-      image: "/placeholder.svg",
-      alt: "Customising Type with Hkamd",
+      image: "/digital-marketing.png",
+      alt: "Digital Marketing - Basics",
     },
     // Add more courses as needed
   ];
@@ -37,10 +37,13 @@ function Courses() {
       : courses.filter((course) => course.category === selectedCategory);
 
   return (
-    <section className="py-10 ml-28 mr-28">
+    <section className="py-10 ml-28 mt-20 mr-28">
       <div className="text-center mb-8">
-        <h2 className="text-xl font-medium text-muted-foreground">Our Course</h2>
-        <h1 className="text-3xl font-bold">Popular Course</h1>
+      <h3 className="mt-4 text-2xl -ml-[770px] font-semibold text-Black">Learn - Al - Enabled Courses and Resources </h3>
+      <br/>
+      <br/>
+        <h2 className="text-xl font-medium text-muted-foreground">Our Courses</h2>
+        
       </div>
       <div className="flex justify-center space-x-2 mb-8">
         <button
@@ -53,27 +56,27 @@ function Courses() {
         </button>
         <button
           className={`py-2 px-4 rounded ${
-            selectedCategory === "Photography" ? "bg-blue-500 text-white" : "border border-gray-300 text-gray-700"
+            selectedCategory === "Data Analyst" ? "bg-blue-500 text-white" : "border border-gray-300 text-gray-700"
           }`}
-          onClick={() => setSelectedCategory("Photography")}
+          onClick={() => setSelectedCategory("Data Analyst")}
         >
-          Photography
+          Data Analyst
         </button>
         <button
           className={`py-2 px-4 rounded ${
-            selectedCategory === "Painting" ? "bg-blue-500 text-white" : "border border-gray-300 text-gray-700"
+            selectedCategory === "MTP" ? "bg-blue-500 text-white" : "border border-gray-300 text-gray-700"
           }`}
-          onClick={() => setSelectedCategory("Painting")}
+          onClick={() => setSelectedCategory("MTP")}
         >
-          Painting
+          MTP
         </button>
         <button
           className={`py-2 px-4 rounded ${
-            selectedCategory === "Typography" ? "bg-blue-500 text-white" : "border border-gray-300 text-gray-700"
+            selectedCategory === "Digital Marketing" ? "bg-blue-500 text-white" : "border border-gray-300 text-gray-700"
           }`}
-          onClick={() => setSelectedCategory("Typography")}
+          onClick={() => setSelectedCategory("Digital Marketing")}
         >
-          Typography
+          Digital Marketing
         </button>
       </div>
       <div className="grid gap-4 md:grid-cols-3">
