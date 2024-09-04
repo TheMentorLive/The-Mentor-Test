@@ -12,7 +12,7 @@ export const MainProvider = ({ children }) => {
   const fetchUserDetails = async () => {
     if (!token) return; // Don't fetch if there is no token
     try {
-      const response = await axios.get('http://localhost:8080/api/auth/userDetails', {
+      const response = await axios.get('https://genai-backend-ten.vercel.app/api/auth/userDetails', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUser(response.data.user);

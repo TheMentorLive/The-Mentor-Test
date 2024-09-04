@@ -18,7 +18,7 @@ const AuthCallback = () => {
 
         // Optionally, fetch user details from your backend
         try {
-          const response = await fetch('http://localhost:8080/api/auth/userDetails', {
+          const response = await fetch('https://genai-backend-ten.vercel.app/api/auth/userDetails', {
             headers: { Authorization: `Bearer ${token}` },
           });
           const userDetails = await response.json();
