@@ -46,7 +46,7 @@ const Header = () => {
 
     return (
       <div className="items-center flex justify-center">
-        <header className={`fixed top-0 mr-32 md:ml-36 md:mr-36 lg:ml-36 lg:mr-36 text-black z-50 ${isScrolled ? "bg-white sm:w-fit shadow-lg" : "bg-transparent"}`}>
+        <header className={`fixed top-0 mr-20 md:ml-36 md:mr-36 lg:ml-36 lg:mr-36 text-black z-50 ${isScrolled ? "bg-white md:w-full shadow-lg" : "bg-transparent"}`}>
             <div className="flex items-center justify-between py-1 ml-12 mr-12 px-4 text-xs font-bold">
                 <div className="flex items-center gap-2 w-full overflow-hidden">
                     <CampaignIcon className="w-4 h-4" />
@@ -61,7 +61,7 @@ const Header = () => {
                     <MenuIcon />
                 </button>
                 <Link to="/" className="flex items-center space-x-2">
-                    <img src="/logo.webp" alt="Logo" className="h-11 ml-36 sm:ml-10 w-auto md:h-11 sm:h-11 lg:h-11" />
+                    <img src="/logo.webp" alt="Logo" className="h-11 ml-36 sm:ml-20 w-auto md:h-11 sm:h-11 lg:h-11" />
                 </Link>
                 {/* Desktop screen - Navigation links */}
                 <nav className="hidden lg:flex  text-sm justify-center items-center">

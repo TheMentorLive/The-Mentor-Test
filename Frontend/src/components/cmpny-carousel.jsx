@@ -3,7 +3,7 @@ import Marquee from 'react-fast-marquee';
 
 export default function Cmpnycarousel() {
   return (
-    <section className="flex h-[100px] justify-center mt-16 items-center w-full overflow-hidden">
+    <section className="flex h-[100px] justify-center mt-16 items-center md:w-full mr-20 overflow-hidden">
       <Marquee
         gradient={true} // Turn off the gradient for a smoother look
         pauseOnHover={true}
