@@ -45,8 +45,9 @@ const Header = () => {
     }, []);
 
     return (
-        <header className={`fixed top-0 mr-32 md:ml-36 md:mr-36 lg:ml-36 lg:mr-36 text-black z-50 ${isScrolled ? "bg-white shadow-lg" : "bg-transparent"}`}>
-            <div className="flex items-center justify-between py-1 px-4 text-xs font-bold">
+      <div className="items-center flex justify-center">
+        <header className={`fixed top-0 mr-32 md:ml-36 md:mr-36 lg:ml-36 lg:mr-36 text-black z-50 ${isScrolled ? "bg-white sm:w-fit shadow-lg" : "bg-transparent"}`}>
+            <div className="flex items-center justify-between py-1 ml-12 mr-12 px-4 text-xs font-bold">
                 <div className="flex items-center gap-2 w-full overflow-hidden">
                     <CampaignIcon className="w-4 h-4" />
                     <marquee className="text-xs font-bold" style={{ fontFamily: "Courier New, monospace" }}>
@@ -151,6 +152,7 @@ const Header = () => {
                 <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={toggleMenu}></div>
             )}
         </header>
+        </div>
     );
 };
 
