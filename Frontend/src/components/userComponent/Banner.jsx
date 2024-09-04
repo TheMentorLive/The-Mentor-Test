@@ -35,19 +35,19 @@ const Banner = () => {
   };
 
   return (
-    <div
-      className="relative w-full h-[60vh] flex items-center overflow-hidden"
-    >
+    <div className="relative mt-7 mx-4 mr-20  sm:mx-10 md:mx-20 lg:mx-40 lg:mr-40 h-[50vh] sm:h-[60vh] flex items-center overflow-hidden">
       <div
         className="absolute top-0 left-0 w-full h-full bg-cover bg-center transition-transform duration-1000"
         style={{ backgroundImage: `url(${images[currentImageIndex]})` }}
       ></div>
-      <div className="absolute left-4 sm:left-8 lg:left-16 top-1/2 transform -translate-y-1/2 max-w-sm sm:max-w-md md:max-w-lg p-4 sm:p-6 bg-transparent bg-opacity-70 rounded-lg">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-600">Ace the JEE Exam</h2>
-        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 mt-2 sm:mt-4">
+      <div className="absolute left-4 sm:left-8 lg:left-16 top-1/2 transform -translate-y-1/2 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg p-4 sm:p-6 bg-transparent bg-opacity-70 rounded-lg">
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600">
+          Ace the JEE Exam
+        </h2>
+        <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700 mt-2 sm:mt-4">
           Our platform provides comprehensive resources and tools to help you prepare for the JEE exam with confidence.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 mt-4 sm:mt-6">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-4 sm:mt-6">
           <button
             onClick={handleGetStartedClick}
             className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"

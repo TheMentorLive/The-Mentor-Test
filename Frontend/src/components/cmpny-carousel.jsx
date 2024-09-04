@@ -9,7 +9,7 @@ export default function Cmpnycarousel() {
         pauseOnHover={true}
         className="flex items-center"
       >
-        <div className="flex items-center space-x-10">
+        <div className="flex items-center space-x-20">
           <div className="flex flex-col justify-center items-center h-[50px] mx-5">
             <img src="./logos/amazon.png" className="w-28" alt="Company Logo" />
           </div>
