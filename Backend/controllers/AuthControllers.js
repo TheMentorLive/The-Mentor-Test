@@ -1,7 +1,7 @@
 const User = require("../model/UserModel");
 const bcrypt = require('bcryptjs');
-const jwt= require("jsonwebtoken")
-const dotenv= require("dotenv")
+const jwt = require("jsonwebtoken")
+const dotenv = require("dotenv")
 const nodemailer = require('nodemailer');
 const { OAuth2Client } = require('google-auth-library');
 const passport = require('passport');
@@ -35,7 +35,7 @@ const sendEmailOtp = async (req, res) => {
     // Generate a new OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-  
+
     let user = await User.findOne({ email });
 
     if (user) {
@@ -45,11 +45,11 @@ const sendEmailOtp = async (req, res) => {
       user.isEmailVerified = false; // Ensure email verification status is correctly set
       console.log(`Updating existing user: ${email}`);
     } else {
-      console.log(user,"logging");
-      
+
+
       // If user does not exist, create a new user with the OTP
       user = new User({ email, otp, isEmailVerified: false, });
-      console.log(`Creating new user: ${email}`,user);
+      console.log(`Creating new user: ${email}`, user);
       // await user.save();
     }
 
@@ -83,33 +83,33 @@ const verifyEmailOtp = async (req, res) => {
   }
 
   try {
-   
+
     const otpEntry = await User.findOne({ email, otp });
 
     if (!otpEntry) {
       return res.status(400).json({ message: 'Invalid OTP or OTP has expired.' });
     }
 
-  
+
     let user = await User.findOne({ email });
 
     if (!user) {
-    
-      user = new User({ email, name, isVerified: true,isEmailVerified: true,  });
+
+      user = new User({ email, name, isVerified: true, isEmailVerified: true, });
     } else {
- 
+
       if (name) {
         user.name = name;
       }
       user.isVerified = true; // Update isVerified field
-      user.isEmailVerified = true; 
+      user.isEmailVerified = true;
       // Ensure role is set to 'user'
     }
 
     // Save the user
     const savedUser = await user.save();
     console.log('User saved:', savedUser);
-    
+
 
     // Delete the OTP entry from the database
     await User.updateOne({ otp: null }); // Assuming Otp is a model for storing OTPs
@@ -145,7 +145,7 @@ const verifyEmailOtp = async (req, res) => {
 
 
 const getUserDetails = async (req, res) => {
-  
+
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json({ user });
@@ -204,7 +204,7 @@ const linkedinCallback = (req, res, next) => {
       expiresIn: "1d",
     });
     return res
-      .cookie("token", token,{httpOnly:true,sameSite:"None",secure:true,maxAge:24*60*60*1000})
+      .cookie("token", token, { httpOnly: true, sameSite: "None", secure: true, maxAge: 24 * 60 * 60 * 1000 })
       .redirect("/");
   })(req, res, next);
 };
@@ -213,14 +213,14 @@ const linkedinCallback = (req, res, next) => {
 
 
 
-  
-module.exports= {
-   
-    getUserDetails,
-    sendEmailOtp,
-    verifyEmailOtp,
-    googlelogin,
-    googleCallback,
-    linkedinAuth,
-    linkedinCallback
+
+module.exports = {
+
+  getUserDetails,
+  sendEmailOtp,
+  verifyEmailOtp,
+  googlelogin,
+  googleCallback,
+  linkedinAuth,
+  linkedinCallback
 }
