@@ -140,7 +140,6 @@ const getResults=async (req, res) => {
     if (!result) {
       return res.status(404).json({ message: 'Test result not found.' });
     }
-console.log(result);
 
     // Fetch test details based on testId
     const testDetails = await Test.findOne({_id: testId });

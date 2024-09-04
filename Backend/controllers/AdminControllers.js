@@ -4,66 +4,66 @@ const UserModel = require("../model/UserModel");
 
 
 const getUsers = async (req, res) => {
-    try {
-      const users = await UserModel.find(); // Await the promise returned by find()
-      res.json({
-        users,
-        message: "Successfully fetched users",
-        success: true
-      });
-    } catch (error) {
-      console.error(error); // Log the error to the console
-      res.status(500).json({
-        message: "An error occurred while fetching users",
-        success: false
-      });
-    }
-  };
+  try {
+    const users = await UserModel.find(); // Await the promise returned by find()
+    res.json({
+      users,
+      message: "Successfully fetched users",
+      success: true
+    });
+  } catch (error) {
+    console.error(error); // Log the error to the console
+    res.status(500).json({
+      message: "An error occurred while fetching users",
+      success: false
+    });
+  }
+};
 
-  const getMessages = async(req,res)=>{
-    try {
-        const messages = await ContactModel.find().sort({ createdAt: -1 });
-       
-        res.json({
-          messages,
-          message: "Successfully fetched messages",
-          success: true
-        });
-      } catch (error) {
-        console.error(error); // Log the error to the console
-        res.status(500).json({
-          message: "An error occurred while fetching users",
-          success: false
-        });
-      }
-    };
-   
-    const getApplication = async(req,res)=>{
-      console.log("hjk");
-      try {
-        
-    
-          const applications = await applicationModel.find().sort({ createdAt: -1 });
-         
-          res.json({
-              applications,
-            message: "Successfully fetched Applications",
-            success: true
-          });
-        } catch (error) {
-          console.error(error); // Log the error to the console
-          res.status(500).json({
-            message: "An error occurred while fetching users",
-            success: false
-          });
-        }
-      };
+const getMessages = async (req, res) => {
+  try {
+    const messages = await ContactModel.find().sort({ createdAt: -1 });
 
- const addSubject= async(req,res)=>{
+    res.json({
+      messages,
+      message: "Successfully fetched messages",
+      success: true
+    });
+  } catch (error) {
+    console.error(error); // Log the error to the console
+    res.status(500).json({
+      message: "An error occurred while fetching users",
+      success: false
+    });
+  }
+};
 
-        console.log(req.body);
-        
-        const { name, description } = req.body;
+const getApplication = async (req, res) => {
+
+  try {
+
+
+    const applications = await applicationModel.find().sort({ createdAt: -1 });
+
+    res.json({
+      applications,
+      message: "Successfully fetched Applications",
+      success: true
+    });
+  } catch (error) {
+    console.error(error); // Log the error to the console
+    res.status(500).json({
+      message: "An error occurred while fetching users",
+      success: false
+    });
+  }
+};
+
+const addSubject = async (req, res) => {
+
+
+
+  const { name, description } = req.body;
 
   try {
     // Create a new subject
@@ -88,8 +88,8 @@ const getUsers = async (req, res) => {
   }
 };
 
-const getSubjects= async(req,res)=>{
-  
+const getSubjects = async (req, res) => {
+
   try {
     const subjects = await SubjectModel.find();
     res.status(200).json(subjects);
@@ -97,10 +97,10 @@ const getSubjects= async(req,res)=>{
     res.status(500).json({ message: 'Error fetching subjects', error });
   }
 };
-   
+
 const deleteSubject = async (req, res) => {
-  console.log("idd",req.params);
-  
+
+
   const { id } = req.params;
 
   try {
@@ -137,12 +137,12 @@ const createTest = async (req, res) => {
 };
 
 
-module.exports={
-    getUsers,
-    getMessages,
-    getApplication,
-    addSubject,
-    getSubjects,
-    deleteSubject,
-    createTest
+module.exports = {
+  getUsers,
+  getMessages,
+  getApplication,
+  addSubject,
+  getSubjects,
+  deleteSubject,
+  createTest
 }
