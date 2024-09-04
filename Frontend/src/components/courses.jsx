@@ -37,15 +37,17 @@ function Courses() {
       : courses.filter((course) => course.category === selectedCategory);
 
   return (
+    <div className="ml-20 mr-8">
+    <div className="items-center flex justify-center">
     <section className="py-10 mx-4 mt-20 md:mx-20 lg:mx-28">
-      <div className="text-center mb-8">
-        <h3 className="mt-4 text-2xl font-semibold text-black">
+      <div className="text-center mb-10">
+        <h3 className="mt-4 text-2xl md:-ml-[490px] font-semibold text-black">
           Learn - AI-Enabled Courses and Resources 
         </h3>
-        <h2 className="text-xl font-medium text-muted-foreground">Our Courses</h2>
+        <h2 className="text-xl font-medium text-muted-foreground"></h2>
       </div>
 
-      <div className="flex justify-center space-x-2 mb-8 flex-wrap">
+      <div className="flex justify-center space-x-2  flex-wrap">
         {["All", "Data Analyst", "MTP", "Digital Marketing"].map((category) => (
           <button
             key={category}
@@ -61,7 +63,7 @@ function Courses() {
         ))}
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 mt-7 md:ml-20 sm:mr-40 md:grid-cols-2 lg:grid-cols-3">
         {filteredCourses.map((course) => (
           <Card key={course.id} className="shadow-lg">
             <CardHeader className="p-0">
@@ -80,13 +82,15 @@ function Courses() {
               <p className="text-sm font-medium">{course.price}</p>
             </CardContent>
             <CardFooter className="flex justify-between p-4">
-              <button className="px-4 py-2 bg-blue-500 text-white rounded-lg">Buy Now</button>
-              <button className="px-4 py-2 border border-blue-500 text-blue-500 rounded-lg">Learn More</button>
+              <button className="px-2 text-sm py-2 bg-blue-500 text-white rounded-lg">Buy Now</button>
+              <button className="px-2 text-sm py-2 border border-blue-500 text-blue-500 rounded-lg">Learn More</button>
             </CardFooter>
           </Card>
         ))}
       </div>
     </section>
+    </div>
+    </div>
   );
 }
 
