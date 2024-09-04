@@ -61,9 +61,9 @@ const Landingpage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="">
      
-      <main className="flex-1">
+      <main className="">
     
         
         <Banner/>

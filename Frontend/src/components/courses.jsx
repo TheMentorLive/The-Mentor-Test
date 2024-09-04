@@ -63,7 +63,7 @@ function Courses() {
         ))}
       </div>
 
-      <div className="grid gap-4 mt-7 md:ml-20 sm:mr-40 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 mt-7 md: sm:mr-40 md:grid-cols-2 lg:grid-cols-3">
         {filteredCourses.map((course) => (
           <Card key={course.id} className="shadow-lg">
             <CardHeader className="p-0">

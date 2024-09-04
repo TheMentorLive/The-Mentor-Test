@@ -44,7 +44,7 @@ const Banner = () => {
   };
 
   return (
-    <div className="relative mt-7 mx-4 mr-20 sm:mx-10 md:mx-20 lg:mx-40 lg:mr-40 h-[50vh] sm:h-[60vh] flex items-center overflow-hidden">
+    <div className="relative mt-7  mr-20 sm:mx-10 md:mx-20 lg:mx-40 lg:mr-40 h-[50vh] sm:h-[60vh] flex items-center overflow-hidden">
       <div
         className="absolute top-0 left-0 w-full h-full bg-cover bg-center transition-transform duration-1000"
         style={{ backgroundImage: `url(${images[currentImageIndex]})` }}
