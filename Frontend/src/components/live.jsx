@@ -17,18 +17,18 @@ export default function Live() {
             {
               title: "Orient - School Students",
               description: "Holistic Personality Development & Academic Excellence",
-              imgSrc: "/live.png",
+              imgSrc: "/Orient.png",
             },
             {
               title: "Emerge - College Students",
               description:
                 "Explore career paths, enhance employability skills, and transition smoothly into the workforce.",
-              imgSrc: "/live.png",
+              imgSrc: "/Emerge.png",
             },
             {
               title: "Elevate - Working Professionals",
               description: "Career Advancement, Leadership skills & achieve work-life balance.",
-              imgSrc: "/live.png",
+              imgSrc: "/Elevate.png",
             },
           ].map((item, index) => (
             <div key={index} className="max-w-md mx-auto border rounded-lg shadow-lg flex flex-col justify-between">
@@ -51,10 +51,10 @@ export default function Live() {
               <div className="p-4">
                 <div className="flex justify-between gap-4">
                   <button className="px-4 py-2 bg-blue-500 font-bold text-white text-xs rounded-lg hover:bg-blue-600">
-                    Learn More
+                  Get Started
                   </button>
                   <button className="px-4 py-2 border border-gray-300 font-bold text-xs text-gray-700 rounded-lg hover:bg-gray-100">
-                    Get Started
+                    Learn More
                   </button>
                 </div>
               </div>

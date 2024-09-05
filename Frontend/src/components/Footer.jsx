@@ -44,7 +44,7 @@ const Footer = () => {
             className="mb-4"
           />
           <p className="py-4 text-sm md:text-base">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id odit ullam iste repellat consequatur libero reiciendis, blanditiis accusantium.
+          Our platform provides comprehensive resources and tools to help you prepare for the JEE exam with confidence.
           </p>
           <div className="flex flex-wrap gap-4">
             {/* Mapping over social icons and rendering the SocialIcon component */}
