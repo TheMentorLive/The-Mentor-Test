@@ -6,6 +6,13 @@ const authMiddleware = require("../middleware/AuthMiddleware");
 router.post("/send-emailotp",AuthController.sendEmailOtp)
 router.post('/verify-emailotp', AuthController.verifyEmailOtp);
 
+//registertion
+router.post('/register', AuthController.registerUser);
+router.post('/verify-otp', AuthController.verifyOtp);
+router.post('/complete-profile', AuthController.completeProfile);
+
+router.post('/login', AuthController.loginUser);
+
 //email
 router.get("/google",AuthController.googlelogin)
 router.get('/google/callback', AuthController.googleCallback);

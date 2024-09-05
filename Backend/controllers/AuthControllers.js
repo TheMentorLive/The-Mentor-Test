@@ -213,6 +213,207 @@ const linkedinCallback = (req, res, next) => {
 
 
 
+const registerUser = async (req, res) => {
+  const { name, email, password } = req.body;
+ 
+
+  try {
+    // Check if user already exists
+    let user = await User.findOne({ email });
+
+    if (user && !user.isVerified) {
+      // User exists but is not verified, so update their information
+
+      // Hash the new password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Update user's name, hashed password, and generate a new OTP
+      user.name = name;
+      user.password = hashedPassword;
+
+      // Generate a new 6-digit OTP
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      user.otp = otp;
+
+      // Save the updated user details to the database
+      await user.save();
+
+      // Resend OTP email
+      await sendOtpEmail(email, otp);
+
+      return res.status(200).json({
+        success: true,
+        message: 'User information updated, new OTP sent to your email. Please verify your account.'
+      });
+    }
+
+    // If user exists and is already verified
+    if (user && user.isVerified) {
+      return res.status(400).json({
+        success: false,
+        message: 'User already exists and is verified.'
+      });
+    }
+
+    // If no existing user, create a new user with hashed password
+    const hashedPassword = await bcrypt.hash(password, 10);  // 10 is the salt rounds
+
+    // Create a new user instance
+    user = new User({
+      name,
+      email,
+      password: hashedPassword,
+      isVerified: false,  // User is not verified yet
+    });
+
+    // Save the new user to the database
+    await user.save();
+
+    // Generate a random 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // Assign the OTP to the user and save it
+    user.otp = otp;
+    await user.save();  // Save the OTP to the user's record
+
+    // Send OTP email
+    await sendOtpEmail(email, otp);
+
+    // Return success message
+    res.status(201).json({
+      success: true,
+      message: 'User registered, OTP sent to your email. Please verify your account.',
+    });
+    
+  } catch (error) {
+    // Catch any server error
+    console.error('Error during registration:', error);
+    res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
+  }
+};
+
+
+const verifyOtp = async (req, res) => {
+  const { email, otp } = req.body;
+
+  try {
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ success: false, message: 'User not found' });
+    }
+
+    // Check if OTP matches
+    if (user.otp === otp) {
+      // Mark user as verified
+      user.isVerified = true;
+      user.isEmailVerified=true;
+      user.otp = null;  // Clear the OTP after successful verification
+
+      // Save the user's updated status
+      await user.save();
+
+      return res.status(200).json({ success: true, message: 'OTP verified successfully' });
+    } else {
+      return res.status(400).json({ success: false, message: 'Invalid OTP' });
+    }
+  } catch (error) {
+    console.error('Error during OTP verification:', error);
+    return res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
+  }
+};
+
+const completeProfile = async (req, res) => {
+  const { email, name, contact, qualification } = req.body;
+
+  try {
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    // Update user's profile details
+    user.name = name || user.name;
+    user.contact = contact || user.contact;
+    user.qualification = qualification || user.qualification;
+
+    // Save the updated profile information
+    await user.save();
+
+    return res.status(200).json({ success: true, message: 'Profile completed successfully' });
+  } catch (error) {
+    console.error('Error during profile completion:', error);
+    return res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
+  }
+};
+
+
+
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: 'No account found with these credentials.',
+      });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid credentials.',
+      });
+    }
+
+    if (!user.isVerified) {
+      return res.status(401).json({
+        success: false,
+        message: 'User is not verified. Please check your email to verify your account.',
+      });
+    }
+
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    res.json({
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role
+      }
+    });
+
+  } catch (error) {
+    console.error('Error during login:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error. Please try again later.',
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
 
 module.exports = {
 
@@ -222,5 +423,10 @@ module.exports = {
   googlelogin,
   googleCallback,
   linkedinAuth,
-  linkedinCallback
+  linkedinCallback,
+  registerUser,
+  verifyOtp,
+  completeProfile,
+
+  loginUser
 }

@@ -1,5 +1,8 @@
-import { Link } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { API_BASE_URL } from '../constants/ApiConstants';
 
 // Button component
 function Button({ variant = "default", size = "medium", children, ...props }) {
@@ -31,13 +34,15 @@ function Label({ htmlFor, children }) {
 }
 
 // Input component
-function Input({ id, type = "text", placeholder, required }) {
+function Input({ id, type = "text", placeholder, required, value, onChange }) {
   return (
     <input
       id={id}
       type={type}
       placeholder={placeholder}
       required={required}
+      value={value}
+      onChange={onChange}
       className="block w-full border border-gray-300 rounded-md p-2"
     />
   );
@@ -103,8 +108,6 @@ const LinkedinIcon = (props) => {
   );
 };
 
-
-
 function MenuIcon(props) {
   return (
     <svg
@@ -126,22 +129,85 @@ function MenuIcon(props) {
   );
 }
 
-
+// Login Component
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [googleLoading, setGoogleLoading] = useState(false); 
+  const [linkedInLoading, setLinkedInLoading] = useState(false);
+  const navigate = useNavigate();
+
+  // Handle login
+  const handleLogin = async () => {
+    if (!email || !password) {
+      toast.error('Please enter both email and password.');
+      return;
+    }
+  
+    toast.info('Logging in...', { autoClose: 3000 });
+  
+    try {
+      const response = await axios.post(`${API_BASE_URL}auth/login`, { email, password });
+      console.log("datatatta",response.data); // Log response data to check its structure
+  
+      if (response.data) {
+        // Store token and user details in local storage
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user)); // Ensure user object exists
+  
+        toast.success('Login successful!');
+        navigate('/'); // Redirect to dashboard or another page
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error('Login failed. Please try again.');
+      console.error('Error during login:', error);
+    }
+  };
+  
+
+  // Handle Google login
+  const handleGoogleLogin = () => {
+    setGoogleLoading(true);
+    try {
+      // Redirect to backend Google OAuth route
+      window.location.href = `${API_BASE_URL}auth/google`;
+    } catch (error) {
+      toast.error('Google Login Error:', error);
+      toast('An error occurred during Google login');
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
+
+  // Handle LinkedIn login
+  const handleLinkedinLogin = () => {
+    setLinkedInLoading(true);
+      try {
+        window.location.href = `${API_BASE_URL}auth/linkedin`;
+      }  catch (error) {
+        console.error('linkedin Login Error:', error);
+        setError('An error occurred during linkein login');
+      } finally {
+        setLinkedInLoading(false);
+      }
+  };
+
   return (
     <div className="grid w-full min-h-screen grid-cols-1 lg:grid-cols-2">
       <div className="flex flex-col items-start justify-center bg-muted p-6 lg:p-10">
         <div className="mx-auto w-full max-w-[400px] space-y-6">
           <div className="flex items-center justify-between">
-            <Link href="#" className="inline-flex items-center gap-2" prefetch={false}>
-            <img src="/logo.webp" alt="Logo" className=" h-12" />
+            <Link to="/" className="inline-flex items-center gap-2">
+              <img src="/logo.webp" alt="Logo" className=" h-12" />
             </Link>
             <Button variant="ghost" size="icon">
               <MenuIcon className="h-6 w-6" />
             </Button>
           </div>
-          <br/>
-          <br/>
+          <br />
+          <br />
           <div className="space-y-2 text-left">
             <h1 className="text-3xl font-bold">Sign in to your account</h1>
             <p className="text-muted-foreground">Enter your email and password below to access your account.</p>
@@ -149,18 +215,18 @@ export default function Login() {
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="email@gmail.com" required />
+              <Input id="email" type="email" placeholder="email@gmail.com" required value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                <Link href="#" className="text-sm text-primary underline-offset-4 hover:underline" prefetch={false}>
+                <Link to="#" className="text-sm text-primary underline-offset-4 hover:underline">
                   Forgot password?
                 </Link>
               </div>
-              <Input id="password" type="password" required />
+              <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
-            <Button type="submit" className="w-full">
+            <Button type="button" className="w-full" onClick={handleLogin}>
               Sign in
             </Button>
           </div>
@@ -168,21 +234,26 @@ export default function Login() {
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />
             </div>
-            <div variant="outline" className="relative flex justify-center rounded-md  text-xs uppercase">
+            <div className="relative flex justify-center rounded-md text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">Or sign in with</span>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-  <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black justify-center">
-    <LinkedinIcon className="mr-2 h-4 w-4" />
-    Linkedin
-  </Button>
-  <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black justify-center">
-    <ChromeIcon className="mr-2 h-4 w-4" />
-    Google
-  </Button>
-</div>
-
+            <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black justify-center" onClick={handleLinkedinLogin}>
+              <LinkedinIcon className="mr-2 h-4 w-4" />
+              Linkedin
+            </Button>
+            <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black justify-center" onClick={handleGoogleLogin}>
+              <ChromeIcon className="mr-2 h-4 w-4" />
+              Google
+            </Button>
+          </div>
+          <div className="flex justify-center mt-4"> {/* Center the text */}
+        <p className="text-center">
+          Don't have an account?
+          <Link to="/register" className="text-blue-500 hover:underline"> Sign Up</Link>
+        </p>
+      </div>
         </div>
       </div>
       <div className="flex items-start justify-center bg-muted lg:hidden">
@@ -206,5 +277,5 @@ export default function Login() {
         />
       </div>
     </div>
-  )
+  );
 }

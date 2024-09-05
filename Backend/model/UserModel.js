@@ -12,25 +12,25 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         minlength: 3,
     },
-    lastName: {
+    password:{
         type: String,
-        trim: true, // Remove extra spaces
+        required: true,
     },
     email: {
         type: String,
         unique: true,
-        // required: true, // Ensure email is provided
         lowercase: true, // Convert to lowercase before saving
         trim: true, // Remove extra spaces
     },
-    mobile: {
+    contact: {
         type: String,
         trim: true, // Remove extra spaces
     },
-    // password: {
-    //     type: String,
-    //     required: true, // Ensure password is provided
-    // },
+  
+    qualification: {
+        type: String,
+        trim: true, // Remove extra spaces
+    },
     otp: { 
         type: String,
         trim: true, // Remove extra spaces
@@ -38,6 +38,7 @@ const UserSchema = new mongoose.Schema({
     otpExpires: {
         type: Date,
     },
+  
     isVerified: {
         type: Boolean,
         default: false,
