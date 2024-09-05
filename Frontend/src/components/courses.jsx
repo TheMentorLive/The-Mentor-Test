@@ -13,19 +13,18 @@ export default function Live() {
         <div className="grid gap-4 mt-8 mx-4 md:mx-20 lg:mx-28 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
           {[
             {
-              title: "Orient - School Students",
-              description: "Holistic Personality Development & Academic Excellence",
+              title: "Courses",
+              description: "Mentorship for 8-12  Students. Enhance employability skills, and transition smoothly into the workforce.",
               imgSrc: "/live.png",
             },
             {
-              title: "Emerge - College Students",
-              description:
-                "Explore career paths, enhance employability skills, and transition smoothly into the workforce.",
+              title: "Courses",
+              description: "Mentorship for 8-12  Students. Enhance employability skills, and transition smoothly into the workforce.",
               imgSrc: "/live.png",
             },
             {
-              title: "Elevate - Working Professionals",
-              description: "Career Advancement, Leadership skills & achieve work-life balance.",
+              title: "Courses",
+              description: "Mentorship for 8-12  Students. Enhance employability skills, and transition smoothly into the workforce.",
               imgSrc: "/live.png",
             },
           ].map((item, index) => (
