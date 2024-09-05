@@ -3,7 +3,7 @@ export default function Contact() {
   const Button = ({ children, className, variant }) => (
     <button
       className={`px-4 py-2 border rounded-lg ${
-        variant === "outline" ? "border-black text-gray-500" : "bg-blue-500 text-blue-500"
+        variant === "outline" ? "border-black text-gray-500" : "bg-blue-500 text-white"
       } ${className}`}
     >
       {children}
@@ -20,7 +20,7 @@ export default function Contact() {
   );
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen p-4 bg-white">
+    <section className="flex flex-col items-center justify-center min-h-screen p-4 text-blue-500">
       <Button variant="outline" className="mb-4">
         Get Started
       </Button>

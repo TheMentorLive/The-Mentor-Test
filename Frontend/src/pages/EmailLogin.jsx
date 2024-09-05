@@ -226,7 +226,8 @@ export default function Login() {
               </div>
               <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
-            <Button type="button" className="w-full" onClick={handleLogin}>
+            <br/>
+            <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center" onClick={handleLogin}>
               Sign in
             </Button>
           </div>
@@ -239,11 +240,11 @@ export default function Login() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black justify-center" onClick={handleLinkedinLogin}>
+            <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black hover:bg-slate-800 justify-center" onClick={handleLinkedinLogin}>
               <LinkedinIcon className="mr-2 h-4 w-4" />
               Linkedin
             </Button>
-            <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black justify-center" onClick={handleGoogleLogin}>
+            <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black hover:bg-slate-800  justify-center" onClick={handleGoogleLogin}>
               <ChromeIcon className="mr-2 h-4 w-4" />
               Google
             </Button>
@@ -258,7 +259,7 @@ export default function Login() {
       </div>
       <div className="flex items-start justify-center bg-muted lg:hidden">
         <img
-          src="/signup.jpg"
+          src="/Signin.png"
           alt="Sign in image"
           width="1920"
           height="1080"
@@ -268,7 +269,7 @@ export default function Login() {
       </div>
       <div className="hidden bg-muted lg:flex items-start justify-start">
         <img
-          src="/signup.jpg"
+          src="/Signin.png"
           alt="Sign in image"
           width="1920"
           height="1080"
