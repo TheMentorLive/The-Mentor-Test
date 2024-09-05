@@ -199,12 +199,12 @@ export default function Login() {
       <div className="flex flex-col items-start justify-center bg-muted p-6 lg:p-10">
         <div className="mx-auto w-full max-w-[400px] space-y-6">
           <div className="flex items-center justify-between">
-            <Link to="/" className="inline-flex items-center gap-2">
-              <img src="/logo.webp" alt="Logo" className=" h-12" />
+            <Link to="/" className="inline-flex  items-center gap-2">
+              <img src="/logo.webp" alt="Logo" className=" -mt-72 md:mt-auto lg:mt-auto h-12" />
             </Link>
-            <Button variant="ghost" size="icon">
+            {/* <Button variant="ghost" size="icon">
               <MenuIcon className="h-6 w-6" />
-            </Button>
+            </Button> */}
           </div>
           <br />
           <br />
@@ -231,15 +231,15 @@ export default function Login() {
               Sign in
             </Button>
           </div>
-          <div className="relative">
+          {/* <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center rounded-md text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">Or sign in with</span>
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
+          </div> */}
+          {/* <div className="grid grid-cols-2 gap-4">
             <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black hover:bg-slate-800 justify-center" onClick={handleLinkedinLogin}>
               <LinkedinIcon className="mr-2 h-4 w-4" />
               Linkedin
@@ -248,7 +248,7 @@ export default function Login() {
               <ChromeIcon className="mr-2 h-4 w-4" />
               Google
             </Button>
-          </div>
+          </div> */}
           <div className="flex justify-center mt-4"> {/* Center the text */}
         <p className="text-center">
           Don't have an account?
@@ -257,7 +257,7 @@ export default function Login() {
       </div>
         </div>
       </div>
-      <div className="flex items-start justify-center bg-muted lg:hidden">
+      {/* <div className="flex items-start justify-center bg-muted lg:hidden">
         <img
           src="/Signin.png"
           alt="Sign in image"
@@ -266,7 +266,7 @@ export default function Login() {
           className="h-full w-full object-cover"
           style={{ aspectRatio: "1920/1080", objectFit: "cover" }}
         />
-      </div>
+      </div> */}
       <div className="hidden bg-muted lg:flex items-start justify-start">
         <img
           src="/Signin.png"
