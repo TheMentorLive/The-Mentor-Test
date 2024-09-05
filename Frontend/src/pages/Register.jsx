@@ -271,10 +271,8 @@ export default function Register() {
                 <div variant="outline" className="relative flex justify-center rounded-md text-xs uppercase">
                   <span className="bg-background px-2 text-muted-foreground">Or sign Up with</span>
                 </div>
-              </>
-            )}
-          </div>
-
+              
+            
           <div className="grid grid-cols-2 gap-4">
             <Button variant="outline" className="flex items-center text-white h-10 rounded-md hover:bg-slate-800 bg-black justify-center">
               <LinkedinIcon className="mr-2 h-4 w-4" />
@@ -285,7 +283,9 @@ export default function Register() {
               Google
             </Button>
           </div>
-
+          </>
+             )}
+          </div>
           <div className="flex justify-center mt-4"> {/* Center the text */}
             <p className="text-center">
               Already have an account?
