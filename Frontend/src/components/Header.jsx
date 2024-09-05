@@ -44,8 +44,8 @@ const Header = () => {
     return (
         <div className="items-center flex justify-center">
             <header className={`fixed top-0 left-0 w-full bg-white shadow-md z-50`}>
-                <div className="flex items-center mt-4 justify-between py-2 px-4">
-                    <Link to="/" className="md:flex hidden lg:flex md:ml-[270px]">
+                <div className="flex items-center md:mt-2 lg:mt-2 justify-between py-2 px-4">
+                    <Link to="/" className="md:flex hidden lg:flex md:ml-[170px]">
                         <img src="/logo.webp" alt="Logo" className="h-11 w-auto" />
                     </Link>
                     <nav className="hidden lg:flex text-sm justify-center items-center">
@@ -82,7 +82,7 @@ const Header = () => {
                         {isLoggedIn && <DropdownMenu isLoggedIn={isLoggedIn} />}
                     </nav>
                     {!isLoggedIn && (
-                        <Link to="/login" className="hidden md:mr-[270px]  lg:block py-2 px-4 bg-blue-600 text-white hover:bg-blue-800 rounded transition-colors duration-300">
+                        <Link to="/login" className="hidden md:mr-[170px]  lg:block py-2 px-4 bg-blue-600 text-white hover:bg-blue-800 rounded transition-colors duration-300">
                             Get Started
                         </Link>
                     )}
@@ -95,7 +95,7 @@ const Header = () => {
                 
 
                 {/* Mobile screen - Slide-out navigation menu */}
-                <div className="flex items-center  px-6">
+                <div className="flex items-center -mt-2  px-6">
                     <button onClick={toggleMenu} className="lg:hidden text-black text-2xl mr-4" aria-label="Toggle navigation menu">
                         <MenuIcon />
                     </button>
