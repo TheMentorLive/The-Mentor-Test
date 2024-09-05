@@ -214,7 +214,7 @@ export default function Register() {
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
-              <Button type="button" className="w-full" onClick={registerUser}>
+              <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center" onClick={registerUser}>
                 Register
               </Button>
             </div>
@@ -263,15 +263,21 @@ export default function Register() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black justify-center">
+            <Button variant="outline" className="flex items-center text-white h-10 rounded-md hover:bg-slate-800  bg-black justify-center">
               <LinkedinIcon className="mr-2 h-4 w-4" />
               Linkedin
             </Button>
-            <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black border justify-center">
+            <Button variant="outline" className="flex items-center text-white h-10 rounded-md hover:bg-slate-800  bg-black border justify-center">
               <ChromeIcon className="mr-2 h-4 w-4" />
               google
             </Button>
           </div>
+          <div className="flex justify-center mt-4"> {/* Center the text */}
+        <p className="text-center">
+          Already have an account?
+          <Link to="/login" className="text-blue-500 hover:underline"> Sign In</Link>
+        </p>
+      </div>
         </div>
       </div>
       <div className="flex items-start justify-center bg-muted lg:hidden">
