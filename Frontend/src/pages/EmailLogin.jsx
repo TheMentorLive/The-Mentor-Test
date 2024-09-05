@@ -1,228 +1,210 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { IconButton, TextField, Button, Divider, Typography } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import GitHub from '@mui/icons-material/GitHub';
-import GoogleIcon from '@mui/icons-material/Google'; // Optional: Use an icon for Google login
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import { Link } from 'react-router-dom';
 
-import { API_BASE_URL } from '../constants/ApiConstants';
 
-export default function EmailOtpLogin() {
-  const [step, setStep] = useState('enterEmail');
-  const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-  const [name, setName] = useState('');
-  const [error, setError] = useState(null);
-  const [isVerifiedUser, setIsVerifiedUser] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false); // Google login loading state
-  const [linkedInLoading, setLinkedInLoading] = useState(false);
-  const navigate = useNavigate();
+// Button component
+function Button({ variant = "default", size = "medium", children, ...props }) {
+  const baseStyles = "py-2 px-4 rounded focus:outline-none";
+  const variantStyles = variant === "ghost"
+    ? "bg-transparent border border-gray-300"
+    : "bg-blue-500 text-white";
 
-  const handleSendOtp = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post(`${API_BASE_URL}auth/send-emailotp`, { email });
-      console.log(response.data);
-      if (response.data.keyword === 'USER_VERIFIED') {
-        setIsVerifiedUser(true);
-      } else {
-        setIsVerifiedUser(false);
-      }
-      setStep('verifyOtp');
-    } catch (error) {
-      setError(error.response?.data?.message || 'An error occurred');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleVerifyOtp = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post(`${API_BASE_URL}auth/verify-emailotp`, { email, otp, name });
-      const { token } = response.data;
-      localStorage.setItem('token', token);
-      const response1 = await axios.get(`${API_BASE_URL}auth/userDetails`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const { user } = response1.data;
-      localStorage.setItem('user', JSON.stringify(user));
-      navigate('/'); // Redirect to home or dashboard
-    } catch (error) {
-      setError(error.response?.data?.message || 'An error occurred');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const onGoogleLogin = async () => {
-    setGoogleLoading(true);
-    try {
-      // Redirect to backend Google OAuth route
-      window.location.href = `${API_BASE_URL}auth/google`;
-    } catch (error) {
-      console.error('Google Login Error:', error);
-      setError('An error occurred during Google login');
-    } finally {
-      setGoogleLoading(false);
-    }
-  };
-
-   // Google OAuth callback handling
-  
-  //  const handleAuthResponse = async () => {
-  //   try {
-  //     const response = await axios.get(`${API_BASE_URL}auth/google/callback`, {
-  //       withCredentials: true,
-  //     });
-  //     const { token, user } = response.data;
-  
-  //     // Store the token and user details in local storage
-  //     localStorage.setItem('token', token);
-  //     localStorage.setItem('userId', user.id);
-  //     localStorage.setItem('userRole', user.role);
-  
-  //     navigate('/'); // Redirect to home or dashboard
-  //   } catch (error) {
-  //     console.error('Authentication Error:', error);
-  //     setError('An error occurred during authentication');
-  //   }
-  // };
-  
-  // useEffect(() => {
-  //   handleAuthResponse(); // Call this function when the component mounts if needed
-  // }, []);
- 
-
-  
-    const handleLinkedInLogin = () => {
-      setLinkedInLoading(true);
-      try {
-        window.location.href = `${API_BASE_URL}auth/linkedin`;
-      }  catch (error) {
-        console.error('linkedin Login Error:', error);
-        setError('An error occurred during linkein login');
-      } finally {
-        setLinkedInLoading(false);
-      }
-    };
+  const sizeStyles = size === "icon"
+    ? "p-2"
+    : size === "small"
+    ? "py-1 px-3"
+    : "py-2 px-4";
 
   return (
+    <button className={`${baseStyles} ${variantStyles} ${sizeStyles}`} {...props}>
+      {children}
+    </button>
+  );
+}
+
+// Label component
+function Label({ htmlFor, children }) {
+  return (
+    <label htmlFor={htmlFor} className="block text-sm font-medium text-gray-700">
+      {children}
+    </label>
+  );
+}
+
+// Input component
+function Input({ id, type = "text", placeholder, required }) {
+  return (
+    <input
+      id={id}
+      type={type}
+      placeholder={placeholder}
+      required={required}
+      className="block w-full border border-gray-300 rounded-md p-2"
+    />
+  );
+}
+
+// Icons
+function ChromeIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 326667 333333"
+      shapeRendering="geometricPrecision"
+      textRendering="geometricPrecision"
+      imageRendering="optimizeQuality"
+      fillRule="evenodd"
+      clipRule="evenodd"
+    >
+      <path
+        d="M326667 170370c0-13704-1112-23704-3518-34074H166667v61851h91851c-1851 15371-11851 38519-34074 54074l-311 2071 49476 38329 3428 342c31481-29074 49630-71852 49630-122593m0 0z"
+        fill="#4285f4"
+      />
+      <path
+        d="M166667 333333c44999 0 82776-14815 110370-40370l-52593-40742c-14074 9815-32963 16667-57777 16667-44074 0-81481-29073-94816-69258l-1954 166-51447 39815-673 1870c27407 54444 83704 91852 148890 91852z"
+        fill="#34a853"
+      />
+      <path
+        d="M71851 199630c-3518-10370-5555-21482-5555-32963 0-11482 2036-22593 5370-32963l-93-2209-52091-40455-1704 811C6482 114444 1 139814 1 166666s6482 52221 17777 74814l54074-41851m0 0z"
+        fill="#fbbc04"
+      />
+      <path
+        d="M166667 64444c31296 0 52406 13519 64444 24816l47037-45926C249260 16482 211666 1 166667 1 101481 1 45185 37408 17777 91852l53889 41853c13520-40185 50927-69260 95001-69260m0 0z"
+        fill="#ea4335"
+      />
+    </svg>
+  );
+};
+
+const LinkedinIcon = (props) => {
+  return (
+    <svg
+      {...props}
+      id="Layer_1"
+      data-name="Layer 1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 122.88 122.31"
+    >
+      <defs>
+        <style>
+          {`.cls-1{fill:#0a66c2;}.cls-1,.cls-2{fill-rule:evenodd;}.cls-2{fill:#fff;}`}
+        </style>
+      </defs>
+      <title>linkedin-app</title>
+      <path
+        className="cls-1"
+        d="M27.75,0H95.13a27.83,27.83,0,0,1,27.75,27.75V94.57a27.83,27.83,0,0,1-27.75,27.74H27.75A27.83,27.83,0,0,1,0,94.57V27.75A27.83,27.83,0,0,1,27.75,0Z"
+      />
+      <path
+        className="cls-2"
+        d="M49.19,47.41H64.72v8h.22c2.17-3.88,7.45-8,15.34-8,16.39,0,19.42,10.2,19.42,23.47V98.94H83.51V74c0-5.71-.12-13.06-8.42-13.06s-9.72,6.21-9.72,12.65v25.4H49.19V47.41ZM40,31.79a8.42,8.42,0,1,1-8.42-8.42A8.43,8.43,0,0,1,40,31.79ZM23.18,47.41H40V98.94H23.18V47.41Z"
+      />
+    </svg>
+  );
+};
+
+
+
+function MenuIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="4" x2="20" y1="12" y2="12" />
+      <line x1="4" x2="20" y1="6" y2="6" />
+      <line x1="4" x2="20" y1="18" y2="18" />
+    </svg>
+  );
+}
+
+
+export default function Login() {
+  return (
     <div className="grid w-full min-h-screen grid-cols-1 lg:grid-cols-2">
-  {/* Left section */}
-  <div className="flex flex-col items-start justify-center bg-white p-6 lg:p-10">
-    <div className="mx-auto w-full max-w-md space-y-6">
-      {/* Logo and menu button */}
-      <div className="flex items-center justify-between">
-        <a href="#" className="inline-flex items-center gap-2">
-          <img src="/The-mentor-logo.png" alt="The Mentor Logo" style={{ width: '100px', height: '40px' }} />
-        </a>
-        <IconButton>
-          <MenuIcon />
-        </IconButton>
-      </div>
-      {/* Header */}
-      <div className="space-y-2 text-left">
-        <Typography variant="h4" className="font-bold">
-          {step === 'enterEmail' ? 'Enter Your Email' : 'Verify OTP'}
-        </Typography>
-        <Typography className="text-gray-500">
-          {step === 'enterEmail' ? 'Enter your email to receive an OTP.' : 'Enter the OTP sent to your email.'}
-        </Typography>
-      </div>
-      {/* Form fields */}
-      <div className="space-y-4">
-        {step === 'enterEmail' ? (
-          <>
-            <TextField
-              id="email"
-              label="Email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              fullWidth
-              required
-            />
-            <Button type="button" variant="contained" className='h-10 ' onClick={handleSendOtp} fullWidth disabled={loading}>
-              {loading ? 'Sending OTP...' : 'Send OTP'}
+      <div className="flex flex-col items-start justify-center bg-muted p-6 lg:p-10">
+        <div className="mx-auto w-full max-w-[400px] space-y-6">
+          <div className="flex items-center justify-between">
+            <Link href="#" className="inline-flex items-center gap-2" prefetch={false}>
+            <img src="/logo.webp" alt="Logo" className=" h-12" />
+            </Link>
+            <Button variant="ghost" size="icon">
+              <MenuIcon className="h-6 w-6" />
             </Button>
-          </>
-        ) : (
-          <>
-            <TextField
-              id="otp"
-              label="OTP"
-              type="text"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              fullWidth
-              required
-            />
-            {!isVerifiedUser && (
-              <TextField
-                id="name"
-                label="Name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                fullWidth
-                required
-              />
-            )}
-            <Button type="button" variant="contained" onClick={handleVerifyOtp} fullWidth disabled={loading}>
-              {loading ? 'Verifying OTP...' : 'Verify OTP'}
+          </div>
+          <br/>
+          <br/>
+          <div className="space-y-2 text-left">
+            <h1 className="text-3xl font-bold">Sign in to your account</h1>
+            <p className="text-muted-foreground">Enter your email and password below to access your account.</p>
+          </div>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" placeholder="email@gmail.com" required />
+            </div>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password">Password</Label>
+                <Link href="#" className="text-sm text-primary underline-offset-4 hover:underline" prefetch={false}>
+                  Forgot password?
+                </Link>
+              </div>
+              <Input id="password" type="password" required />
+            </div>
+            <Button type="submit" className="w-full">
+              Sign in
             </Button>
-          </>
-        )}
+          </div>
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div variant="outline" className="relative flex justify-center rounded-md  text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">Or sign in with</span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+  <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black justify-center">
+    <LinkedinIcon className="mr-2 h-4 w-4" />
+    Linkedin
+  </Button>
+  <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black justify-center">
+    <ChromeIcon className="mr-2 h-4 w-4" />
+    Google
+  </Button>
+</div>
+
+        </div>
       </div>
-      {/* Error message */}
-      {error && <Typography color="error">{error}</Typography>}
-      {/* Divider */}
-      <div className="relative">
-        <Divider>
-          <Typography variant="caption" className="bg-gray-100 px-2">
-            Or sign in with
-          </Typography>
-        </Divider>
+      <div className="flex items-start justify-center bg-muted lg:hidden">
+        <img
+          src="/signup.jpg"
+          alt="Sign in image"
+          width="1920"
+          height="1080"
+          className="h-full w-full object-cover"
+          style={{ aspectRatio: "1920/1080", objectFit: "cover" }}
+        />
       </div>
-      {/* Social buttons */}
-      <div className="grid grid-cols-2 gap-4">
-        <Button
-          variant="contained"
-          startIcon={<LinkedInIcon />}
-          onClick={handleLinkedInLogin}
-          fullWidth
-          disabled={linkedInLoading}
-          size="small" // Small size button
-          className="bg-white h-10 hover:bg-blue-700 text-white" // Tailwind CSS classes for LinkedIn
-        >
-          {linkedInLoading ? 'Signing in with LinkedIn...' : ' LinkedIn'}
-        </Button>
-        <Button
-          variant="contained"
-          startIcon={<GoogleIcon />}
-          onClick={onGoogleLogin}
-          fullWidth
-          disabled={googleLoading}
-          size="small" // Small size button
-          className="bg-red-600 hover:bg-red-700 text-white" // Tailwind CSS classes for Google
-        >
-          {googleLoading ? 'Signing in with Google...' : ' Google'}
-        </Button>
+      <div className="hidden bg-muted lg:flex items-start justify-start">
+        <img
+          src="/signup.jpg"
+          alt="Sign in image"
+          width="1920"
+          height="1080"
+          className="h-full w-full object-cover"
+          style={{ aspectRatio: "1920/1080", objectFit: "cover" }}
+        />
       </div>
     </div>
-  </div>
-  {/* Right section for image */}
-  <div className="hidden lg:flex ml-9 items-start justify-start h-full">
-    <img
-      src="/signup.jpg"
-      alt="Sign up image"
-      className="h-auto lg:h-[729px] object-cover w-full lg:w-auto" // Responsive styles
-    />
-  </div>
-</div>
-  )}
-
+  )
+}
