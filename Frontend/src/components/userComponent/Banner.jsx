@@ -65,7 +65,7 @@ const Banner = () => {
             {isLoggedIn ? 'Explore' : 'Sign In'}
           </button>
           <button className="border border-blue-600 text-black py-2 px-4 rounded hover:bg-blue-600 hover:text-white transition">
-            Learn More
+            Qearn More
           </button>
         </div>
         
