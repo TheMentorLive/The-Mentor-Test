@@ -44,7 +44,7 @@ const Header = () => {
     return (
         <div className="items-center flex justify-center">
             <header className={`fixed top-0 left-0 w-full bg-white shadow-md z-50`}>
-                <div className="flex items-center md:mt-2 lg:mt-2 justify-between py-2 px-4">
+                <div className="flex items-center md:mt-2 lg:mt-2 md:mb-2 lg:mb-2 justify-between py-2 px-4">
                     <Link to="/" className="md:flex hidden lg:flex md:ml-[170px]">
                         <img src="/logo.webp" alt="Logo" className="h-11 w-auto" />
                     </Link>
