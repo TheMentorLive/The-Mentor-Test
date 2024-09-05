@@ -231,15 +231,15 @@ export default function Login() {
               Sign in
             </Button>
           </div>
-          {/* <div className="relative">
+          <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center rounded-md text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">Or sign in with</span>
             </div>
-          </div> */}
-          {/* <div className="grid grid-cols-2 gap-4">
+          </div>
+          <div className="grid grid-cols-2 gap-4">
             <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black hover:bg-slate-800 justify-center" onClick={handleLinkedinLogin}>
               <LinkedinIcon className="mr-2 h-4 w-4" />
               Linkedin
@@ -248,7 +248,7 @@ export default function Login() {
               <ChromeIcon className="mr-2 h-4 w-4" />
               Google
             </Button>
-          </div> */}
+          </div>
           <div className="flex justify-center mt-4"> {/* Center the text */}
         <p className="text-center">
           Don't have an account?
