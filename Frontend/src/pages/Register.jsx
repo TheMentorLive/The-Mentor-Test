@@ -180,11 +180,11 @@ export default function Register() {
         <div className="mx-auto w-full max-w-[400px] space-y-6">
           <div className="flex items-center justify-between">
             <Link to="/" className="inline-flex items-center gap-2">
-              <img src="/logo.webp" alt="Logo" className=" h-12" />
+              <img src="/logo.webp" alt="Logo" className=" -mt-56 md:mt-auto lg:mt-auto h-12" />
             </Link>
-            <Button variant="ghost" size="icon">
+            {/* <Button variant="ghost" size="icon">
               <MenuIcon className="h-6 w-6" />
-            </Button>
+            </Button> */}
           </div>
           <br />
           <br />
@@ -227,7 +227,7 @@ export default function Register() {
                 <Label htmlFor="otp">OTP</Label>
                 <Input id="otp" type="text" placeholder="Enter OTP" required value={otp} onChange={(e) => setOtp(e.target.value)} />
               </div>
-              <Button type="button" className="w-full" onClick={verifyOtp}>
+              <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center" onClick={verifyOtp}>
                 Verify OTP
               </Button>
             </div>
@@ -248,13 +248,13 @@ export default function Register() {
                 <Label htmlFor="qualification">Highest Qualification</Label>
                 <Input id="qualification" type="text" placeholder="Bachelor's, Master's, etc." required value={qualification} onChange={(e) => setQualification(e.target.value)} />
               </div>
-              <Button type="submit" className="w-full" onClick={completeProfile}>
+              <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center" onClick={completeProfile}>
                 Complete Registration
               </Button>
             </div>
           )}
 
-          <div className="relative">
+          {/* <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />
             </div>
@@ -271,7 +271,7 @@ export default function Register() {
               <ChromeIcon className="mr-2 h-4 w-4" />
               google
             </Button>
-          </div>
+          </div> */}
           <div className="flex justify-center mt-4"> {/* Center the text */}
         <p className="text-center">
           Already have an account?
@@ -280,7 +280,7 @@ export default function Register() {
       </div>
         </div>
       </div>
-      <div className="flex items-start justify-center bg-muted lg:hidden">
+      {/* <div className="flex items-start justify-center bg-muted lg:hidden">
         <img
           src="/signup.jpg"
           alt="Sign in image"
@@ -289,7 +289,7 @@ export default function Register() {
           className="h-full w-full object-cover"
           style={{ aspectRatio: "1920/1080", objectFit: "cover" }}
         />
-      </div>
+      </div> */}
       <div className="hidden bg-muted lg:flex items-start justify-start">
         <img
           src="/signup.jpg"
