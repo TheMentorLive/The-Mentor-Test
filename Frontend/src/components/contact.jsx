@@ -3,7 +3,7 @@ export default function Contact() {
   const Button = ({ children, className, variant }) => (
     <button
       className={`px-4 py-2 border rounded-lg ${
-        variant === "outline" ? "border-gray-500 text-gray-500" : "bg-blue-500 text-white"
+        variant === "outline" ? "border-black text-gray-500" : "bg-blue-500 text-blue-500"
       } ${className}`}
     >
       {children}
@@ -33,7 +33,7 @@ export default function Contact() {
         <div className="flex w-full max-w-md">
           <Input type="email" placeholder="Enter your email" className="flex-grow" />
           <Button variant="outline " className="ml-4 bg-blue-500">
-            Send
+            Send 
           </Button>
         </div>
       </form>
