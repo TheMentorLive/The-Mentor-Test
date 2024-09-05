@@ -181,7 +181,7 @@ const googleCallback = (req, res) => {
       }
 
       // Construct the redirect URL with the token and user ID
-      const redirectUrl = `http://localhost:5173/auth/callback?token=${token}&id=${user._id}&role=${user.role}`;
+      const redirectUrl = `https://www.genailearning.in/auth/callback?token=${token}&id=${user._id}&role=${user.role}`;
 
       // Redirect to the frontend application with the token in the query parameters
       res.redirect(redirectUrl);

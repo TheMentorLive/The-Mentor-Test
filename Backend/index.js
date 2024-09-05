@@ -23,7 +23,7 @@ app.use(
   );
 
   app.use(cors({
-    origin: "https://localhost:5174", // Allow only this origin
+    origin: "https://www.genailearning.in", // Allow only this origin
     methods: ["GET", "POST", "PUT", "DELETE"], // Allow these HTTP methods
     credentials: true // Allow credentials if needed
   }));
