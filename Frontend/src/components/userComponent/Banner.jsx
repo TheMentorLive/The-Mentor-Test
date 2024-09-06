@@ -13,19 +13,17 @@ const Banner = () => {
     "https://www.shutterstock.com/image-photo/copy-space-panorama-banner-asian-260nw-2292732351.jpg",
   ];
 
-  // Update isLoggedIn based on user object
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('user'));
-  }, [user]);
 
-  // Carousel effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 6000); // Change the image every 6 seconds
+    // Set the interval for sliding images every 5 seconds
+    const intervalId = setInterval(() => {
+      setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length);
+    }, 5000);
 
-    return () => clearInterval(interval);
-  }, [images.length]);
+    // Clear interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
 
   const handleGetStartedClick = () => {
     if (isLoggedIn) {
@@ -35,21 +33,30 @@ const Banner = () => {
     }
   };
 
-  const nextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
+  const handleMouseMove = (e) => {
+    const { clientX } = e;
+    const bannerWidth = e.target.clientWidth;
+    const centerPoint = bannerWidth / 2;
 
-  const prevImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    if (clientX < centerPoint) {
+      setCurrentImageIndex(0);  // Show first image
+    } else {
+      setCurrentImageIndex(1);  // Show second image
+    }
   };
 
   return (
-    <div className="relative mt-7  mr-20 sm:mx-10 md:mx-20 lg:mx-40 lg:mr-40 h-[50vh] sm:h-[60vh] flex items-center overflow-hidden">
+    <div 
+      className="relative mt-7 mr-5 ml-5 sm:mx-10 md:mx-20 lg:mx-40 lg:mr-40 h-[50vh] sm:h-[60vh] flex items-center overflow-hidden"
+      onMouseMove={handleMouseMove}
+    >
       <div
         className="absolute top-0 left-0 w-full h-full bg-cover bg-center transition-transform duration-1000"
         style={{ backgroundImage: `url(${images[currentImageIndex]})` }}
-      ></div>
-      
+      />
+      <div className="absolute top-0 left-0 h-full w-1/4 bg-gradient-to-r from-white to-transparent opacity-90 pointer-events-none" />
+      <div className="absolute top-0 right-0 h-full w-1/4 bg-gradient-to-l from-white to-transparent opacity-90 pointer-events-none" />
+
       <div className="absolute left-4 sm:left-8 lg:left-16 top-1/2 transform -translate-y-1/2 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg p-4 sm:p-6 bg-transparent bg-opacity-70 rounded-lg">
         <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600">
           Ace the JEE Exam
@@ -57,31 +64,17 @@ const Banner = () => {
         <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700 mt-2 sm:mt-4">
           Our platform provides comprehensive resources and tools to help you prepare for the JEE exam with confidence.
         </p>
+        <br />
+        <br />
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-4 sm:mt-6">
           <button
             onClick={handleGetStartedClick}
-            className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+            className="bg-blue-600 text-white py-2 px-4 w-32 rounded hover:bg-blue-700 transition"
           >
             {isLoggedIn ? 'Explore' : 'Sign In'}
           </button>
-          <button className="border border-blue-600 text-black py-2 px-4 rounded hover:bg-blue-600 hover:text-white transition">
-            Qearn More
-          </button>
-        </div>
-        
-        {/* Navigation Buttons */}
-        <div className="flex mt-4 gap-2">
-          <button
-            onClick={prevImage}
-            className="bg-blue-300 p-2 rounded-l hover:bg-blue-400 transition"
-          >
-            &lt;
-          </button>
-          <button
-            onClick={nextImage}
-            className="bg-blue-300 p-2 rounded-r hover:bg-blue-400 transition"
-          >
-            &gt;
+          <button className="border border-blue-600 text-black w-32 py-2 px-4 rounded hover:bg-blue-600 hover:text-white transition">
+            Learn More
           </button>
         </div>
       </div>

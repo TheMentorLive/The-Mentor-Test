@@ -32,7 +32,9 @@ const Footer = () => {
 
   // JSX structure of the footer
   return (
+    
     <footer className="bg-[#2952d6] py-16 px-4 items-center justify-center flex text-white">
+      <div className="items-center flex justify-center">
       <div className="container mx-auto grid gap-8 md:ml-56 md:grid-cols-2 lg:grid-cols-3">
         {/* Left section with brand and social icons */}
         <div className="flex flex-col items-start">
@@ -42,7 +44,7 @@ const Footer = () => {
             className="mb-4"
           />
           <p className="py-4 text-sm md:text-base">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id odit ullam iste repellat consequatur libero reiciendis, blanditiis accusantium.
+          Our platform provides comprehensive resources and tools to help you prepare for the JEE exam with confidence.
           </p>
           <div className="flex flex-wrap gap-4">
             {/* Mapping over social icons and rendering the SocialIcon component */}
@@ -67,7 +69,9 @@ const Footer = () => {
           ))}
         </div>
       </div>
+      </div>
     </footer>
+    
   );
 };
 
