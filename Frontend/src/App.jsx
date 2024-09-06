@@ -45,6 +45,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/register" element={<Register/>} />
           <Route path="/auth/callback" element={<AuthCallback/>} />
           <Route path="/login" element={<EmailOtpLogin/>} />
+          <Route path="/reset-password" element={<ResetPassword/>} />
           
 
           
