@@ -15,6 +15,7 @@ import AdminFooter from './components/adminComponent/AdminFooter';
 import Header from './components/Header';
 import EmailOtpLogin from './pages/EmailLogin';
 import AuthCallback from './hooks/AuthCallback';
+import ResetPassword from './pages/ResetPassword';
 
 
 
