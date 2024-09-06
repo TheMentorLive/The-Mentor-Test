@@ -13,6 +13,10 @@ router.post('/complete-profile', AuthController.completeProfile);
 
 router.post('/login', AuthController.loginUser);
 
+router.post('/reset-password/email', AuthController.restpassword);
+router.post('/reset-password/verify-otp', AuthController.verifyResetOtp);
+router.post('/reset-password/set-password', AuthController.setPassword);
+
 //email
 router.get("/google",AuthController.googlelogin)
 router.get('/google/callback', AuthController.googleCallback);
