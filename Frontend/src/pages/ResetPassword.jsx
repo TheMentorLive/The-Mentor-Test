@@ -103,9 +103,9 @@ export default function ResetPassword() {
     <div className="grid w-full min-h-screen grid-cols-1 lg:grid-cols-2">
       <div className="flex flex-col items-start justify-center bg-muted p-6 lg:p-10">
         <div className="mx-auto w-full max-w-[400px] space-y-6">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="inline-flex items-center gap-2">
-              <img src="/logo.webp" alt="Logo" className=" h-12" />
+          <div className="flex items-center  justify-between">
+            <Link to="/" className="inline-flex items-center -mt-[500px]  md:-mt-64 gap-2">
+              <img src="/logo.webp" alt="Logo" className="  lg:mt-auto h-12" />
             </Link>
           </div>
 
@@ -135,7 +135,8 @@ export default function ResetPassword() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <Button type="button" className="w-full" onClick={handleEmailSubmit}>
+              <br/>
+              <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center" onClick={handleEmailSubmit}>
                 Send OTP
               </Button>
             </div>
