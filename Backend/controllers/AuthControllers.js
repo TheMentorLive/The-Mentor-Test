@@ -162,30 +162,70 @@ const googlelogin = (req, res, next) => {
 
 
 // Google Callback
+// const googleCallback = (req, res) => {
+//   passport.authenticate('google', (err, userObj) => {
+//     if (err) {
+//       console.error('Authentication error:', err);
+//       return res.status(500).json({ error: 'Authentication failed' });
+//     }
+//     if (!userObj) {
+//       return res.status(400).json({ error: 'User not found' });
+//     }
+
+//     const { user, token } = userObj;  // Destructure user and token from the returned object
+
+//     req.logIn(user, (err) => {
+//       if (err) {
+//         console.error('Login error:', err);
+//         return res.status(500).json({ error: 'Login failed' });
+//       }
+
+//       // Construct the redirect URL with the token and user ID
+//       const redirectUrl = `https://www.genailearning.in/auth/callback?token=${token}&id=${user._id}&role=${user.role}`;
+
+//       // Redirect to the frontend application with the token in the query parameters
+//       res.redirect(redirectUrl);
+//     });
+//   })(req, res);
+// };
 const googleCallback = (req, res) => {
-  passport.authenticate('google', (err, userObj) => {
+  passport.authenticate('google', async (err, user, info) => {
     if (err) {
       console.error('Authentication error:', err);
       return res.status(500).json({ error: 'Authentication failed' });
     }
-    if (!userObj) {
+    if (!user) {
       return res.status(400).json({ error: 'User not found' });
     }
 
-    const { user, token } = userObj;  // Destructure user and token from the returned object
-
-    req.logIn(user, (err) => {
-      if (err) {
-        console.error('Login error:', err);
-        return res.status(500).json({ error: 'Login failed' });
+    try {
+      // Create or update user in your database
+      let existingUser = await User.findOne({ email: user.email });
+      if (!existingUser) {
+        existingUser = new User({
+          name: user.name,
+          email: user.email,
+          googleId: user.id,
+          // Other fields you want to set
+        });
+        await existingUser.save();
       }
 
-      // Construct the redirect URL with the token and user ID
-      const redirectUrl = `https://www.genailearning.in/auth/callback?token=${token}&id=${user._id}&role=${user.role}`;
+      // Generate a JWT token
+      const token = jwt.sign(
+        { id: existingUser._id, email: existingUser.email },
+        JWT_SECRET,
+        { expiresIn: '1h' } // Adjust token expiration as needed
+      );
 
       // Redirect to the frontend application with the token in the query parameters
+      const redirectUrl = `https://www.genailearning.in/auth/callback?token=${token}&id=${existingUser._id}&role=${existingUser.role}`;
       res.redirect(redirectUrl);
-    });
+
+    } catch (error) {
+      console.error('Error during Google callback:', error);
+      res.status(500).json({ error: 'Server error. Please try again later.' });
+    }
   })(req, res);
 };
 
