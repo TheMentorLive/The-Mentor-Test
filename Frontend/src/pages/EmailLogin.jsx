@@ -238,11 +238,11 @@ export default function Login() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Button variant="outline" className="flex items-center text-black  h-10 rounded-md hover:bg-slate-100 bg-white border border-blue-500 justify-center">
+            <Button variant="outline" onClick={handleLinkedinLogin} className="flex items-center text-black  h-10 rounded-md hover:bg-slate-100 bg-white border border-blue-500 justify-center">
               <LinkedinIcon className="mr-2 h-4 w-4" />
               Linkedin
             </Button>
-            <Button variant="outline" className="flex items-center text-black  h-10 rounded-md hover:bg-slate-100 bg-white border border-blue-500 justify-center">
+            <Button variant="outline" onClick={handleGoogleLogin} className="flex items-center text-black  h-10 rounded-md hover:bg-slate-100 bg-white border border-blue-500 justify-center">
               <ChromeIcon className="mr-2 h-4 w-4" />
               Google
             </Button>
