@@ -162,40 +162,47 @@ const googlelogin = (req, res, next) => {
 
 
 // Google Callback
-const googleCallback = async (req, res) => {
-  passport.authenticate('google', { session: false }, async (err, user, info) => {
+const googleCallback = (req, res) => {
+  passport.authenticate('google', (err, userObj) => {
     if (err) {
       console.error('Authentication error:', err);
       return res.status(500).json({ error: 'Authentication failed' });
     }
-    if (!user) {
+    if (!userObj) {
       return res.status(400).json({ error: 'User not found' });
     }
 
-    try {
-      // Generate JWT token here
-      const token = jwt.sign(
-        { id: user._id, email: user.email, role: user.role }, 
-        process.env.JWT_SECRET, 
-        { expiresIn: '1h' }
-      );
+    const { user, token } = userObj;  // Destructure user and token from the returned object
 
-      req.logIn(user, (err) => {
-        if (err) {
-          console.error('Login error:', err);
-          return res.status(500).json({ error: 'Login failed' });
-        }
+    req.logIn(user, (err) => {
+      if (err) {
+        console.error('Login error:', err);
+        return res.status(500).json({ error: 'Login failed' });
+      }
 
-        // Construct the redirect URL with the token and user information
-        const redirectUrl = `https://www.genailearning.in/auth/callback?token=${token}&id=${user._id}&role=${user.role}`;
-        
-        // Redirect to the frontend application with the token in the query parameters
-        res.redirect(redirectUrl);
+      // Set token in a cookie
+      res.cookie("token", token, {
+        httpOnly: true,
+        sameSite: "None",
+        secure: true, // Ensure this is true if using HTTPS
+        maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
       });
-    } catch (error) {
-      console.error('Error generating token or logging in:', error);
-      res.status(500).json({ error: 'Server error during token generation or login' });
-    }
+
+      // Optionally set additional user details in a cookie
+      res.cookie("user", JSON.stringify({
+        id: user._id,
+        role: user.role,
+        email: user.email
+      }), {
+        httpOnly: false, // This cookie is not httpOnly, so it can be accessed via JavaScript if needed
+        sameSite: "None",
+        secure: true, // Ensure this is true if using HTTPS
+        maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
+      });
+
+      // Redirect to the frontend application
+      res.redirect('https://www.genailearning.in/auth/callback');
+    });
   })(req, res);
 };
 
