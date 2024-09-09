@@ -9,7 +9,7 @@ function Button({ variant = "default", size = "medium", children, ...props }) {
   const baseStyles = "py-2 px-4 rounded focus:outline-none";
   const variantStyles = variant === "ghost"
     ? "bg-transparent border border-gray-300"
-    : "bg-blue-500 text-white";
+    : "bg-[#2563EB] text-white";
   const sizeStyles = size === "icon" ? "p-2" : size === "small" ? "py-1 px-3" : "py-2 px-4";
 
   return (
@@ -136,7 +136,7 @@ export default function ResetPassword() {
                 />
               </div>
               <br/>
-              <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center" onClick={handleEmailSubmit}>
+              <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-[#2563EB] hover:bg-blue-400 justify-center" onClick={handleEmailSubmit}>
                 Send OTP
               </Button>
             </div>
@@ -194,7 +194,7 @@ export default function ResetPassword() {
           <div className="flex justify-center mt-4">
             <p className="text-center">
               Remember your password?
-              <Link to="/login" className="text-blue-500 hover:underline"> Sign in</Link>
+              <Link to="/login" className="text-[#2563EB] hover:underline"> Sign in</Link>
             </p>
           </div>
         </div>

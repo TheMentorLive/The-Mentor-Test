@@ -9,7 +9,7 @@ function Button({ variant = "default", size = "medium", children, ...props }) {
   const baseStyles = "py-2 px-4 rounded focus:outline-none";
   const variantStyles = variant === "ghost"
     ? "bg-transparent border border-gray-300"
-    : "bg-blue-500 text-white";
+    : "bg-[#2563EB] text-white";
 
   const sizeStyles = size === "icon"
     ? "p-2"
@@ -227,7 +227,7 @@ export default function Login() {
               <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
             <br/>
-            <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center" onClick={handleLogin}>
+            <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-[#2563EB] hover:bg-blue-400 justify-center" onClick={handleLogin}>
               Sign in
             </Button>
           </div>
@@ -250,7 +250,7 @@ export default function Login() {
           <div className="flex justify-center mt-4"> {/* Center the text */}
         <p className="text-center">
           Don't have an account?
-          <Link to="/register" className="text-blue-500 hover:underline"> Sign Up</Link>
+          <Link to="/register" className="text-[#2563EB] hover:underline"> Sign Up</Link>
         </p>
       </div>
         </div>

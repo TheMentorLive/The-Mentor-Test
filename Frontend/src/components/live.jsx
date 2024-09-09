@@ -50,7 +50,7 @@ export default function Live() {
               </div>
               <div className="p-4">
                 <div className="flex justify-between gap-4">
-                  <button className="px-4 py-2 bg-blue-500 font-bold text-white text-xs rounded-lg hover:bg-blue-600">
+                  <button className="px-4 py-2 bg-[#2563EB] font-bold text-white text-xs rounded-lg hover:bg-blue-600">
                   Get Started
                   </button>
                   <button className="px-4 py-2 border border-gray-300 font-bold text-xs text-gray-700 rounded-lg hover:bg-gray-100">

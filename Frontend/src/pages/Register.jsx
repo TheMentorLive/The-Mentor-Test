@@ -11,7 +11,7 @@ function Button({ variant = "default", size = "medium", children, ...props }) {
   const baseStyles = "py-2 px-4 rounded focus:outline-none";
   const variantStyles = variant === "ghost"
     ? "bg-transparent border border-gray-300"
-    : "bg-blue-500 text-white";
+    : "bg-[#2563EB] text-white";
 
   const sizeStyles = size === "icon"
     ? "p-2"
@@ -233,7 +233,7 @@ export default function Register() {
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
-              <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center" onClick={registerUser}>
+              <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-[#2563EB] hover:bg-blue-400 justify-center" onClick={registerUser}>
                 Register
               </Button>
             </div>
@@ -246,7 +246,7 @@ export default function Register() {
                 <Label htmlFor="otp">OTP</Label>
                 <Input id="otp" type="text" placeholder="Enter OTP" required value={otp} onChange={(e) => setOtp(e.target.value)} />
               </div>
-              <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center" onClick={verifyOtp}>
+              <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-[#2563EB] hover:bg-blue-400 justify-center" onClick={verifyOtp}>
                 Verify OTP
               </Button>
             </div>
@@ -313,11 +313,7 @@ export default function Register() {
                   </Select>
                 </FormControl>
               </div>
-              <Button
-                variant="outlined"
-                className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center"
-                onClick={completeProfile}
-              >
+              <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center" onClick={completeProfile}>
                 Complete Registration
               </Button>
             </div>
@@ -331,23 +327,25 @@ export default function Register() {
                   <span className="bg-background px-2 text-muted-foreground">Or sign Up with</span>
                 </div>
                 <br/>
-                <div className="grid grid-cols-2 gap-4">
-                  <Button variant="outline" className="flex items-center text-white h-10 rounded-md hover:bg-slate-800 bg-black justify-center">
-                    <LinkedinIcon className="mr-2 h-4 w-4" />
-                    Linkedin
-                  </Button>
-                  <Button variant="outline" className="flex items-center text-white h-10 rounded-md hover:bg-slate-800 bg-black border justify-center">
-                    <ChromeIcon className="mr-2 h-4 w-4" />
-                    Google
-                  </Button>
-                </div>
-              </>
-            )}
+              
+            
+          <div className="grid grid-cols-2 gap-4">
+            <Button variant="outline" className="flex items-center text-white h-10 rounded-md hover:bg-slate-800 bg-black justify-center">
+              <LinkedinIcon className="mr-2 h-4 w-4" />
+              Linkedin
+            </Button>
+            <Button variant="outline" className="flex items-center text-white h-10 rounded-md hover:bg-slate-800 bg-black border justify-center">
+              <ChromeIcon className="mr-2 h-4 w-4" />
+              Google
+            </Button>
+          </div>
+          </>
+             )}
           </div>
           <div className="flex justify-center mt-4"> {/* Center the text */}
             <p className="text-center">
               Already have an account?
-              <Link to="/login" className="text-blue-500 hover:underline"> Sign In</Link>
+              <Link to="/login" className="text-[#2563EB] hover:underline"> Sign In</Link>
             </p>
           </div>
         </div>

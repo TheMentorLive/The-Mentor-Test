@@ -29,7 +29,7 @@ export default function Live() {
             },
           ].map((item, index) => (
             <div key={index} className="max-w-md mx-auto border rounded-lg shadow-lg flex flex-col justify-between">
-              <div className="flex flex-col items-center justify-center h-[250px] rounded-lg bg-blue-500">
+              <div className="flex flex-col items-center justify-center h-[250px] rounded-lg bg-[#2563EB]">
                 {/* <img
                   src={item.imgSrc}
                   alt={item.title}
