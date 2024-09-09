@@ -267,75 +267,77 @@ export default function Register() {
           )}
 
           {/* Step 3: Full Name, Contact, and Qualification (if OTP verified) */}
-          {otpVerified && (
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="fullname">Full Name</Label>
-                <Input
-                  id="fullname"
-                  placeholder="John Doe"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="contact">Contact</Label>
-                <Input
-                  id="contact"
-                  type="text"
-                  placeholder="+91-xxxxxxxx"
-                  required
-                  value={contact}
-                  onChange={(e) => setContact(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <FormControl fullWidth>
-                  <InputLabel id="qualification-label">Highest Qualification</InputLabel>
-                  <Select
-                    labelId="qualification-label"
-                    id="qualification"
-                    value={qualification}
-                    onChange={(e) => setQualification(e.target.value)}
-                    required
-                  >
-                    {qualifications.map((qual, index) => (
-                      <MenuItem key={index} value={qual}>
-                        {qual}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </div>
+{otpVerified && (
+  <div className="space-y-4">
+    <div className="space-y-2">
+      <Label htmlFor="fullname">Full Name</Label>
+      <Input
+        id="fullname"
+        placeholder="John Doe"
+        required
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+    </div>
+    <div className="space-y-2">
+      <Label htmlFor="contact">Contact</Label>
+      <Input
+        id="contact"
+        type="text"
+        placeholder="+91-xxxxxxxx"
+        required
+        value={contact}
+        onChange={(e) => setContact(e.target.value)}
+      />
+    </div>
+    <div className="space-y-2">
+      <FormControl fullWidth>
+        <InputLabel id="qualification-label">Highest Qualification</InputLabel>
+        <Select
+          labelId="qualification-label"
+          id="qualification"
+          value={qualification}
+          onChange={(e) => setQualification(e.target.value)}
+          required
+        >
+          {/* Qualification options */}
+          <MenuItem value="Completed Post Graduation">Completed Post Graduation</MenuItem>
+          <MenuItem value="Passed Graduation">Passed Graduation</MenuItem>
+          <MenuItem value="In Graduation">In Graduation</MenuItem>
+          <MenuItem value="Class 12 - Class 10">Class 12 - Class 10</MenuItem>
+          <MenuItem value="Class 10 & Below">Class 10 & Below</MenuItem>
+        </Select>
+      </FormControl>
+    </div>
+    <div className="space-y-2">
+      <FormControl fullWidth>
+        <InputLabel id="interest-label">Area of Interest</InputLabel>
+        <Select
+          labelId="interest-label"
+          id="interest"
+          value={interest}
+          onChange={(e) => setInterest(e.target.value)}
+          required
+        >
+          {/* Area of interest options */}
+          <MenuItem value="Counselling">Counselling</MenuItem>
+          <MenuItem value="Courses">Courses</MenuItem>
+          <MenuItem value="Test Series">Test Series</MenuItem>
+          <MenuItem value="Govt Exam Prep">Govt Exam Prep</MenuItem>
+          <MenuItem value="Study Abroad">Study Abroad</MenuItem>
+        </Select>
+      </FormControl>
+    </div>
+    <Button
+      variant="outlined"
+      className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center"
+      onClick={completeProfile}
+    >
+      Complete Registration
+    </Button>
+  </div>
+)}
 
-              <div className="space-y-2">
-                <FormControl fullWidth>
-                  <InputLabel id="interest-label">Area of Interest</InputLabel>
-                  <Select
-                    labelId="interest-label"
-                    id="interest"
-                    value={interest}
-                    onChange={(e) => setInterest(e.target.value)}
-                    required
-                  >
-                    {interests.map((int, index) => (
-                      <MenuItem key={index} value={int}>
-                        {int}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </div>
-              <Button
-                variant="outlined"
-                className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center"
-                onClick={completeProfile}
-              >
-                Complete Registration
-              </Button>
-            </div>
-          )}
 
           <div className="flex justify-center mt-4"> {/* Center the text */}
             <p className="text-center">
