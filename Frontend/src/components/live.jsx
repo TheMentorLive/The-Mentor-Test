@@ -7,7 +7,7 @@ export default function Live() {
           <h2 className="text-3xl font-bold">What we Offer?</h2>
           <br />
           <br />
-          <h3 className="mt-4 ml-96 text-2xl font-semibold text-black lg:text-left lg:ml-36">
+          <h3 className="mt-4 text-2xl font-semibold text-black lg:text-left lg:ml-32">
             Live - Counselling and Mentorship
           </h3>
         </div>
@@ -33,7 +33,7 @@ export default function Live() {
           ].map((item, index) => (
             <div key={index} className="max-w-md mx-auto border rounded-lg shadow-lg flex flex-col justify-between">
               <div className="p-4 flex-grow">
-                <div className="mb-4">
+                <div className="mb-5">
                   <img
                     src={item.imgSrc}
                     alt={item.title}

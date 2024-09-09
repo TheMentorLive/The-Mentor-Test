@@ -44,24 +44,21 @@ const Header = () => {
 
     return (
         <div className="items-center flex justify-center">
-            <header className={`fixed top-0 left-0 w-full bg-white shadow-md z-50`}>
+            <header className={`fixed top-0 left-0 w-full bg-white  z-50`}>
                 <div className="flex items-center md:mt-2 lg:mt-2 md:mb-2 lg:mb-2 justify-between py-2 px-4">
                     <Link to="/" className="md:flex hidden lg:flex md:ml-[170px]">
                         <img src="/logo.webp" alt="Logo" className="h-11 w-auto" />
                     </Link>
                     <nav className="hidden lg:flex text-sm justify-center items-center">
-                        <Link to="/" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                            <HomeRoundedIcon />
-                            <span>Home</span>
-                        </Link>
+                        
                         <Link to="/courses" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
                             <span>Courses</span>
                         </Link>
                         {!isLoggedIn && (
                             <>
-                                <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                                {/* <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
                                     <span>Pricing</span>
-                                </Link>
+                                </Link> */}
                                 <Link to="/support" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
                                     <span>Support</span>
                                 </Link>
@@ -77,9 +74,7 @@ const Header = () => {
                                 </Link>
                             </>
                         )}
-                        <Link to="/upcoming-test" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                            <span>Upcoming Test</span>
-                        </Link>
+                        
                         {isLoggedIn && <DropdownMenu isLoggedIn={isLoggedIn} />}
                     </nav>
                     {!isLoggedIn && (
