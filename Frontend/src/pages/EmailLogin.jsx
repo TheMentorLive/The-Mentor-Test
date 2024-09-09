@@ -14,8 +14,8 @@ function Button({ variant = "default", size = "medium", children, ...props }) {
   const sizeStyles = size === "icon"
     ? "p-2"
     : size === "small"
-    ? "py-1 px-3"
-    : "py-2 px-4";
+      ? "py-1 px-3"
+      : "py-2 px-4";
 
   return (
     <button className={`${baseStyles} ${variantStyles} ${sizeStyles}`} {...props}>
@@ -133,7 +133,7 @@ function MenuIcon(props) {
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [googleLoading, setGoogleLoading] = useState(false); 
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [linkedInLoading, setLinkedInLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -143,18 +143,18 @@ export default function Login() {
       toast.error('Please enter both email and password.');
       return;
     }
-  
+
     toast.info('Logging in...', { autoClose: 3000 });
-  
+
     try {
       const response = await axios.post(`${API_BASE_URL}auth/login`, { email, password });
-      console.log("datatatta",response.data); // Log response data to check its structure
-  
+      console.log("datatatta", response.data); // Log response data to check its structure
+
       if (response.data) {
         // Store token and user details in local storage
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user', JSON.stringify(response.data.user)); // Ensure user object exists
-  
+
         toast.success('Login successful!');
         navigate('/'); // Redirect to dashboard or another page
       } else {
@@ -165,7 +165,7 @@ export default function Login() {
       console.error('Error during login:', error);
     }
   };
-  
+
 
   // Handle Google login
   const handleGoogleLogin = () => {
@@ -184,14 +184,14 @@ export default function Login() {
   // Handle LinkedIn login
   const handleLinkedinLogin = () => {
     setLinkedInLoading(true);
-      try {
-        window.location.href = `${API_BASE_URL}auth/linkedin`;
-      }  catch (error) {
-        console.error('linkedin Login Error:', error);
-        setError('An error occurred during linkein login');
-      } finally {
-        setLinkedInLoading(false);
-      }
+    try {
+      window.location.href = `${API_BASE_URL}auth/linkedin`;
+    } catch (error) {
+      console.error('linkedin Login Error:', error);
+      setError('An error occurred during linkein login');
+    } finally {
+      setLinkedInLoading(false);
+    }
   };
 
   return (
@@ -226,33 +226,33 @@ export default function Login() {
               </div>
               <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
-            <br/>
+            <br />
             <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-[#2563EB] hover:bg-blue-400 justify-center" onClick={handleLogin}>
               Sign in
             </Button>
           </div>
           <div className="relative">
-            
+
             <div className="relative flex justify-center rounded-md text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">Or sign in with</span>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black hover:bg-slate-800 justify-center" onClick={handleLinkedinLogin}>
+            <Button variant="outline" className="flex items-center text-black  h-10 rounded-md hover:bg-slate-100 bg-white border border-blue-500 justify-center">
               <LinkedinIcon className="mr-2 h-4 w-4" />
               Linkedin
             </Button>
-            <Button variant="outline" className="flex items-center text-white h-10 rounded-md bg-black hover:bg-slate-800  justify-center" onClick={handleGoogleLogin}>
+            <Button variant="outline" className="flex items-center text-black  h-10 rounded-md hover:bg-slate-100 bg-white border border-blue-500 justify-center">
               <ChromeIcon className="mr-2 h-4 w-4" />
               Google
             </Button>
           </div>
           <div className="flex justify-center mt-4"> {/* Center the text */}
-        <p className="text-center">
-          Don't have an account?
-          <Link to="/register" className="text-[#2563EB] hover:underline"> Sign Up</Link>
-        </p>
-      </div>
+            <p className="text-center">
+              Don't have an account?
+              <Link to="/register" className="text-[#2563EB] hover:underline"> Sign Up</Link>
+            </p>
+          </div>
         </div>
       </div>
       {/* <div className="flex items-start justify-center bg-muted lg:hidden">
