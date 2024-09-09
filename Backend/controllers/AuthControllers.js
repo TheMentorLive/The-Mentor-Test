@@ -180,32 +180,14 @@ const googleCallback = (req, res) => {
         return res.status(500).json({ error: 'Login failed' });
       }
 
-      // Set token in a cookie
-      res.cookie("token", token, {
-        httpOnly: true,
-        sameSite: "None",
-        secure: true, // Ensure this is true if using HTTPS
-        maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
-      });
+      // Construct the redirect URL with the token and user ID
+      const redirectUrl = `https://www.genailearning.in/auth/callback?token=${token}&id=${user._id}&role=${user.role}`;
 
-      // Optionally set additional user details in a cookie
-      res.cookie("user", JSON.stringify({
-        id: user._id,
-        role: user.role,
-        email: user.email
-      }), {
-        httpOnly: false, // This cookie is not httpOnly, so it can be accessed via JavaScript if needed
-        sameSite: "None",
-        secure: true, // Ensure this is true if using HTTPS
-        maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
-      });
-
-      // Redirect to the frontend application
-      res.redirect('https://www.genailearning.in/auth/callback');
+      // Redirect to the frontend application with the token in the query parameters
+      res.redirect(redirectUrl);
     });
   })(req, res);
 };
-
 
 
 // linked in
