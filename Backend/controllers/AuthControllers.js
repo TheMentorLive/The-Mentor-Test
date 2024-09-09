@@ -162,32 +162,43 @@ const googlelogin = (req, res, next) => {
 
 
 // Google Callback
-const googleCallback = (req, res) => {
-  passport.authenticate('google', (err, userObj) => {
+const googleCallback = async (req, res) => {
+  passport.authenticate('google', { session: false }, async (err, user, info) => {
     if (err) {
       console.error('Authentication error:', err);
       return res.status(500).json({ error: 'Authentication failed' });
     }
-    if (!userObj) {
+    if (!user) {
       return res.status(400).json({ error: 'User not found' });
     }
 
-    const { user, token } = userObj;  // Destructure user and token from the returned object
+    try {
+      // Generate JWT token here
+      const token = jwt.sign(
+        { id: user._id, email: user.email, role: user.role }, 
+        JWT_SECRET, 
+        { expiresIn: '1h' }
+      );
 
-    req.logIn(user, (err) => {
-      if (err) {
-        console.error('Login error:', err);
-        return res.status(500).json({ error: 'Login failed' });
-      }
+      req.logIn(user, (err) => {
+        if (err) {
+          console.error('Login error:', err);
+          return res.status(500).json({ error: 'Login failed' });
+        }
 
-      // Construct the redirect URL with the token and user ID
-      const redirectUrl = `https://genailearning.in/auth/callback?token=${token}&id=${user._id}&role=${user.role}`;
-
-      // Redirect to the frontend application with the token in the query parameters
-      res.redirect(redirectUrl);
-    });
+        // Construct the redirect URL with the token and user information
+        const redirectUrl = `https://www.genailearning.in/auth/callback?token=${token}&id=${user._id}&role=${user.role}`;
+        
+        // Redirect to the frontend application with the token in the query parameters
+        res.redirect(redirectUrl);
+      });
+    } catch (error) {
+      console.error('Error generating token or logging in:', error);
+      res.status(500).json({ error: 'Server error during token generation or login' });
+    }
   })(req, res);
 };
+
 
 
 // linked in
