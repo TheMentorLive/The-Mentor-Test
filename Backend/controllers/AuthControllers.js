@@ -325,7 +325,8 @@ const verifyOtp = async (req, res) => {
 };
 
 const completeProfile = async (req, res) => {
-  const { email, name, contact, qualification } = req.body;
+
+  const { email, name, contact, qualification, interest } = req.body;
 
   try {
     // Find the user by email
@@ -339,14 +340,40 @@ const completeProfile = async (req, res) => {
     user.name = name || user.name;
     user.contact = contact || user.contact;
     user.qualification = qualification || user.qualification;
+    user.interest = interest || user.interest;
 
     // Save the updated profile information
     await user.save();
 
-    return res.status(200).json({ success: true, message: 'Profile completed successfully' });
+    // Log user object to debug
+ 
+
+    // Generate a JWT token
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' } // Adjust token expiration as needed
+    );
+
+    // Respond with success and include token and user data
+    res.status(200).json({
+      success: true,
+      message: 'Profile completed successfully',
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        contact: user.contact,
+        qualification: user.qualification,
+        interest: user.interest,
+        role:user.role
+      }
+    });
+  
   } catch (error) {
     console.error('Error during profile completion:', error);
-    return res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
+    res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
   }
 };
 

@@ -31,6 +31,7 @@ passport.use(
         isVerified: true,
         isEmailVerified: true,
         otp: null,
+        password:"wertyui124"
       }).save();
 
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
