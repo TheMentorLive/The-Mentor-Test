@@ -176,7 +176,7 @@ const googleCallback = async (req, res) => {
       // Generate JWT token here
       const token = jwt.sign(
         { id: user._id, email: user.email, role: user.role }, 
-        JWT_SECRET, 
+        process.env.JWT_SECRET, 
         { expiresIn: '1h' }
       );
 
