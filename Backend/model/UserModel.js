@@ -31,6 +31,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         trim: true, // Remove extra spaces
     },
+    interest: {
+        type: String,
+        trim: true, // Remove extra spaces
+    },
     otp: { 
         type: String,
         trim: true, // Remove extra spaces

@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { API_BASE_URL } from '../constants/ApiConstants';
 import axios from 'axios';
+import { qualifications, interests } from '../constants/qualification-intrest-data'; 
+import { FormControl, InputLabel, MenuItem, Select, Button as MUIButton } from '@mui/material';
 
 // Button component (reuse)
 function Button({ variant = "default", size = "medium", children, ...props }) {
@@ -78,6 +80,7 @@ export default function Register() {
   const [otp, setOtp] = useState('');
   const [contact, setContact] = useState('');
   const [qualification, setQualification] = useState('');
+  const [interest, setInterest] = useState(''); // Fixed to singular for single selection
 
   // Error handling state
   const [error, setError] = useState(null);
@@ -99,7 +102,7 @@ export default function Register() {
   // Register User
   const registerUser = async () => {
     if (!validateForm()) return;
-    toast.info('Registering user...', { autoClose: false });
+    toast.info('Registering user...', { autoClose: 3000 });
     try {
       const response = await axios.post(`${API_BASE_URL}auth/register`, {
         name,
@@ -127,7 +130,7 @@ export default function Register() {
   // Verify OTP
   const verifyOtp = async () => {
     if (!validateForm()) return;
-    toast.info('Verifying OTP...', { autoClose: false });
+    toast.info('Verifying OTP...', { autoClose: 3000 });
     try {
       const response = await axios.post(`${API_BASE_URL}auth/verify-otp`, { email, otp });
       if (response.data.success) {
@@ -146,34 +149,41 @@ export default function Register() {
   // Complete Profile
   const completeProfile = async () => {
     if (!validateForm()) return;
-
+  
     // Check if user is attempting to complete the profile without additional data
     const isDataIncomplete = !contact || !qualification;
-
+  
     // Display loading toast
-    toast.info('Completing profile...', { autoClose: false });
-
+    toast.info('Completing profile...', { autoClose: 3000 });
+  
     try {
       const response = await axios.post(`${API_BASE_URL}auth/complete-profile`, {
         email,
         name,
         contact,
         qualification,
+        interest, // Added interest to the profile completion data
       });
-
+  
+      console.log("ajk",response.data);
+  
       if (response.data.success) {
+        // Store the token and user data in localStorage
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+  
         // Success scenario: check if data was incomplete
         if (isDataIncomplete) {
           // Prompt user to confirm completing registration without additional data
           if (window.confirm('You are completing the registration without providing additional details. Do you want to proceed?')) {
             toast.success('Profile completed successfully!');
-            navigate("/login");
+            navigate("/login"); // Redirect to login
           } else {
             toast.dismiss(); // Dismiss the loading toast
           }
         } else {
           toast.success('Profile completed successfully!');
-          navigate("/login");
+          navigate("/"); // Redirect to home
         }
       } else {
         setError(response.data.message);
@@ -184,6 +194,7 @@ export default function Register() {
       toast.error('Profile completion failed. Please try again.');
     }
   };
+  
 
   return (
     <div className="grid w-full min-h-screen grid-cols-1 lg:grid-cols-2">
@@ -241,22 +252,68 @@ export default function Register() {
             </div>
           )}
 
-          {/* Step 3: Fullname, Contact, and Qualification (if OTP verified) */}
+          {/* Step 3: Full Name, Contact, and Qualification (if OTP verified) */}
           {otpVerified && (
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="fullname">Full Name</Label>
-                <Input id="fullname" placeholder="John Doe" required value={name} onChange={(e) => setName(e.target.value)} />
+                <Input
+                  id="fullname"
+                  placeholder="John Doe"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="contact">Contact</Label>
-                <Input id="contact" type="text" placeholder="1234567890" required value={contact} onChange={(e) => setContact(e.target.value)} />
+                <Input
+                  id="contact"
+                  type="text"
+                  placeholder="+91-xxxxxxxx"
+                  required
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
+                />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="qualification">Highest Qualification</Label>
-                <Input id="qualification" type="text" placeholder="Bachelor's, Master's, etc." required value={qualification} onChange={(e) => setQualification(e.target.value)} />
+                <FormControl fullWidth>
+                  <InputLabel id="qualification-label">Highest Qualification</InputLabel>
+                  <Select
+                    labelId="qualification-label"
+                    id="qualification"
+                    value={qualification}
+                    onChange={(e) => setQualification(e.target.value)}
+                    required
+                  >
+                    {qualifications.map((qual, index) => (
+                      <MenuItem key={index} value={qual}>
+                        {qual}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
-              <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-[#2563EB] hover:bg-blue-400 justify-center" onClick={completeProfile}>
+
+              <div className="space-y-2">
+                <FormControl fullWidth>
+                  <InputLabel id="interest-label">Area of Interest</InputLabel>
+                  <Select
+                    labelId="interest-label"
+                    id="interest"
+                    value={interest}
+                    onChange={(e) => setInterest(e.target.value)}
+                    required
+                  >
+                    {interests.map((int, index) => (
+                      <MenuItem key={index} value={int}>
+                        {int}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+              <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-blue-500 hover:bg-blue-400 justify-center" onClick={completeProfile}>
                 Complete Registration
               </Button>
             </div>
@@ -266,7 +323,22 @@ export default function Register() {
             {!(step === 2 && !otpVerified) && ( // Only show when not in OTP phase
               <>
                
-                
+                <div variant="outline" className="relative flex justify-center rounded-md text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">Or sign Up with</span>
+                </div>
+                <br/>
+              
+            
+          <div className="grid grid-cols-2 gap-4">
+            <Button variant="outline" className="flex items-center text-white h-10 rounded-md hover:bg-slate-800 bg-black justify-center">
+              <LinkedinIcon className="mr-2 h-4 w-4" />
+              Linkedin
+            </Button>
+            <Button variant="outline" className="flex items-center text-white h-10 rounded-md hover:bg-slate-800 bg-black border justify-center">
+              <ChromeIcon className="mr-2 h-4 w-4" />
+              Google
+            </Button>
+          </div>
           </>
              )}
           </div>
@@ -276,7 +348,6 @@ export default function Register() {
               <Link to="/login" className="text-[#2563EB] hover:underline"> Sign In</Link>
             </p>
           </div>
-
         </div>
       </div>
 
@@ -293,3 +364,4 @@ export default function Register() {
     </div>
   );
 }
+
