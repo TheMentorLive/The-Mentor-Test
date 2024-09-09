@@ -22,7 +22,7 @@ export default function More() {
     },
     {
       text: "GenAi Learning.",
-      className: "text-blue-500 dark:text-blue-500 text-lg sm:text-3xl md:text-5xl",
+      className: "text-[#2563EB] dark:text-[#2563EB] text-lg sm:text-3xl md:text-5xl",
     },
   ];
 
@@ -47,7 +47,7 @@ export default function More() {
           <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
         </button>
         <Link to="/login">
-          <button className="w-full sm:w-40 h-10 rounded-xl bg-white text-black border border-blue-500 text-sm">
+          <button className="w-full sm:w-40 h-10 rounded-xl bg-white text-black border border-[#2563EB] text-sm">
             Signup
           </button>
         </Link>
