@@ -265,12 +265,11 @@ export default function Register() {
           <div className="relative">
             {!(step === 2 && !otpVerified) && ( // Only show when not in OTP phase
               <>
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
+               
                 <div variant="outline" className="relative flex justify-center rounded-md text-xs uppercase">
                   <span className="bg-background px-2 text-muted-foreground">Or sign Up with</span>
                 </div>
+                <br/>
               
             
           <div className="grid grid-cols-2 gap-4">
