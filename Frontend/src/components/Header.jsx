@@ -143,7 +143,7 @@ const Header = () => {
                                 <Link to="/support" className="block py-2 px-4 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
                                     Support
                                 </Link>
-                                <Link to="/login" className="block py-2 px-4 font-semibold text-blue-500 hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
+                                <Link to="/login" className="block py-2 px-4 font-semibold text-[#2563EB] hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
                                     Get Started
                                 </Link>
                             </>

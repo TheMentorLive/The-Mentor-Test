@@ -60,7 +60,7 @@ const Settings = () => {
                   onChange={handleDataSharingChange}
                   aria-label="data sharing"
                 >
-                  <ToggleButton value="enabled" className="bg-blue-500 text-white hover:bg-blue-600">
+                  <ToggleButton value="enabled" className="bg-[#2563EB] text-white hover:bg-blue-600">
                     Enable
                   </ToggleButton>
                   <ToggleButton value="disabled" className="bg-gray-500 text-white hover:bg-gray-600">

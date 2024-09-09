@@ -4,7 +4,7 @@ const PageInProgress = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4 py-12">
       <div className="max-w-md text-center bg-white p-6 rounded-lg shadow-lg">
-        <div className="animate-spin mx-auto mb-4 h-16 w-16 text-blue-500">
+        <div className="animate-spin mx-auto mb-4 h-16 w-16 text-[#2563EB]">
           {/* Loader Circle Icon */}
           <svg
             className="h-full w-full"
@@ -32,7 +32,7 @@ const PageInProgress = () => {
           {/* Go to Homepage Link */}
           <Link
             to="/admin"
-            className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
           >
             Go to Dashboard
           </Link>
