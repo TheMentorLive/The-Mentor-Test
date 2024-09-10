@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef, useContext } from "react";
 import { mainContext } from "../../context/mainContex";
-import Banner from "../../components/userComponent/Banner";
+// import Banner from "../../components/userComponent/Banner";
 import Live from "../../components/live";
 import Courses from "../../components/courses";
 import Cmpnycarousel from "../../components/cmpny-carousel";
 import Contact from "../../components/contact";
-// import Login from "../login";
+import Login from "../login";
 // import Examss from "../../components/exams";
 // import Subject from "../../components/userComponent/landingpageComponents/SubjectComponent";
 import axios from "axios";
@@ -67,12 +67,13 @@ const Landingpage = () => {
       <main className="">
     
         
-        <Banner/>
+        {/* <Banner/> */}
+        <Login/>
         {/* <Subject/> */}
         {/* <Analytics/> */}
         {/* <Dashboard/> */}
         <Cmpnycarousel/>
-        {/* <Login/> */}
+        
         <Live/>
         <Courses/>
         <Contact/>

@@ -27,7 +27,7 @@ const AppRoutes = () => {
 
       return (
         <>
-          <Header />
+          {!isLoggedIn&&<Header />}
           <div className={`layout ${isLoggedIn ? 'sidebar-visible' : ''}`}>
             {isLoggedIn && <Sidebar className="sidebar" />}
             <main className="content pt-[80px]"> {/* Adjust padding based on header height */}
