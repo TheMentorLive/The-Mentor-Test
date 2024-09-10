@@ -84,7 +84,7 @@ const Header = () => {
                     </nav>
                     {!isLoggedIn && (
                         <>
-                        <Link to="/login" className="hidden md:-mr-[300px]  lg:block py-[7px] text-md px-4 border border-blue-600 text-blue-600 hover:bg-blue-800 hover:text-white rounded-lg transition-colors duration-300">
+                        <Link to="/login" className="hidden md:-mr-[295px]  lg:block py-[7px] text-md px-4 border border-blue-600 text-blue-600 hover:bg-blue-800 hover:text-white rounded-lg transition-colors duration-300">
                             Log In
                         </Link>
                         <Link to="/register" className="hidden md:mr-[170px]  lg:block py-[7px] text-md px-4 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
