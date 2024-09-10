@@ -57,6 +57,9 @@ const Header = () => {
                                 <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
                                     <span>Learn</span>
                                 </Link>
+                                <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                                    <span>Jobs</span>
+                                </Link>
                                 
                         {!isLoggedIn && (
                             <>

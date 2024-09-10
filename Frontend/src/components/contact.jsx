@@ -20,7 +20,7 @@ export default function Contact() {
   );
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen p-4 text-[#2563EB]">
+    <section className="flex flex-col items-center justify-center mt-40 mb-40 p-4 text-[#2563EB]">
       <Button variant="outline" className="mb-4">
         Get Started
       </Button>
