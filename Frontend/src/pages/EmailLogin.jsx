@@ -198,9 +198,9 @@ export default function Login() {
     <div className="grid w-full min-h-screen grid-cols-1 lg:grid-cols-2">
       <div className="flex flex-col items-start justify-center bg-muted p-6 lg:p-10">
         <div className="mx-auto w-full max-w-[400px] space-y-6">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center  justify-between">
             <Link to="/" className="inline-flex  items-center gap-2">
-              <img src="/logo.webp" alt="Logo" className=" -mt-72 md:mt-auto lg:mt-auto h-12" />
+              <img src="/logo.webp" alt="Logo" className=" -mt-52  md:mt-auto lg:mt-auto h-12" />
             </Link>
             {/* <Button variant="ghost" size="icon">
               <MenuIcon className="h-6 w-6" />

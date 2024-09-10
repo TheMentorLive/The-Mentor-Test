@@ -231,7 +231,7 @@ export default function Register() {
         <div className="mx-auto w-full max-w-[400px] space-y-6">
           <div className="flex items-center justify-between">
             <Link to="/" className="inline-flex items-center gap-2">
-              <img src="/logo.webp" alt="Logo" className="-mt-96 md:mt-auto lg:mt-auto h-12" />
+              <img src="/logo.webp" alt="Logo" className=" md:mt-auto -mt-52 lg:mt-auto h-12" />
             </Link>
           </div>
           <br />

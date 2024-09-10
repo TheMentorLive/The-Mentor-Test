@@ -21,7 +21,7 @@ export default function Banner() {
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                <h1 className="text-3xl font-bold tracking-tighter text-[35px] xl:text-6xl/none">
                   Master the Future <br />
                   With <br />
                   GenAI Learning
