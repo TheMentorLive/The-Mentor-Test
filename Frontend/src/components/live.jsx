@@ -2,7 +2,7 @@ export default function Live() {
   return (
     <div className="items-center flex justify-center">
     <div className="items-center flex justify-center ml-2 mr-2">
-      <section className="py-16 mt-20 md:ml-20">
+      <section className="py-16 mt-10 md:ml-20">
         <div className="text-center">
           <h2 className="text-3xl font-bold">What we Offer?</h2>
           <br />
@@ -43,7 +43,7 @@ export default function Live() {
                     style={{ aspectRatio: "400/240", objectFit: "cover" }}
                   />
                 </div>
-                <div className="mb-4">
+                <div className="-mb-1">
                   <h4 className="text-lg font-bold">{item.title}</h4>
                   <p className="text-gray-500 mt-2 text-sm">{item.description}</p>
                 </div>

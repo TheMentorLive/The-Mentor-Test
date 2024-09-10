@@ -45,20 +45,22 @@ const Header = () => {
     return (
         <div className="items-center flex justify-center">
             <header className={`fixed top-0 left-0 w-full bg-white  z-50`}>
-                <div className="flex items-center md:mt-2 lg:mt-2 md:mb-2 lg:mb-2 justify-between py-2 px-4">
+                <div className="flex items-center md:mt-2 lg:mt-2 md:mb-2 lg:mb-2 justify-between py-4 px-4">
                     <Link to="/" className="md:flex hidden lg:flex md:ml-[170px]">
                         <img src="/logo.webp" alt="Logo" className="h-11 w-auto" />
                     </Link>
                     <nav className="hidden lg:flex text-sm justify-center items-center">
                         
-                        <Link to="/courses" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                            <span>Courses</span>
-                        </Link>
+                    <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                                    <span>Live</span>
+                                </Link>
+                                <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                                    <span>Learn</span>
+                                </Link>
+                                
                         {!isLoggedIn && (
                             <>
-                                {/* <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                                    <span>Pricing</span>
-                                </Link> */}
+                                
                                 <Link to="/support" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
                                     <span>Support</span>
                                 </Link>
@@ -78,9 +80,14 @@ const Header = () => {
                         {isLoggedIn && <DropdownMenu isLoggedIn={isLoggedIn} />}
                     </nav>
                     {!isLoggedIn && (
-                        <Link to="/login" className="hidden md:mr-[170px]  lg:block py-2 px-4 bg-blue-600 text-white hover:bg-blue-800 rounded transition-colors duration-300">
-                            Get Started
+                        <>
+                        <Link to="/login" className="hidden md:-mr-[300px]  lg:block py-[7px] text-md px-4 border border-blue-600 text-blue-600 hover:bg-blue-800 hover:text-white rounded-lg transition-colors duration-300">
+                            Log In
                         </Link>
+                        <Link to="/register" className="hidden md:mr-[170px]  lg:block py-[7px] text-md px-4 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
+                            Sign Up
+                        </Link>
+                        </>
                     )}
                 </div>
 
