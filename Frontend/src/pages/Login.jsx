@@ -16,7 +16,7 @@ export default function Component() {
 
   return (
     <React.Fragment>
-      <section className="py-12 ml-28 mr-16 md:py-24 lg:py-32 xl:py-48">
+      <section className=" ml-1 mt-10 md:mt-0 lg:mt-0 md:ml-40 md:mr-20 md:py-10 lg:py-12 flex justify-center items-center ">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
             <div className="flex flex-col justify-center space-y-4">
@@ -26,23 +26,23 @@ export default function Component() {
                   With <br />
                   GenAI Learning
                 </h1>
-                <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Give your team the toolkit to stop configuring and start
-                  innovating. Securely build, deploy, and scale the best web
-                  experiences.
+                <p className="max-w-[600px] text-gray-500 md:text-lg dark:text-gray-400">
+                Take your knowledge to the next level with our comprehensive test series and expertly designed courses.
                 </p>
               </div>
+              <Link to="/register">
               <button
                 type="submit"
                 className="w-full max-w-[200px] bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 rounded"
               >
                 Get Started
               </button>
+              </Link>
             </div>
             <div className="flex flex-col items-center justify-center space-y-4">
-              <div className="w-full max-w-md border border-gray-200 rounded-lg shadow-md">
+              <div className="w-full max-w-md border border-blue-200 rounded-lg shadow-md">
                 <div className="p-6">
-                  <h2 className="text-2xl font-bold">Get In Touch</h2>
+                  <h2 className="text-3xl font-bold">Get In Touch</h2>
                   
                 </div>
                 <div className="p-6 grid -mt-5 gap-4">
@@ -90,8 +90,12 @@ export default function Component() {
                       id="qualification"
                       value={qualification}
                       onChange={handleQualificationChange}
-                      className="w-full px-3 py-2 h-10 border border-gray-300 rounded-md "
+                      displayEmpty
+                      className="w-full px-3 py-2 h-10 border border-gray-200 rounded-md "
                     >
+                       <MenuItem value="" disabled>
+                        <p className="text-gray-400 -ml-2">Select an option</p> {/* Placeholder */}
+                      </MenuItem>
                       <MenuItem value="post-graduation">
                         Completed Post Graduation
                       </MenuItem>
@@ -118,17 +122,21 @@ export default function Component() {
                       id="interest"
                       value={interest}
                       onChange={handleInterestChange}
-                      className="w-full px-3 py-2 h-10 border border-gray-300 rounded-md "
+                      displayEmpty
+                      className="w-full px-3 py-2 h-10 border border-gray-200 rounded-md"
                     >
+                      <MenuItem value="" disabled>
+                        <p className="text-gray-400 -ml-2">Select an option</p> {/* Placeholder */}
+                      </MenuItem>
                       <MenuItem value="counselling">Counselling</MenuItem>
                       <MenuItem value="courses">Courses</MenuItem>
                       <MenuItem value="test-series">Test Series</MenuItem>
-                      <MenuItem value="govt-exam-prep">
-                        Govt Exam Prep
-                      </MenuItem>
+                      <MenuItem value="govt-exam-prep">Govt Exam Prep</MenuItem>
                       <MenuItem value="study-abroad">Study Abroad</MenuItem>
                     </Select>
                   </div>
+
+
                 </div>
                 <div className="p-6">
                   <button className="w-full bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 rounded">

@@ -45,52 +45,55 @@ const Header = () => {
     return (
         <div className="items-center flex justify-center">
             <header className={`fixed top-0 left-0 w-full bg-white  z-50`}>
-                <div className="flex items-center md:mt-2 lg:mt-2 md:mb-2 lg:mb-2 justify-between py-4 px-4">
-                    <Link to="/" className="md:flex hidden lg:flex md:ml-[170px]">
-                        <img src="/logo.webp" alt="Logo" className="h-11 w-auto" />
-                    </Link>
-                    <nav className="hidden lg:flex text-sm justify-center items-center">
-                        
-                    <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                                    <span>Live</span>
-                                </Link>
-                                <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                                    <span>Learn</span>
-                                </Link>
-                                <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                                    <span>Jobs</span>
-                                </Link>
-                                
-                        {!isLoggedIn && (
-                            <>
-                                
-                                <Link to="/support" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                                    <span>Support</span>
-                                </Link>
-                            </>
-                        )}
-                        {isLoggedIn && (
-                            <>
-                                <Link to="/subjects" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                                    <span>Subjects</span>
-                                </Link>
-                                <Link to="/test-history" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                                    <span>Test History</span>
-                                </Link>
-                            </>
-                        )}
-                        
-                        {isLoggedIn && <DropdownMenu isLoggedIn={isLoggedIn} />}
-                    </nav>
-                    {!isLoggedIn && (
-                        <>
-                        
-                        <Link to="/register" className="hidden md:mr-[170px]  lg:block py-[8px] text-md px-4 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
-                            Get Started
-                        </Link>
-                        </>
-                    )}
-                </div>
+            <div className="flex items-center md:mt-2 lg:mt-2 md:mb-2 lg:mb-2 justify-between py-4 px-4">
+    <Link to="/" className="md:flex hidden lg:flex md:ml-[170px]">
+        <img src="/logo.webp" alt="Logo" className="h-11 w-auto" />
+    </Link>
+    <nav className="hidden lg:flex text-sm justify-center items-center">
+        <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+            <span>Live</span>
+        </Link>
+        <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+            <span>Learn</span>
+        </Link>
+        <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+            <span>Jobs</span>
+        </Link>
+        
+        {!isLoggedIn && (
+            <>
+                <Link to="/support" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                    <span>Support</span>
+                </Link>
+            </>
+        )}
+        {isLoggedIn && (
+            <>
+                <Link to="/subjects" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                    <span>Subjects</span>
+                </Link>
+                <Link to="/test-history" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                    <span>Test History</span>
+                </Link>
+            </>
+        )}
+        
+        {isLoggedIn && <DropdownMenu isLoggedIn={isLoggedIn} />}
+    </nav>
+    {!isLoggedIn && (
+        <>
+            <div className="hidden md:flex space-x-2 md:mr-[170px]">
+                <Link to="/login" className="py-[8px] text-md px-4 bg-gray-200 text-gray-900 hover:bg-gray-300 border-blue-500 border rounded-lg transition-colors duration-300">
+                    Sign In
+                </Link>
+                <Link to="/register" className="py-[8px] text-md px-4 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
+                    Sign Up
+                </Link>
+            </div>
+        </>
+    )}
+</div>
+
 
 
 
@@ -147,7 +150,10 @@ const Header = () => {
                                     Support
                                 </Link>
                                 <Link to="/login" className="block py-2 px-4 font-semibold text-[#2563EB] hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
-                                    Get Started
+                                    Sign In
+                                </Link>
+                                <Link to="/register" className="block py-2 px-4 font-semibold text-[#2563EB] hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
+                                   Sign Up
                                 </Link>
                             </>
                         )}
