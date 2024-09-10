@@ -1,11 +1,31 @@
 .animate-name {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.2s ease, transform 0.5s ease;
-  }
-  
-  .animate-name.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.2s ease, transform 0.5s ease;
+}
+
+.animate-name.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* layout.css */
+.layout {
+display: flex;
+}
+
+.sidebar {
+width: 250px; /* Adjust based on your design */
+position: fixed;
+top: 0;
+left: 0;
+height: 100vh;
+background-color: #f4f4f4; /* Sidebar background color */
+}
+
+.content {
+margin-left: px; /* Same as sidebar width */
+
+flex: 1;
+overflow-x: hidden; /* Prevent horizontal scroll */
+}
