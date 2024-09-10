@@ -39,6 +39,13 @@ export default function Sidebar() {
     // Optionally redirect to login page or other page
   };
 
+  const handleLinkClick = (path) => {
+    navigate(path);
+    if (isMobile) {
+      setIsSidebarOpen(false); // Close sidebar on mobile when a link is clicked
+    }
+  };
+
   const isActive = (path) => location.pathname === path ? { backgroundColor: '#f0f0f0' } : {}; // Highlight active link
 
   return (
@@ -79,9 +86,8 @@ export default function Sidebar() {
           ].map((item, index) => (
             <ListItem 
               button 
-              component={Link} 
-              to={item.link} 
               key={index}
+              onClick={() => handleLinkClick(item.link)}
               sx={isActive(item.link)} // Apply active link style
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
