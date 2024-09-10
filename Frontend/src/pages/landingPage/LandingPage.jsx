@@ -6,6 +6,7 @@ import Live from "../../components/live";
 import Courses from "../../components/courses";
 import Cmpnycarousel from "../../components/cmpny-carousel";
 import Contact from "../../components/contact";
+// import Login from "../login";
 // import Examss from "../../components/exams";
 // import Subject from "../../components/userComponent/landingpageComponents/SubjectComponent";
 import axios from "axios";
@@ -71,6 +72,7 @@ const Landingpage = () => {
         {/* <Analytics/> */}
         {/* <Dashboard/> */}
         <Cmpnycarousel/>
+        {/* <Login/> */}
         <Live/>
         <Courses/>
         <Contact/>

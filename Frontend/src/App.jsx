@@ -13,7 +13,7 @@ import { mainContext } from './context/mainContex';
 import AdminFooter from './components/adminComponent/AdminFooter';
 import Header from './components/Header';
 import EmailOtpLogin from './pages/EmailLogin';
-// import Login from './pages/login';
+import Login from './pages/login';
 import AuthCallback from './hooks/AuthCallback';
 import ResetPassword from './pages/ResetPassword';
 
@@ -46,7 +46,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/register" element={<Register/>} />
           <Route path="/auth/callback" element={<AuthCallback/>} />
           <Route path="/login" element={<EmailOtpLogin/>} />
-          {/* <Route path="/loginn" element={<Login/>} /> */}
+          <Route path="/loginn" element={<Login/>} />
           <Route path="/reset-password" element={<ResetPassword/>} />
           
 

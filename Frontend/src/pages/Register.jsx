@@ -194,6 +194,35 @@ export default function Register() {
       toast.error('Profile completion failed. Please try again.');
     }
   };
+
+
+  
+  // Handle LinkedIn login
+  const handleLinkedinLogin = () => {
+    setLinkedInLoading(true);
+    try {
+      window.location.href = `${API_BASE_URL}auth/linkedin`;
+    } catch (error) {
+      console.error('linkedin Login Error:', error);
+      setError('An error occurred during linkein login');
+    } finally {
+      setLinkedInLoading(false);
+    }
+  };
+
+  // Handle Google login
+  const handleGoogleLogin = () => {
+    setGoogleLoading(true);
+    try {
+      // Redirect to backend Google OAuth route
+      window.location.href = `${API_BASE_URL}auth/google`;
+    } catch (error) {
+      toast.error('Google Login Error:', error);
+      toast('An error occurred during Google login');
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
   
 
   return (
@@ -202,7 +231,7 @@ export default function Register() {
         <div className="mx-auto w-full max-w-[400px] space-y-6">
           <div className="flex items-center justify-between">
             <Link to="/" className="inline-flex items-center gap-2">
-              <img src="/logo.webp" alt="Logo" className="-mt-56 md:mt-auto lg:mt-auto h-12" />
+              <img src="/logo.webp" alt="Logo" className="-mt-96 md:mt-auto lg:mt-auto h-12" />
             </Link>
           </div>
           <br />
@@ -241,14 +270,14 @@ export default function Register() {
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
-                  <Button variant="outline" className="flex items-center text-black  h-10 rounded-md hover:bg-slate-100 bg-white border border-blue-500 justify-center">
-                    <LinkedinIcon className="mr-2 h-4 w-4" />
-                    Linkedin
-                  </Button>
-                  <Button variant="outline" className="flex items-center text-black  h-10 rounded-md hover:bg-slate-100 bg-white border border-blue-500 justify-center">
-                    <ChromeIcon className="mr-2 h-4 w-4" />
-                    Google
-                  </Button>
+                <Button variant="outline" onClick={handleLinkedinLogin} className="flex items-center text-black  h-10 rounded-md hover:bg-slate-100 bg-white border border-blue-500 justify-center">
+              <LinkedinIcon className="mr-2 h-4 w-4" />
+              Linkedin
+            </Button>
+            <Button variant="outline" onClick={handleGoogleLogin} className="flex items-center text-black  h-10 rounded-md hover:bg-slate-100 bg-white border border-blue-500 justify-center">
+              <ChromeIcon className="mr-2 h-4 w-4" />
+              Google
+            </Button>
                 </div>
             </div>
           )}

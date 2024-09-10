@@ -24,10 +24,10 @@ const Footer = () => {
     { type: 'icon', icon: FaGithubSquare },
     { type: 'icon', icon: FaDribbbleSquare },
     // Footer sections
-    { type: 'section', title: 'Solutions', items: ['Analytics', 'Marketing', 'Commerce', 'Insights'] },
-    { type: 'section', title: 'Support', items: ['Pricing', 'Documentation', 'Guides', 'API Status'] },
-    { type: 'section', title: 'Company', items: ['About', 'Blog', 'Jobs', 'Press', 'Careers'] },
-    { type: 'section', title: 'Legal', items: ['Claim', 'Policy', 'Terms'] },
+    
+    { type: 'section', title: 'Support', items: ['Pricing', 'Documentation', 'Guides'] },
+    { type: 'section', title: 'Company', items: ['About', 'Blog', 'Jobs', 'Careers'] },
+    { type: 'section', title: 'Legal', items: [ 'Policy', 'Terms'] },
   ];
 
   // JSX structure of the footer
@@ -54,7 +54,7 @@ const Footer = () => {
           </div>
         </div>
         {/* Right section with footer content organized in sections */}
-        <div className="flex flex-col gap-20 md:flex-row md:justify-between">
+        <div className="flex flex-col gap-20 ml-16 md:flex-row md:justify-between">
           {/* Mapping over sections and rendering content */}
           {items.filter(item => item.type === 'section').map((item, index) => (
             <div key={index} className="flex-1">
