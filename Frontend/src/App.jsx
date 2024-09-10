@@ -4,7 +4,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
-import Footer from './components/Footer';
 import AppRoutes from './routes/Routes';
 import AdminRoutes from './routes/AdminRoutes';
 import Sidebar from './components/adminComponent/Sidebar';
@@ -118,7 +117,7 @@ function DefaultLayout() {
             
             <AppRoutes />
           </main>
-          <Footer />
+         
         </>
       ) : (
         <Navigate to="/admin" />

@@ -75,7 +75,7 @@ const TestLandingPage = () => {
             </li>
           </ol>
           <div className="flex space-x-6">
-            <Link to={`/test?id=1`}>
+            <Link to={`/test?id=${test._id}`}>
               <Button variant="contained" color="primary" className="bg-[#2563EB] text-white">Continue</Button>
             </Link>
             <Button variant="outlined" color="primary" className="border-[#2563EB] text-[#2563EB]">Try Sample Test</Button>
