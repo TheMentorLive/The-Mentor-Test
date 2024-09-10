@@ -47,7 +47,7 @@ const Header = () => {
             <header className={`fixed top-0 left-0 w-full bg-white  z-50`}>
             <div className="flex items-center md:mt-2 lg:mt-2 md:mb-2 lg:mb-2 justify-between py-4 px-4">
     <Link to="/" className="md:flex hidden lg:flex md:ml-[170px]">
-        <img src="/logo.webp" alt="Logo" className="h-11 w-auto" />
+        <img src="/logo.webp" alt="Logo" className="md:h-12 lg:h-12 w-auto" />
     </Link>
     <nav className="hidden lg:flex text-sm justify-center items-center">
         <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
