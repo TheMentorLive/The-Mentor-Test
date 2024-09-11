@@ -77,6 +77,8 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [linkedInLoading, setLinkedInLoading] = useState(false);
   const [otp, setOtp] = useState('');
   const [contact, setContact] = useState('');
   const [qualification, setQualification] = useState('');
