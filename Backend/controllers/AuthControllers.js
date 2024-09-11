@@ -1,4 +1,5 @@
 const User = require("../model/UserModel");
+const FormData= require("../model/FormData")
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 const dotenv = require("dotenv")
