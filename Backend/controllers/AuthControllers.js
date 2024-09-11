@@ -215,7 +215,7 @@ const linkedinCallback = (req, res, next) => {
 
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
- 
+
 
   try {
     // Check if user already exists
@@ -284,7 +284,7 @@ const registerUser = async (req, res) => {
       success: true,
       message: 'User registered, OTP sent to your email. Please verify your account.',
     });
-    
+
   } catch (error) {
     // Catch any server error
     console.error('Error during registration:', error);
@@ -308,7 +308,7 @@ const verifyOtp = async (req, res) => {
     if (user.otp === otp) {
       // Mark user as verified
       user.isVerified = true;
-      user.isEmailVerified=true;
+      user.isEmailVerified = true;
       user.otp = null;  // Clear the OTP after successful verification
 
       // Save the user's updated status
@@ -346,7 +346,7 @@ const completeProfile = async (req, res) => {
     await user.save();
 
     // Log user object to debug
- 
+
 
     // Generate a JWT token
     const token = jwt.sign(
@@ -367,10 +367,10 @@ const completeProfile = async (req, res) => {
         contact: user.contact,
         qualification: user.qualification,
         interest: user.interest,
-        role:user.role
+        role: user.role
       }
     });
-  
+
   } catch (error) {
     console.error('Error during profile completion:', error);
     res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
@@ -409,7 +409,7 @@ const loginUser = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user._id, role: user.role,name:user.name },
+      { id: user._id, role: user.role, name: user.name },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -421,7 +421,7 @@ const loginUser = async (req, res) => {
         username: user.username,
         email: user.email,
         role: user.role,
-        name:user.name
+        name: user.name
       }
     });
 
@@ -469,9 +469,7 @@ const restpassword = async (req, res) => {
 };
 
 
-const restpasswordOtp= async(req,res)=>{
 
-}
 
 const verifyResetOtp = async (req, res) => {
   const { otp, email } = req.body;
@@ -528,6 +526,41 @@ const setPassword = async (req, res) => {
 };
 
 
+const Form = async (req, res) => {
+
+
+  const { email, phone, qualification, interest } = req.body;
+
+  try {
+    // Check if form data with the same email and phone already exists
+    const existingFormData = await FormData.findOne({ email, phone });
+
+    if (existingFormData) {
+      // If data exists, update only the fields that have changed
+      existingFormData.qualification = qualification || existingFormData.qualification;
+      existingFormData.interest = interest || existingFormData.interest;
+
+      // Save the updated document
+      await existingFormData.save();
+      return res.status(200).json({ message: 'Form data updated successfully' });
+    }
+
+    // If no data exists, create a new document
+    const newFormData = new FormData({
+      email,
+      phone,
+      qualification,
+      interest,
+    });
+
+    // Save the new document to the database
+    await newFormData.save();
+    res.status(201).json({ message: 'Form data saved successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to save or update form data' });
+  }
+};
+
 
 
 
@@ -547,6 +580,7 @@ module.exports = {
 
   restpassword,
   verifyResetOtp,
-  setPassword
+  setPassword,
+  Form
 
 }
