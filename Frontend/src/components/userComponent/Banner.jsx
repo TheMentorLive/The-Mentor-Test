@@ -188,9 +188,8 @@ export default function Banner() {
                       <MenuItem value="study-abroad">Study Abroad</MenuItem>
                     </Select>
                   </div>
-
                   {/* Submit Button */}
-                  <div className="p-6">
+                  <div className="mt-4">
                     <button
                       type="submit" className="w-full bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 rounded">
                       Send

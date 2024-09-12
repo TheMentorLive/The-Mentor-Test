@@ -2,9 +2,9 @@ export default function Live() {
   return (
     <div className="items-center flex justify-center">
       <div className="items-center flex justify-center ml-2 mr-2">
-        <section className="py-16 mt-10 md:ml-20">
-          <div className="text-center ml-2 mr-2">
-            <h3 className="md:mt-4 md:ml-96 text-2xl font-semibold text-black lg:text-left lg:ml-32">
+        <section className=" mt-7 mb-10 md:ml-20">
+          <div className="text-center  mr-2">
+            <h3 className="md:mt-4 md:ml-96 text-[25px] font-semibold text-black lg:text-left lg:ml-32">
               Learn - AI - Enabled Courses and Resources
             </h3>
           </div>
