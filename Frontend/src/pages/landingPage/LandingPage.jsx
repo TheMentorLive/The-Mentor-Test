@@ -4,6 +4,9 @@ import { mainContext } from "../../context/mainContex";
 import Banner from "../../components/userComponent/Banner";
 import Live from "../../components/live";
 import Courses from "../../components/courses";
+import Cards from "./cards";
+import Tseries from "./tseries";
+import Mentorship from "./mentorship";
 import Cmpnycarousel from "../../components/cmpny-carousel";
 import Contact from "../../components/contact";
 // import Login from "../login";
@@ -68,14 +71,16 @@ const Landingpage = () => {
     
         
         <Banner/>
-        {/* <Login/> */}
         {/* <Subject/> */}
         {/* <Analytics/> */}
         {/* <Dashboard/> */}
         <Cmpnycarousel/>
+        <Cards/>
         
         <Live/>
         <Courses/>
+        <Tseries/>
+        <Mentorship/>
         <Contact/>
         {/* <Examss/> */}
         {/* <More/> */}

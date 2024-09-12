@@ -22,10 +22,18 @@ module.exports = {
     },
   },
   plugins: [
-    // Additional plugins
+    // Plugin to hide scrollbars
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.scrollbar-hide': {
+          '-ms-overflow-style': 'none',  /* Internet Explorer 10+ */
+          'scrollbar-width': 'none',     /* Firefox */
+        },
+        '.scrollbar-hide::-webkit-scrollbar': {
+          display: 'none',               /* Webkit browsers */
+        },
+      }
+      addUtilities(newUtilities)
+    },
   ],
 };
-
-
-
-
