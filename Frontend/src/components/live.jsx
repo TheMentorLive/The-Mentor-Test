@@ -2,12 +2,12 @@ export default function Live() {
   return (
     <div className="items-center flex justify-center">
     <div className="items-center flex justify-center ml-2 mr-2">
-      <section className="py-16 mt-10 md:ml-20">
+      <section className="py-16 mt-16 md:ml-20">
         <div className="text-center">
-          <h2 className="text-3xl font-bold">What we Offer?</h2>
+          <h2 className="text-4xl font-bold">What we Offer?</h2>
           <br />
           <br />
-          <h3 className="mt-4 text-2xl font-semibold text-black lg:text-left lg:ml-32">
+          <h3 className="mt-4 text-[25px] font-semibold text-black lg:text-left lg:ml-32">
             Live - Counselling and Mentorship
           </h3>
         </div>

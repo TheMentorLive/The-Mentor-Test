@@ -46,7 +46,7 @@ export default function Sidebar() {
     }
   };
 
-  const isActive = (path) => location.pathname === path ? { backgroundColor: '#f0f0f0' } : {}; // Highlight active link
+  const isActive = (path) => location.pathname === path ? { backgroundColor: '#0c8bfa' } : {}; // Highlight active link
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
@@ -79,10 +79,10 @@ export default function Sidebar() {
               { text: 'Mock-test', icon: <ContentPasteTwoToneIcon />, link: '/subjects' },
               { text: 'Mentors', icon: <BarChart />, link: '/mentors' },
               { text: 'Profile', icon: <Person />, link: "/profile" },
-              { text: 'Job-Portal', icon: <EventNoteTwoToneIcon />, link: '/job-portal' },
-              { text: 'Calendar', icon: < CalendarMonthTwoToneIcon />, link: "/calendar" },
+              // { text: 'Job-Portal', icon: <EventNoteTwoToneIcon />, link: '/job-portal' },
+              // { text: 'Calendar', icon: < CalendarMonthTwoToneIcon />, link: "/calendar" },
               { text: 'Reports', icon: <BarChart />, link: '#' },
-              { text: 'Community', icon: <ForumTwoToneIcon />, link: "/community" },
+              // { text: 'Community', icon: <ForumTwoToneIcon />, link: "/community" },
           ].map((item, index) => (
             <ListItem 
               button 
