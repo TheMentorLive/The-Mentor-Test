@@ -49,30 +49,30 @@ const Header = () => {
     <Link to="/" className="md:flex hidden lg:flex md:ml-[170px]">
         <img src="/logo.webp" alt="Logo" className="md:h-12 lg:h-12 w-auto" />
     </Link>
-    <nav className="hidden lg:flex text-sm justify-center items-center">
-        <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-            <span>Live</span>
-        </Link>
-        <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-            <span>Learn</span>
-        </Link>
-        <Link to="/pricing" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-            <span>Jobs</span>
-        </Link>
+    <nav className="hidden lg:flex  justify-center gap-5 items-center">
+    <Link to="/pricing" className="flex text-[15px] hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+        <span>Live</span>
+    </Link>
+    <Link to="/pricing" className="flex text-[15px] hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+        <span>Learn</span>
+    </Link>
+    <Link to="/pricing" className="flex text-[15px] hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+        <span>Jobs</span>
+    </Link>
         
         {!isLoggedIn && (
             <>
-                <Link to="/support" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                <Link to="/support" className="flex hover:font-bold text-[15px] items-center space-x-1 py-2 px-3  text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
                     <span>Support</span>
                 </Link>
             </>
         )}
         {isLoggedIn && (
             <>
-                <Link to="/subjects" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                <Link to="/subjects" className="flex hover:font-bold items-center space-x-1 py-2 px-3  text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
                     <span>Subjects</span>
                 </Link>
-                <Link to="/test-history" className="flex items-center space-x-1 py-2 px-3 font-semibold text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                <Link to="/test-history" className="flex hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
                     <span>Test History</span>
                 </Link>
             </>
@@ -83,7 +83,7 @@ const Header = () => {
     {!isLoggedIn && (
         <>
             <div className="hidden md:flex space-x-2 md:mr-[170px]">
-                <Link to="/login" className="py-[8px] text-md px-4 bg-gray-200 text-gray-900 hover:bg-gray-300 border-blue-500 border rounded-lg transition-colors duration-300">
+                <Link to="/login" className="py-[8px] text-md px-4 bg-white text-gray-900 hover:bg-gray-300 border-blue-500 border rounded-lg transition-colors duration-300">
                     Sign In
                 </Link>
                 <Link to="/register" className="py-[8px] text-md px-4 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
