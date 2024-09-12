@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Tooltip, IconButton, AppBar, Toolbar, useMediaQuery, useTheme } from '@mui/material';
 import { Settings, MenuBook, Assignment, BarChart, Person } from '@mui/icons-material';
+import GroupsIcon from '@mui/icons-material/Groups';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -46,7 +47,9 @@ export default function Sidebar() {
     }
   };
 
-  const isActive = (path) => location.pathname === path ? { backgroundColor: '#0c8bfa' } : {}; // Highlight active link
+  const isActive = (path) => location.pathname === path
+  ? { backgroundColor: '#0c8bfa', borderRadius: '10px' }
+  : {};
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
@@ -77,8 +80,8 @@ export default function Sidebar() {
               { text: 'Dashboard', icon: <SpaceDashboardTwoToneIcon />, link: '/user-dashboard' },
               { text: 'Courses', icon: <RocketLaunchTwoToneIcon />, link: '/courses' },
               { text: 'Mock-test', icon: <ContentPasteTwoToneIcon />, link: '/subjects' },
-              { text: 'Mentors', icon: <BarChart />, link: '/mentors' },
-              { text: 'Profile', icon: <Person />, link: "/profile" },
+              { text: 'Mentors', icon: <GroupsIcon />, link: '/mentors' },
+              // { text: 'Profile', icon: <Person />, link: "/profile" },
               // { text: 'Job-Portal', icon: <EventNoteTwoToneIcon />, link: '/job-portal' },
               // { text: 'Calendar', icon: < CalendarMonthTwoToneIcon />, link: "/calendar" },
               { text: 'Reports', icon: <BarChart />, link: '#' },
