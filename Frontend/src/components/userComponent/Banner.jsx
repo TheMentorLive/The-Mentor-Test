@@ -6,19 +6,19 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 
 export default function Banner() {
-  const [qualification, setQualification] = React.useState("");
-  const [interest, setInterest] = React.useState("");
+  // const [qualification, setQualification] = React.useState("");
+  // const [interest, setInterest] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [name, setName] = React.useState(""); // State for name
 
-  const handleQualificationChange = (event) => {
-    setQualification(event.target.value);
-  };
+  // const handleQualificationChange = (event) => {
+  //   setQualification(event.target.value);
+  // };
 
-  const handleInterestChange = (event) => {
-    setInterest(event.target.value);
-  };
+  // const handleInterestChange = (event) => {
+  //   setInterest(event.target.value);
+  // };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -40,8 +40,8 @@ export default function Banner() {
         name, // Include name in the POST request
         email,
         phone,
-        qualification,
-        interest
+        // qualification,
+        // interest
       });
 
       // Show success toast message
@@ -51,8 +51,8 @@ export default function Banner() {
       setName(''); // Clear name field
       setEmail('');
       setPhone('');
-      setQualification('');
-      setInterest('');
+      // setQualification('');
+      // setInterest('');
 
     } catch (error) {
       console.error('Error submitting form:', error);
