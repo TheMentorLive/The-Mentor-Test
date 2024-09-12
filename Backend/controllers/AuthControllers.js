@@ -528,8 +528,7 @@ const setPassword = async (req, res) => {
 
 
 const Form = async (req, res) => {
-  console.log(req.body);
-
+ 
   const { name, email, phone } = req.body;
 
   try {
@@ -564,14 +563,14 @@ const Form = async (req, res) => {
     }
 
     // Send the data to HubSpot if the document was newly created
-    const hubspotApiKey = process.env.HUBSPOT_API; // Your HubSpot API key
+    const hubspotApiKey = process.env.HUBSPOT_API  // Your HubSpot API key
 
     // Adjusting the payload structure to exclude non-existent properties
     const hubspotData = {
       properties: {
-        firstname: name,
-        email: email,
-        phone: phone,
+        "firstname": name,
+        "email": email,
+        "phone": phone,
       },
     };
 
