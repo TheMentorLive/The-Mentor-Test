@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 const { generateOtp, sendOtpEmail } = require('../utils/otp');
 const client = new OAuth2Client(process.env.CLIENTID);
-
+const axios = require('axios');
 require('../config/passport');
 require('../config/passport-linkedin');
 
