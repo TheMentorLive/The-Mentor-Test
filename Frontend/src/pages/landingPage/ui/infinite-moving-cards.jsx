@@ -64,7 +64,7 @@ const InfiniteMovingCards = ({
       >
         {items.map((item, idx) => (
           <li
-            className="w-full sm:w-[250px] md:w-[350px] lg:w-[450px] flex-shrink-0 bg-blue-500 text-white rounded-2xl border px-4 md:px-8 py-6"
+            className="w-full sm:w-[250px] md:w-[350px] lg:w-[450px] flex-shrink-0 bg-white border-blue-400 text-black rounded-2xl border px-4 md:px-8 py-6"
             key={idx}
           >
             <blockquote>
@@ -80,8 +80,8 @@ const InfiniteMovingCards = ({
                       className="w-8 h-8 rounded-full mr-2"
                     />
                     <div>
-                      <span className="text-sm leading-[1.6] text-gray-300">{item.name}</span><br/>
-                      <span className="text-sm leading-[1.6] text-gray-300">{item.title}</span>
+                      <span className="text-sm leading-[1.6] text-gray-800">{item.name}</span><br/>
+                      <span className="text-sm leading-[1.6] text-gray-800">{item.title}</span>
                     </div>
                   </div>
                 </div>

@@ -159,7 +159,7 @@ const TestPage = () => {
                   key={index}
                   className={`w-6 h-6 md:w-8 md:h-8 rounded-md flex items-center justify-center cursor-pointer transition-colors ${
                     currentQuestion === index
-                      ? 'bg-primary text-primary-foreground'
+                      ? 'bg-[#2563EB] text-white'
                       : flaggedQuestions.includes(index)
                       ? 'bg-yellow-500 text-white'
                       : answers[index] !== undefined
@@ -183,7 +183,7 @@ const TestPage = () => {
                 <span className="font-medium">Question {currentQuestion + 1}</span>
                 {flaggedQuestions.includes(currentQuestion) && <FlagIcon className="h-4 w-4 md:h-5 md:w-5 text-primary" />}
               </div>
-              <div className="text-sm px-2 py-1 rounded-md text-white bg-blue-500">
+              <div className="text-lg px-4 py-3 rounded-md  text-white bg-[#2563EB]">
                 {formatTime(timeRemaining)}
               </div>
             </div>
@@ -241,8 +241,8 @@ const TestPage = () => {
                 </CustomButton>
               </div>
             </div>
-            <div className="flex items-center p-4">
-              <CustomButton className="bg-blue-500 text-white" onClick={handleSubmit} size="sm">Submit</CustomButton>
+            <div className=" flex items-center justify-end mt-4">
+              <CustomButton className="bg-[#2563EB]  text-white px-9 py-3" onClick={handleSubmit} size="xl">Submit</CustomButton>
             </div>
           </div>
         </div>
@@ -287,7 +287,7 @@ function CustomProgress({ value }) {
   return (
     <div className="w-full bg-gray-200 rounded-full h-2.5">
       <div
-        className="bg-blue-500 h-2.5 rounded-full"
+        className="bg-[#2563EB] h-2.5 rounded-full"
         style={{ width: `${value}%` }}
       />
     </div>

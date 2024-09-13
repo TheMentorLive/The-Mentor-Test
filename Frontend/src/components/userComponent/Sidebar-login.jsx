@@ -48,7 +48,7 @@ export default function Sidebar() {
   };
 
   const isActive = (path) => location.pathname === path
-  ? { backgroundColor: '#0c8bfa', borderRadius: '10px' }
+  ? { backgroundColor: '#2463EB', borderRadius: '10px' }
   : {};
 
   return (
@@ -103,13 +103,13 @@ export default function Sidebar() {
           <Tooltip title="Settings" placement="right">
             <ListItem button component={Link} to="/settings">
               <SettingsIcon/>
-              <ListItemText primary="Settings" />
+              <ListItemText className='ml-4' primary="Settings" />
             </ListItem>
           </Tooltip>
           <Tooltip title="Logout" placement="right">
             <ListItem button onClick={handleLogout}>
               <LogOutIcon/>
-              <ListItemText primary="Logout" />
+              <ListItemText className='ml-4' primary="Logout" />
             </ListItem>
           </Tooltip>
         </div>
@@ -117,7 +117,7 @@ export default function Sidebar() {
 
       {/* Main Content */}
       <div style={{ flex: 1, position: 'relative' }}>
-        <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer - 1, backgroundColor: '#1963d1' }}>
+        <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer - 1, backgroundColor: '#2463EB' }}>
           <Toolbar>
             {isMobile && (
               <IconButton

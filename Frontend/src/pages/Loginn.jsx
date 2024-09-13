@@ -138,7 +138,7 @@ export default function UserDashboard1() {
 
       {/* Main Content */}
       <div style={{ flex: 1, position: 'relative' }}>
-        <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer - 1, backgroundColor: '#1963d1' }}>
+        <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer - 1, backgroundColor: '#2463EB' }}>
           <Toolbar>
             {isMobile && (
               <IconButton
