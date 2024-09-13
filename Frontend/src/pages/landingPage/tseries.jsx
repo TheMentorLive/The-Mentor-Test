@@ -22,7 +22,7 @@ export default function Tseries() {
         >
           {/* Cards */}
           {courses.map((course, index) => (
-            <div key={index} className="w-[300px] flex-shrink-0 border rounded-md shadow-sm">
+            <div key={index} className="w-[270px] flex-shrink-0 border rounded-md shadow-sm">
               <div className="h-48 bg-gray-100 flex items-center justify-center"></div>
               <div className="p-4">
                 <h3 className="text-lg font-bold">{course.title}</h3>
