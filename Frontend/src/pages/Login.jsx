@@ -111,7 +111,7 @@ export default function Component() {
                 <span className="font-medium">Question {currentQuestion + 1}</span>
                 {flaggedQuestions.includes(currentQuestion) && <FlagIcon className="h-4 w-4 md:h-5 md:w-5 text-primary" />}
               </div>
-              <div className="text-sm px-2 py-1 rounded-md text-white bg-blue-500">
+              <div className="text-lg px-4 py-3 rounded-md  text-white bg-blue-500">
                 {formatTime(timeRemaining)}
               </div>
             </div>
@@ -150,32 +150,37 @@ export default function Component() {
             </div>
 
             <div className="mt-6 flex flex-col md:flex-row justify-between items-center">
-              <div className="flex items-center gap-2">
-                <span>
-                  Progress: {currentQuestion + 1}/{questions.length}
-                </span>
-                <CustomProgress value={((currentQuestion + 1) / questions.length) * 100} />
-              </div>
-              <div className="mt-6 flex gap-2 flex-col md:flex-row items-center">
-              <CustomButton
-                onClick={() => handleQuestionChange("prev")}
-                disabled={currentQuestion === 0}
-                className="bg-gray-300 text-gray-700 hover:bg-gray-400"
-              >
-                Prev
-              </CustomButton>
-              <CustomButton
-                onClick={() => handleQuestionChange("next")}
-                disabled={currentQuestion === questions.length - 1}
-                className="bg-gray-300 text-gray-700 hover:bg-gray-400"
-              >
-                Next
-              </CustomButton>
-            </div>
-            </div>
-            <div className="flex  items-center p-4">
-        <CustomButton className="bg-blue-500 text-white" size="sm">Submit</CustomButton>
-      </div>
+  <div className="flex items-center gap-2">
+    <span>
+      Progress: {currentQuestion + 1}/{questions.length}
+    </span>
+    <CustomProgress value={((currentQuestion + 1) / questions.length) * 100} />
+  </div>
+  <div className="mt-6 flex gap-2 flex-col md:flex-row items-center">
+    <CustomButton
+      onClick={() => handleQuestionChange("prev")}
+      disabled={currentQuestion === 0}
+      className="bg-gray-300 text-gray-700 hover:bg-gray-400"
+    >
+      Prev
+    </CustomButton>
+    <CustomButton
+      onClick={() => handleQuestionChange("next")}
+      disabled={currentQuestion === questions.length - 1}
+      className="bg-gray-300 text-gray-700 hover:bg-gray-400"
+    >
+      Next
+    </CustomButton>
+  </div>
+</div>
+
+<div className="flex items-center justify-end mt-4"> {/* Align to the right */}
+  <CustomButton className="bg-blue-500 text-white px-9 py-3" size="xl">
+    Submit
+  </CustomButton>
+</div>
+
+
             
           </div>
         </div>

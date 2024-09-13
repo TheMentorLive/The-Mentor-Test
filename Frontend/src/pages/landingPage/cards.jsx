@@ -7,10 +7,10 @@ export default function Cards() {
   ];
 
   return (
-    <div className="flex justify-center mt-[99px] -mb-10 items-center">
+    <div className="flex justify-center h-80 mt-[99px] bg-blue-200 -mb-10 items-center">
       <div className="p-4 grid grid-cols-1 gap-14 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {cardData.map((app, index) => (
-          <div key={index} className="flex flex-col p-4 border rounded-lg border-gray-300">
+          <div key={index} className="flex flex-col p-4 border rounded-lg bg-white border-gray-300">
             <div className="border  px-11 py-5 rounded-lg bg-blue-100 border-gray-300">
               <img
                 src={app.image}
