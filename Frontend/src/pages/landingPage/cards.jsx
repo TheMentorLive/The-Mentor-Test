@@ -7,16 +7,17 @@ export default function Cards() {
   ];
 
   return (
-    <div className="flex justify-center mt-16 items-center">
+    <div className="flex justify-center mt-[99px] -mb-10 items-center">
       <div className="p-4 grid grid-cols-1 gap-14 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {cardData.map((app, index) => (
           <div key={index} className="flex flex-col p-4 border rounded-lg border-gray-300">
-            <div className="border px-5 rounded-lg border-gray-300">
+            <div className="border  px-11 py-5 rounded-lg bg-blue-100 border-gray-300">
               <img
                 src={app.image}
                 alt={app.name}
-                width="100"
-                height="100"
+                width="70"
+                height="70"
+                className="rounded-lg"
                 style={{ aspectRatio: "40/40", objectFit: "cover" }}
               />
             </div>
@@ -35,3 +36,4 @@ export default function Cards() {
     </div>
   );
 }
+      

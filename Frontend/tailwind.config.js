@@ -1,18 +1,37 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: 'jit', // Just-in-Time compilation mode for faster development builds
   content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'], // Content sources to scan for class names
   darkMode: 'media', // Use 'media' for dark mode based on user system settings
   theme: {
     extend: {
+      // Custom colors
       colors: {
-        // Custom colors
         primary: '#3490dc',
         secondary: '#ffed4a',
         danger: '#e3342f',
       },
+      // Set 'Inter' as the only font
       fontFamily: {
-        // Set 'Inter' as the only font
-        sans: ['Inter'], // Only 'Inter' for sans font
+        sans: ['Inter'],
+      },
+      // Animation settings
+      animation: {
+        scroll:
+          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+      },
+      keyframes: {
+        scroll: {
+          to: {
+            transform: "translate(calc(-50% - 0.5rem))",
+          },
+        },
       },
     },
   },
@@ -35,5 +54,15 @@ module.exports = {
       }
       addUtilities(newUtilities)
     },
+    addVariablesForColors,
   ],
 };
+
+function addVariablesForColors({ addBase, theme }) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(Object.entries(allColors).map(([key, val]) => [`--${key}`, val]));
+
+  addBase({
+    ":root": newVars,
+  });
+}
