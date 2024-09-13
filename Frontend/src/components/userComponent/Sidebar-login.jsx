@@ -48,7 +48,7 @@ export default function Sidebar() {
   };
 
   const isActive = (path) => location.pathname === path
-  ? { backgroundColor: '#2463EB', borderRadius: '10px' }
+  ? { backgroundColor: '#2463EB', borderRadius: '10px', marginLeft: '10px'  }
   : {};
 
   return (
