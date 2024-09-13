@@ -5,7 +5,7 @@ export default function Tseries() {
 
   const scrollLeft = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollLeft += 320; // Adjust the scroll distance based on card width
+      carouselRef.current.scrollBy({ left: 320, behavior: 'smooth' }); // Smooth scrolling
     }
   };
 
@@ -47,11 +47,19 @@ export default function Tseries() {
 }
 
 const courses = [
-  { title: 'NEET', description: 'Learn the fundamentals of web development.' },
-  { title: 'JEE', description: 'Dive into the world of data analysis and machine learning.' },
-  { title: 'UPSC', description: 'Build mobile apps for iOS and Android.' },
-  { title: 'IBPS', description: 'Understand data analysis for financial exams.' },
+  { title: 'NEET', description: 'NEET prep with core subjects.' },
+  { title: 'JEE', description: 'Master key subjects for JEE.' },
+  { title: 'UPSC', description: 'UPSC prep covering all essentials.' },
+  { title: 'IBPS', description: 'Crack IBPS with focused training.' },
+  { title: 'CAT', description: 'CAT prep with key skills.' },
+  { title: 'GATE', description: 'Essential GATE topics covered.' },
+  { title: 'CLAT', description: 'Legal and logical prep for CLAT.' },
+  { title: 'CA Exams', description: 'Prep for CA certification.' },
+  { title: 'IIT JAM', description: 'Key topics for IIT JAM.' },
+  { title: 'GMAT', description: 'Focused prep for GMAT.' },
 ];
+
+
 
 function ArrowRightIcon(props) {
   return (
