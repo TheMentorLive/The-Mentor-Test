@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 const { generateOtp, sendOtpEmail } = require('../utils/otp');
 const client = new OAuth2Client(process.env.CLIENTID);
-
+const axios = require('axios');
 require('../config/passport');
 require('../config/passport-linkedin');
 
@@ -528,39 +528,73 @@ const setPassword = async (req, res) => {
 
 
 const Form = async (req, res) => {
-
-
-  const { email, phone, qualification, interest } = req.body;
+ 
+  const { name, email, phone } = req.body;
 
   try {
-    // Check if form data with the same email and phone already exists
+    // Check if form data with the same email and phone already exists in your local database
     const existingFormData = await FormData.findOne({ email, phone });
 
     if (existingFormData) {
-      // If data exists, update only the fields that have changed
-      existingFormData.qualification = qualification || existingFormData.qualification;
-      existingFormData.interest = interest || existingFormData.interest;
-
-      // Save the updated document
+      // Update only the fields that have changed
+      existingFormData.name = name || existingFormData.name;
+      
+      // Save the updated document in your database
       await existingFormData.save();
-      return res.status(200).json({ message: 'Form data updated successfully' });
+
+      // Respond with a message indicating the data was updated
+      res.status(200).json({ message: 'Form data updated successfully' });
+
+      // Skip sending to HubSpot if data already exists in the database
+      return;
+    } else {
+      // Create a new document
+      const newFormData = new FormData({
+        name,
+        email,
+        phone,
+      });
+
+      // Save the new document to the database
+      await newFormData.save();
+
+      // Respond with a message indicating the data was saved
+      res.status(201).json({ message: 'Form data saved successfully' });
     }
 
-    // If no data exists, create a new document
-    const newFormData = new FormData({
-      email,
-      phone,
-      qualification,
-      interest,
-    });
+    // Send the data to HubSpot if the document was newly created
+    const hubspotApiKey = process.env.HUBSPOT_API  // Your HubSpot API key
 
-    // Save the new document to the database
-    await newFormData.save();
-    res.status(201).json({ message: 'Form data saved successfully' });
+    // Adjusting the payload structure to exclude non-existent properties
+    const hubspotData = {
+      properties: {
+        "firstname": name,
+        "email": email,
+        "phone": phone,
+      },
+    };
+
+    // Sending the contact data to HubSpot
+    const hubspotResponse = await axios.post(
+      'https://api.hubapi.com/crm/v3/objects/contacts',
+      hubspotData,
+      {
+        headers: {
+          Authorization: `Bearer ${hubspotApiKey}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    console.log('HubSpot response:', hubspotResponse.data);
   } catch (error) {
+    console.error('Error saving form data or sending to HubSpot:', error);
     res.status(500).json({ error: 'Failed to save or update form data' });
   }
 };
+
+
+
 
 
 
