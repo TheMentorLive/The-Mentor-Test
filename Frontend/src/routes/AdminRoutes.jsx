@@ -7,6 +7,8 @@ import Userprofile from '../pages/Userprofile';
 import PageInProgres from '../pages/Progress';
 import AddSubject from '../pages/admin/AddSubject';
 import AddQuestionPage from '../pages/admin/test/AddQuestions';
+import AdminLandingPage from '../pages/admin/Admin-landing';
+import GoogleDocsQuestionComponent from '../pages/admin/Questions';
 
 const AdminRoutes = () => {
 
@@ -16,6 +18,9 @@ const AdminRoutes = () => {
       
       <Route path="/users" element={<Users />} />
       <Route path="/my-account" element={<Userprofile />} />
+      <Route path="/" element={<AdminLandingPage />} />
+      <Route path="/question" element={<GoogleDocsQuestionComponent />} />
+      
       <Route path="/test/add-subject" element={<AddSubject />} />
       <Route path="/test/add-test" element={<AddQuestionPage />} />
      

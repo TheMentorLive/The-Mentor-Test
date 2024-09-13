@@ -1,24 +1,14 @@
-import React from "react";
-import { Select, MenuItem } from "@mui/material";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { API_BASE_URL } from '../../constants/ApiConstants';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
 export default function Banner() {
-  // const [qualification, setQualification] = React.useState("");
-  // const [interest, setInterest] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [phone, setPhone] = React.useState("");
-  const [name, setName] = React.useState(""); // State for name
-
-  // const handleQualificationChange = (event) => {
-  //   setQualification(event.target.value);
-  // };
-
-  // const handleInterestChange = (event) => {
-  //   setInterest(event.target.value);
-  // };
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [name, setName] = useState(""); // State for name
+  const [loading, setLoading] = useState(false); // State for loading
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -35,29 +25,41 @@ export default function Banner() {
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
+    setLoading(true); // Set loading to true when starting submission
+
     try {
       const response = await axios.post(`${API_BASE_URL}auth/SubmitForm`, {
         name, // Include name in the POST request
         email,
         phone,
-        // qualification,
-        // interest
       });
 
-      // Show success toast message
-      toast.success('Form submitted successfully!');
+      // Check the response status
+      if (response.status === 201) {
+        // Show success toast message
+        toast.success('Form data saved successfully!');
+      } else if (response.status === 409) {
+        // Show error toast message for conflict
+        toast.error('Lead already exists');
+      } else {
+        // Handle unexpected responses
+        toast.error('Unexpected response from server');
+      }
 
       // Clear the form data
       setName(''); // Clear name field
       setEmail('');
       setPhone('');
-      // setQualification('');
-      // setInterest('');
-
     } catch (error) {
       console.error('Error submitting form:', error);
+
+      // Extract error message from the response, if available
+      const errorMessage = error.response?.data?.error || 'Error submitting form. Please try again.';
+
       // Show error toast message
-      toast.error('Error submitting form. Please try again.');
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false); // Set loading to false when submission is complete
     }
   };
 
@@ -152,15 +154,39 @@ export default function Banner() {
                     />
                   </div>
 
-                  {/* Other Fields (e.g., Qualification, Interest) would follow... */}
-                  
                   {/* Submit Button */}
                   <div className="mt-4">
                     <button
-                      type="submit" 
-                      className="w-full bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 rounded"
+                      type="submit"
+                      disabled={loading} // Disable button while loading
+                      className={`w-full bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
-                      Send
+                      {loading ? (
+                        <span className="flex items-center justify-center">
+                          <svg
+                            className="animate-spin h-5 w-5 mr-3 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="none"
+                              d="M4 12a8 8 0 018-8v2a6 6 0 00-6 6H4z"
+                            ></path>
+                          </svg>
+                          Loading...
+                        </span>
+                      ) : (
+                        'Send'
+                      )}
                     </button>
                   </div>
                 </form>

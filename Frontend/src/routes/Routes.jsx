@@ -1,6 +1,6 @@
 // src/Routes.js
 import React, { useContext, useEffect, useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Landingpage from '../pages/landingPage/LandingPage';
 import NotFound from '../pages/PageNotFound';
 import Header from '../components/Header';
@@ -20,17 +20,20 @@ import Footer from '../components/Footer';
 const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { user } = useContext(mainContext);
+  const location = useLocation();
 
   useEffect(() => {
         setIsLoggedIn(localStorage.getItem("user", JSON.stringify(user)));
       }, [user]);
 
+      const isFullScreenPage = ['/start-test', '/test'].includes(location.pathname);
+
       return (
         <>
-          {!isLoggedIn&&<Header />}
-          <div className={`layout ${isLoggedIn ? 'sidebar-visible' : ''}`}>
-            {isLoggedIn && <Sidebar className="sidebar" />}
-            <main className="content pt-[80px]"> {/* Adjust padding based on header height */}
+          {!isFullScreenPage && !isLoggedIn && <Header />}
+          <div className={`layout ${isLoggedIn && !isFullScreenPage ? 'sidebar-visible' : ''}`}>
+            {!isFullScreenPage && isLoggedIn && <Sidebar className="sidebar" />}
+            <main className={`content ${isFullScreenPage ? 'pt-0' : 'pt-[80px]'}`}>
               <Routes>
                 {/* Public Routes */}
                 {!isLoggedIn ? (
@@ -63,69 +66,11 @@ const AppRoutes = () => {
                 {/* Catch-all for undefined routes */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
-              {!isLoggedIn&&<Footer/>}
+              {!isFullScreenPage && !isLoggedIn && <Footer />}
             </main>
-           
-          
           </div>
         </>
       );
     };
     
     export default AppRoutes;
-
-
-
-
-
-
-// // src/Routes.js
-// import React, { useContext } from 'react';
-// import { Routes, Route } from 'react-router-dom';
-// import Landingpage from '../pages/landingPage/LandingPage';
-// import NotFound from '../pages/PageNotFound';
-// import Header from '../components/Header';
-// import ProfileComponent from '../pages/user/Profile';
-// import Settings from '../pages/user/Settings';
-// import SubjectComponent from '../pages/user/Subject';
-// import TestLandingPage from '../pages/user/test/TestLandingPage';
-// import TestPage from '../pages/user/test/TestPage';
-// import TestResultsPage from '../pages/user/test/TestResultPage';
-// import UpcomingTestsPage from '../pages/user/test/UpcommingTest';
-// import TestHistoryPage from '../pages/user/test/TestHistory';
-
-
-
-// const AppRoutes = () => {
-//   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-//    // useEffect to update isLoggedIn based on user object
-//    useEffect(() => {
-//     setIsLoggedIn(localStorage.getItem("user", JSON.stringify(user)));
-//   }, [user]);
-//   return (
-//     <>
-//     {/* {user.id && <test />} */}
-//     <Header />
-//     <main className="pt-[80px]"> {/* Adjust pt-20 or pt-[80px] based on your header height */}
-//         <Routes>
-//           <Route path="/" element={<Landingpage />} />
-//           <Route path="/profile" element={<ProfileComponent />} />
-//           <Route path="/settings" element={<Settings />} />
-//           <Route path="/subjects" element={<SubjectComponent />} />
-//           <Route path="/start-test" element={<TestLandingPage />} />
-//           <Route path="/test" element={<TestPage/>} />
-//           <Route path="/result" element={<TestResultsPage/>} />
-//           <Route path="/upcoming-test" element={<UpcomingTestsPage/>} />
-//           <Route path="/test-history" element={<TestHistoryPage/>} />
-//           <Route path="*" element={<NotFound />} />
-//         </Routes>
-//       </main>
-//   </>
-// );
-// };
-
-// export default AppRoutes;
-
-
-

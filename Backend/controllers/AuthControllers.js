@@ -527,8 +527,8 @@ const setPassword = async (req, res) => {
 };
 
 
+
 const Form = async (req, res) => {
- 
   const { name, email, phone } = req.body;
 
   try {
@@ -536,17 +536,8 @@ const Form = async (req, res) => {
     const existingFormData = await FormData.findOne({ email, phone });
 
     if (existingFormData) {
-      // Update only the fields that have changed
-      existingFormData.name = name || existingFormData.name;
-      
-      // Save the updated document in your database
-      await existingFormData.save();
-
-      // Respond with a message indicating the data was updated
-      res.status(200).json({ message: 'Form data updated successfully' });
-
-      // Skip sending to HubSpot if data already exists in the database
-      return;
+      // Respond with an error message indicating that the data already exists
+      return res.status(409).json({ error: 'Lead already exists' });
     } else {
       // Create a new document
       const newFormData = new FormData({
@@ -560,33 +551,33 @@ const Form = async (req, res) => {
 
       // Respond with a message indicating the data was saved
       res.status(201).json({ message: 'Form data saved successfully' });
-    }
 
-    // Send the data to HubSpot if the document was newly created
-    const hubspotApiKey = process.env.HUBSPOT_API  // Your HubSpot API key
+      // Send the data to HubSpot
+      const hubspotApiKey = process.env.HUBSPOT_API; // Your HubSpot API key
 
-    // Adjusting the payload structure to exclude non-existent properties
-    const hubspotData = {
-      properties: {
-        "firstname": name,
-        "email": email,
-        "phone": phone,
-      },
-    };
-
-    // Sending the contact data to HubSpot
-    const hubspotResponse = await axios.post(
-      'https://api.hubapi.com/crm/v3/objects/contacts',
-      hubspotData,
-      {
-        headers: {
-          Authorization: `Bearer ${hubspotApiKey}`,
-          'Content-Type': 'application/json',
+      // Adjusting the payload structure to exclude non-existent properties
+      const hubspotData = {
+        properties: {
+          "firstname": name,
+          "email": email,
+          "phone": phone,
         },
-      }
-    );
+      };
 
-    console.log('HubSpot response:', hubspotResponse.data);
+      // Sending the contact data to HubSpot
+      const hubspotResponse = await axios.post(
+        'https://api.hubapi.com/crm/v3/objects/contacts',
+        hubspotData,
+        {
+          headers: {
+            Authorization: `Bearer ${hubspotApiKey}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      console.log('HubSpot response:', hubspotResponse.data);
+    }
   } catch (error) {
     console.error('Error saving form data or sending to HubSpot:', error);
     res.status(500).json({ error: 'Failed to save or update form data' });

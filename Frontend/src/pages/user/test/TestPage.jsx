@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Button, IconButton, Typography, Card, CardContent, CardActions, CardHeader } from '@mui/material';
-import { ArrowBack, ArrowForward, Book } from '@mui/icons-material';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Button, Typography } from '@mui/material';
+import { Flag as FlagIcon } from '@mui/icons-material';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { USERENDPOINTS } from '../../../constants/ApiConstants';
+
 const TestPage = () => {
   const [token, setToken] = useState(() => localStorage.getItem('token') || '');
   const [testData, setTestData] = useState(null);
@@ -13,12 +14,41 @@ const TestPage = () => {
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const user = localStorage.getItem('token') 
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const testId = queryParams.get('id');
   const navigate = useNavigate(); // Initialize useNavigate hook
+  
+  useEffect(() => {
+    // Request fullscreen mode
+    const requestFullscreen = () => {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+        document.documentElement.mozRequestFullScreen();
+      } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        document.documentElement.webkitRequestFullscreen();
+      } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+        document.documentElement.msRequestFullscreen();
+      }
+    };
+
+    requestFullscreen();
+
+    // Cleanup function to exit fullscreen when component unmounts
+    return () => {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) { // Firefox
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { // IE/Edge
+        document.msExitFullscreen();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (testId) {
@@ -27,7 +57,6 @@ const TestPage = () => {
           const response = await axios.get(`${USERENDPOINTS.GETTESTSLANDING}?id=${testId}`, {
             headers: { Authorization: `Bearer ${token}` }
           });
-          console.log(response.data);
           setTestData(response.data);
           setTimeRemaining(response.data.duration * 60);
         } catch (error) {
@@ -70,11 +99,11 @@ const TestPage = () => {
   };
 
   const handleQuestionFlag = (questionIndex) => {
-    if (flaggedQuestions.includes(questionIndex)) {
-      setFlaggedQuestions(flaggedQuestions.filter((index) => index !== questionIndex));
-    } else {
-      setFlaggedQuestions([...flaggedQuestions, questionIndex]);
-    }
+    setFlaggedQuestions((prevFlagged) =>
+      prevFlagged.includes(questionIndex)
+        ? prevFlagged.filter((index) => index !== questionIndex)
+        : [...prevFlagged, questionIndex]
+    );
   };
 
   const handleSubmit = async () => {
@@ -92,8 +121,6 @@ const TestPage = () => {
       totalDuration: testData.duration * 60,
       flaggedQuestions,
     };
-
-    console.log(result);
 
     try {
       await axios.post(`${USERENDPOINTS.SUBMITTEST}`, result, {
@@ -122,84 +149,149 @@ const TestPage = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen">
-      <main className="flex-1 p-8 bg-gray-100 text-gray-900">
-        <div className="flex justify-between items-center mb-4">
-          <div className="flex items-center gap-2">
-            <Book fontSize="large" />
-            <Typography variant="h4" component="h1">{testData.description}</Typography>
-          </div>
-          <div className="flex items-center gap-4">
-            <Typography variant="body1" component="div" className="px-4 py-2 rounded-md bg-gray-300">
-              {formatTime(timeRemaining)}
-            </Typography>
-            <Button size="small" variant="contained" color="primary" onClick={handleSubmit}>Submit</Button>
-          </div>
-        </div>
-        <Card className="mb-6 bg-white">
-          <CardHeader
-            title={`Question ${currentQuestion + 1}`}
-            action={
-              <div className="flex items-center gap-2">
-                <IconButton onClick={() => handleQuestionChange('prev')} disabled={currentQuestion === 0}>
-                  <ArrowBack />
-                </IconButton>
-                <IconButton onClick={() => handleQuestionChange('next')} disabled={currentQuestion === testData.questions.length - 1}>
-                  <ArrowForward />
-                </IconButton>
-              </div>
-            }
-          />
-          <CardContent>
-            <Typography variant="body1" component="div" className="mb-4">{testData.questions[currentQuestion].text}</Typography>
-            <div className="grid grid-cols-2 gap-4">
-              {testData.questions[currentQuestion].answers.map((answer, index) => (
-                <Button
-                  key={index}
-                  variant={answers[currentQuestion] === index ? 'contained' : 'outlined'}
-                  color="primary"
-                  onClick={() => handleAnswerSelect(currentQuestion, index)}
-                >
-                  {answer}
-                </Button>
-              ))}
-            </div>
-          </CardContent>
-          <CardActions>
-            <Button
-              variant={flaggedQuestions.includes(currentQuestion) ? 'contained' : 'outlined'}
-              color="secondary"
-              onClick={() => handleQuestionFlag(currentQuestion)}
-            >
-              {flaggedQuestions.includes(currentQuestion) ? 'Unflag' : 'Flag'}
-            </Button>
-            <div className="flex-1 flex justify-end items-center">
-              <Typography variant="body2" component="div">
-                {flaggedQuestions.length} flagged | {Object.keys(answers).length} answered
-              </Typography>
-            </div>
-          </CardActions>
-        </Card>
-        <Card className="mb-6 bg-white">
-          <CardHeader title="Question Map" />
-          <CardContent>
-            <div className="grid grid-cols-4 gap-2">
+    <div className="flex flex-col h-screen mt-10 bg-white text-black">
+      <main className="flex-1 grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-8 pt-20 p-4 md:p-8">
+        <div className="bg-card text-card-foreground rounded-md p-4 md:p-6">
+          <CustomCard title="Question Map" description="View the status of all questions at a glance.">
+            <div className="grid grid-cols-4 gap-2 md:gap-4">
               {testData.questions.map((_, index) => (
-                <Button
+                <div
                   key={index}
-                  variant={currentQuestion === index ? 'contained' : 'outlined'}
-                  className={`w-8 h-8 flex items-center justify-center ${currentQuestion === index ? 'bg-primary text-white' : flaggedQuestions.includes(index) ? 'bg-yellow-500 text-white' : answers[index] !== undefined ? 'bg-green-500 text-white' : 'bg-gray-300'}`}
+                  className={`w-6 h-6 md:w-8 md:h-8 rounded-md flex items-center justify-center cursor-pointer transition-colors ${
+                    currentQuestion === index
+                      ? 'bg-primary text-primary-foreground'
+                      : flaggedQuestions.includes(index)
+                      ? 'bg-yellow-500 text-white'
+                      : answers[index] !== undefined
+                      ? 'bg-green-500 text-white'
+                      : 'bg-muted text-muted-foreground'
+                  }`}
                   onClick={() => setCurrentQuestion(index)}
                 >
                   {index + 1}
-                </Button>
+                </div>
               ))}
             </div>
-          </CardContent>
-        </Card>
+          </CustomCard>
+        </div>
+
+        <div className="bg-card text-card-foreground rounded-md p-4 md:p-6">
+          <div className="space-y-4">
+            <p className="font-bold text-3xl">Exam</p>
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <div className="flex items-center gap-2">
+                <span className="font-medium">Question {currentQuestion + 1}</span>
+                {flaggedQuestions.includes(currentQuestion) && <FlagIcon className="h-4 w-4 md:h-5 md:w-5 text-primary" />}
+              </div>
+              <div className="text-sm px-2 py-1 rounded-md text-white bg-blue-500">
+                {formatTime(timeRemaining)}
+              </div>
+            </div>
+            <div className="space-y-4">
+              <p className="text-lg font-medium">{testData.questions[currentQuestion].text}</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+                {testData.questions[currentQuestion].answers.map((answer, index) => (
+                  <CustomButton
+                    key={index}
+                    variant={answers[currentQuestion] === index ? 'primary' : 'outline'}
+                    onClick={() => handleAnswerSelect(currentQuestion, index)}
+                    className="justify-start"
+                  >
+                    {answer}
+                  </CustomButton>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-col md:flex-row justify-between items-center">
+              <CustomButton
+                variant={flaggedQuestions.includes(currentQuestion) ? 'primary' : 'outline'}
+                onClick={() => handleQuestionFlag(currentQuestion)}
+                className="mb-4 md:mb-0"
+              >
+                {flaggedQuestions.includes(currentQuestion) ? 'Unflag' : 'Flag'}
+              </CustomButton>
+              <div className="flex items-center gap-2">
+                <span>{flaggedQuestions.length} flagged</span>
+                <span>{Object.keys(answers).length} answered</span>
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-col md:flex-row justify-between items-center">
+              <div className="flex items-center gap-2">
+                <span>
+                  Progress: {currentQuestion + 1}/{testData.questions.length}
+                </span>
+                <CustomProgress value={((currentQuestion + 1) / testData.questions.length) * 100} />
+              </div>
+              <div className="mt-6 flex gap-2 flex-col md:flex-row items-center">
+                <CustomButton
+                  onClick={() => handleQuestionChange('prev')}
+                  disabled={currentQuestion === 0}
+                  className="bg-gray-300 text-gray-700 hover:bg-gray-400"
+                >
+                  Prev
+                </CustomButton>
+                <CustomButton
+                  onClick={() => handleQuestionChange('next')}
+                  disabled={currentQuestion === testData.questions.length - 1}
+                  className="bg-gray-300 text-gray-700 hover:bg-gray-400"
+                >
+                  Next
+                </CustomButton>
+              </div>
+            </div>
+            <div className="flex items-center p-4">
+              <CustomButton className="bg-blue-500 text-white" onClick={handleSubmit} size="sm">Submit</CustomButton>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );
 };
+
+function CustomButton({ variant, size, className, children, onClick, disabled }) {
+  const baseStyle = "px-4 py-2 rounded-md focus:outline-none focus:ring-2";
+  const variantStyle =
+    variant === "primary"
+      ? "bg-blue-500 text-white hover:bg-blue-600"
+      : variant === "outline"
+      ? "border border-gray-300 text-black hover:bg-gray-200"
+      : "text-black";
+  const sizeStyle = size === "sm" ? "text-sm" : "text-base";
+  const disabledStyle = disabled ? "opacity-50 cursor-not-allowed" : "";
+
+  return (
+    <button
+      className={`${baseStyle} ${variantStyle} ${sizeStyle} ${className} ${disabledStyle}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  );
+}
+
+function CustomCard({ title, description, children }) {
+  return (
+    <div className="border p-4 rounded-md">
+      <h3 className="text-lg font-semibold text-black">{title}</h3>
+      <p className="text-sm text-gray-600">{description}</p>
+      <div className="mt-4">{children}</div>
+    </div>
+  );
+}
+
+function CustomProgress({ value }) {
+  return (
+    <div className="w-full bg-gray-200 rounded-full h-2.5">
+      <div
+        className="bg-blue-500 h-2.5 rounded-full"
+        style={{ width: `${value}%` }}
+      />
+    </div>
+  );
+}
 
 export default TestPage;
