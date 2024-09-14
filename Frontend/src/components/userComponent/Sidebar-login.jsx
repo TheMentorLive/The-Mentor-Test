@@ -65,7 +65,8 @@ export default function Sidebar() {
             width: 240,
             boxSizing: 'border-box',
             backgroundColor: isMobile ? 'white' : 'transparent', // Set background color based on screen size
-            marginTop: isDesktop ? '62px' : '0', // Apply marginTop only on desktop screens
+            marginTop: isDesktop ? '62px' : '0',
+            marginBottom: isMobile ? '50px' : '0', // Apply marginTop only on desktop screens
           },
           zIndex: theme.zIndex.drawer + 1, // Higher zIndex to ensure it's above the AppBar
         }}
@@ -108,13 +109,14 @@ export default function Sidebar() {
         <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer - 1, backgroundColor: '#2463EB' }}>
           <Toolbar>
             {/* Add logo image */}
-            <img src="./logo.webp" alt="Logo" style={{ width: 100, height: 40, marginRight: '16px' }} />
-
+            
             {isMobile && (
               <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleToggleSidebar} sx={{ mr: 2 }}>
                 <MenuIcon sx={{ color: 'white' }} />
               </IconButton>
             )}
+            <img src="./logo.webp" alt="Logo" style={{ width: 100, height: 40, marginRight: '16px' }} />
+
             <div style={{ flexGrow: 1 }} />
             <Tooltip title="Notifications">
               <IconButton color="inherit">
