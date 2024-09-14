@@ -10,7 +10,7 @@ export default function Tseries() {
   };
 
   return (
-    <div className="items-center justify-center mt-10 p-8 md:mr-40 lg:mr-40 lg:ml-40 md:ml-40  rounded-xl">
+    <div className="items-center justify-center mt-10 p-8 md:mr-40 lg:mr-40 lg:ml-40 md:ml-40 rounded-xl">
       <div className="space-y-2">
         <h2 className="text-3xl font-bold">Explore Courses</h2>
         <p className="text-muted-foreground">Browse our selection of courses.</p>
@@ -22,12 +22,14 @@ export default function Tseries() {
         >
           {/* Cards */}
           {courses.map((course, index) => (
-            <div key={index} className="w-[270px] flex-shrink-0 border rounded-md shadow-sm">
+            <div key={index} className="w-[270px] flex-shrink-0 border rounded-md shadow-sm flex flex-col">
               <div className="h-48 bg-gray-100 flex items-center justify-center"></div>
-              <div className="p-4">
+              <div className="p-4 flex-grow">
                 <h3 className="text-lg font-bold">{course.title}</h3>
                 <p className="text-muted-foreground">{course.description}</p>
-                <div className="flex gap-7 mt-4">
+              </div>
+              <div className="p-4">
+                <div className="flex gap-4">
                   <button className="px-4 py-2 border bg-[#2563EB] text-sm text-white border-gray-300 rounded-md">Buy Now</button>
                   <button className="text-[#2563EB] text-sm">Learn More</button>
                 </div>
@@ -58,8 +60,6 @@ const courses = [
   { title: 'IIT JAM', description: 'Key topics for IIT JAM.' },
   { title: 'GMAT', description: 'Focused prep for GMAT.' },
 ];
-
-
 
 function ArrowRightIcon(props) {
   return (
