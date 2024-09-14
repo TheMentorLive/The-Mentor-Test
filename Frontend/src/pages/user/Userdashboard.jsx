@@ -54,7 +54,7 @@ export default function UserDashboard() {
             <div className="p-4">
               <div className="grid gap-4">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#2563EB] text-primary-foreground">
                     <BookIcon className="h-6 w-6 text-white" />
                   </div>
                   <div className="grid gap-1">
@@ -134,7 +134,7 @@ export default function UserDashboard() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#2563EB] text-primary-foreground">
                     <CalendarIcon className="h-6 w-6 text-white" />
                   </div>
                   <div className="grid gap-1">
@@ -153,7 +153,7 @@ export default function UserDashboard() {
             <div className="p-4">
               <div className="grid gap-4">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#2563EB] text-primary-foreground">
                     <MegaphoneIcon className="h-6 w-6 text-white" />
                   </div>
                   <div className="grid gap-1">
