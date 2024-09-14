@@ -12,38 +12,42 @@ export default function UserDashboard() {
   ];
   return (
     <div>
- <div className="flex ml-3 -mb-4  items-left">
-      <div className="p-4 grid grid-cols-1 gap-14 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {cardData.map((app, index) => (
-          <div key={index} className="flex flex-col p-4 border rounded-lg border-gray-300">
-            <div className="border  px-11 py-5 rounded-lg bg-blue-100 border-gray-300">
-              <img
-                src={app.image}
-                alt={app.name}
-                width="70"
-                height="70"
-                className="rounded-lg"
-                style={{ aspectRatio: "40/40", objectFit: "cover" }}
-              />
-            </div>
-            <div className="text-left mt-2 w-full">
-              <p className="text-md font-semibold">{app.name}</p>
-              {app.badge && (
-                <span className="text-sm px-2 py-1 bg-gray-200 text-gray-700 rounded-md mb-1">
-                  {app.badge}
-                </span>
-              )}
-              <p className="text-gray-500 text-[12px]">{app.org}</p>
-            </div>
-          </div>
-        ))}
+      <div>
+        <p className=" ml-5 mt-4 mb-14 text-4xl font-bold">Dashboard</p>
       </div>
-    </div>
+ <div className="flex ml-3 mb-8 items-left">
+  <div className="p-2 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    {cardData.map((app, index) => (
+      <div key={index} className="flex flex-col p-2 border rounded-lg border-gray-300">
+        <div className="border px-6 py-3 rounded-lg bg-blue-100 border-gray-300">
+          <img
+            src={app.image}
+            alt={app.name}
+            width="60"
+            height="60"
+            className="rounded-lg"
+            style={{ aspectRatio: "1/1", objectFit: "cover" }}
+          />
+        </div>
+        <div className="text-left mt-2 w-full">
+          <p className="text-sm font-semibold">{app.name}</p>
+          {app.badge && (
+            <span className="text-xs px-1 py-0.5 bg-gray-200 text-gray-700 rounded-md mb-1">
+              {app.badge}
+            </span>
+          )}
+          <p className="text-gray-500 text-[10px]">{app.org}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
     <div className="flex-1">
       <main className="flex-1 px-4 py-6 sm:px-6">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <div className="bg-white rounded-lg border border-blue-200 overflow-hidden">
-            <div className="p-4 border-b border-gray-200">
+            <div className="p-4  ">
               <h3 className="text-lg font-semibold">Current Courses</h3>
               <p className="text-sm text-gray-500">Your active courses</p>
             </div>
@@ -80,7 +84,7 @@ export default function UserDashboard() {
             </div>
           </div>
           <div className="bg-white rounded-lg border border-blue-200 overflow-hidden">
-            <div className="p-4 border-b border-gray-200">
+            <div className="p-4  ">
               <h3 className="text-lg font-semibold">Progress</h3>
               <p className="text-sm text-gray-500">Your overall progress</p>
             </div>
@@ -105,7 +109,7 @@ export default function UserDashboard() {
             </div>
           </div>
           <div className="bg-white rounded-lg border border-blue-200 overflow-hidden">
-            <div className="p-4 border-b border-gray-200">
+            <div className="p-4  ">
               <h3 className="text-lg font-semibold">Upcoming</h3>
               <p className="text-sm text-gray-500">Your upcoming deadlines and events</p>
             </div>
@@ -142,7 +146,7 @@ export default function UserDashboard() {
             </div>
           </div>
           <div className="bg-white rounded-lg border border-blue-200 overflow-hidden">
-            <div className="p-4 border-b border-gray-200">
+            <div className="p-4  ">
               <h3 className="text-lg font-semibold">Community</h3>
               <p className="text-sm text-gray-500">Announcements and events</p>
             </div>
@@ -179,7 +183,7 @@ export default function UserDashboard() {
             </div>
           </div>
           <div className="bg-white rounded-lg border border-blue-200 overflow-hidden">
-            <div className="p-4 border-b border-gray-200">
+            <div className="p-4  ">
               {/* You can add content here if needed */}
             </div>
           </div>
