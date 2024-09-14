@@ -40,15 +40,17 @@ export default function Sidebar() {
     }
   };
 
-  const isActive = path =>
-    location.pathname === path
+  const isActive = path => {
+    return location.pathname === path
       ? {
-          backgroundColor: '#2463EB',
+          backgroundColor: '#ffffff', // White background for active tab
+          color: '#ffffff', // White text for active tab
           borderRadius: '10px',
           width: '210px',
           marginLeft: '10px',
         }
       : {};
+  };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
@@ -70,36 +72,42 @@ export default function Sidebar() {
           zIndex: theme.zIndex.drawer + 1, // Higher zIndex to ensure it's above the AppBar
         }}
       >
-        <List>
-          {[
-            { text: 'Dashboard', icon: <LayoutGridIcon />, link: '/user-dashboard' },
-            { text: 'Courses', icon: <BookIcon />, link: '/courses' },
-            { text: 'Mock-test', icon: <FileTextIcon />, link: '/subjects' },
-            { text: 'Mentors', icon: <Groups />, link: '/mentors' },
-            { text: 'Reports', icon: <BarChart />, link: '/reports' },
-          ].map((item, index) => (
-            <div key={index}>
-              <ListItem button onClick={() => handleLinkClick(item.link)} sx={isActive(item.link)}>
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.text} />
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', paddingBottom: isMobile ? '40px' : '0' }}>
+          <List>
+            {[ // List items
+              { text: 'Dashboard', icon: <LayoutGridIcon />, link: '/user-dashboard' },
+              { text: 'Courses', icon: <BookIcon />, link: '/courses' },
+              { text: 'Mock-test', icon: <FileTextIcon />, link: '/subjects' },
+              { text: 'Mentors', icon: <Groups />, link: '/mentors' },
+              { text: 'Reports', icon: <BarChart />, link: '/reports' },
+            ].map((item, index) => (
+              <div key={index}>
+                <ListItem 
+                  button 
+                  onClick={() => handleLinkClick(item.link)} 
+                  sx={isActive(item.link)}
+                >
+                  <ListItemIcon sx={{ color: isActive(item.link).color }}>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} sx={{ color: isActive(item.link).color }} />
+                </ListItem>
+              </div>
+            ))}
+          </List>
+          {/* Move Settings icon above Logout */}
+          <div style={{ marginTop: 'auto', marginBottom:'100px' }}>
+            <Tooltip title="Settings" placement="right">
+              <ListItem button component={Link} to="/settings">
+                <SettingsIcon />
+                <ListItemText className="ml-4" primary="Settings" />
               </ListItem>
-            </div>
-          ))}
-        </List>
-        {/* Move Settings icon above Logout */}
-        <div style={{ marginTop: 'auto', marginBottom:'70px'}}>
-          <Tooltip title="Settings" placement="right">
-            <ListItem button component={Link} to="/settings">
-              <SettingsIcon />
-              <ListItemText className="ml-4" primary="Settings" />
-            </ListItem>
-          </Tooltip>
-          <Tooltip title="Logout" placement="right">
-            <ListItem button onClick={handleLogout}>
-              <ExitToAppTwoTone />
-              <ListItemText className="ml-4" primary="Logout" />
-            </ListItem>
-          </Tooltip>
+            </Tooltip>
+            <Tooltip title="Logout" placement="right">
+              <ListItem button onClick={handleLogout}>
+                <ExitToAppTwoTone />
+                <ListItemText className="ml-4" primary="Logout" />
+              </ListItem>
+            </Tooltip>
+          </div>
         </div>
       </Drawer>
 
@@ -109,7 +117,6 @@ export default function Sidebar() {
           <Toolbar>
             {/* Add logo image */}
             <img src="./logo.webp" alt="Logo" style={{ width: 100, height: 40, marginRight: '16px' }} />
-
             {isMobile && (
               <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleToggleSidebar} sx={{ mr: 2 }}>
                 <MenuIcon sx={{ color: 'white' }} />
@@ -138,6 +145,7 @@ export default function Sidebar() {
     </div>
   );
 }
+
 
 function LayoutGridIcon(props) {
   return (
