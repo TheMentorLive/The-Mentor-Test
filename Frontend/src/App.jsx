@@ -16,7 +16,7 @@ import EmailOtpLogin from './pages/EmailLogin';
 // import UserDashboard1 from './pages/Loginn';
 import AuthCallback from './hooks/AuthCallback';
 import ResetPassword from './pages/ResetPassword';
-import Login from './pages/login';
+// import Login from './pages/login';
 
 
 
