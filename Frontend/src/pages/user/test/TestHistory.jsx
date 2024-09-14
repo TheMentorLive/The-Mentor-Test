@@ -5,6 +5,21 @@ import axios from 'axios';
 import moment from 'moment';
 import { USERENDPOINTS } from '../../../constants/ApiConstants';
 
+const spinnerStyles = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #2563EB;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+`;
+
 const TestHistoryPage = () => {
   const [token, setToken] = useState(() => localStorage.getItem('token') || '');
   const [testHistory, setTestHistory] = useState([]);
@@ -75,7 +90,11 @@ const TestHistoryPage = () => {
           Test History
         </Typography>
         {loading ? (
-          <Typography>Loading...</Typography>
+          <div className="flex justify-center items-center min-h-screen">
+          <style>{spinnerStyles}</style>
+          <div className="spinner"></div>
+          <p className="ml-4 text-blue-500">Loading...</p>
+        </div>
         ) : error ? (
           <Typography color="error">{error}</Typography>
         ) : (

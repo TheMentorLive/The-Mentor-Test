@@ -19,7 +19,7 @@ const spinnerStyles = `
   }
 `;
 
-const DserDashboard1 = () => {
+const UserDashboard1 = () => {
   const [token, setToken] = useState(() => localStorage.getItem('token') || '');
   const [test, setTest] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -112,4 +112,4 @@ const DserDashboard1 = () => {
   );
 };
 
-export default DserDashboard1;
+export default UserDashboard1;
