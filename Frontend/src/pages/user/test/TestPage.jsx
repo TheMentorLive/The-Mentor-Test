@@ -175,77 +175,82 @@ const TestPage = () => {
           </CustomCard>
         </div>
 
-        <div className="bg-card text-card-foreground rounded-md p-4 md:p-6">
-          <div className="space-y-4">
-            <p className="font-bold text-3xl">Exam</p>
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <div className="flex items-center gap-2">
-                <span className="font-medium">Question {currentQuestion + 1}</span>
-                {flaggedQuestions.includes(currentQuestion) && <FlagIcon className="h-4 w-4 md:h-5 md:w-5 text-primary" />}
-              </div>
-              <div className="text-lg px-4 py-3 rounded-md  text-white bg-[#2563EB]">
-                {formatTime(timeRemaining)}
-              </div>
-            </div>
-            <div className="space-y-4">
-              <p className="text-lg font-medium">{testData.questions[currentQuestion].text}</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
-                {testData.questions[currentQuestion].answers.map((answer, index) => (
-                  <CustomButton
-                    key={index}
-                    variant={answers[currentQuestion] === index ? 'primary' : 'outline'}
-                    onClick={() => handleAnswerSelect(currentQuestion, index)}
-                    className="justify-start"
-                  >
-                    {answer}
-                  </CustomButton>
-                ))}
-              </div>
-            </div>
+        <div className="bg-card text-card-foreground rounded-md p-4 md:p-6 flex flex-col">
+  <div className="flex justify-end mb-4">
+    <div className="text-lg px-4 py-3 w-20 rounded-md text-white bg-blue-500">
+      {formatTime(timeRemaining)}
+    </div>
+  </div>
+  <div className="space-y-4">
+    <p className="font-bold text-3xl">Exam</p>
+    <div className="flex flex-col md:flex-row justify-between items-center">
+      <div className="flex items-center gap-2">
+        <span className="font-medium">Question {currentQuestion + 1}</span>
+        {flaggedQuestions.includes(currentQuestion) && (
+          <FlagIcon className="h-4 w-4 md:h-5 md:w-5 text-primary" />
+        )}
+      </div>
+    </div>
+    <div className="space-y-4">
+      <p className="text-lg font-medium">{questions[currentQuestion].text}</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+        {questions[currentQuestion].answers.map((answer, index) => (
+          <CustomButton
+            key={index}
+            variant={answers[currentQuestion] === index ? "primary" : "outline"}
+            onClick={() => handleAnswerSelect(currentQuestion, index)}
+            className="justify-start"
+          >
+            {answer}
+          </CustomButton>
+        ))}
+      </div>
+    </div>
 
-            <div className="mt-6 flex flex-col md:flex-row justify-between items-center">
-              <CustomButton
-                variant={flaggedQuestions.includes(currentQuestion) ? 'primary' : 'outline'}
-                onClick={() => handleQuestionFlag(currentQuestion)}
-                className="mb-4 md:mb-0"
-              >
-                {flaggedQuestions.includes(currentQuestion) ? 'Unflag' : 'Flag'}
-              </CustomButton>
-              <div className="flex items-center gap-2">
-                <span>{flaggedQuestions.length} flagged</span>
-                <span>{Object.keys(answers).length} answered</span>
-              </div>
-            </div>
+    <div className="mt-6 flex flex-col md:flex-row justify-between items-center">
+      <CustomButton
+        variant={flaggedQuestions.includes(currentQuestion) ? "primary" : "outline"}
+        onClick={() => handleQuestionFlag(currentQuestion)}
+        className="mb-4 md:mb-0"
+      >
+        {flaggedQuestions.includes(currentQuestion) ? "Unflag" : "Flag"}
+      </CustomButton>
+      <div className="flex items-center gap-2">
+        <span>{flaggedQuestions.length} flagged</span>
+        <span>{Object.keys(answers).length} answered</span>
+      </div>
+    </div>
 
-            <div className="mt-6 flex flex-col md:flex-row justify-between items-center">
-              <div className="flex items-center gap-2">
-                <span>
-                  Progress: {currentQuestion + 1}/{testData.questions.length}
-                </span>
-                <CustomProgress value={((currentQuestion + 1) / testData.questions.length) * 100} />
-              </div>
-              <div className="mt-6 flex gap-2 flex-col md:flex-row items-center">
-                <CustomButton
-                  onClick={() => handleQuestionChange('prev')}
-                  disabled={currentQuestion === 0}
-                  className="bg-gray-300 text-gray-700 hover:bg-gray-400"
-                >
-                  Prev
-                </CustomButton>
-                <CustomButton
-                  onClick={() => handleQuestionChange('next')}
-                  disabled={currentQuestion === testData.questions.length - 1}
-                  className="bg-gray-300 text-gray-700 hover:bg-gray-400"
-                >
-                  Next
-                </CustomButton>
-              </div>
-            </div>
-            <div className=" flex items-center justify-end mt-4">
-              <CustomButton className="bg-[#2563EB]  text-white px-9 py-3" onClick={handleSubmit} size="xl">Submit</CustomButton>
-            </div>
-          </div>
-        </div>
+    <div className="mt-6 flex flex-col md:flex-row justify-between items-center">
+      <div className="flex items-center gap-2">
+        <span>Progress: {currentQuestion + 1}/{questions.length}</span>
+        <CustomProgress value={((currentQuestion + 1) / questions.length) * 100} />
+      </div>
+      <div className="mt-6 flex gap-2 flex-col md:flex-row items-center">
+        <CustomButton
+          onClick={() => handleQuestionChange("prev")}
+          disabled={currentQuestion === 0}
+          className="bg-gray-300 text-gray-700 hover:bg-gray-400"
+        >
+          Prev
+        </CustomButton>
+        <CustomButton
+          onClick={() => handleQuestionChange("next")}
+          disabled={currentQuestion === questions.length - 1}
+          className="bg-gray-300 text-gray-700 hover:bg-gray-400"
+        >
+          Next
+        </CustomButton>
+      </div>
+    </div>
+
+    <div className="flex items-center justify-end mt-4">
+      <CustomButton className="bg-blue-500 text-white px-9 py-3" size="xl">
+        Submit
+      </CustomButton>
+    </div>
+  </div>
+</div>
       </main>
     </div>
   );
