@@ -1,19 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Tooltip, IconButton, AppBar, Toolbar, useMediaQuery, useTheme } from '@mui/material';
-import { Settings, MenuBook, Assignment, BarChart, Person } from '@mui/icons-material';
-import GroupsIcon from '@mui/icons-material/Groups';
+import { Groups } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import ExitToAppTwoToneIcon from '@mui/icons-material/ExitToAppTwoTone';
 import { mainContext } from '../context/mainContex';
-import SpaceDashboardTwoToneIcon from '@mui/icons-material/SpaceDashboardTwoTone';
-import RocketLaunchTwoToneIcon from '@mui/icons-material/RocketLaunchTwoTone';
-import ContentPasteTwoToneIcon from '@mui/icons-material/ContentPasteTwoTone';
+import { Settings as SettingsIcon, BarChart, ExitToAppTwoTone } from '@mui/icons-material';
 
 export default function UserDashboard1() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { user, signOut } = useContext(mainContext);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md')); // Check if screen size is mobile or tablet
@@ -22,32 +19,35 @@ export default function UserDashboard1() {
 
   const name = JSON.parse(localStorage.getItem('user'));
 
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem('user'));
+  }, [user]);
+
   const handleToggleSidebar = () => {
     setIsSidebarOpen(prev => !prev);
   };
 
   const handleLogout = () => {
     signOut();
-    navigate("/");
+    navigate('/');
     // Optionally redirect to login page or other page
   };
 
-  const handleLinkClick = (path) => {
+  const handleLinkClick = path => {
     navigate(path);
     if (isMobile) {
       setIsSidebarOpen(false); // Close sidebar on mobile when a link is clicked
     }
   };
 
-  const isActive = (path) => location.pathname === path
-    ? { backgroundColor: '#0c8bfa', borderRadius: '10px' } // Active tab style
-    : {};
+  const isActive = path =>
+    location.pathname === path ? { backgroundColor: '#2463EB', borderRadius: '10px', marginLeft: '-40px', } : {};
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
       {/* Sidebar */}
       <Drawer
-        variant={isMobile ? "temporary" : "permanent"}
+        variant={isMobile ? 'temporary' : 'permanent'}
         anchor="left"
         open={isSidebarOpen}
         onClose={handleToggleSidebar}
@@ -55,7 +55,7 @@ export default function UserDashboard1() {
           width: 240,
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: {
-            width: 200,
+            width: 240,
             boxSizing: 'border-box',
             backgroundColor: isMobile ? 'white' : 'transparent', // Set background color based on screen size
           },
@@ -68,53 +68,48 @@ export default function UserDashboard1() {
           </Link>
         </div>
         <List>
-          {[
-              { text: 'Dashboard', icon: <LayoutGridIcon />, link: '/user-dashboard' },
-              { text: 'Courses', icon: <BookIcon />, link: '/courses' },
-              { text: 'Mock-test', icon: <FileTextIcon />, link: '/subjects' },
-              { text: 'Mentors', icon: <GroupsIcon />, link: '/mentors' },
-              { text: 'Reports', icon: <BarChart />, link: '#' },
-          ].map((item, index) => (
-            <ListItem 
-              button 
-              key={index}
-              onClick={() => handleLinkClick(item.link)}
-              sx={isActive(item.link)} // Apply active link style
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItem>
-          ))}
-        </List>
+  {[
+    { text: 'Dashboard', icon: <LayoutGridIcon />, link: '/user-dashboard' },
+    { text: 'Courses', icon: <BookIcon />, link: '/courses' },
+    { text: 'Mock-test', icon: <FileTextIcon />, link: '/subjects' },
+    { text: 'Mentors', icon: <Groups />, link: '/mentors' },
+    { text: 'Reports', icon: <BarChart />, link: '#' },
+  ].map((item, index) => (
+    <ListItem 
+      button 
+      key={index} 
+      onClick={() => handleLinkClick(item.link)} 
+      sx={{ ...isActive(item.link), width: '10px' }} // Set width to 10px
+    >
+      <ListItemIcon>{item.icon}</ListItemIcon>
+      <ListItemText primary={item.text} />
+    </ListItem>
+  ))}
+</List>
+
         {/* Move Settings icon above Logout */}
         <div style={{ marginTop: 'auto' }}>
           <Tooltip title="Settings" placement="right">
             <ListItem button component={Link} to="/settings">
-              <SettingsIcon/>
-              <ListItemText className='ml-4' primary="Settings" />
+              <SettingsIcon />
+              <ListItemText className="ml-4" primary="Settings" />
             </ListItem>
           </Tooltip>
-          <Tooltip title=" Logout" placement="right">
+          <Tooltip title="Logout" placement="right">
             <ListItem button onClick={handleLogout}>
-              <LogOutIcon/>
-              <ListItemText className='ml-4' primary=" Logout" />
+              <ExitToAppTwoTone />
+              <ListItemText className="ml-4" primary="Logout" />
             </ListItem>
           </Tooltip>
         </div>
       </Drawer>
-      
+
       {/* Main Content */}
       <div style={{ flex: 1, position: 'relative' }}>
         <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer - 1, backgroundColor: '#2463EB' }}>
           <Toolbar>
             {isMobile && (
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                onClick={handleToggleSidebar}
-                sx={{ mr: 2 }}
-              >
+              <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleToggleSidebar} sx={{ mr: 2 }}>
                 <MenuIcon sx={{ color: 'white' }} />
               </IconButton>
             )}
@@ -131,17 +126,12 @@ export default function UserDashboard1() {
                 </IconButton>
               </Tooltip>
             </Link>
-            
             {/* Display Hello, user.name */}
-            <span style={{ color: 'white', fontWeight: 'bold', marginLeft: '10px' }}>
-              Hello, {name?.name}
-            </span>
+            <span style={{ color: 'white', fontWeight: 'bold', marginLeft: '10px' }}>Hello, {name?.name}</span>
           </Toolbar>
         </AppBar>
 
-        <main style={{ paddingTop: '64px' }}> {/* Adjust padding-top based on AppBar height */}
-          {/* Your main content here */}
-        </main>
+        <main style={{ paddingTop: '64px' }}>{/* Your main content here */}</main>
       </div>
     </div>
   );
@@ -207,46 +197,6 @@ function FileTextIcon(props) {
       <path d="M10 9H8" />
       <path d="M16 13H8" />
       <path d="M16 17H8" />
-    </svg>
-  );
-}
-
-function LogOutIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M10 17l5-5-5-5v10z" />
-      <path d="M19 15v4H5V5h14v4" />
-    </svg>
-  );
-}
-
-function SettingsIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-      <circle cx="12" cy="12" r="3" />
     </svg>
   );
 }
