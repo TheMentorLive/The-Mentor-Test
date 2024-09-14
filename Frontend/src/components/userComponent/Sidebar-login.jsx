@@ -115,8 +115,9 @@ export default function Sidebar() {
                 <MenuIcon sx={{ color: 'white' }} />
               </IconButton>
             )}
+            <Link to='/'>
             <img src="./logo.webp" alt="Logo" style={{ width: 100, height: 40, marginRight: '16px' }} />
-
+            </Link>
             <div style={{ flexGrow: 1 }} />
             <Tooltip title="Notifications">
               <IconButton color="inherit">
