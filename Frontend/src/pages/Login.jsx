@@ -1,234 +1,220 @@
-"use client";
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, Tooltip, IconButton, AppBar, Toolbar, useMediaQuery, useTheme } from '@mui/material';
+import { Groups } from '@mui/icons-material';
+import MenuIcon from '@mui/icons-material/Menu';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import { mainContext } from '../context/mainContex';
+import { Settings as SettingsIcon, BarChart, ExitToAppTwoTone } from '@mui/icons-material';
 
-import { useState, useEffect } from "react";
-
-export default function Component() {
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState({});
-  const [flaggedQuestions, setFlaggedQuestions] = useState([]);
-  const [timeRemaining, setTimeRemaining] = useState(3600);
+export default function Sidebar() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user, signOut } = useContext(mainContext);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md')); // Check if screen size is mobile or tablet
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg')); // Check if screen size is desktop
+  const navigate = useNavigate();
+  const location = useLocation(); // Get current location
+  const name = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeRemaining((prevTime) => prevTime - 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    setIsLoggedIn(!!localStorage.getItem('user'));
+  }, [user]);
 
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
+  const handleToggleSidebar = () => {
+    setIsSidebarOpen(prev => !prev);
   };
 
-  const handleLanguageChange = (language) => {
-    setSelectedLanguage(language);
+  const handleLogout = () => {
+    signOut();
+    navigate('/');
+    // Optionally redirect to login page or other page
   };
 
-  const handleQuestionChange = (direction) => {
-    if (direction === "prev" && currentQuestion > 0) {
-      setCurrentQuestion(currentQuestion - 1);
-    } else if (direction === "next" && currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
+  const handleLinkClick = path => {
+    navigate(path);
+    if (isMobile) {
+      setIsSidebarOpen(false); // Close sidebar on mobile when a link is clicked
     }
   };
 
-  const handleAnswerSelect = (questionIndex, answerIndex) => {
-    setAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      [questionIndex]: answerIndex,
-    }));
-  };
-
-  const handleQuestionFlag = (questionIndex) => {
-    if (flaggedQuestions.includes(questionIndex)) {
-      setFlaggedQuestions(flaggedQuestions.filter((index) => index !== questionIndex));
-    } else {
-      setFlaggedQuestions([...flaggedQuestions, questionIndex]);
-    }
-  };
-
-  const questions = [
-    {
-      id: 1,
-      text: "What is the capital of France?",
-      answers: ["Paris", "London", "Berlin", "Madrid"],
-      correctAnswer: 0,
-    },
-    {
-      id: 2,
-      text: "Which of these is not a primary color?",
-      answers: ["Red", "Blue", "Green", "Purple"],
-      correctAnswer: 3,
-    },
-    {
-      id: 3,
-      text: "What is the largest ocean on Earth?",
-      answers: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
-      correctAnswer: 3,
-    },
-    {
-      id: 4,
-      text: "Which of these is not a common programming language?",
-      answers: ["JavaScript", "Python", "Java", "Elvish"],
-      correctAnswer: 3,
-    },
-  ];
+  const isActive = path =>
+    location.pathname === path
+      ? {
+          backgroundColor: '#2463EB',
+          borderRadius: '10px',
+          width: '210px',
+          marginLeft: '10px',
+        }
+      : {};
 
   return (
-    <div className="flex flex-col h-screen mt-10 bg-white text-black">
-      <main className="flex-1 grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-8 pt-20 p-4 md:p-8">
-        <div className="bg-card text-card-foreground rounded-md p-4 md:p-6">
-          <CustomCard title="Question Map" description="View the status of all questions at a glance.">
-            <div className="grid grid-cols-4 gap-2 md:gap-4">
-              {questions.map((_, index) => (
-                <div
-                  key={index}
-                  className={`w-6 h-6 md:w-8 md:h-8 rounded-md flex items-center justify-center cursor-pointer transition-colors ${
-                    currentQuestion === index
-                      ? "bg-primary text-primary-foreground"
-                      : flaggedQuestions.includes(index)
-                      ? "bg-yellow-500 text-white"
-                      : answers[index] !== undefined
-                      ? "bg-green-500 text-white"
-                      : "bg-muted text-muted-foreground"
-                  }`}
-                  onClick={() => setCurrentQuestion(index)}
-                >
-                  {index + 1}
-                </div>
-              ))}
-            </div>
-          </CustomCard>
+    <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
+      {/* Sidebar */}
+      <Drawer
+  variant={isMobile ? 'temporary' : 'permanent'}
+  anchor="left"
+  open={isSidebarOpen}
+  onClose={handleToggleSidebar}
+  sx={{
+    width: 240,
+    flexShrink: 0,
+    [`& .MuiDrawer-paper`]: {
+      width: 240,
+      boxSizing: 'border-box',
+      backgroundColor: isMobile ? 'white' : 'transparent', // Set background color based on screen size
+      marginTop: isDesktop ? '62px' : '0', // Apply marginTop only on desktop screens
+    },
+    zIndex: theme.zIndex.drawer + 1, // Higher zIndex to ensure it's above the AppBar
+  }}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', height: '100%', paddingBottom: isMobile ? '40px' : '0' }}>
+    <List>
+      {[ // List items
+        { text: 'Dashboard', icon: <LayoutGridIcon />, link: '/user-dashboard' },
+        { text: 'Courses', icon: <BookIcon />, link: '/courses' },
+        { text: 'Mock-test', icon: <FileTextIcon />, link: '/subjects' },
+        { text: 'Mentors', icon: <Groups />, link: '/mentors' },
+        { text: 'Reports', icon: <BarChart />, link: '/reports' },
+      ].map((item, index) => (
+        <div key={index}>
+          <ListItem button onClick={() => handleLinkClick(item.link)} sx={isActive(item.link)}>
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.text} />
+          </ListItem>
         </div>
-
-        <div className="bg-card text-card-foreground rounded-md p-4 md:p-6">
-          <div className="space-y-4">
-            <p className="font-bold text-3xl">Exam</p>
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <div className="flex items-center gap-2">
-                <span className="font-medium">Question {currentQuestion + 1}</span>
-                {flaggedQuestions.includes(currentQuestion) && <FlagIcon className="h-4 w-4 md:h-5 md:w-5 text-primary" />}
-              </div>
-              <div className="text-lg px-4 py-3 rounded-md  text-white bg-blue-500">
-                {formatTime(timeRemaining)}
-              </div>
-            </div>
-            <div className="space-y-4">
-              <p className="text-lg font-medium">{questions[currentQuestion].text}</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
-                {questions[currentQuestion].answers.map((answer, index) => (
-                  <CustomButton
-                    key={index}
-                    variant={answers[currentQuestion] === index ? "primary" : "outline"}
-                    onClick={() => handleAnswerSelect(currentQuestion, index)}
-                    className="justify-start"
-                  >
-                    {answer}
-                  </CustomButton>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-6 flex flex-col md:flex-row justify-between items-center">
-              <CustomButton
-                variant={flaggedQuestions.includes(currentQuestion) ? "primary" : "outline"}
-                onClick={() => handleQuestionFlag(currentQuestion)}
-                className="mb-4 md:mb-0"
-              >
-                {flaggedQuestions.includes(currentQuestion) ? "Unflag" : "Flag"}
-              </CustomButton>
-              <div className="flex items-center gap-2">
-                <span>
-                  {flaggedQuestions.length} flagged
-                </span>
-                <span>
-                  {Object.keys(answers).length} answered
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-6 flex flex-col md:flex-row justify-between items-center">
-  <div className="flex items-center gap-2">
-    <span>
-      Progress: {currentQuestion + 1}/{questions.length}
-    </span>
-    <CustomProgress value={((currentQuestion + 1) / questions.length) * 100} />
+      ))}
+    </List>
+    {/* Move Settings icon above Logout */}
+    <div style={{ marginTop: 'auto', marginBottom:'100px' }}>
+      <Tooltip title="Settings" placement="right">
+        <ListItem button component={Link} to="/settings">
+          <SettingsIcon />
+          <ListItemText className="ml-4" primary="Settings" />
+        </ListItem>
+      </Tooltip>
+      <Tooltip title="Logout" placement="right">
+        <ListItem button onClick={handleLogout}>
+          <ExitToAppTwoTone />
+          <ListItemText className="ml-4" primary="Logout" />
+        </ListItem>
+      </Tooltip>
+    </div>
   </div>
-  <div className="mt-6 flex gap-2 flex-col md:flex-row items-center">
-    <CustomButton
-      onClick={() => handleQuestionChange("prev")}
-      disabled={currentQuestion === 0}
-      className="bg-gray-300 text-gray-700 hover:bg-gray-400"
+</Drawer>
+
+      {/* Main Content */}
+      <div style={{ flex: 1, position: 'relative' }}>
+        <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer - 1, backgroundColor: '#2463EB' }}>
+          <Toolbar>
+            {/* Add logo image */}
+           
+
+            {isMobile && (
+              <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleToggleSidebar} sx={{ mr: 2 }}>
+                <MenuIcon sx={{ color: 'white' }} />
+              </IconButton>
+            )}
+             <img src="./logo.webp" alt="Logo" style={{ width: 100, height: 40, marginRight: '16px' }} />
+            <div style={{ flexGrow: 1 }} />
+            <Tooltip title="Notifications">
+              <IconButton color="inherit">
+                <NotificationsIcon sx={{ color: 'white' }} />
+              </IconButton>
+            </Tooltip>
+            <Link to="/profile">
+              <Tooltip title="Profile">
+                <IconButton color="inherit">
+                  <AccountCircle sx={{ color: 'white' }} />
+                </IconButton>
+              </Tooltip>
+            </Link>
+            {/* Display Hello, user.name */}
+            <span style={{ color: 'white', fontWeight: 'bold', marginLeft: '10px' }}>Hello, {name?.name}</span>
+          </Toolbar>
+        </AppBar>
+
+        <main style={{ paddingTop: '64px' }}>{/* Your main content here */}</main>
+      </div>
+    </div>
+  );
+}
+
+function LayoutGridIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      Prev
-    </CustomButton>
-    <CustomButton
-      onClick={() => handleQuestionChange("next")}
-      disabled={currentQuestion === questions.length - 1}
-      className="bg-gray-300 text-gray-700 hover:bg-gray-400"
+      <rect width="7" height="7" x="3" y="3" rx="1" />
+      <rect width="7" height="7" x="14" y="3" rx="1" />
+      <rect width="7" height="7" x="14" y="14" rx="1" />
+      <rect width="7" height="7" x="3" y="14" rx="1" />
+    </svg>
+  );
+}
+
+function BookIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      Next
-    </CustomButton>
-  </div>
-</div>
-
-<div className="flex items-center justify-end mt-4"> {/* Align to the right */}
-  <CustomButton className="bg-blue-500 text-white px-9 py-3" size="xl">
-    Submit
-  </CustomButton>
-</div>
-
-
-            
-          </div>
-        </div>
-      </main>
-      
-    </div>
+      <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+    </svg>
   );
 }
 
-function CustomButton({ variant, size, className, children, onClick, disabled }) {
-  const baseStyle = "px-4 py-1 rounded-md focus:outline-none focus:ring-2";
-  const variantStyle =
-    variant === "primary"
-      ? "bg-blue-500 text-white hover:bg-blue-600"
-      : variant === "outline"
-      ? "border border-gray-300 text-black hover:bg-gray-200"
-      : "text-black";
-  const sizeStyle = size === "sm" ? "text-sm" : "text-base";
-  const disabledStyle = disabled ? "opacity-50 cursor-not-allowed" : "";
-
+function FileTextIcon(props) {
   return (
-    <button className={`${baseStyle} ${variantStyle} ${sizeStyle} ${className} ${disabledStyle}`} onClick={onClick} disabled={disabled}>
-      {children}
-    </button>
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+      <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+      <path d="M10 9H8" />
+      <path d="M16 13H8" />
+      <path d="M16 17H8" />
+    </svg>
   );
 }
 
-function CustomCard({ title, description, children }) {
-  return (
-    <div className="border p-4 rounded-md">
-      <h3 className="text-lg font-semibold text-black">{title}</h3>
-      <p className="text-sm text-gray-600">{description}</p>
-      <div className="mt-4">{children}</div>
-    </div>
-  );
-}
 
-function CustomProgress({ value }) {
-  return (
-    <div className="w-full bg-gray-200 rounded-full h-2.5">
-      <div
-        className="bg-blue-500 h-2.5 rounded-full"
-        style={{ width: `${value}%` }}
-      />
-    </div>
-  );
-}
 
-function FlagIcon(props) {
-  return <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a1 1 0 00-1 1v10.585L8.707 11.293a1 1 0 00-1.414 1.414L11.293 16l.707.707 3-3a1 1 0 00-1.414-1.414L12 12.586V3a1 1 0 00-1-1z"/></svg>;
-}
+
+
+
+
+
+
+
+
+
+
