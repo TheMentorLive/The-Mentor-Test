@@ -47,7 +47,6 @@ export default function Sidebar() {
           borderRadius: '10px',
           width: '210px',
           marginLeft: '10px',
-           color: 'white',
           
         }
       : {};
