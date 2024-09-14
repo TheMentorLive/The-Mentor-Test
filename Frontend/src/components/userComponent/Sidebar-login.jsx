@@ -42,11 +42,18 @@ export default function Sidebar() {
 
   const isActive = path =>
     location.pathname === path
-      ? 'bg-blue-600 rounded-lg w-[210px] ml-2 text-white'
-      : '';
+      ? {
+          backgroundColor: '#2463EB',
+          borderRadius: '10px',
+          width: '210px',
+          marginLeft: '10px',
+           color: 'white',
+          
+        }
+      : {};
 
   return (
-    <div className="flex h-screen">
+    <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
       {/* Sidebar */}
       <Drawer
         variant={isMobile ? 'temporary' : 'permanent'}
@@ -59,14 +66,14 @@ export default function Sidebar() {
           [`& .MuiDrawer-paper`]: {
             width: 240,
             boxSizing: 'border-box',
-            backgroundColor: isMobile ? 'white' : 'transparent',
+            backgroundColor: isMobile ? 'white' : 'transparent', // Set background color based on screen size
           },
           zIndex: theme.zIndex.drawer + 1, // Higher zIndex to ensure it's above the AppBar
         }}
       >
-        <div className="h-[60px] flex items-center px-4 bg-transparent">
+        <div style={{ height: '60px', display: 'flex', alignItems: 'center', padding: '0 16px', backgroundColor: isMobile ? 'white' : 'transparent' }}>
           <Link to="/" className="flex items-center gap-2 font-semibold">
-            <img src="./logo.webp" alt="Logo" className="w-[100px] h-[40px]" />
+            <img src="./logo.webp" alt="Logo" style={{ width: 100, height: 40 }} /> {/* Adjust logo size */}
           </Link>
         </div>
         <List>
@@ -77,14 +84,14 @@ export default function Sidebar() {
             { text: 'Mentors', icon: <Groups />, link: '/mentors' },
             { text: 'Reports', icon: <BarChart />, link: '/reports' },
           ].map((item, index) => (
-            <ListItem button key={index} onClick={() => handleLinkClick(item.link)} className={`hover:bg-gray-200 ${isActive(item.link)}`}>
+            <ListItem button key={index} onClick={() => handleLinkClick(item.link)} sx={isActive(item.link)}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>
           ))}
         </List>
         {/* Move Settings icon above Logout */}
-        <div className="mt-auto">
+        <div style={{ marginTop: 'auto' }}>
           <Tooltip title="Settings" placement="right">
             <ListItem button component={Link} to="/settings">
               <SettingsIcon />
@@ -101,33 +108,33 @@ export default function Sidebar() {
       </Drawer>
 
       {/* Main Content */}
-      <div className="flex-1 relative">
-        <AppBar position="fixed" className="z-[theme.zIndex.drawer - 1] bg-blue-600">
+      <div style={{ flex: 1, position: 'relative' }}>
+        <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer - 1, backgroundColor: '#2463EB' }}>
           <Toolbar>
             {isMobile && (
-              <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleToggleSidebar} className="mr-2">
-                <MenuIcon className="text-white" />
+              <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleToggleSidebar} sx={{ mr: 2 }}>
+                <MenuIcon sx={{ color: 'white' }} />
               </IconButton>
             )}
-            <div className="flex-grow" />
+            <div style={{ flexGrow: 1 }} />
             <Tooltip title="Notifications">
               <IconButton color="inherit">
-                <NotificationsIcon className="text-white" />
+                <NotificationsIcon sx={{ color: 'white' }} />
               </IconButton>
             </Tooltip>
             <Link to="/profile">
               <Tooltip title="Profile">
                 <IconButton color="inherit">
-                  <AccountCircle className="text-white" />
+                  <AccountCircle sx={{ color: 'white' }} />
                 </IconButton>
               </Tooltip>
             </Link>
             {/* Display Hello, user.name */}
-            <span className="text-white font-bold ml-2">Hello, {name?.name}</span>
+            <span style={{ color: 'white', fontWeight: 'bold', marginLeft: '10px' }}>Hello, {name?.name}</span>
           </Toolbar>
         </AppBar>
 
-        <main className="pt-16">{/* Your main content here */}</main>
+        <main style={{ paddingTop: '64px' }}>{/* Your main content here */}</main>
       </div>
     </div>
   );
