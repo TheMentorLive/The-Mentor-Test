@@ -41,7 +41,14 @@ export default function Sidebar() {
   };
 
   const isActive = path =>
-    location.pathname === path ? { backgroundColor: '#2463EB', borderRadius: '10px', marginLeft: '10px', marginRight: '40px' } : {};
+    location.pathname === path
+      ? {
+          backgroundColor: '#2463EB',
+          borderRadius: '10px',
+          width: '10px',
+          marginLeft: '10px',
+        }
+      : {};
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
