@@ -15,7 +15,7 @@ export default function UserDashboard() {
       <div>
         <p className=" ml-5 mt-4 mb-14 text-4xl font-bold">Dashboard</p>
       </div>
- <div className="flex ml-3 mb-8 items-left">
+ <div className="flex ml-3 mb-5 items-left">
   <div className="p-2 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
     {cardData.map((app, index) => (
       <div key={index} className="flex flex-col p-2 border rounded-lg border-gray-300">
