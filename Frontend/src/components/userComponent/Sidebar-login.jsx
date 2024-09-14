@@ -14,9 +14,9 @@ export default function Sidebar() {
   const { user, signOut } = useContext(mainContext);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md')); // Check if screen size is mobile or tablet
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg')); // Check if screen size is desktop
   const navigate = useNavigate();
   const location = useLocation(); // Get current location
-
   const name = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
@@ -47,7 +47,6 @@ export default function Sidebar() {
           borderRadius: '10px',
           width: '210px',
           marginLeft: '10px',
-          
         }
       : {};
 
@@ -66,15 +65,11 @@ export default function Sidebar() {
             width: 240,
             boxSizing: 'border-box',
             backgroundColor: isMobile ? 'white' : 'transparent', // Set background color based on screen size
+            marginTop: isDesktop ? '62px' : '0', // Apply marginTop only on desktop screens
           },
           zIndex: theme.zIndex.drawer + 1, // Higher zIndex to ensure it's above the AppBar
         }}
       >
-        <div style={{ height: '60px', display: 'flex', alignItems: 'center', padding: '0 16px', backgroundColor: isMobile ? 'white' : 'transparent' }}>
-          <Link to="/" className="flex items-center gap-2 font-semibold">
-            <img src="./logo.webp" alt="Logo" style={{ width: 100, height: 40 }} /> {/* Adjust logo size */}
-          </Link>
-        </div>
         <List>
           {[
             { text: 'Dashboard', icon: <LayoutGridIcon />, link: '/user-dashboard' },
@@ -83,14 +78,16 @@ export default function Sidebar() {
             { text: 'Mentors', icon: <Groups />, link: '/mentors' },
             { text: 'Reports', icon: <BarChart />, link: '/reports' },
           ].map((item, index) => (
-            <ListItem button key={index} onClick={() => handleLinkClick(item.link)} sx={isActive(item.link)}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItem>
+            <div key={index}>
+              <ListItem button onClick={() => handleLinkClick(item.link)} sx={isActive(item.link)}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItem>
+            </div>
           ))}
         </List>
         {/* Move Settings icon above Logout */}
-        <div style={{ marginTop: 'auto' }}>
+        <div style={{ marginTop: 'auto', marginBottom:'70px'}}>
           <Tooltip title="Settings" placement="right">
             <ListItem button component={Link} to="/settings">
               <SettingsIcon />
@@ -110,6 +107,9 @@ export default function Sidebar() {
       <div style={{ flex: 1, position: 'relative' }}>
         <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer - 1, backgroundColor: '#2463EB' }}>
           <Toolbar>
+            {/* Add logo image */}
+            <img src="./logo.webp" alt="Logo" style={{ width: 100, height: 40, marginRight: '16px' }} />
+
             {isMobile && (
               <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleToggleSidebar} sx={{ mr: 2 }}>
                 <MenuIcon sx={{ color: 'white' }} />

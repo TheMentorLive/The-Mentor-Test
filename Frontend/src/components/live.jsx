@@ -66,3 +66,20 @@ export default function Live() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+  
+  <main style={{ paddingTop: '64px' }}>{/* Your main content here */}</main>
+</div>
