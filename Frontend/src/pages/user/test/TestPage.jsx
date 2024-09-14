@@ -5,6 +5,22 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { USERENDPOINTS } from '../../../constants/ApiConstants';
 
+
+const spinnerStyles = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #2563EB;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+`;
+
 const TestPage = () => {
   const [token, setToken] = useState(() => localStorage.getItem('token') || '');
   const [testData, setTestData] = useState(null);
@@ -136,9 +152,13 @@ const TestPage = () => {
     }
   };
 
-  if (loading) {
-    return <Typography>Loading...</Typography>;
-  }
+  if (loading) return (
+    <div className="flex justify-center items-center min-h-screen">
+      <style>{spinnerStyles}</style>
+      <div className="spinner"></div>
+      <p className="ml-4 text-blue-500">Loading...</p>
+    </div>
+  );
 
   if (error) {
     return <Typography color="error">{error}</Typography>;

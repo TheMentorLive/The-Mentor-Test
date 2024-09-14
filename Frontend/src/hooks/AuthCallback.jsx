@@ -1,6 +1,21 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const spinnerStyles = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #2563EB;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+`;
+
 const AuthCallback = () => {
   const navigate = useNavigate();
 
@@ -41,7 +56,20 @@ const AuthCallback = () => {
     fetchAuthDetails();
   }, [navigate]);
 
-  return <div>Loading...</div>;
+  return (
+    <div className="flex justify-center items-center min-h-screen">
+      <style>{spinnerStyles}</style>
+      <div className="spinner"></div>
+      <p className="ml-4 text-blue-500">Loading...</p>
+    </div>
+  );
 };
 
 export default AuthCallback;
+
+
+
+
+
+
+

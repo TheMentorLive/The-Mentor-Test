@@ -1,340 +1,115 @@
-"use client";
+import React, { useState, useEffect } from 'react';
+import { Button } from '@mui/material';
+import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
+import { USERENDPOINTS } from '../constants/ApiConstants';
 
-import React from "react";
+const spinnerStyles = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #2563EB;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+`;
 
-export default function UserDashboard1() {
+const DserDashboard1 = () => {
+  const [token, setToken] = useState(() => localStorage.getItem('token') || '');
+  const [test, setTest] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const cardData = [
-    { name: "Live", org: "Counselling & Mentorship", image: "/cards/Live.png" },
-    { name: "Learn", org: "UpSkilling Courses", image: "/cards/Learn.png" },
-    { name: "Jobs", org: "Remote, Hybrid & Onsite", image: "/cards/Jobs.png" },
-    { name: "Community", org: "Connect & Grow", image: "/cards/Community.png" },
-  ];
-  return (
-    <div>
-      <div>
-        <p className=" ml-5 mt-4 mb-14 text-4xl font-bold">Dashboard</p>
-      </div>
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const testId = queryParams.get('id');
 
-      
-      <div className="flex ml-3 mb-8 items-left">
-  <div className="p-2 grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-    {cardData.map((app, index) => (
-      <div key={index} className="flex flex-col p-2 border rounded-lg border-gray-300">
-        <div className="border px-6 py-3 rounded-lg bg-blue-100 border-gray-300 flex items-center justify-center">
-          <img
-            src={app.image}
-            alt={app.name}
-            width="60"
-            height="60"
-            className="rounded-lg"
-            style={{ aspectRatio: "1/1", objectFit: "cover" }}
-          />
-        </div>
-        <div className="text-left mt-2 w-full">
-          <p className="text-sm font-semibold">{app.name}</p>
-          {app.badge && (
-            <span className="text-xs px-1 py-0.5 bg-gray-200 text-gray-700 rounded-md mb-1">
-              {app.badge}
-            </span>
-          )}
-          <p className="text-gray-500 text-[10px]">{app.org}</p>
-        </div>
-      </div>
-    ))}
-  </div>
-</div>
+  useEffect(() => {
+    if (testId) {
+      const fetchTest = async () => {
+        try {
+          const response = await axios.get(`${USERENDPOINTS.GETTESTSLANDING}?id=${testId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          setTest(response.data);
+        } catch (error) {
+          setError('Error fetching test details');
+          console.error('Error fetching test details:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-    <div className="flex-1">
-      <main className="flex-1 px-4 py-6 sm:px-6">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <div className="bg-white rounded-lg border border-blue-200 overflow-hidden">
-            <div className="p-4  ">
-              <h3 className="text-lg font-semibold">Current Courses</h3>
-              <p className="text-sm text-gray-500">Your active courses</p>
-            </div>
-            <div className="p-4">
-              <div className="grid gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    <BookIcon className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="grid gap-1">
-                    <div className="text-sm font-medium">Introduction to Web Development</div>
-                    <div className="text-xs text-muted-foreground">Completed: 75%</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-secondary-foreground">
-                    <CodeIcon className="h-6 w-6" />
-                  </div>
-                  <div className="grid gap-1">
-                    <div className="text-sm font-medium">Advanced JavaScript</div>
-                    <div className="text-xs text-muted-foreground">Completed: 50%</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-accent-foreground">
-                    <DatabaseIcon className="h-6 w-6" />
-                  </div>
-                  <div className="grid gap-1">
-                    <div className="text-sm font-medium">Database Fundamentals</div>
-                    <div className="text-xs text-muted-foreground">Completed: 30%</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white rounded-lg border border-blue-200 overflow-hidden">
-            <div className="p-4  ">
-              <h3 className="text-lg font-semibold">Progress</h3>
-              <p className="text-sm text-gray-500">Your overall progress</p>
-            </div>
-            <div className="p-4">
-              <div className="grid gap-4">
-                <div className="flex items-center justify-between">
-                  <div className="text-sm font-medium">Courses Completed</div>
-                  <div className="text-sm font-medium">8 / 12</div>
-                </div>
-                <Progress value={66.67} aria-label="Courses Completed" />
-                <div className="flex items-center justify-between">
-                  <div className="text-sm font-medium">Assignments Completed</div>
-                  <div className="text-sm font-medium">42 / 60</div>
-                </div>
-                <Progress value={70} aria-label="Assignments Completed" />
-                <div className="flex items-center justify-between">
-                  <div className="text-sm font-medium">Quizzes Passed</div>
-                  <div className="text-sm font-medium">18 / 20</div>
-                </div>
-                <Progress value={90} aria-label="Quizzes Passed" />
-              </div>
-            </div>
-          </div>
-          <div className="bg-white rounded-lg border border-blue-200 overflow-hidden">
-            <div className="p-4  ">
-              <h3 className="text-lg font-semibold">Upcoming</h3>
-              <p className="text-sm text-gray-500">Your upcoming deadlines and events</p>
-            </div>
-            <div className="p-4">
-              <div className="grid gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-accent-foreground">
-                    <CalendarIcon className="h-6 w-6" />
-                  </div>
-                  <div className="grid gap-1">
-                    <div className="text-sm font-medium">Final Project Deadline</div>
-                    <div className="text-xs text-muted-foreground">Due: June 30, 2023</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-secondary-foreground">
-                    <CalendarIcon className="h-6 w-6" />
-                  </div>
-                  <div className="grid gap-1">
-                    <div className="text-sm font-medium">Midterm Exam</div>
-                    <div className="text-xs text-muted-foreground">Date: May 15, 2023</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    <CalendarIcon className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="grid gap-1">
-                    <div className="text-sm font-medium">Career Counseling Session</div>
-                    <div className="text-xs text-muted-foreground">Date: April 20, 2023</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white rounded-lg border border-blue-200 overflow-hidden">
-            <div className="p-4  ">
-              <h3 className="text-lg font-semibold">Community</h3>
-              <p className="text-sm text-gray-500">Announcements and events</p>
-            </div>
-            <div className="p-4">
-              <div className="grid gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    <MegaphoneIcon className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="grid gap-1">
-                    <div className="text-sm font-medium">New Course Announcement</div>
-                    <div className="text-xs text-muted-foreground">Introduction to React.js</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-secondary-foreground">
-                    <CalendarIcon className="h-6 w-6" />
-                  </div>
-                  <div className="grid gap-1">
-                    <div className="text-sm font-medium">Community Meetup</div>
-                    <div className="text-xs text-muted-foreground">May 20, 2023</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-accent-foreground">
-                    <AwardIcon className="h-6 w-6" />
-                  </div>
-                  <div className="grid gap-1">
-                    <div className="text-sm font-medium">Student of the Month</div>
-                    <div className="text-xs text-muted-foreground">Congratulations, John Doe!</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white rounded-lg border border-blue-200 overflow-hidden">
-            <div className="p-4  ">
-              {/* You can add content here if needed */}
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
-    </div>
-  )
-}
-function AwardIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
-      <circle cx="12" cy="8" r="6" />
-    </svg>
-  )
-}
+      fetchTest();
+    }
+  }, [testId]);
 
-
-function BookIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
-    </svg>
-  )
-}
-
-
-
-
-
-function CalendarIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M8 2v4" />
-      <path d="M16 2v4" />
-      <rect width="18" height="18" x="3" y="4" rx="2" />
-      <path d="M3 10h18" />
-    </svg>
-  )
-}
-
-
-function CodeIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="16 18 22 12 16 6" />
-      <polyline points="8 6 2 12 8 18" />
-    </svg>
-  )
-}
-
-
-function DatabaseIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <ellipse cx="12" cy="5" rx="9" ry="3" />
-      <path d="M3 5V19A9 3 0 0 0 21 19V5" />
-      <path d="M3 12A9 3 0 0 0 21 12" />
-    </svg>
-  )
-}
-
-
-
-function MegaphoneIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m3 11 18-5v12L3 14v-3z" />
-      <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
-    </svg>
-  )
-}
-
-
-function Progress({ value, ariaLabel }) {
-  return (
-    <div className="w-full bg-gray-200 rounded-full h-2.5">
-      <div
-        className="bg-blue-600 h-2.5 rounded-full"
-        style={{ width: `${value}%` }}
-        aria-label={ariaLabel}
-      />
+  if (loading) return (
+    <div className="flex justify-center items-center min-h-screen">
+      <style>{spinnerStyles}</style>
+      <div className="spinner"></div>
+      <p className="ml-4 text-blue-500">Loading...</p>
     </div>
   );
-}
+
+  if (error) return (
+    <div className="flex justify-center items-center min-h-screen">
+      <p className="text-red-500 text-lg">{error}</p>
+    </div>
+  );
+
+  if (!test) return (
+    <div className="flex justify-center items-center min-h-screen">
+      <p>No test found</p>
+    </div>
+  );
+
+  return (
+    <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
+      <div className="flex flex-col w-full max-w-5xl bg-white rounded-lg shadow-lg p-8 mt-8">
+        <div className="flex flex-col md:flex-row">
+          <div className="md:w-1/2 md:pr-8">
+            <h1 className="text-4xl font-bold mb-4">{test.title || 'Test Title Here'}</h1>
+            <div className="flex space-x-12 mb-4">
+              <div>
+                <p className="text-sm text-gray-500">Test duration</p>
+                <p className="text-lg font-medium">{test.duration || '60 mins'}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">No. of questions</p>
+                <p className="text-lg font-medium">{test.questions?.length || '20 questions'}</p>
+              </div>
+            </div>
+          </div>
+          <div className="md:w-1/2 md:pl-8 md:border-l md:border-gray-200">
+            <h2 className="text-2xl font-semibold mb-4">Instructions</h2>
+            <ol className="list-decimal list-inside space-y-4 text-gray-600 mb-8">
+              <li>This is a timed test. Please make sure you are not interrupted during the test, as the timer cannot be paused once started.</li>
+              <li>Please ensure you have a stable internet connection.</li>
+              <li>
+                We recommend you to try the{' '}
+                <a href="#" className="text-blue-500 underline">
+                  sample test
+                </a>{' '}
+                for a couple of minutes before taking the main test.
+              </li>
+            </ol>
+            <div className="flex space-x-6">
+              <Link to={`/test?id=${test._id}`}>
+                <Button variant="contained" color="primary" className="bg-blue-500 text-white">Continue</Button>
+              </Link>
+              <Button variant="outlined" color="primary" className="border-blue-500 text-blue-500">Try Sample Test</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DserDashboard1;
