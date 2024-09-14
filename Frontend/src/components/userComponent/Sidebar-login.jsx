@@ -1,19 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Tooltip, IconButton, AppBar, Toolbar, useMediaQuery, useTheme } from '@mui/material';
-import { Settings, MenuBook, Assignment, BarChart, Person } from '@mui/icons-material';
-import GroupsIcon from '@mui/icons-material/Groups';
+import { Groups } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import ExitToAppTwoToneIcon from '@mui/icons-material/ExitToAppTwoTone';
 import { mainContext } from '../../context/mainContex';
-import SpaceDashboardTwoToneIcon from '@mui/icons-material/SpaceDashboardTwoTone';
-import RocketLaunchTwoToneIcon from '@mui/icons-material/RocketLaunchTwoTone';
-import ContentPasteTwoToneIcon from '@mui/icons-material/ContentPasteTwoTone';
-// import EventNoteTwoToneIcon from '@mui/icons-material/EventNoteTwoTone';
-// import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
-// import ForumTwoToneIcon from '@mui/icons-material/ForumTwoTone';
+import { Settings as SettingsIcon, BarChart, ExitToAppTwoTone } from '@mui/icons-material';
 
 export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -27,7 +20,7 @@ export default function Sidebar() {
   const name = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    setIsLoggedIn(!!localStorage.getItem("user"));
+    setIsLoggedIn(!!localStorage.getItem('user'));
   }, [user]);
 
   const handleToggleSidebar = () => {
@@ -36,26 +29,25 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     signOut();
-    navigate("/");
+    navigate('/');
     // Optionally redirect to login page or other page
   };
 
-  const handleLinkClick = (path) => {
+  const handleLinkClick = path => {
     navigate(path);
     if (isMobile) {
       setIsSidebarOpen(false); // Close sidebar on mobile when a link is clicked
     }
   };
 
-  const isActive = (path) => location.pathname === path
-  ? { backgroundColor: '#2463EB', borderRadius: '10px', marginLeft: '10px'  }
-  : {};
+  const isActive = path =>
+    location.pathname === path ? { backgroundColor: '#2463EB', borderRadius: '10px', marginLeft: '10px', marginRight: '40px' } : {};
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
       {/* Sidebar */}
       <Drawer
-        variant={isMobile ? "temporary" : "permanent"}
+        variant={isMobile ? 'temporary' : 'permanent'}
         anchor="left"
         open={isSidebarOpen}
         onClose={handleToggleSidebar}
@@ -76,40 +68,37 @@ export default function Sidebar() {
           </Link>
         </div>
         <List>
-          {[
-              { text: 'Dashboard', icon: <LayoutGridIcon />, link: '/user-dashboard' },
-              { text: 'Courses', icon: <BookIcon />, link: '/courses' },
-              { text: 'Mock-test', icon: <FileTextIcon />, link: '/subjects' },
-              { text: 'Mentors', icon: <GroupsIcon />, link: '/mentors' },
-              // { text: 'Profile', icon: <Person />, link: "/profile" },
-              // { text: 'Job-Portal', icon: <EventNoteTwoToneIcon />, link: '/job-portal' },
-              // { text: 'Calendar', icon: < CalendarMonthTwoToneIcon />, link: "/calendar" },
-              { text: 'Reports', icon: <BarChart />, link: '#' },
-              // { text: 'Community', icon: <ForumTwoToneIcon />, link: "/community" },
-          ].map((item, index) => (
-            <ListItem 
-              button 
-              key={index}
-              onClick={() => handleLinkClick(item.link)}
-              sx={isActive(item.link)} // Apply active link style
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItem>
-          ))}
-        </List>
+  {[
+    { text: 'Dashboard', icon: <LayoutGridIcon />, link: '/user-dashboard' },
+    { text: 'Courses', icon: <BookIcon />, link: '/courses' },
+    { text: 'Mock-test', icon: <FileTextIcon />, link: '/subjects' },
+    { text: 'Mentors', icon: <Groups />, link: '/mentors' },
+    { text: 'Reports', icon: <BarChart />, link: '#' },
+  ].map((item, index) => (
+    <ListItem 
+      button 
+      key={index} 
+      onClick={() => handleLinkClick(item.link)} 
+      sx={{ ...isActive(item.link), width: '10px' }} // Set width to 10px
+    >
+      <ListItemIcon>{item.icon}</ListItemIcon>
+      <ListItemText primary={item.text} />
+    </ListItem>
+  ))}
+</List>
+
         {/* Move Settings icon above Logout */}
         <div style={{ marginTop: 'auto' }}>
           <Tooltip title="Settings" placement="right">
             <ListItem button component={Link} to="/settings">
-              <SettingsIcon/>
-              <ListItemText className='ml-4' primary="Settings" />
+              <SettingsIcon />
+              <ListItemText className="ml-4" primary="Settings" />
             </ListItem>
           </Tooltip>
           <Tooltip title="Logout" placement="right">
             <ListItem button onClick={handleLogout}>
-              <LogOutIcon/>
-              <ListItemText className='ml-4' primary="Logout" />
+              <ExitToAppTwoTone />
+              <ListItemText className="ml-4" primary="Logout" />
             </ListItem>
           </Tooltip>
         </div>
@@ -120,13 +109,7 @@ export default function Sidebar() {
         <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer - 1, backgroundColor: '#2463EB' }}>
           <Toolbar>
             {isMobile && (
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                onClick={handleToggleSidebar}
-                sx={{ mr: 2 }}
-              >
+              <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleToggleSidebar} sx={{ mr: 2 }}>
                 <MenuIcon sx={{ color: 'white' }} />
               </IconButton>
             )}
@@ -143,21 +126,17 @@ export default function Sidebar() {
                 </IconButton>
               </Tooltip>
             </Link>
-            
             {/* Display Hello, user.name */}
-            <span style={{ color: 'white', fontWeight: 'bold', marginLeft: '10px' }}>
-              Hello, {name?.name}
-            </span>
+            <span style={{ color: 'white', fontWeight: 'bold', marginLeft: '10px' }}>Hello, {name?.name}</span>
           </Toolbar>
         </AppBar>
 
-        <main style={{ paddingTop: '64px' }}> {/* Adjust padding-top based on AppBar height */}
-          {/* Your main content here */}
-        </main>
+        <main style={{ paddingTop: '64px' }}>{/* Your main content here */}</main>
       </div>
     </div>
   );
 }
+
 function LayoutGridIcon(props) {
   return (
     <svg
@@ -177,9 +156,8 @@ function LayoutGridIcon(props) {
       <rect width="7" height="7" x="14" y="14" rx="1" />
       <rect width="7" height="7" x="3" y="14" rx="1" />
     </svg>
-  )
+  );
 }
-
 
 function BookIcon(props) {
   return (
@@ -197,7 +175,7 @@ function BookIcon(props) {
     >
       <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
     </svg>
-  )
+  );
 }
 
 function FileTextIcon(props) {
@@ -220,47 +198,5 @@ function FileTextIcon(props) {
       <path d="M16 13H8" />
       <path d="M16 17H8" />
     </svg>
-  )
-}
-
-function LogOutIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-      <polyline points="16 17 21 12 16 7" />
-      <line x1="21" x2="9" y1="12" y2="12" />
-    </svg>
-  )
-}
-
-
-function SettingsIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-      <circle cx="12" cy="12" r="3" />
-    </svg>
-  )
+  );
 }
