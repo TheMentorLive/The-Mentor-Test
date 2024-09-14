@@ -40,15 +40,10 @@ export default function Sidebar() {
     }
   };
 
-  const isActive = path =>
-    location.pathname === path
-      ? {
-          backgroundColor: '#2463EB',
-          borderRadius: '10px',
-          width: '210px',
-          marginLeft: '10px',
-        }
-      : {};
+  const isActive = path => 
+    location.pathname === path 
+      ? 'bg-blue-600 rounded-lg w-[210px] ml-2 text-white'  // Tailwind classes for the active state
+      : '';
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
@@ -80,7 +75,7 @@ export default function Sidebar() {
             { text: 'Courses', icon: <BookIcon />, link: '/courses' },
             { text: 'Mock-test', icon: <FileTextIcon />, link: '/subjects' },
             { text: 'Mentors', icon: <Groups />, link: '/mentors' },
-            { text: 'Reports', icon: <BarChart />, link: '#' },
+            { text: 'Reports', icon: <BarChart />, link: '/reports' },
           ].map((item, index) => (
             <ListItem button key={index} onClick={() => handleLinkClick(item.link)} sx={isActive(item.link)}>
               <ListItemIcon>{item.icon}</ListItemIcon>
