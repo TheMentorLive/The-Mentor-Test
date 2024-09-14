@@ -68,25 +68,19 @@ export default function Sidebar() {
           </Link>
         </div>
         <List>
-  {[
-    { text: 'Dashboard', icon: <LayoutGridIcon />, link: '/user-dashboard' },
-    { text: 'Courses', icon: <BookIcon />, link: '/courses' },
-    { text: 'Mock-test', icon: <FileTextIcon />, link: '/subjects' },
-    { text: 'Mentors', icon: <Groups />, link: '/mentors' },
-    { text: 'Reports', icon: <BarChart />, link: '#' },
-  ].map((item, index) => (
-    <ListItem 
-      button 
-      key={index} 
-      onClick={() => handleLinkClick(item.link)} 
-      sx={{ ...isActive(item.link), width: '700px' }} // Set width to 10px
-    >
-      <ListItemIcon>{item.icon}</ListItemIcon>
-      <ListItemText primary={item.text} />
-    </ListItem>
-  ))}
-</List>
-
+          {[
+            { text: 'Dashboard', icon: <LayoutGridIcon />, link: '/user-dashboard' },
+            { text: 'Courses', icon: <BookIcon />, link: '/courses' },
+            { text: 'Mock-test', icon: <FileTextIcon />, link: '/subjects' },
+            { text: 'Mentors', icon: <Groups />, link: '/mentors' },
+            { text: 'Reports', icon: <BarChart />, link: '#' },
+          ].map((item, index) => (
+            <ListItem button key={index} onClick={() => handleLinkClick(item.link)} sx={isActive(item.link)}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItem>
+          ))}
+        </List>
         {/* Move Settings icon above Logout */}
         <div style={{ marginTop: 'auto' }}>
           <Tooltip title="Settings" placement="right">
