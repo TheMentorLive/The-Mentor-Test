@@ -79,7 +79,7 @@ export default function Sidebar() {
       button 
       key={index} 
       onClick={() => handleLinkClick(item.link)} 
-      sx={{ ...isActive(item.link), width: '50px' }} // Set width to 10px
+      sx={{ ...isActive(item.link), width: '700px' }} // Set width to 10px
     >
       <ListItemIcon>{item.icon}</ListItemIcon>
       <ListItemText primary={item.text} />
