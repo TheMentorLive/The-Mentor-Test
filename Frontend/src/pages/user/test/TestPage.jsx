@@ -235,17 +235,14 @@ const TestPage = () => {
                 {flaggedQuestions.includes(currentQuestion) ? 'Unflag' : 'Flag'}
               </CustomButton>
               <div className="flex items-center gap-2">
-                <span>{flaggedQuestions.length} flagged</span>
-                <span>{Object.keys(answers).length} answered</span>
+                
               </div>
             </div>
 
             <div className="mt-6 flex flex-col md:flex-row justify-between items-center">
               <div className="flex items-center gap-2">
-                <span>
-                  Progress: {currentQuestion + 1}/{testData.questions.length}
-                </span>
-                <CustomProgress value={((currentQuestion + 1) / testData.questions.length) * 100} />
+              <span>{flaggedQuestions.length} flagged</span>
+                <span>{Object.keys(answers).length} answered</span>
               </div>
               <div className="mt-6 flex gap-2 flex-col md:flex-row items-center">
                 <CustomButton
@@ -264,7 +261,7 @@ const TestPage = () => {
                 </CustomButton>
               </div>
             </div>
-            <div className=" flex items-center justify-end mt-4">
+            <div className=" flex items-center justify-end mt-7">
               <CustomButton className="bg-[#2563EB]  text-white px-9 py-3" onClick={handleSubmit} size="xl">Submit</CustomButton>
             </div>
           </div>
