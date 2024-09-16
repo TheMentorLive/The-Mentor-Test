@@ -10,7 +10,8 @@ export const ADMINENDPOINTS = {
   ADDSUBJECT:`${API_BASE_URL}admin/addSubject`,
   GETSUBJECTS:`${API_BASE_URL}admin/getSubjects`,
   DELETESUBJECT:`${API_BASE_URL}admin/deleteSubject`,
-  ADDTEST:`${API_BASE_URL}admin/addTest`
+  ADDTEST:`${API_BASE_URL}admin/addTest`,
+   ADDCSVTEST:`${API_BASE_URL}admin/save-test`
 
  
   // Add other endpoints here as needed
