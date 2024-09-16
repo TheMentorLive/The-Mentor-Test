@@ -10,7 +10,7 @@ import Mentorship from "./mentorship";
 import Cmpnycarousel from "../../components/cmpny-carousel";
 import Contact from "../../components/contact";
 import Testi from "./testi";
-// import Allcourses from "./allcourses";
+import Allcourses from "./allcourses";
 // import Login from "../login";
 // import Examss from "../../components/exams";
 // import Subject from "../../components/userComponent/landingpageComponents/SubjectComponent";
@@ -83,7 +83,7 @@ const Landingpage = () => {
         <Courses/>
         <Tseries/>
         <Mentorship/>
-        {/* <Allcourses/> */}
+        <Allcourses/>
         <Testi/>
         <Contact/>
         {/* <Examss/> */}

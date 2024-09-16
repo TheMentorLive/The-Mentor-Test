@@ -12,8 +12,8 @@ export default function Tseries() {
   return (
     <div className="items-center justify-center mt-10 p-8 md:mr-40 lg:mr-40 lg:ml-40 md:ml-40 rounded-xl">
       <div className="space-y-2">
-        <h2 className="text-3xl font-bold">Explore Courses</h2>
-        <p className="text-muted-foreground">Browse our selection of courses.</p>
+        <h2 className="text-3xl font-bold">Explore Test Series</h2>
+        <p className="text-muted-foreground">Browse our selection of testseries.</p>
       </div>
       <div className="relative mt-8">
         <div
