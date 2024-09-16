@@ -26,7 +26,7 @@ export default function Orient() {
       </div>
       <div className="w-full md:w-1/2 space-y-4 mr-40">
         <h2 className="text-2xl font-bold text-[#2563EB]">Orient – School Students</h2>
-        <p className="text-blue-500">Counseling & Mentorship • 8 – 12</p>
+        <p className="text-[#2563EB]">Counseling & Mentorship • 8 – 12</p>
         <p className="text-gray-700">
           One course that covers important practical concepts from All Important subjects which will make you Personally
           and Professionally ready for the future

@@ -7,21 +7,24 @@ export default function Cards() {
   ];
 
   return (
-    <div className="flex justify-center h-80 mt-[99px] bg-blue-200 -mb-10 items-center">
-      <div className="p-4 grid grid-cols-1 gap-14 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="flex justify-center mt-[50px] bg-blue-200 p-12">
+      <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {cardData.map((app, index) => (
-          <div key={index} className="flex flex-col p-4 border rounded-lg bg-white border-gray-300">
-            <div className="border  px-11 py-5 rounded-lg bg-blue-100 border-gray-300">
+          <div
+            key={index}
+            className="flex flex-col items-center p-4 border rounded-lg bg-white border-gray-300"
+          >
+            <div className="border px-8 py-5 rounded-lg bg-blue-100 border-gray-300">
               <img
                 src={app.image}
                 alt={app.name}
                 width="70"
                 height="70"
                 className="rounded-lg"
-                style={{ aspectRatio: "40/40", objectFit: "cover" }}
+                style={{ aspectRatio: "1/1", objectFit: "cover" }}
               />
             </div>
-            <div className="text-left mt-2 w-full">
+            <div className="text-center mt-2 w-full">
               <p className="text-md font-semibold">{app.name}</p>
               {app.badge && (
                 <span className="text-sm px-2 py-1 bg-gray-200 text-gray-700 rounded-md mb-1">
@@ -36,4 +39,3 @@ export default function Cards() {
     </div>
   );
 }
-      
