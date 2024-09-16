@@ -156,7 +156,7 @@ const TestPage = () => {
     <div className="flex justify-center items-center min-h-screen">
       <style>{spinnerStyles}</style>
       <div className="spinner"></div>
-      <p className="ml-4 text-blue-500">Loading...</p>
+      <p className="ml-4 text-blue-500">Starting Exam...</p>
     </div>
   );
 
