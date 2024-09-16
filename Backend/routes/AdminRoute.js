@@ -13,7 +13,7 @@ router.delete("/deleteSubject/:id",authMiddleware,AdminController.deleteSubject)
 
 router.post("/addTest",authMiddleware,AdminController.createTest);
 router.post("/save-test",AdminController.saveTest);
-
+router.get("/getFormdata",authMiddleware,AdminController.getFormData)
 
 
 
