@@ -10,6 +10,7 @@ import AddQuestionPage from '../pages/admin/test/AddQuestions';
 import AdminLandingPage from '../pages/admin/Admin-landing';
 import GoogleDocsQuestionComponent from '../pages/admin/Questions';
 
+
 const AdminRoutes = () => {
 
 
@@ -20,7 +21,6 @@ const AdminRoutes = () => {
       <Route path="/my-account" element={<Userprofile />} />
       <Route path="/" element={<AdminLandingPage />} />
       <Route path="/questions" element={<GoogleDocsQuestionComponent />} />
-      
       <Route path="/test/add-subject" element={<AddSubject />} />
       <Route path="/test/add-test" element={<AddQuestionPage />} />
      
