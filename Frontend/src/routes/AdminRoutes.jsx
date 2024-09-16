@@ -19,7 +19,7 @@ const AdminRoutes = () => {
       <Route path="/users" element={<Users />} />
       <Route path="/my-account" element={<Userprofile />} />
       <Route path="/" element={<AdminLandingPage />} />
-      <Route path="/question" element={<GoogleDocsQuestionComponent />} />
+      <Route path="/questions" element={<GoogleDocsQuestionComponent />} />
       
       <Route path="/test/add-subject" element={<AddSubject />} />
       <Route path="/test/add-test" element={<AddQuestionPage />} />
