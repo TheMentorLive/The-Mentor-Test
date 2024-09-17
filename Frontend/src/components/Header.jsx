@@ -125,8 +125,8 @@ const Header = () => {
 
                         {/* Rest of your menu items */}
 
-                        <Link to="/courses" className="block py-2 px-4 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
-                            Courses
+                        <Link to="/Live" className="block py-2 px-4 -mb-5 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
+                            Live
                         </Link>
 
                         {/* Conditional Links based on isLoggedIn */}
@@ -143,16 +143,16 @@ const Header = () => {
                         )}
 
                         <Link to="/upcoming-test" className="block py-2 px-4 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
-                            Upcoming Test
+                            {/* Upcoming Test */}
                         </Link>
 
                         {!isLoggedIn && (
                             <>
                                 <Link to="/pricing" className="block py-2 px-4 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
-                                    Pricing
+                                   Learn
                                 </Link>
                                 <Link to="/support" className="block py-2 px-4 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
-                                    Support
+                                   Jobs
                                 </Link>
                                 <Link to="/login" className="block py-2 px-4 font-semibold text-[#2563EB] hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
                                     Sign In

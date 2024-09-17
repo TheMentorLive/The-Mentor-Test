@@ -71,7 +71,7 @@ export default function Hero() {
             <div className="flex flex-col justify-center space-y-4">
               <img 
               src="/live/Hero.png"
-              className="h-[450px] w-[900px] hidden md:flex lg:flex rounded-lg"/>
+              className="h-[450px] w-[850px] hidden md:flex lg:flex rounded-lg"/>
             </div>
 
             <div className="flex flex-col items-center justify-center space-y-4">

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function Orient() {
+export default function Emerge() {
   const [visibleSection, setVisibleSection] = useState(null);
 
   const handleToggle = (section) => {
@@ -8,17 +8,11 @@ export default function Orient() {
   };
 
   return (
-    <div className='mt-32'>
-      <div className="text-center -mb-28">
-    <h2 className="text-4xl font-bold opacity-90">What We Offer?</h2>
-    
-  </div>
     <div className="flex flex-col md:flex-row items-center mt-10 md:mt-40 gap-6 p-4 sm:p-6 bg-white rounded-lg">
-
       <div className="relative w-full md:w-1/2">
         <img
-          src="/live/Orient.png"
-          alt="Orient Program"
+          src="/live/Emerge.png"
+          alt="Emerge Program"
           className="w-[300px] sm:w-[400px] h-[400px] sm:h-[550px] rounded-lg mx-auto md:ml-40"
           width="1000"
           height="1000"
@@ -26,12 +20,11 @@ export default function Orient() {
       </div>
       <div className="w-full md:w-1/2 space-y-4 md:mr-40 text-center md:text-left">
         <h2 className="text-2xl sm:text-3xl">
-          <span className="text-[#2563EB] font-bold">Orient</span> – School Students
+          <span className="text-[#2563EB] font-bold">Emerge</span> – College Grads
         </h2>
         <p className="text-[#2563EB] font-bold">Counseling & Mentorship • 8 – 12</p>
         <p className="text-gray-700">
-        One course that covers important practical concepts from All Important subjects which will make you Personally
-and Professionally ready for the future
+          College graduates with mentors have 68% higher retention rates in companies and are more likely to achieve career growth and build Professional Network.
         </p>
         <div className="space-y-2">
           <div className="flex items-center justify-between p-4 border rounded-lg">
@@ -102,7 +95,6 @@ and Professionally ready for the future
           Learn More
         </button>
       </div>
-    </div>
     </div>
   );
 }
