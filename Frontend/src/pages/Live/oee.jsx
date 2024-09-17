@@ -2,7 +2,7 @@
 
 export default function OEE() {
   return (
-    <div className="flex justify-center mb-20 mt-16 w-full p-4 bg-[#2563EB]">
+    <div className="flex justify-center mb-20 mt-36 w-full p-4 bg-[#2563EB]">
       <div className="flex flex-col items-center justify-center w-full max-w-6xl gap-8 md:flex-row">
         
         <div className="flex flex-col items-center justify-between w-full max-w-xs p-6 bg-white rounded-lg shadow-md">
