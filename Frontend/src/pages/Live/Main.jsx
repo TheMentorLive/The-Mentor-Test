@@ -7,6 +7,7 @@ import OEE from "./oee";
 import Orient from "./Orient";
 import Emerge from "./Emerge";
 import KeyFeatures from "./KeyFeat";
+// import Component from "./test";
 
 export default function Main() {
 
@@ -15,6 +16,8 @@ export default function Main() {
             <Header/>
             <div className="mt-20">
                 <Hero/>
+                {/* <Component/> */}
+
                 <Whyus/>
                 <OEE/>
                 <Orient/>
