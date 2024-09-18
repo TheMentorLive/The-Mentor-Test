@@ -2,7 +2,7 @@ export default function Live() {
   return (
     <div className="items-center flex justify-center">
     <div className="items-center flex justify-center ml-2 mr-2">
-      <section className="py-16 mt-16 md:ml-20">
+      <section className="py-16 -mt-4 md:ml-20">
         <div className="text-center">
           <h2 className="text-4xl font-bold opacity-90">What We Offer?</h2>
           <br />
