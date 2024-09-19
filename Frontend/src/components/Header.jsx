@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import { FaTimes } from "react-icons/fa";
@@ -7,6 +7,7 @@ import { mainContext } from "../context/mainContex";
 import DropdownMenu from "./userComponent/DropDownMenu";
 
 const Header = () => {
+    const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const { user, setToken, signOut } = useContext(mainContext);
@@ -50,7 +51,11 @@ const Header = () => {
         <img src="/logo.webp" alt="Logo" className="md:h-12 lg:h-12 w-auto" />
     </Link>
     <nav className="hidden lg:flex  justify-center gap-5 items-center">
-    <Link to="/pricing" className="flex text-[15px] hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+    <Link 
+        to="/live" 
+        className={`flex text-[15px] items-center space-x-1 py-2 px-3 rounded transition-colors duration-300
+          ${location.pathname === '/live' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
+      >
         <span>Live</span>
     </Link>
     <Link to="/pricing" className="flex text-[15px] hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
@@ -120,8 +125,8 @@ const Header = () => {
 
                         {/* Rest of your menu items */}
 
-                        <Link to="/courses" className="block py-2 px-4 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
-                            Courses
+                        <Link to="/Live" className="block py-2 px-4 -mb-5 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
+                            Live
                         </Link>
 
                         {/* Conditional Links based on isLoggedIn */}
@@ -138,16 +143,16 @@ const Header = () => {
                         )}
 
                         <Link to="/upcoming-test" className="block py-2 px-4 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
-                            Upcoming Test
+                            {/* Upcoming Test */}
                         </Link>
 
                         {!isLoggedIn && (
                             <>
                                 <Link to="/pricing" className="block py-2 px-4 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
-                                    Pricing
+                                   Learn
                                 </Link>
                                 <Link to="/support" className="block py-2 px-4 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
-                                    Support
+                                   Jobs
                                 </Link>
                                 <Link to="/login" className="block py-2 px-4 font-semibold text-[#2563EB] hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
                                     Sign In

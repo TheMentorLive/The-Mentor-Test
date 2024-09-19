@@ -43,7 +43,7 @@ const Footer = () => {
             alt="Brand Logo"
             className="mb-4"
           />
-          <p className="py-4 text-sm md:text-base">
+          <p className="py-4 text-sm mr-2  md:text-base">
           Our platform provides comprehensive resources and tools to help you prepare for the JEE exam with confidence.
           </p>
           <div className="flex flex-wrap gap-4">
@@ -54,7 +54,7 @@ const Footer = () => {
           </div>
         </div>
         {/* Right section with footer content organized in sections */}
-        <div className="flex  gap-20  md:flex-row md:justify-between">
+        <div className="flex  gap-20 mr-4 md:flex-row md:justify-between">
           {/* Mapping over sections and rendering content */}
           {items.filter(item => item.type === 'section').map((item, index) => (
             <div key={index} className="flex-1">
