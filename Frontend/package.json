@@ -41,6 +41,7 @@
     "react-transition-group": "^4.4.5",
     "recharts": "^2.12.7",
     "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.14.0",
     "tailwind-merge": "^2.5.2",
     "typical": "^7.1.1",
     "xlsx": "^0.18.5"
