@@ -5,7 +5,7 @@ import { Groups } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { mainContext } from '../context/mainContex';
+import { mainContext } from '../../context/mainContex';
 import { Settings as SettingsIcon, BarChart, ExitToAppTwoTone } from '@mui/icons-material';
 
 export default function Sidebar() {
