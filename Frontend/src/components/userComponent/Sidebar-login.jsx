@@ -5,7 +5,7 @@ import { Groups } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { mainContext } from '../../context/mainContex';
+import { mainContext } from '../context/mainContex';
 import { Settings as SettingsIcon, BarChart, ExitToAppTwoTone } from '@mui/icons-material';
 
 export default function Sidebar() {
@@ -13,10 +13,10 @@ export default function Sidebar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { user, signOut } = useContext(mainContext);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md')); // Check if screen size is mobile or tablet
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg')); // Check if screen size is desktop
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   const navigate = useNavigate();
-  const location = useLocation(); // Get current location
+  const location = useLocation();
   const name = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
@@ -30,13 +30,12 @@ export default function Sidebar() {
   const handleLogout = () => {
     signOut();
     navigate('/');
-    // Optionally redirect to login page or other page
   };
 
   const handleLinkClick = path => {
     navigate(path);
     if (isMobile) {
-      setIsSidebarOpen(false); // Close sidebar on mobile when a link is clicked
+      setIsSidebarOpen(false);
     }
   };
 
@@ -45,31 +44,36 @@ export default function Sidebar() {
       ? {
           backgroundColor: '#2463EB',
           borderRadius: '10px',
-          width: '210px',
-          marginLeft: '10px',
+          color: '#fff',
+          margin: '10px',
+          padding: '10px',
+          fontWeight: 'bold',
         }
       : {};
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
+    <div style={{ display: 'flex', height: '100vh' }}>
       {/* Sidebar */}
       <Drawer
-        variant={isMobile ? 'temporary' : 'permanent'}
-        anchor="left"
-        open={isSidebarOpen}
-        onClose={handleToggleSidebar}
-        sx={{
-          width: 240,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
-            width: 240,
-            boxSizing: 'border-box',
-            backgroundColor: isMobile ? 'white' : 'transparent', // Set background color based on screen size
-            marginTop: isDesktop ? '62px' : '0',
-            marginBottom: isMobile ? '50px' : '0', // Apply marginTop only on desktop screens
-          },
-          zIndex: theme.zIndex.drawer + 1, // Higher zIndex to ensure it's above the AppBar
-        }}
+  variant={isMobile ? 'temporary' : 'permanent'}
+  anchor="left"
+  open={isSidebarOpen}
+  onClose={handleToggleSidebar}
+  sx={{
+    width: 240,
+    flexShrink: 0,
+    marginTop: '64px', // Adds margin to prevent overlap with navbar
+    [`& .MuiDrawer-paper`]: {
+      width: 240,
+      boxSizing: 'border-box',
+      backgroundColor: '#f5f5f5',
+      borderRadius: '8px',
+      boxShadow: '2px 0 5px rgba(0,0,0,0.1)',
+      marginTop: '64px', // Adds margin to the drawer paper to align with the AppBar
+      
+    },
+    zIndex: theme.zIndex.drawer + 1,
+  }}
       >
         <List>
           {[
@@ -79,26 +83,37 @@ export default function Sidebar() {
             { text: 'Mentors', icon: <Groups />, link: '/mentors' },
             { text: 'Reports', icon: <BarChart />, link: '/reports' },
           ].map((item, index) => (
-            <div key={index}>
+            <div key={index} >
               <ListItem button onClick={() => handleLinkClick(item.link)} sx={isActive(item.link)}>
                 <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.text} />
+                <ListItemText
+                  primary={item.text}
+                  primaryTypographyProps={{
+                    fontSize: '1rem',
+                    fontWeight: 'medium',
+                    letterSpacing: 0,
+                  }}
+                />
               </ListItem>
             </div>
           ))}
         </List>
-        {/* Move Settings icon above Logout */}
-        <div style={{ marginTop: 'auto', marginBottom:'70px'}}>
+
+        <div style={{ marginTop: 'auto', marginBottom: '70px' }}>
           <Tooltip title="Settings" placement="right">
             <ListItem button component={Link} to="/settings">
-              <SettingsIcon />
-              <ListItemText className="ml-4" primary="Settings" />
+              <ListItemIcon>
+                <SettingsIcon sx={{ color: '#1976d2' }} />
+              </ListItemIcon>
+              <ListItemText primary="Settings" />
             </ListItem>
           </Tooltip>
           <Tooltip title="Logout" placement="right">
             <ListItem button onClick={handleLogout}>
-              <ExitToAppTwoTone />
-              <ListItemText className="ml-4" primary="Logout" />
+              <ListItemIcon>
+                <ExitToAppTwoTone sx={{ color: '#e53935' }} />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
             </ListItem>
           </Tooltip>
         </div>
@@ -106,17 +121,21 @@ export default function Sidebar() {
 
       {/* Main Content */}
       <div style={{ flex: 1, position: 'relative' }}>
-        <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer - 1, backgroundColor: '#2463EB' }}>
+        <AppBar
+          position="fixed"
+          sx={{
+            zIndex: theme.zIndex.drawer - 1,
+            backgroundColor: '#2463EB',
+          }}
+        >
           <Toolbar>
-            {/* Add logo image */}
-            
             {isMobile && (
               <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleToggleSidebar} sx={{ mr: 2 }}>
                 <MenuIcon sx={{ color: 'white' }} />
               </IconButton>
             )}
-            <Link to='/'>
-            <img src="./logo.webp" alt="Logo" style={{ width: 100, height: 40, marginRight: '16px' }} />
+            <Link to="/">
+              <img src="./logo.webp" alt="Logo" style={{ width: 100, height: 40, marginRight: '16px' }} />
             </Link>
             <div style={{ flexGrow: 1 }} />
             <Tooltip title="Notifications">
@@ -131,7 +150,6 @@ export default function Sidebar() {
                 </IconButton>
               </Tooltip>
             </Link>
-            {/* Display Hello, user.name */}
             <span style={{ color: 'white', fontWeight: 'bold', marginLeft: '10px' }}>Hello, {name?.name}</span>
           </Toolbar>
         </AppBar>
