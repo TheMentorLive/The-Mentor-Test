@@ -8,7 +8,7 @@ export default function Cards() {
 
   return (
     <div className="flex items-center justify-center">
-    <section className="container  px-4 py-10 sm:px-10 sm:py-20 lg:px-40 lg:py-40 md:-mt-10 lg:-mt-10 md:-mb-28 lg:-mb-28">
+    <section className="container   px-4 py-10 sm:px-10 sm:py-20 lg:px-40 lg:py-40 md:-mt-10 lg:-mt-10 md:-mb-28 lg:-mb-28">
       <div className="text-center mb-12">
         <h1 className="text-2xl sm:text-3xl lg:text-4xl text-left font-bold">
           The All in One <span className="text-blue-600">Edtech Platform</span>

@@ -17,7 +17,7 @@ import EmailOtpLogin from './pages/EmailLogin';
 import Main from './pages/Live/Main';
 import AuthCallback from './hooks/AuthCallback';
 import ResetPassword from './pages/ResetPassword';
-// import Login from './pages/login';
+// import Sidebar1 from './pages/login';
 
 
 
@@ -49,7 +49,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/auth/callback" element={<AuthCallback/>} />
           <Route path="/login" element={<EmailOtpLogin/>} />
           <Route path="/live" element={<Main />} />
-          {/* <Route path="/loginn" element={<UserDashboard1/>} /> */}
+          {/* <Route path="/loginn" element={<Sidebar1/>} /> */}
           <Route path="/reset-password" element={<ResetPassword/>} />
           
 
