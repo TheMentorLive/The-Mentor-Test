@@ -14,7 +14,11 @@ router.delete("/deleteSubject/:id",authMiddleware,AdminController.deleteSubject)
 router.post("/addTest",authMiddleware,AdminController.createTest);
 router.post("/save-test",AdminController.saveTest);
 router.get("/getFormdata",authMiddleware,AdminController.getFormData)
-
+router.get("/getMockTest",authMiddleware,AdminController.getMockTests)
+router.get("/getMainTest",authMiddleware,AdminController.getMainTests)
+router.put("/editMockTest/:id",authMiddleware,AdminController.editMockTests)
+router.delete("/deleteMockTest/:id",authMiddleware,AdminController.deleteMockTest)
+router.get("/getMockTestDetails/:id",authMiddleware,AdminController.getMockDetails)
 
 
 

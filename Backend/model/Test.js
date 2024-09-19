@@ -27,6 +27,15 @@ const testSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  price: {
+    type: String,
+    default: '100.00', // Set your default price here
+    // required: true
+  },
+  paymentAccess: {
+    type: Boolean,
+    default: false
+  },
   questions: [
     {
       number: {

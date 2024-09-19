@@ -214,6 +214,94 @@ const saveTest = async (req, res) => {
 
 
 
+const getMockTests= async(req,res)=>{
+  try {
+    const mockTests = await Test.find({testType:"mock"});
+    res.json(mockTests);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching mock tests' });
+  }
+};
+
+
+const editMockTests = async (req, res) => {
+  const { description, category, testType, duration, paymentAccess } = req.body; // Ensure paymentAccess is destructured from the request body
+  const { id } = req.params; // Get the test ID from the request parameters
+
+  try {
+    // Ensure the ID exists before attempting to update
+    if (!id) {
+      return res.status(400).json({ message: 'Test ID is required' });
+    }
+
+    // Find the test by ID and update it
+    const updatedTest = await Test.findByIdAndUpdate(
+      id,
+      {
+        description,
+        category,
+        testType,
+        duration,
+        paymentAccess, // Make sure the field is part of the update
+      },
+      { new: true } // Return the updated document
+    );
+
+    // If no test found, return 404
+    if (!updatedTest) {
+      return res.status(404).json({ message: 'Test not found' });
+    }
+
+    // Send the updated test back
+    res.status(200).json(updatedTest);
+  } catch (error) {
+    console.error('Error updating test:', error);
+    res.status(500).json({ message: 'Error updating test' });
+  }
+};
+
+const deleteMockTest = async (req, res) => {
+  const { id } = req.params; // Get the test ID from the request parameters
+
+  try {
+    // Find the test by ID and remove it
+    const deletedTest = await Test.findByIdAndDelete(id);
+
+    // If no test found, return 404
+    if (!deletedTest) {
+      return res.status(404).json({ message: 'Test not found' });
+    }
+
+    // Send a success message
+    res.status(200).json({ message: 'Test deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting test:', error);
+    res.status(500).json({ message: 'Error deleting test' });
+  }
+}
+
+const getMockDetails = async (req, res) => {
+  try {
+    const testId = req.params.id;
+    const mockTest = await Test.findById(testId);
+    if (!mockTest) {
+      return res.status(404).json({ message: 'Test not found' });
+    }
+    res.status(200).json(mockTest);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching test details', error });
+  }
+};
+
+const getMainTests =async(req,res)=>{
+  try {
+    const mainTests = await Test.find({testType:"main"});
+    res.json(mainTests);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching mock tests' });
+  }
+};
+
 
 module.exports = {
   getUsers,
@@ -224,5 +312,10 @@ module.exports = {
   deleteSubject,
   createTest,
   getFormData,
-  saveTest
+  saveTest,
+  getMockTests,
+  editMockTests,
+  deleteMockTest,
+  getMockDetails,
+  getMainTests
 }

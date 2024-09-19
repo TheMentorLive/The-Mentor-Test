@@ -11,7 +11,13 @@ export const ADMINENDPOINTS = {
   GETSUBJECTS:`${API_BASE_URL}admin/getSubjects`,
   DELETESUBJECT:`${API_BASE_URL}admin/deleteSubject`,
   ADDTEST:`${API_BASE_URL}admin/addTest`,
-   ADDCSVTEST:`${API_BASE_URL}admin/save-test`
+   ADDCSVTEST:`${API_BASE_URL}admin/save-test`,
+   GETMOCKTEST: `${API_BASE_URL}admin/getMockTest`,
+   EDITMOCKTEST:`${API_BASE_URL}admin/editMockTest`,
+   DELETEMOCKTEST:`${API_BASE_URL}admin/deleteMockTest`,
+   GETMOCKTESTDETAILS:`${API_BASE_URL}admin/getMockTestDetails`,
+   GETMAINTEST : `${API_BASE_URL}admin/getMainTest`,
+ 
 
  
   // Add other endpoints here as needed
