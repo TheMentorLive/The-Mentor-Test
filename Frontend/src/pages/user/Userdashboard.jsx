@@ -5,42 +5,48 @@ import React from "react";
 export default function UserDashboard() {
 
   const cardData = [
-    { name: "Live", org: "Counselling & Mentorship", image: "/cards/Live.png" },
-    { name: "Learn", org: "UpSkilling Courses", image: "/cards/Learn.png" },
-    { name: "Jobs", org: "Remote, Hybrid & Onsite", image: "/cards/Jobs.png" },
-    { name: "Community", org: "Connect & Grow", image: "/cards/Community.png" },
+    { name: "Live", org: "Counselling & Mentorship", image: "/cards/Live1.png" },
+    { name: "Learn", org: "UpSkilling Courses", image: "/cards/Learn1.png" },
+    { name: "Jobs", org: "Remote, Hybrid & Onsite", image: "/cards/Jobs1.png" },
+    { name: "Community", org: "Connect & Grow", image: "/cards/Community1.png" },
   ];
   return (
     <div>
       <div>
         <p className=" ml-5 mt-4 mb-14 text-4xl font-bold">Dashboard</p>
       </div>
- <div className="flex ml-3 mb-5 items-left">
-  <div className="p-2 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-    {cardData.map((app, index) => (
-      <div key={index} className="flex flex-col p-2 border rounded-lg border-gray-300">
-        <div className="border px-6 py-3 rounded-lg bg-blue-100 border-gray-300">
-          <img
-            src={app.image}
-            alt={app.name}
-            width="60"
-            height="60"
-            className="rounded-lg"
-            style={{ aspectRatio: "1/1", objectFit: "cover" }}
-          />
-        </div>
-        <div className="text-left mt-2 w-full">
-          <p className="text-sm font-semibold">{app.name}</p>
-          {app.badge && (
-            <span className="text-xs px-1 py-0.5 bg-gray-200 text-gray-700 rounded-md mb-1">
-              {app.badge}
-            </span>
-          )}
-          <p className="text-gray-500 text-[10px]">{app.org}</p>
-        </div>
+ <div className="flex ml-6 mb-5 items-left">
+
+  
+ <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+  {cardData.map((app, index) => (
+    <div
+      key={index}
+      className="flex flex-col items-center p-2 border rounded-md bg-white border-gray-300"
+    >
+      <div className="border px-12 py-6 rounded-md bg-blue-100 border-gray-300">
+        <img
+          src={app.image}
+          alt={app.name}
+          width="40"
+          height="40"
+          className="rounded-md border border-slate-300"
+          style={{ aspectRatio: "1/1", objectFit: "cover" }}
+        />
       </div>
-    ))}
-  </div>
+      <div className="text-left mt-3 w-full ">
+        <p className="text-xs font-semibold">{app.name}</p>
+        {app.badge && (
+          <span className="text-[9px] px-1 py-0.5 bg-gray-200 text-gray-700 rounded-md mb-0.5">
+            {app.badge}
+          </span>
+        )}
+        <p className="text-gray-500 text-[8px]">{app.org}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
 </div>
 
     <div className="flex-1">
