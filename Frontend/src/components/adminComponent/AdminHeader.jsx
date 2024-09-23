@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Menu, MenuItem, IconButton, Typography, Avatar, Divider } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Logout as LogOutIcon, Notifications as NotificationsIcon } from "@mui/icons-material";
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+
 import Sidebar from "./Sidebar";
 
 const AdminHeader = () => {
@@ -17,21 +18,26 @@ const AdminHeader = () => {
   };
 
   return (
-    <header className="bg-blue-900 text-white border-b flex items-center justify-between px-4 py-3 h-16 md:px-6 md:py-4 shadow-lg">
-      <div className="text-white">
+    <header className="bg-[#2563EB] text-white border-b flex items-center justify-between px-4 py-3 h-16 md:px-6 md:py-4 shadow-lg">
+      <div className="flex items-center">
         <Sidebar />
+        <Link to="/">
+          <img src="./logo1.png" alt="Logo" className="ml-7" style={{ width: 100, height: 40 }} />
+        </Link>
       </div>
-     
+
       <Typography variant="h5" component="h1" className="text-xl font-bold text-white md:text-2xl">
-        The-Mentor Test Admin Portal
+        Admin Portal
       </Typography>
+
       <div className="flex items-center gap-2 md:gap-4">
         <IconButton color="inherit">
-          <NotificationsIcon />
+          <NotificationsIcon sx={{ color: 'white', fontSize: 20 }} />
         </IconButton>
         <IconButton onClick={handleMenuOpen} color="inherit">
-          <Avatar alt="User Avatar" src="/placeholder-user.jpg" />
+          <AccountCircle sx={{ color: 'white', fontSize: 34 }} />
         </IconButton>
+
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
@@ -40,18 +46,18 @@ const AdminHeader = () => {
           transformOrigin={{ vertical: "top", horizontal: "right" }}
           PaperProps={{
             style: {
-              maxWidth: '200px', // Limits the width of the menu on larger screens
+              maxWidth: '200px',
             },
           }}
         >
           <MenuItem onClick={handleMenuClose}>
             <Link to="/admin/my-account" className="text-decoration-none text-gray-800 flex items-center">
-              <AccountCircleRoundedIcon fontSize="small" sx={{ marginRight: 1 }} /> My Account
+              <AccountCircle fontSize="small" sx={{ marginRight: 1 }} /> My Account
             </Link>
           </MenuItem>
           <MenuItem onClick={handleMenuClose}>
             <Link to="/admin/settings" className="text-decoration-none text-gray-800 flex items-center">
-              <AccountCircleRoundedIcon fontSize="small" sx={{ marginRight: 1 }} /> Settings
+              <AccountCircle fontSize="small" sx={{ marginRight: 1 }} /> Settings
             </Link>
           </MenuItem>
           <Divider />

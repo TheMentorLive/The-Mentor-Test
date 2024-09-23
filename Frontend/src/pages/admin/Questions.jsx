@@ -63,36 +63,13 @@ const GoogleDocsQuestionComponent = () => {
   };
 
   return (
-    <Box sx={{ padding: '20px', maxWidth: '1200px', margin: 'auto' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h4" gutterBottom>
-          Upload a CSV/Text File
-        </Typography>
-        {tableData.length > 0 && (
-          <Button 
-            variant="contained" 
-            color="success" 
-            onClick={saveTestDataToDatabase}
-          >
-            Save Test Data to Database
-          </Button>
-        )}
-      </Box>
-
-      {/* File Upload Input */}
-      <Box sx={{ 
-        marginTop: '20px', 
-        display: 'flex', 
-        gap: '10px', 
-        alignItems: 'center', 
-        justifyContent: 'flex-start'
-      }}>
+    <div className="flex flex-col items-center justify-center mt-12 p-4">
+      <h1 className="mb-8 text-3xl font-bold">Upload a CSV/Text File</h1>
+      <div className="flex gap-4 mb-8">
         <Button
           variant="contained"
           component="label"
-          sx={{ 
-            minWidth: '150px'
-          }}
+          sx={{ minWidth: '150px' }}
         >
           Upload File
           <input
@@ -102,69 +79,46 @@ const GoogleDocsQuestionComponent = () => {
             onChange={(e) => setFile(e.target.files[0])}
           />
         </Button>
-        <Button 
-          variant="contained" 
-          color="secondary" 
+        <Button
+          variant="contained"
+          color="secondary"
           onClick={fetchFileData}
           disabled={!file}
-          sx={{ 
-            minWidth: '150px'
-          }}
+          sx={{ minWidth: '150px' }}
         >
           Fetch Data from File
         </Button>
-        <Button 
-          variant="contained" 
-          color="primary" 
+        <Button
+          variant="contained"
+          color="primary"
           onClick={downloadCSVTemplate}
-          sx={{ 
-            minWidth: '150px'
-          }}
+          sx={{ minWidth: '150px' }}
         >
           Download CSV Template
         </Button>
-      </Box>
+      </div>
 
       {/* Usage Instructions */}
-      <Box sx={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}>
-        <Typography variant="h6" gutterBottom>
-          How to Use
-        </Typography>
-        <Typography variant="body2">
-          1. Download the CSV template by clicking the "Download CSV Template" button.
-        </Typography>
-        <Typography variant="body2">
-          2. Fill in your data in the downloaded CSV file following the template format.
-        </Typography>
-        <Typography variant="body2">
-          3. Upload the completed CSV file using the "Upload File" button.
-        </Typography>
-        <Typography variant="body2">
-          4. Click "Fetch Data from File" to load the data into the table.
-        </Typography>
-        <Typography variant="body2">
-          5. Reorder the rows by dragging and dropping them.
-        </Typography>
-        <Typography variant="body2">
-          6. Click "Save Test Data to Database" to save the data to the database.
-        </Typography>
-      </Box>
+      <div className="w-full max-w-4xl bg-white shadow rounded-lg p-6">
+        <h2 className="mb-4 text-xl font-bold">How to Use</h2>
+        <ol className="space-y-2 list-decimal list-inside">
+          <li>Download the CSV template by clicking the "Download CSV Template" button.</li>
+          <li>Fill in your data in the downloaded CSV file following the template format.</li>
+          <li>Upload the completed CSV file using the "Upload File" button.</li>
+          <li>Click "Fetch Data from File" to load the data into the table.</li>
+          <li>Reorder the rows by dragging and dropping them.</li>
+          <li>Click "Save Test Data to Database" to save the data to the database.</li>
+        </ol>
+      </div>
 
       {/* Display table with drag-and-drop if data is available */}
-      <Box sx={{ 
-        marginTop: '20px', 
-        display: 'flex', 
-        overflowX: 'auto', // Enable horizontal scrolling for large tables
-        maxHeight: '500px', // Limit table height and enable vertical scrolling if needed
-        overflowY: 'auto'
-      }}>
-        <Box sx={{ flex: 2, minWidth: '600px' }}>
-          {tableData.length > 0 && (
+      {tableData.length > 0 && (
+        <Box sx={{ marginTop: '20px', display: 'flex', overflowX: 'auto', maxHeight: '500px', overflowY: 'auto' }}>
+          <Box sx={{ flex: 2, minWidth: '600px' }}>
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="questions">
                 {(provided) => (
                   <div {...provided.droppableProps} ref={provided.innerRef} className="w-full">
-                    {/* Table Container */}
                     <div className="table-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
                       <div className="table-header">
                         <div className="grid grid-cols-4 gap-1 border-b-2 border-gray-300 p-1 bg-gray-200 text-sm font-medium">
@@ -175,7 +129,6 @@ const GoogleDocsQuestionComponent = () => {
                         </div>
                       </div>
                       <div className="table-body">
-                        {/* Data Rows */}
                         {tableData.slice(1).map((row, rowIndex) => (
                           <Draggable key={rowIndex} draggableId={`row-${rowIndex}`} index={rowIndex}>
                             {(provided) => (
@@ -210,41 +163,71 @@ const GoogleDocsQuestionComponent = () => {
                 )}
               </Droppable>
             </DragDropContext>
-          )}
-        </Box>
+          </Box>
 
-        {/* Detailed View */}
-        <Box 
-          sx={{ 
-            flex: 1, 
-            marginLeft: '20px', 
-            position: 'sticky', 
-            top: '20px',
-            maxHeight: '500px', // Limit the height of the detailed view
-            overflowY: 'auto'
-          }}
-        >
-          {hoveredRow && (
-            <Paper elevation={3} sx={{ padding: '20px' }}>
-              <Typography variant="h6" gutterBottom>
-                Details
-              </Typography>
-              <Divider sx={{ marginBottom: '10px' }} />
-              <Typography variant="body2"><strong>Number:</strong> {hoveredRow[0]}</Typography>
-              <Typography variant="body2"><strong>Subject:</strong> {hoveredRow[1]}</Typography>
-              <Typography variant="body2"><strong>Category:</strong> {hoveredRow[2]}</Typography>
-              <Typography variant="body2"><strong>Description:</strong> {hoveredRow[3]}</Typography>
-              <Typography variant="body2"><strong>Duration:</strong> {hoveredRow[4]}</Typography>
-              <Typography variant="body2"><strong>Test Type:</strong> {hoveredRow[5]}</Typography>
-              <Typography variant="body2"><strong>Level:</strong> {hoveredRow[6]}</Typography>
-              <Typography variant="body2"><strong>Text:</strong> {hoveredRow[7]}</Typography>
-              <Typography variant="body2"><strong>Answers:</strong> {hoveredRow[8]}</Typography>
-              <Typography variant="body2"><strong>Correct Answer:</strong> {hoveredRow[9]}</Typography>
-            </Paper>
-          )}
+          {/* Detailed View */}
+          <Box
+            sx={{
+              flex: 1,
+              marginLeft: '20px',
+              position: 'sticky',
+              top: '20px',
+              maxHeight: '500px',
+              overflowY: 'auto',
+            }}
+          >
+            {hoveredRow && (
+              <Paper elevation={3} sx={{ padding: '20px' }}>
+                <Typography variant="h6" gutterBottom>
+                  Details
+                </Typography>
+                <Divider sx={{ marginBottom: '10px' }} />
+                <Typography variant="body2">
+                  <strong>Number:</strong> {hoveredRow[0]}
+                </Typography>
+                <Typography variant="body2">
+                  <strong>Subject:</strong> {hoveredRow[1]}
+                </Typography>
+                <Typography variant="body2">
+                  <strong>Category:</strong> {hoveredRow[2]}
+                </Typography>
+                <Typography variant="body2">
+                  <strong>Description:</strong> {hoveredRow[3]}
+                </Typography>
+                <Typography variant="body2">
+                  <strong>Duration:</strong> {hoveredRow[4]}
+                </Typography>
+                <Typography variant="body2">
+                  <strong>Test Type:</strong> {hoveredRow[5]}
+                </Typography>
+                <Typography variant="body2">
+                  <strong>Level:</strong> {hoveredRow[6]}
+                </Typography>
+                <Typography variant="body2">
+                  <strong>Text:</strong> {hoveredRow[7]}
+                </Typography>
+                <Typography variant="body2">
+                  <strong>Answers:</strong> {hoveredRow[8]}
+                </Typography>
+                <Typography variant="body2">
+                  <strong>Correct Answer:</strong> {hoveredRow[9]}
+                </Typography>
+              </Paper>
+            )}
+          </Box>
         </Box>
-      </Box>
-    </Box>
+      )}
+
+      {/* Save Button */}
+      <Button
+        variant="contained"
+        color="success"
+        onClick={saveTestDataToDatabase}
+        sx={{ marginTop: '20px' }}
+      >
+        Save Test Data to Database
+      </Button>
+    </div>
   );
 };
 
