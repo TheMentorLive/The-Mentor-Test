@@ -13,8 +13,8 @@ module.exports = {
     extend: {
       // Custom colors
       colors: {
-        primary: '#3490dc',
-        secondary: '#ffed4a',
+        primary: '#2563EB',
+        secondary: '#3B86F7',
         danger: '#e3342f',
       },
       // Set 'Inter' as the only font

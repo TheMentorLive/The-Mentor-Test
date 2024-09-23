@@ -140,202 +140,203 @@ const AddQuestionPage = () => {
   
 
   return (
-    <div className="flex flex-col min-h-fit p-4 bg-gray-100 text-gray-900">
-      <Typography variant="h4" component="h1" className="mb-4" align="center">
-        Add New Test
-      </Typography>
-      <Grid container spacing={2}>
-        {/* Sidebar for test details */}
-        <Grid item xs={12} md={4}>
-          <Card>
-            <CardContent>
-              <TextField
-                label="Test Duration (minutes)"
-                type="number"
-                value={duration}
-                onChange={(e) => setDuration(parseInt(e.target.value))}
-                margin="normal"
-                fullWidth
-                sx={{ fontSize: '0.75rem', '& input': { fontSize: '0.75rem' } }} // Adjust font size and input field
-              />
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Category</InputLabel>
-                <Select
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  sx={{ fontSize: '0.75rem' }} // Adjust font size
-                >
-                  <MenuItem value="EXAM">Exam</MenuItem>
-                  <MenuItem value="NEET">NEET</MenuItem>
-                  <MenuItem value="JEE">JEE</MenuItem>
-                  <MenuItem value="OTHER">TEST-EXAM</MenuItem>
-                </Select>
-              </FormControl>
-              <TextField
-                label="Description"
-                fullWidth
-                multiline
-                rows={3}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                margin="normal"
-                sx={{ fontSize: '0.75rem', '& input': { fontSize: '0.75rem' } }} // Adjust font size
-              />
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Type of Test</InputLabel>
-                <Select
-                  value={testType}
-                  onChange={(e) => setTestType(e.target.value)}
-                  sx={{ fontSize: '0.75rem' }} // Adjust font size
-                >
-                  <MenuItem value="mock">Mock</MenuItem>
-                  <MenuItem value="main">Main</MenuItem>
-                </Select>
-              </FormControl>
-              {/* Subject dropdown */}
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Subject</InputLabel>
-                <Select
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
-                  sx={{ fontSize: '0.75rem' }} // Adjust font size
-                >
-                  {subjects.map((subj) => (
-                    <MenuItem key={subj._id} value={subj.name}>
-                      {subj.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </CardContent>
-          </Card>
-        </Grid>
-        {/* Main section for questions */}
-        <Grid item xs={12} md={8}>
-          <Card>
-            <CardContent>
-              <Box>
-                {questions.map((question, index) => (
-                  index === currentQuestionIndex && (
-                    <Box key={index} mb={1}>
-                      <Typography variant="h6" mb={1} sx={{ fontSize: '1rem' }}>Question {question.number}</Typography>
-                      <TextField
-                        label="Question Text"
-                        fullWidth
-                        multiline
-                        rows={1}
-                        value={question.text}
-                        onChange={(e) => handleQuestionChange(index, 'text', e.target.value)}
-                        margin="normal"
-                        sx={{ fontSize: '0.75rem', '& input': { fontSize: '0.75rem' } }} // Decrease font size
-                      />
-                      <Box mb={1}>
-                        {question.answers.map((answer, ansIndex) => (
-                          <Grid container spacing={1} alignItems="center" key={ansIndex} mb={0.5}>
-                            <Grid item xs={10}>
-                              <TextField
-                                label={`Answer ${ansIndex + 1}`}
-                                value={answer}
-                                onChange={(e) => handleAnswerChange(index, ansIndex, e.target.value)}
-                                margin="dense" // Use dense margin to reduce space around the field
-                                fullWidth
-                                sx={{ 
-                                  fontSize: '0.75rem', // Smaller font size
-                                  '& input': { 
-                                    fontSize: '0.75rem' // Smaller font size for input text
-                                  },
-                                  '& .MuiFormLabel-root': { 
-                                    fontSize: '0.75rem' // Smaller font size for label
-                                  },
-                                  '& .MuiFormHelperText-root': { 
-                                    fontSize: '0.75rem' // Smaller font size for helper text
-                                  }
-                                }}
-                              />
-                            </Grid>
-                            <Grid item xs={2}>
-                              <IconButton onClick={() => handleRemoveAnswer(index, ansIndex)}>
-                                <RemoveCircleIcon fontSize="small" />
-                              </IconButton>
-                            </Grid>
-                          </Grid>
-                        ))}
-                        <Button 
-                          variant="contained" 
-                          color="primary" 
-                          startIcon={<AddCircleIcon />} 
-                          onClick={() => handleAddAnswer(index)} 
-                          size="small" 
-                          sx={{ fontSize: '0.75rem' }} // Smaller font size
-                        >
-                          Add Answer
-                        </Button>
-                      </Box>
-                      <FormControl fullWidth>
-                        <InputLabel>Correct Answer</InputLabel>
-                        <Select
-                          value={question.correctAnswer}
-                          onChange={(e) => handleQuestionChange(index, 'correctAnswer', parseInt(e.target.value))}
-                          sx={{ fontSize: '0.75rem' }} // Smaller font size
-                        >
-                          {question.answers.map((_, ansIndex) => (
-                            <MenuItem key={ansIndex} value={ansIndex}>
-                              Answer {ansIndex + 1}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </Box>
-                  )
+    <div className="flex flex-col  p-6 bg-gray-50 text-gray-900">
+    <p  className=" text-center text-3xl mb-5 font-bold text-gray-800">
+      Add New Test
+    </p>
+    
+    <Grid container spacing={4}>
+      {/* Sidebar for test details */}
+      <Grid item xs={12} md={4}>
+        <Card className="shadow-lg rounded-lg">
+          <CardContent className="space-y-4">
+            <TextField
+              label="Test Duration (minutes)"
+              type="number"
+              value={duration}
+              onChange={(e) => setDuration(parseInt(e.target.value))}
+              margin="normal"
+              fullWidth
+              sx={{ fontSize: '0.875rem', '& input': { fontSize: '0.875rem' } }}
+            />
+            <FormControl fullWidth margin="normal">
+              <InputLabel>Category</InputLabel>
+              <Select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                sx={{ fontSize: '0.875rem' }}
+              >
+                <MenuItem value="EXAM">Exam</MenuItem>
+                <MenuItem value="NEET">NEET</MenuItem>
+                <MenuItem value="JEE">JEE</MenuItem>
+                <MenuItem value="OTHER">TEST-EXAM</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              label="Description"
+              fullWidth
+              multiline
+              rows={3}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              margin="normal"
+              sx={{ fontSize: '0.875rem', '& input': { fontSize: '0.875rem' } }}
+            />
+            <FormControl fullWidth margin="normal">
+              <InputLabel>Type of Test</InputLabel>
+              <Select
+                value={testType}
+                onChange={(e) => setTestType(e.target.value)}
+                sx={{ fontSize: '0.875rem' }}
+              >
+                <MenuItem value="mock">Mock</MenuItem>
+                <MenuItem value="main">Main</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl fullWidth margin="normal">
+              <InputLabel>Subject</InputLabel>
+              <Select
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                sx={{ fontSize: '0.875rem' }}
+              >
+                {subjects.map((subj) => (
+                  <MenuItem key={subj._id} value={subj.name}>
+                    {subj.name}
+                  </MenuItem>
                 ))}
-              </Box>
-            </CardContent>
-            <CardActions>
-              <Button 
-                variant="contained" 
-                color="primary" 
-                onClick={handleAddQuestion}
-                size="small" // Smaller button size
-                sx={{ fontSize: '0.75rem' }} // Smaller font size
-              >
-                Add Question
-              </Button>
-              {questions.length > 1 && (
-                <Button 
-                  variant="contained" 
-                  color="secondary" 
-                  onClick={() => handleRemoveQuestion(currentQuestionIndex)}
-                  size="small" // Smaller button size
-                  sx={{ fontSize: '0.75rem' }} // Smaller font size
-                >
-                  Remove Question
-                </Button>
-              )}
-              <Button 
-                variant="contained" 
-                color="primary" 
-                onClick={handleSubmit}
-                size="small" // Smaller button size
-                disabled={isSubmitting}
-                sx={{ fontSize: '0.75rem' }} // Smaller font size
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit Test'}
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
+              </Select>
+            </FormControl>
+          </CardContent>
+        </Card>
       </Grid>
-      {error && (
-        <Typography color="error" mt={2}>
-          {error}
-        </Typography>
-      )}
-      {success && (
-        <Typography color="primary" mt={2}>
-          {success}
-        </Typography>
-      )}
-    </div>
+  
+      {/* Main section for questions */}
+      <Grid item xs={12} md={8}>
+        <Card className="shadow-lg rounded-lg">
+          <CardContent>
+            <Box className="space-y-6">
+              {questions.map((question, index) => (
+                index === currentQuestionIndex && (
+                  <Box key={index}>
+                    <Typography variant="h6" className="font-semibold mb-2" sx={{ fontSize: '1rem' }}>
+                      Question {question.number}
+                    </Typography>
+                    <TextField
+                      label="Question Text"
+                      fullWidth
+                      multiline
+                      rows={1}
+                      value={question.text}
+                      onChange={(e) => handleQuestionChange(index, 'text', e.target.value)}
+                      margin="normal"
+                      sx={{ fontSize: '0.875rem', '& input': { fontSize: '0.875rem' } }}
+                    />
+                    <Box>
+                      {question.answers.map((answer, ansIndex) => (
+                        <Grid container spacing={2} alignItems="center" key={ansIndex}>
+                          <Grid item xs={10}>
+                            <TextField
+                              label={`Answer ${ansIndex + 1}`}
+                              value={answer}
+                              onChange={(e) => handleAnswerChange(index, ansIndex, e.target.value)}
+                              margin="dense"
+                              fullWidth
+                              sx={{
+                                fontSize: '0.875rem',
+                                '& input': { fontSize: '0.875rem' },
+                                '& .MuiFormLabel-root': { fontSize: '0.875rem' },
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={2}>
+                            <IconButton onClick={() => handleRemoveAnswer(index, ansIndex)}>
+                              <RemoveCircleIcon fontSize="small" />
+                            </IconButton>
+                          </Grid>
+                        </Grid>
+                      ))}
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        startIcon={<AddCircleIcon />}
+                        onClick={() => handleAddAnswer(index)}
+                        size="small"
+                        
+                        sx={{ fontSize: '0.875rem', marginTop:'10px', marginBottom:'15px' }}
+                      >
+                        Add Answer
+                      </Button>
+                    </Box>
+                    <FormControl fullWidth margin="normal">
+                      <InputLabel className='-mt-2'>Correct Answer</InputLabel>
+                      <Select
+                        value={question.correctAnswer}
+                        onChange={(e) => handleQuestionChange(index, 'correctAnswer', parseInt(e.target.value))}
+                        sx={{ fontSize: '0.875rem' }}
+                      >
+                        {question.answers.map((_, ansIndex) => (
+                          <MenuItem key={ansIndex} value={ansIndex}>
+                            Answer {ansIndex + 1}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                )
+              ))}
+            </Box>
+          </CardContent>
+          <CardActions className="flex justify-between p-4">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAddQuestion}
+              size="small"
+              sx={{ fontSize: '0.875rem' }}
+            >
+              Add Question
+            </Button>
+            {questions.length > 1 && (
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => handleRemoveQuestion(currentQuestionIndex)}
+                size="small"
+                sx={{ fontSize: '0.875rem' }}
+              >
+                Remove Question
+              </Button>
+            )}
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSubmit}
+              size="small"
+              disabled={isSubmitting}
+              sx={{ fontSize: '0.875rem' }}
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit Test'}
+            </Button>
+          </CardActions>
+        </Card>
+      </Grid>
+    </Grid>
+  
+    {/* Success or Error Messages */}
+    {error && (
+      <Typography color="error" className="text-center mt-4">
+        {error}
+      </Typography>
+    )}
+    {success && (
+      <Typography color="primary" className="text-center mt-4">
+        {success}
+      </Typography>
+    )}
+  </div>
+  
+
   );
 };
 
