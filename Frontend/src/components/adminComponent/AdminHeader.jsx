@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Logout as LogOutIcon, Notifications as NotificationsIcon } from "@mui/icons-material";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
-import Sidebar from "./Sidebar";
+// import Sidebar from "./Sidebar";
 
 const AdminHeader = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -18,11 +18,11 @@ const AdminHeader = () => {
   };
 
   return (
-    <header className="bg-[#2563EB] text-white border-b flex items-center justify-between px-4 py-3 h-16 md:px-6 md:py-4 shadow-lg">
+    <header  className="bg-[#2563EB] text-white  flex items-center justify-between px-4 py-3 h-16 md:px-6 md:py-4 shadow-lg" style={{ zIndex: 0 }}>
       <div className="flex items-center">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <Link to="/">
-          <img src="./logo1.png" alt="Logo" className="ml-7" style={{ width: 100, height: 40 }} />
+          <img src="/logo.webp" alt="Logo" className="md:ml-16 lg:ml-16" style={{ width: 100, height: 40 }} />
         </Link>
       </div>
 

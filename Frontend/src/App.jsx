@@ -13,7 +13,7 @@ import { mainContext } from './context/mainContex';
 import AdminFooter from './components/adminComponent/AdminFooter';
 import Header from './components/Header';
 import EmailOtpLogin from './pages/EmailLogin';
-// import UserDashboard1 from './pages/Loginn';
+import UserDashboard1 from './pages/Loginn';
 import Main from './pages/Live/Main';
 import AuthCallback from './hooks/AuthCallback';
 import ResetPassword from './pages/ResetPassword';
@@ -49,7 +49,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/auth/callback" element={<AuthCallback/>} />
           <Route path="/login" element={<EmailOtpLogin/>} />
           <Route path="/live" element={<Main />} />
-          {/* <Route path="/livee" element={<UserDashboard1 />} /> */}
+          <Route path="/livee" element={<UserDashboard1 />} />
           <Route path="/reset-password" element={<ResetPassword/>} />
           
 
@@ -68,38 +68,37 @@ const user = JSON.parse(localStorage.getItem('user'))
 
 
 // Layout for admin section 
+// Layout for admin section
 function AdminLayout() {
-  // const { user } = useContext(mainContext);
+  // For local development, we'll always assume the user is an admin.
   const localUser = JSON.parse(localStorage.getItem('user')) || {};
   const role =  localUser.role;
+  // const role = process.env.NODE_ENV === 'development' ? 'admin' : localUser.role;
 
   return (
     <>
-     {role === 'admin' ? (
-      
-        
+      {role === 'admin' ? (
         <div className="flex flex-col w-full min-h-screen">
           {/* AdminHeader */}
-          <AdminHeader/>
+          <AdminHeader />
 
           {/* Admin Routes */}
-          <div className="flex-1 p-4 overflow-auto ">
+          <div className="flex-1 p-4 overflow-auto">
             <AdminRoutes />
           </div>
 
-          <div className=" overflow-auto ">
-         {/* Sidebar */}
-         <AdminFooter />
-
+          <div className="overflow-auto">
+            {/* Sidebar */}
+            <AdminFooter />
+          </div>
         </div>
-        
-     </div>
       ) : (
         <Navigate to="/" />
       )}
     </>
   );
 }
+
 
 
 // Layout for non-admin section (with header and footer)
