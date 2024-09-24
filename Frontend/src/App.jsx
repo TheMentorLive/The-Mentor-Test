@@ -15,6 +15,8 @@ import Header from './components/Header';
 import EmailOtpLogin from './pages/EmailLogin';
 import UserDashboard1 from './pages/Loginn';
 import Main from './pages/Live/Main';
+import LearnMain from './pages/Learn/Main';
+import Item from './pages/Learn/detail/item';
 import AuthCallback from './hooks/AuthCallback';
 import ResetPassword from './pages/ResetPassword';
 
@@ -49,12 +51,14 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/auth/callback" element={<AuthCallback/>} />
           <Route path="/login" element={<EmailOtpLogin/>} />
           <Route path="/live" element={<Main />} />
-          <Route path="/livee" element={<UserDashboard1 />} />
+          <Route path="/learn" element={<LearnMain />} />
+          <Route path="/livee" element={<AdminLayout/>} />
           <Route path="/reset-password" element={<ResetPassword/>} />
+          <Route path="/details" element={<Item/>} />
           
 
           
-          <Route path="/admin/*" element={<AdminLayout />} />
+          <Route path="/admin/*" element={<UserDashboard1 />} />
           
           {/* Route for non-admin section */}
           <Route path="*" element={<DefaultLayout />} />
@@ -72,8 +76,8 @@ const user = JSON.parse(localStorage.getItem('user'))
 function AdminLayout() {
   // For local development, we'll always assume the user is an admin.
   const localUser = JSON.parse(localStorage.getItem('user')) || {};
-  const role =  localUser.role;
-  // const role = process.env.NODE_ENV === 'development' ? 'admin' : localUser.role;
+  // const role =  localUser.role;
+  const role = process.env.NODE_ENV === 'development' ? 'admin' : localUser.role;
 
   return (
     <>
