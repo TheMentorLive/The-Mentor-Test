@@ -45,7 +45,7 @@ export default function Cards() {
               {cardData.map((app, index) => (
                 <div
                   key={index}
-                  className="flex flex-col items-center p-2 border rounded-lg bg-white border-gray-300"
+                  className="flex flex-col items-center p-4 border rounded-lg bg-white border-gray-300"
                 >
                   <div className="border px-8 py-5 rounded-lg bg-blue-100 border-gray-300">
                     <img
