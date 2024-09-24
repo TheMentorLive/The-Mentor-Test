@@ -52,13 +52,13 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/login" element={<EmailOtpLogin/>} />
           <Route path="/live" element={<Main />} />
           <Route path="/learn" element={<LearnMain />} />
-          <Route path="/livee" element={<AdminLayout/>} />
+          <Route path="/livee" element={<UserDashboard1 />} />
           <Route path="/reset-password" element={<ResetPassword/>} />
           <Route path="/details" element={<Item/>} />
           
 
           
-          <Route path="/admin/*" element={<UserDashboard1 />} />
+          <Route path="/admin/*" element={<AdminLayout />} />
           
           {/* Route for non-admin section */}
           <Route path="*" element={<DefaultLayout />} />
@@ -76,8 +76,8 @@ const user = JSON.parse(localStorage.getItem('user'))
 function AdminLayout() {
   // For local development, we'll always assume the user is an admin.
   const localUser = JSON.parse(localStorage.getItem('user')) || {};
-  // const role =  localUser.role;
-  const role = process.env.NODE_ENV === 'development' ? 'admin' : localUser.role;
+  const role =  localUser.role;
+  // const role = process.env.NODE_ENV === 'development' ? 'admin' : localUser.role;
 
   return (
     <>
