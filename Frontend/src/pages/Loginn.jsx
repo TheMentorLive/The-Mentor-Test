@@ -20,9 +20,11 @@ import MainTestPage from "./admin/test/MainTest";
 import MockTestPage from "./admin/test/MockTest";
 import Users from "./list/UserList";
 import AdminLanding from "./admin/Admin-landing"; // Adjust import path as necessary
+import { mainContext } from "../context/mainContex";
 
 export default function UserDashboard1() {
   const [open, setOpen] = useState(false);
+  const { signOut } = useContext(mainContext);
   const [showTestDropdown, setShowTestDropdown] = useState(false);
   const [selectedComponent, setSelectedComponent] = useState("dashboard"); // Track which component to display
 
@@ -201,7 +203,7 @@ export default function UserDashboard1() {
           </SidebarBody>
         </Sidebar>
         {/* Right section renders the selected component */}
-        <div className="min-w-full bg-white">{renderComponent()}</div>
+        <div className="min-w-full bg-white p-5">{renderComponent()}</div>
       </div>
     </div>
   );

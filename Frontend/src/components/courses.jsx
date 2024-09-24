@@ -1,4 +1,5 @@
-export default function Live() {
+export default function Learn() {
+  
   return (
     <div className="items-center flex justify-center">
       <div className="items-center flex justify-center ml-2 mr-2">

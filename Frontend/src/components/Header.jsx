@@ -45,10 +45,10 @@ const Header = () => {
 
     return (
         <div className="items-center flex justify-center">
-            <header className={`fixed top-0 left-0 w-full bg-white  z-50`}>
-            <div className="flex items-center md:mt-2 lg:mt-2 md:mb-2 lg:mb-2 justify-between py-4 px-4">
-    <Link to="/" className="md:flex hidden lg:flex md:ml-[170px]">
-        <img src="/logo.webp" alt="Logo" className="md:h-12 lg:h-12 w-auto" />
+            <header className={`fixed top-0 left-0 w-full bg-white z-50 h-16`}>
+            <div className="flex items-center  md:mb-2 lg:mb-2 justify-between py-2 px-4">
+    <Link to="/" className="md:flex hidden  lg:flex md:ml-[170px]">
+        <img src="/logo.webp" alt="Logo" className="md:h-12 lg:h-12  w-auto" />
     </Link>
     <nav className="hidden lg:flex  justify-center gap-5 items-center">
     <Link 
@@ -58,7 +58,9 @@ const Header = () => {
       >
         <span>Live</span>
     </Link>
-    <Link to="/pricing" className="flex text-[15px] hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+    <Link  to="/learn" 
+        className={`flex text-[15px] items-center space-x-1 py-2 px-3 rounded transition-colors duration-300
+          ${location.pathname === '/learn' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}>
         <span>Learn</span>
     </Link>
     <Link to="/pricing" className="flex text-[15px] hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
@@ -114,13 +116,17 @@ const Header = () => {
                 
 
                 {/* Mobile screen - Slide-out navigation menu */}
-                <div className="flex items-center -mt-2  px-6">
-                    <button onClick={toggleMenu} className="lg:hidden text-black text-2xl mr-4" aria-label="Toggle navigation menu">
-                        <MenuIcon />
-                    </button>
+                <div className="flex items-center -mt-2 px-6">
+                <button 
+        onClick={toggleMenu} 
+        className="lg:hidden text-black mb-3 text-3xl mr-4" // Increase text size here
+        aria-label="Toggle navigation menu"
+    >
+        <MenuIcon className="h-8 w-8" /> 
+    </button>
 
                     <Link to="/" className="flex ml-[220px] lg:hidden md:hidden items-center space-x-2 py-2 text-black hover:bg-gray-200 transition-colors duration-300">
-                        <img src="/logo.webp" alt="Logo" className="h-8 w-auto" />
+                        <img src="/logo.webp" alt="Logo" className="h-[45px] w-auto" />
                     </Link>
                 </div>
 
@@ -132,7 +138,9 @@ const Header = () => {
 
                         {/* Rest of your menu items */}
 
-                        <Link to="/Live" className="block py-2 px-4 -mb-5 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
+
+                        <Link to="/Live" className={`block py-2 px-4 -mb-5 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300 ${location.pathname === '/live' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
+                        >
                             Live
                         </Link>
 

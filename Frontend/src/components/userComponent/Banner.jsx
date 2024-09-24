@@ -70,11 +70,12 @@ export default function Banner() {
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold opacity-80 tracking-tighter text-[35px] xl:text-6xl/none">
-                  Master the Future <br />
-                  With <br />
-                  GenAI Learning
-                </h1>
+              <h1 className="text-[40px] sm:text-5xl md:text-6xl lg:text-7xl xl:text-6xl/none font-bold opacity-80 tracking-tighter">
+  Master the Future <br />
+  With <br />
+  GenAI Learning
+</h1>
+
                 <p className="max-w-[600px] text-gray-500 md:text-lg dark:text-gray-400">
                   Take your knowledge to the next level with our comprehensive
                   test series and expertly designed courses.
