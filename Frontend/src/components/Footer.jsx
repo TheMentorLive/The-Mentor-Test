@@ -54,7 +54,7 @@ const Footer = () => {
           </div>
         </div>
         {/* Right section with footer content organized in sections */}
-        <div className="flex  md:gap-40 lg:md:gap-40 mr-4 md:flex-row md:justify-between">
+        <div className="flex  md:gap-28 lg:md:gap-28 mr-4 md:flex-row md:justify-between">
           {/* Mapping over sections and rendering content */}
           {items.filter(item => item.type === 'section').map((item, index) => (
             <div key={index} className="flex-1">

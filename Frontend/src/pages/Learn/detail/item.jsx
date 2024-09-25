@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import CompanyExams from "../CBexams";
+import Features from "../Features";
+import Tseries from "../../landingPage/tseries";
 
 export default function Item() {
   const cardRef = useRef(null);
@@ -12,7 +14,8 @@ export default function Item() {
     if (cardRef.current) {
       const buttonPosition = cardRef.current.getBoundingClientRect().bottom;
       const screenHeight = window.innerHeight;
-      setIsSticky(buttonPosition < screenHeight ? false : true);
+      const offset = 300; // Adjust this value to control when the card sticks
+      setIsSticky(buttonPosition < screenHeight - offset ? false : true);
     }
   };
 
@@ -138,6 +141,8 @@ export default function Item() {
       </div>
 
       <CompanyExams />
+      <Features/>
+      <Tseries/>
       <Footer />
     </div>
   );
