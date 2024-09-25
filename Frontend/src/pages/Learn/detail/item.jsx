@@ -46,11 +46,11 @@ export default function Item() {
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
               Created by{" "}
-              <a href="#" className="text-blue-500">Dr. Angela Yu</a>, Developer and Lead Instructor
+              <a href="#" className="text-blue-500">User</a>, Developer and Lead Instructor
             </p>
             <div className="mt-2 flex items-center text-sm text-muted-foreground">
               <div className="h-4 w-4 bg-black" />
-              <span className="ml-1">English, Arabic [Auto], 14 more</span>
+              <span className="ml-1">English</span>
             </div>
 
             <h2 className="mt-4 text-lg font-bold">Explore related topics</h2>
