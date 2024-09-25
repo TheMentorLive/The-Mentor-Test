@@ -11,6 +11,14 @@ module.exports = {
   darkMode: 'media', // Use 'media' for dark mode based on user system settings
   theme: {
     extend: {
+      // Custom breakpoints for responsiveness
+      screens: {
+        sm: '640px', // Small screens (e.g., mobile)
+        md: '468px', // Medium screens (e.g., tablets)
+        lg: '1024px', // Large screens (e.g., small desktops)
+        xl: '1280px', // Extra large screens (e.g., large desktops)
+        '2xl': '1536px', // 2x large screens
+      },
       // Custom colors
       colors: {
         primary: '#2563EB',

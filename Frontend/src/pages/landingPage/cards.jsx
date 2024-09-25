@@ -7,37 +7,41 @@ export default function Cards() {
   ];
 
   return (
-    <div className="flex items-center justify-center min-h-screen"> {/* Flex container to center vertically */}
-      <section className="container mx-auto px-4 py-10 sm:px-10 sm:py-20 lg:py-24"> {/* Center horizontally with mx-auto */}
-        <div className="text-left md:ml-28 lg:ml-28 mb-12">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl text-left font-bold">
-            The All in One <span className="text-blue-600">Edtech Platform</span>
-            <br />
-            you've been Looking for
-          </h1>
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-8 justify-center items-center"> {/* Center on lg screens */}
+    <div className="flex items-center justify-center min-h-screen">
+      <section className="container mx-auto px-4 py-10 sm:px-10 sm:py-20 lg:py-24">
+        <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
           {/* Left Section */}
-          <div className="flex flex-col items-center lg:items-start lg:w-[480px]">
-            <div className="bg-gray-100 w-full h-64 flex items-center justify-center mb-4">
+          <div className="flex flex-col items-center lg:items-start lg:w-[550px]">
+            {/* Text above the image */}
+            <div className="md:mb-12 lg:mb-12 mb-5">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-left whitespace-nowrap">
+                The All in One <span className="text-blue-600">Edtech Platform</span>
+                <br/>
+                you've been Looking for
+              </h1>
+            </div>
+            {/* Image */}
+            <div className="bg-gray-100 w-full h-64 flex items-center justify-center">
               <img
                 src="/mtp1.png"
                 alt="Mentor Training Program"
                 className="border h-64 rounded-lg"
               />
             </div>
-            <h2 className="text-xl font-bold">Mentor Training Program</h2>
-            <p className="text-gray-700 mb-4">
-              One course to unlock essential skills in law, tech, marketing & finance for career success.
-            </p>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded">Learn More</button>
+            {/* Text below the image */}
+            <div className="mt-8 text-center lg:text-left">
+              <h2 className="text-xl font-bold">Mentor Training Program</h2>
+              <p className="text-gray-700 mb-4">
+                One course to unlock essential skills in law, tech, marketing & finance for career success.
+              </p>
+              <button className="bg-blue-600 text-white px-4 py-2 rounded">Learn More</button>
+            </div>
           </div>
 
           {/* Right Section */}
           <div className="lg:w-1/2 mt-2">
             <p className="text-gray-700 mb-8 opacity-85">
-              Explore our all-in-one EdTech platform offering live mentorship, upskilling courses, job opportunities, and a thriving community. 
+              Explore our all-in-one EdTech platform offering live mentorship, upskilling courses, job opportunities, and a thriving community.
               Whether you're seeking career guidance, learning new skills, or finding your next job, we've got it covered.
             </p>
 

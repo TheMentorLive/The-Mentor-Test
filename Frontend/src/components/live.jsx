@@ -10,9 +10,9 @@ export default function Live() {
   };
 
   return (
-    <div className="items-center justify-center mt-10 p-4 md:mr-80 lg:mr-80 lg:ml-40 md:ml-40 rounded-xl">
+    <div className="items-center justify-center mt-10 p-4 md:mr-80 lg:mr-80 lg:ml-44 md:ml-44 rounded-xl">
      <div className="text-center  mr-2">
-            <h3 className="md:mt-4 md:ml-96 text-[25px] font-semibold text-black lg:text-left lg:ml-4">
+            <h3 className="md:mt-4 md:ml-96 text-[25px] font-semibold text-black lg:text-left lg:ml-7">
             Live - Counselling and Mentorship
             </h3>
           </div>

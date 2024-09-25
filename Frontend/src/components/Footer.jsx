@@ -1,7 +1,7 @@
 // Importing necessary React and icon components
 import React from 'react';
 import {
-  FaDribbbleSquare,
+  FaLinkedin,
   FaFacebookSquare,
   FaGithubSquare,
   FaInstagram,
@@ -22,7 +22,7 @@ const Footer = () => {
     { type: 'icon', icon: FaInstagram },
     { type: 'icon', icon: FaTwitterSquare },
     { type: 'icon', icon: FaGithubSquare },
-    { type: 'icon', icon: FaDribbbleSquare },
+    { type: 'icon', icon: FaLinkedin },
     // Footer sections
     
     { type: 'section', title: 'Support', items: ['Pricing', 'Documentation', 'Guides'] },
@@ -35,7 +35,7 @@ const Footer = () => {
     
     <footer className="bg-[#2952d6] py-16 px-4 items-center justify-center flex text-white">
       <div className="items-center flex justify-center">
-      <div className="container mx-auto grid gap-8 md:ml-56 md:grid-cols-2 lg:grid-cols-3">
+      <div className="container mx-auto grid gap-8 md:ml-[300px] md:grid-cols-2 lg:grid-cols-3">
         {/* Left section with brand and social icons */}
         <div className="flex flex-col items-start">
           <img
@@ -54,7 +54,7 @@ const Footer = () => {
           </div>
         </div>
         {/* Right section with footer content organized in sections */}
-        <div className="flex  gap-20 mr-4 md:flex-row md:justify-between">
+        <div className="flex  md:gap-40 lg:md:gap-40 mr-4 md:flex-row md:justify-between">
           {/* Mapping over sections and rendering content */}
           {items.filter(item => item.type === 'section').map((item, index) => (
             <div key={index} className="flex-1">
