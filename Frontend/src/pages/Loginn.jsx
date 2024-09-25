@@ -170,7 +170,9 @@ export default function UserDashboard1() {
           </SidebarBody>
         </Sidebar>
         {/* Right section renders the selected component */}
-        <div className="min-w-full bg-white p-5">{renderComponent()}</div>
+        <div className="p-4">
+  {renderComponent()}
+</div>
       </div>
     </div>
   );
