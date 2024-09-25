@@ -34,12 +34,12 @@ export default function Cexams() {
                 </div>
                 <div className="flex flex-row space-x-2 mt-auto">
                   <Link to="/details">
-                    <button className="border border-gray-300 text-gray-700 text-sm py-2 px-4 rounded-md">
+                    <button className="border border-gray-300 text-gray-700 py-2 px-2 text-[13px] rounded-md">
                       Learn More
                     </button>
                   </Link>
                   <Link to="/register">
-                    <button className="bg-blue-600 text-white text-sm py-2 px-4 rounded-md">
+                    <button className="bg-blue-600 text-white py-2 px-2 text-[13px] rounded-md">
                       Start Exam
                     </button>
                   </Link>

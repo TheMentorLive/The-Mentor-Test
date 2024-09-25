@@ -7,7 +7,7 @@ export default function Cards() {
   ];
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center -mb-24 justify-center min-h-screen">
       <section className="container mx-auto px-4 py-10 sm:px-10 sm:py-20 lg:py-24">
         <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
           {/* Left Section */}
