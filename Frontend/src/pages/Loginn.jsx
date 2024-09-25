@@ -96,7 +96,7 @@ export default function UserDashboard1() {
   return (
     <div>
       <AdminHeader />
-      <div className={cn("flex flex-col md:flex-row bg-white w-full flex-1 mx-auto min-h-screen dark:border-neutral-700 overflow-hidden", "h-[60vh]")}>
+      <div className="flex flex-col md:flex-row bg-white w-full flex-1 mx-auto  dark:border-neutral-700 h-screen">
         <Sidebar open={open} setOpen={setOpen}>
           <SidebarBody className="justify-between gap-10">
             <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
