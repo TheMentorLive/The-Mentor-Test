@@ -44,6 +44,7 @@ export default function Sidebar() {
       ? {
         backgroundColor: '#2463EB', // Active background color
         borderRadius: '10px',
+        width:'1900px',
         color: '#fff', // Active text color
         margin: '10px',
         padding: '10px',
@@ -67,10 +68,10 @@ export default function Sidebar() {
     flexShrink: 0,
     marginTop: '64px', // Adds margin to prevent overlap with navbar
     [`& .MuiDrawer-paper`]: {
-      width: 240,
+      width: 220,
       boxSizing: 'border-box',
       backgroundColor: '#f5f5f5',
-      borderRadius: '8px',
+      
       boxShadow: '2px 0 5px rgba(0,0,0,0.1)',
       marginTop: '64px', // Adds margin to the drawer paper to align with the AppBar
       

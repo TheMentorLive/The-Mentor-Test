@@ -29,8 +29,10 @@ export default function Sidebar1() {
     return {
       backgroundColor: isReports ? 'transparent' : '#2463EB', // Active background color
       borderRadius: '10px',
+      width:'200px',
       color: isReports ? '#ccc' : '#fff', // Inactive text color for Reports
       margin: '10px',
+      
       padding: '10px',
       fontWeight: isReports ? 'normal' : 'bold', // Normal weight for inactive
       '&:hover': {
@@ -52,10 +54,10 @@ export default function Sidebar1() {
           flexShrink: 0,
           marginTop: '64px', // Margin to prevent overlap with navbar
           [`& .MuiDrawer-paper`]: {
-            width: 240,
+            width: 220,
             boxSizing: 'border-box',
             backgroundColor: '#f5f5f5',
-            borderRadius: '8px',
+            
             boxShadow: '2px 0 5px rgba(0,0,0,0.1)',
             marginTop: '64px',
           },
