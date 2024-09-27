@@ -16,6 +16,7 @@ import EmailOtpLogin from './pages/EmailLogin';
 // import UserDashboard1 from './pages/Loginn';
 import Admindash from './components/adminComponent/admindash';
 import Main from './pages/Live/Main';
+import Support from './pages/support';
 import LearnMain from './pages/Learn/Main';
 import Item from './pages/Learn/detail/item';
 import AuthCallback from './hooks/AuthCallback';
@@ -55,6 +56,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/learn" element={<LearnMain />} />
           {/* <Route path="/livee" element={<UserDashboard1 />} /> */}
           <Route path="/reset-password" element={<ResetPassword/>} />
+          <Route path="/support" element={<Support/>} />
           <Route path="/details" element={<Item/>} />
           
 

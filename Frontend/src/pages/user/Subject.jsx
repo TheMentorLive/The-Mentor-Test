@@ -67,19 +67,24 @@ const SubjectComponent = () => {
     <Grid item xs={12} sm={6} md={4} key={test.id}>
       <Card sx={{
         height: '100%',
-        transition: 'transform 0.2s',
+        transition: 'transform 0.2s, box-shadow 0.2s',
         '&:hover': {
           transform: 'scale(1.05)',
-          boxShadow: 6,
+          boxShadow: 20,
         },
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
+        borderRadius: 2,
+        bgcolor: 'background.paper',
+        border: '1px solid',
+        borderColor: 'divider',
+        boxShadow: 1,
       }}>
         <CardContent>
           <Box display="flex" alignItems="center" gap={1}>
-            <BookIcon />
-            <Typography variant="h6" component="h3">
+            <BookIcon sx={{ color: 'primary.main' }} />
+            <Typography variant="h6" component="h3" fontWeight="bold">
               {test.description}
             </Typography>
           </Box>
@@ -87,14 +92,16 @@ const SubjectComponent = () => {
             {moment(test.createdAt).format('MMM D, YYYY h:mm A')} - {test.duration} hours, {test.questions.length} questions
           </Typography>
         </CardContent>
-        <CardContent>
-          <Box display="flex" gap={2}>
+        <CardContent sx={{ mt: 'auto' }}>
+          <Box display="flex" gap={2} justifyContent="center">
             <Link to={`/start-test?id=${test._id}`} style={{ textDecoration: 'none' }}>
-              <Button variant="contained" startIcon={<PlayCircleOutlineIcon />} sx={{ textTransform: 'none' }}>
+              <Button variant="contained" startIcon={<PlayCircleOutlineIcon />} sx={{ textTransform: 'none', bgcolor: 'primary.main', '&:hover': { bgcolor: 'primary.dark' } }}>
                 Take Test
               </Button>
             </Link>
-            <Button variant="outlined" sx={{ textTransform: 'none' }}>Show Results</Button>
+            <Button variant="outlined" sx={{ textTransform: 'none', color: 'primary.main', borderColor: 'primary.main', '&:hover': { bgcolor: 'primary.light' } }}>
+              Show Results
+            </Button>
           </Box>
         </CardContent>
         <Typography variant="caption" color="textSecondary" p={2} textAlign="center">
@@ -103,6 +110,7 @@ const SubjectComponent = () => {
       </Card>
     </Grid>
   );
+  
 
   return (
     <div className="flex flex-1 flex-col min-h-screen">
