@@ -42,12 +42,15 @@ export default function Sidebar() {
   const isActive = path =>
     location.pathname === path
       ? {
-          backgroundColor: '#2463EB',
-          borderRadius: '10px',
-          color: '#fff',
-          margin: '10px',
-          padding: '10px',
-          fontWeight: 'bold',
+        backgroundColor: '#2463EB', // Active background color
+        borderRadius: '10px',
+        color: '#fff', // Active text color
+        margin: '10px',
+        padding: '10px',
+        fontWeight: 'bold',
+        '&:hover': { // Add hover styles if needed
+          backgroundColor: '#2463EB', // Keep background transparent on hover
+        },
         }
       : {};
 
@@ -84,8 +87,14 @@ export default function Sidebar() {
             { text: 'Reports', icon: <BarChart />, link: '/reports' },
           ].map((item, index) => (
             <div key={index} >
-              <ListItem button onClick={() => handleLinkClick(item.link)} sx={isActive(item.link)}>
-                <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItem
+                button
+                onClick={() => handleLinkClick(item.link)}
+                sx={isActive(item.link)}
+              >
+                <ListItemIcon sx={{ color: item.link === window.location.pathname ? '#fff' : 'inherit' }}>
+                  {item.icon}
+                </ListItemIcon>
                 <ListItemText
                   primary={item.text}
                   primaryTypographyProps={{
