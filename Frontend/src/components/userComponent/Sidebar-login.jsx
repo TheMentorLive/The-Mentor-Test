@@ -44,7 +44,7 @@ export default function Sidebar() {
       ? {
         backgroundColor: '#2463EB', // Active background color
         borderRadius: '10px',
-        width:'1900px',
+        width:'200px',
         color: '#fff', // Active text color
         margin: '10px',
         padding: '10px',
