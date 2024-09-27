@@ -124,7 +124,7 @@ export default function Item() {
         </div>
 
         {/* Fixed Item Card */}
-        <div className={`w-full mt-10 md:w-1/3 ${isSticky ? "fixed top-10 right-10" : "relative"}`}>
+        <div className={`w-[full] mt-10 mr-[70px] md:w-[450px] ${isSticky ? "fixed top-10 right-10" : "relative"}`}>
           <div className="p-4 border rounded shadow">
             <div className="bg-gray-200 h-48 flex items-center justify-center">
               <div className="h-12 w-12 text-gray-400" />

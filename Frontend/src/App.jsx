@@ -13,7 +13,8 @@ import { mainContext } from './context/mainContex';
 import AdminFooter from './components/adminComponent/AdminFooter';
 import Header from './components/Header';
 import EmailOtpLogin from './pages/EmailLogin';
-import UserDashboard1 from './pages/Loginn';
+// import UserDashboard1 from './pages/Loginn';
+import Admindash from './components/adminComponent/admindash';
 import Main from './pages/Live/Main';
 import LearnMain from './pages/Learn/Main';
 import Item from './pages/Learn/detail/item';
@@ -52,7 +53,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/login" element={<EmailOtpLogin/>} />
           <Route path="/live" element={<Main />} />
           <Route path="/learn" element={<LearnMain />} />
-          <Route path="/livee" element={<UserDashboard1 />} />
+          {/* <Route path="/livee" element={<UserDashboard1 />} /> */}
           <Route path="/reset-password" element={<ResetPassword/>} />
           <Route path="/details" element={<Item/>} />
           
@@ -88,7 +89,7 @@ function AdminLayout() {
 
           {/* Admin Routes */}
           <div className="overflow-auto">
-            <UserDashboard1 />
+            <Admindash />
           </div>
 
           <div className="overflow-auto">
