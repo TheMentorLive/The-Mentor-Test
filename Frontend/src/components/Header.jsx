@@ -56,7 +56,7 @@ const Header = () => {
                     <Link to="/" className="md:flex hidden lg:flex md:ml-[90px]">
                         <img src="/logo.webp" alt="Logo" className="md:h-12 lg:h-12 w-auto" />
                     </Link>
-                    
+
                     {/* Desktop Navigation Links */}
                     <nav className="hidden lg:flex justify-center gap-5 items-center">
                         <Link
@@ -75,7 +75,8 @@ const Header = () => {
                             <span>Jobs</span>
                         </Link>
                         {!isLoggedIn && (
-                            <Link to="/support" className="flex hover:font-bold text-[15px] items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                            <Link to="/support" className={`flex text-[15px] items-center space-x-1 py-2 px-3 rounded transition-colors duration-300 ${location.pathname === '/support' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
+                            >
                                 <span>Support</span>
                             </Link>
                         )}
@@ -107,26 +108,31 @@ const Header = () => {
                                 </Link>
                             </>
                         )}
- {/* Conditionally render Cart Icon on /learn page */}
- {location.pathname === "/learn" && (
-        <button onClick={toggleCart} className="relative">
-            <AiOutlineShoppingCart className="text-2xl text-gray-700" />
-        </button>
-    )}
+                        {/* Conditionally render Cart Icon on /learn page */}
+                        {location.pathname === "/learn" && (
+                            <button onClick={toggleCart} className="relative">
+                                <AiOutlineShoppingCart className="text-2xl text-gray-700" />
+                            </button>
+                        )}
                     </div>
 
-                    
+
                 </div>
 
-                  {/* Mobile screen - Slide-out navigation menu */}
-                  <div className="flex items-center -mt-2 px-6">
-                <button 
-        onClick={toggleMenu} 
-        className="lg:hidden text-black mb-3 text-3xl mr-4" // Increase text size here
-        aria-label="Toggle navigation menu"
-    >
-        <MenuIcon className="h-8 w-8" /> 
-    </button>
+
+
+
+
+
+                {/* Mobile screen - Slide-out navigation menu */}
+                <div className="flex items-center -mt-2 px-6">
+                    <button
+                        onClick={toggleMenu}
+                        className="lg:hidden text-black mb-3 text-3xl mr-4" // Increase text size here
+                        aria-label="Toggle navigation menu"
+                    >
+                        <MenuIcon className="h-8 w-8" />
+                    </button>
 
                     <Link to="/" className="flex ml-[220px] lg:hidden md:hidden items-center space-x-2 py-2 text-black hover:bg-gray-200 transition-colors duration-300">
                         <img src="/logo.webp" alt="Logo" className="h-[45px] w-auto" />
@@ -167,16 +173,16 @@ const Header = () => {
                         {!isLoggedIn && (
                             <>
                                 <Link to="/pricing" className="block py-2 px-4 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
-                                   Learn
+                                    Learn
                                 </Link>
                                 <Link to="/support" className="block py-2 px-4 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
-                                   Jobs
+                                    Jobs
                                 </Link>
                                 <Link to="/login" className="block py-2 px-4 font-semibold text-[#2563EB] hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
                                     Sign In
                                 </Link>
                                 <Link to="/register" className="block py-2 px-4 font-semibold text-[#2563EB] hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
-                                   Sign Up
+                                    Sign Up
                                 </Link>
                             </>
                         )}
