@@ -1,220 +1,108 @@
-import React, { useState } from 'react';
+// src/Sidebar1.js
+
+import React from 'react';
+import { Card, CardContent, Button, Box, Typography, Grid } from '@mui/material';
+import BookIcon from '@mui/icons-material/Book';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import { Link } from 'react-router-dom';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, Tooltip, IconButton, AppBar, Toolbar, useMediaQuery, useTheme } from '@mui/material';
-import { Groups } from '@mui/icons-material';
-import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Settings as SettingsIcon, BarChart, ExitToAppTwoTone } from '@mui/icons-material';
+import moment from 'moment';
 
-export default function Sidebar1() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const name = { name: 'User' }; // Mock user data
+const tests = [
+  {
+    id: 1,
+    description: 'Sample Test Description 1',
+    createdAt: new Date(),
+    duration: 1.5,
+    questions: new Array(10).fill('Question'),
+    _id: '12345',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnyI0pEJ45m-Z4HsH4kPEx3CQS-DKCPpV1PMyqDZcBXrLR1wFMR8H3Fd4Em36Z1RqpZk4&usqp=CAU' // Updated image URL for 100x100 size
+  },
+  {
+    id: 2,
+    description: 'Sample Test Description 2',
+    createdAt: new Date(),
+    duration: 2,
+    questions: new Array(5).fill('Question'),
+    _id: '67890',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnyI0pEJ45m-Z4HsH4kPEx3CQS-DKCPpV1PMyqDZcBXrLR1wFMR8H3Fd4Em36Z1RqpZk4&usqp=CAU' // Updated image URL for 100x100 size
+  },
+  // Add more test objects as needed
+];
 
-  const handleToggleSidebar = () => {
-    setIsSidebarOpen(prev => !prev);
-  };
-
-  const handleLinkClick = path => {
-    // Logic for navigating
-    if (isMobile) {
-      setIsSidebarOpen(false);
-    }
-  };
-
-  const isActive = path => {
-    const isReports = path === '/reports'; // Check if the current path is for Reports
-    return {
-      backgroundColor: isReports ? 'transparent' : '#2463EB', // Active background color
-      borderRadius: '10px',
-      width:'200px',
-      color: isReports ? '#ccc' : '#fff', // Inactive text color for Reports
-      margin: '10px',
-      
-      padding: '10px',
-      fontWeight: isReports ? 'normal' : 'bold', // Normal weight for inactive
-      '&:hover': {
-        backgroundColor: isReports ? 'transparent' : '#2463EB', // Keep background consistent
-      },
-    };
-  };
-
+const Sidebar1 = () => {
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
-      {/* Sidebar */}
-      <Drawer
-        variant={isMobile ? 'temporary' : 'permanent'}
-        anchor="left"
-        open={isSidebarOpen}
-        onClose={handleToggleSidebar}
-        sx={{
-          width: 240,
-          flexShrink: 0,
-          marginTop: '64px', // Margin to prevent overlap with navbar
-          [`& .MuiDrawer-paper`]: {
-            width: 220,
-            boxSizing: 'border-box',
-            backgroundColor: '#f5f5f5',
-            
-            boxShadow: '2px 0 5px rgba(0,0,0,0.1)',
-            marginTop: '64px',
-          },
-          zIndex: theme.zIndex.drawer + 1,
-        }}
-      >
-        <List>
-          {[
-            { text: 'Dashboard', icon: <LayoutGridIcon />, link: '/user-dashboard' },
-            { text: 'Courses', icon: <BookIcon />, link: '/courses' },
-            { text: 'Mock-test', icon: <FileTextIcon />, link: '/subjects' },
-            { text: 'Mentors', icon: <Groups />, link: '/mentors' },
-            { text: 'Reports', icon: <BarChart />, link: '/reports' }, // Keeping Reports in the list
-          ].map((item, index) => (
-            <div key={index}>
-              <ListItem 
-                button 
-                onClick={() => handleLinkClick(item.link)} 
-                sx={isActive(item.link)}
-              >
-                <ListItemIcon sx={{ color: item.link === window.location.pathname ? '#fff' : 'inherit' }}>
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.text}
-                  primaryTypographyProps={{
-                    fontSize: '1rem',
-                    fontWeight: 'medium',
-                    letterSpacing: 0,
-                  }}
-                />
-              </ListItem>
-            </div>
-          ))}
-        </List>
+    <Grid container spacing={0} className='gap-1'> {/* Set spacing to 0 */}
+      {tests.map(test => (
+       <Grid item xs={12} sm={6} md={3} key={test.id}>
+  <Card sx={{
+    width: "340px",
+    transition: 'transform 0.2s, box-shadow 0.2s',
+    '&:hover': {
+      transform: 'scale(1.04)',
+      boxShadow: 10,
+      bgcolor: 'primary.lighter', // Change background on hover for interaction
+      borderColor: 'primary.main'
+    },
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    borderRadius: 4,
+    bgcolor: 'background.paper',
+    border: '1px solid',
+    borderColor: 'divider',
+    boxShadow: 1,
+    mx: 'auto', // Center the card
+    mb: -1, // Adjust margin to reduce gap
+  }}>
+    <CardContent>
+      <img src={test.image} alt={test.description} style={{ width: '100%', height: 'auto', borderRadius: '4px', objectFit: 'cover' }} />
+      <Box display="flex" alignItems="center" gap={1} mt={1}>
+        <BookIcon sx={{ color: 'primary.main' }} />
+        <Typography variant="h7" component="h3" fontWeight="bold">
+          {test.description}
+        </Typography>
+      </Box>
+      <Typography variant="body2" color="textSecondary" mt={1}>
+        {moment(test.createdAt).format('MMM D, YYYY h:mm A')} - {test.duration} hours, {test.questions.length} questions
+      </Typography>
+    </CardContent>
 
-        <div style={{ marginTop: 'auto', marginBottom: '70px' }}>
-          <Tooltip title="Settings" placement="right">
-            <ListItem button component={Link} to="/settings">
-              <ListItemIcon>
-                <SettingsIcon sx={{ color: '#1976d2' }} />
-              </ListItemIcon>
-              <ListItemText primary="Settings" />
-            </ListItem>
-          </Tooltip>
-          <Tooltip title="Logout" placement="right">
-            <ListItem button>
-              <ListItemIcon>
-                <ExitToAppTwoTone sx={{ color: '#e53935' }} />
-              </ListItemIcon>
-              <ListItemText primary="Logout" />
-            </ListItem>
-          </Tooltip>
-        </div>
-      </Drawer>
+    <CardContent sx={{ mt: 'auto' }}>
+      <Box display="flex" gap={2} justifyContent="center">
+        <Link to={`/start-test?id=${test._id}`} style={{ textDecoration: 'none' }}>
+          <Button variant="contained" startIcon={<PlayCircleOutlineIcon />} sx={{
+            textTransform: 'none',
+            bgcolor: 'primary.main',
+            '&:hover': { bgcolor: 'primary.dark' },
+            borderRadius: 2,
+            padding: '8px 16px', // Added padding for better clickability
+          }}>
+            Take Test
+          </Button>
+        </Link>
+        
+        <Button variant="outlined" sx={{
+          textTransform: 'none',
+          color: 'primary.main',
+          borderColor: 'primary.main',
+          '&:hover': { bgcolor: 'primary.light' },
+          borderRadius: 2,
+          padding: '8px 16px', // Added padding for button size
+        }}>
+          Show Results
+        </Button>
+      </Box>
+    </CardContent>
 
-      {/* Main Content */}
-      <div style={{ flex: 1, position: 'relative' }}>
-        <AppBar
-          position="fixed"
-          sx={{
-            zIndex: theme.zIndex.drawer - 1,
-            backgroundColor: '#2463EB',
-          }}
-        >
-          <Toolbar>
-            {isMobile && (
-              <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleToggleSidebar} sx={{ mr: 2 }}>
-                <MenuIcon sx={{ color: 'white' }} />
-              </IconButton>
-            )}
-            <Link to="/">
-              <img src="./logo.webp" alt="Logo" style={{ width: 100, height: 40, marginRight: '16px' }} />
-            </Link>
-            <div style={{ flexGrow: 1 }} />
-            <Tooltip title="Notifications">
-              <IconButton color="inherit">
-                <NotificationsIcon sx={{ color: 'white' }} />
-              </IconButton>
-            </Tooltip>
-            <Link to="/profile">
-              <Tooltip title="Profile">
-                <IconButton color="inherit">
-                  <AccountCircle sx={{ color: 'white' }} />
-                </IconButton>
-              </Tooltip>
-            </Link>
-            <span style={{ color: 'white', fontWeight: 'bold', marginLeft: '10px' }}>Hello, {name.name}</span>
-          </Toolbar>
-        </AppBar>
+    <Typography variant="caption" color="textSecondary" p={2} textAlign="center">
+      Register now to secure your spot.
+    </Typography>
+  </Card>
+</Grid>
 
-        <main style={{ paddingTop: '64px' }}>{/* Your main content here */}</main>
-      </div>
-    </div>
+      ))}
+    </Grid>
   );
 }
 
-function LayoutGridIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="7" height="7" x="3" y="3" rx="1" />
-      <rect width="7" height="7" x="14" y="3" rx="1" />
-      <rect width="7" height="7" x="14" y="14" rx="1" />
-      <rect width="7" height="7" x="3" y="14" rx="1" />
-    </svg>
-  );
-}
-
-function BookIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
-    </svg>
-  );
-}
-
-function FileTextIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-      <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-      <path d="M10 9H8" />
-      <path d="M16 13H8" />
-      <path d="M16 17H8" />
-    </svg>
-  );
-}
+export default Sidebar1;
