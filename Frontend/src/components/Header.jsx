@@ -1,20 +1,26 @@
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import MenuIcon from "@mui/icons-material/Menu";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import { FaTimes } from "react-icons/fa";
+import { AiOutlineShoppingCart } from "react-icons/ai"; // Cart Icon
+import { FaTimes } from "react-icons/fa"; // Close icon
+import MenuIcon from "@mui/icons-material/Menu"; // Mobile menu icon
 import { mainContext } from "../context/mainContex";
 import DropdownMenu from "./userComponent/DropDownMenu";
+import CartSidebar from "./cart/CartSidebar"; // Cart Sidebar Component
 
 const Header = () => {
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isCartOpen, setIsCartOpen] = useState(false); // State for cart sidebar
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const { user, setToken, signOut } = useContext(mainContext);
     const navigate = useNavigate();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const toggleCart = () => {
+        setIsCartOpen(!isCartOpen); // Toggle cart state
     };
 
     const handleLogout = () => {
@@ -40,83 +46,80 @@ const Header = () => {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-       
     }, []);
 
     return (
         <div className="items-center flex justify-center">
-            <header className={`fixed top-0 left-0 w-full bg-white z-50 h-16`}>
-            <div className="flex items-center  md:mb-2 lg:mb-2 justify-between py-2 px-4">
-    <Link to="/" className="md:flex hidden  lg:flex md:ml-[170px]">
-        <img src="/logo.webp" alt="Logo" className="md:h-12 lg:h-12  w-auto" />
-    </Link>
-    <nav className="hidden lg:flex  justify-center gap-5 items-center">
-    <Link 
-        to="/live" 
-        className={`flex text-[15px] items-center space-x-1 py-2 px-3 rounded transition-colors duration-300
-          ${location.pathname === '/live' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
-      >
-        <span>Live</span>
-    </Link>
-    <Link  to="/learn" 
-        className={`flex text-[15px] items-center space-x-1 py-2 px-3 rounded transition-colors duration-300
-          ${location.pathname === '/learn' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}>
-        <span>Learn</span>
-    </Link>
-    <Link to="/pricing" className="flex text-[15px] hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-        <span>Jobs</span>
-    </Link>
-        
-        {!isLoggedIn && (
-            <>
-                <Link to="/support" className="flex hover:font-bold text-[15px] items-center space-x-1 py-2 px-3  text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                    <span>Support</span>
-                </Link>
-            </>
-        )}
-        {isLoggedIn && (
-            <>
-                <Link to="/subjects" className="flex hover:font-bold items-center space-x-1 py-2 px-3  text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                    <span>Subjects</span>
-                </Link>
-                <Link to="/test-history" className="flex hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                    <span>Test History</span>
-                </Link>
-            </>
-        )}
-        
-        {isLoggedIn && <DropdownMenu isLoggedIn={isLoggedIn} />}
-    </nav>
-    {!isLoggedIn && (
-        <>
-            <div className="hidden md:flex space-x-2 md:mr-[170px]">
-            
-            <Link
-  to="/login"
-  className="py-[8px] text-md px-2 bg-white text-gray-900 hover:bg-gray-300 border-blue-500 border rounded-lg transition-colors duration-300"
->
-  <div className="flex items-center gap-1">
-    <UserIcon className="h-4 w-4" />
-    Sign In
-  </div>
-</Link>
-                <Link to="/register" className="py-[8px] text-md px-4 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
-                    Sign Up
-                </Link>
-            </div>
-        </>
+            <header className="fixed top-0 left-0 w-full bg-white z-50 h-16">
+                <div className="flex items-center justify-between py-2 px-4">
+                    {/* Desktop Logo */}
+                    <Link to="/" className="md:flex hidden lg:flex md:ml-[90px]">
+                        <img src="/logo.webp" alt="Logo" className="md:h-12 lg:h-12 w-auto" />
+                    </Link>
+                    
+                    {/* Desktop Navigation Links */}
+                    <nav className="hidden lg:flex justify-center gap-5 items-center">
+                        <Link
+                            to="/live"
+                            className={`flex text-[15px] items-center space-x-1 py-2 px-3 rounded transition-colors duration-300 ${location.pathname === '/live' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
+                        >
+                            <span>Live</span>
+                        </Link>
+                        <Link
+                            to="/learn"
+                            className={`flex text-[15px] items-center space-x-1 py-2 px-3 rounded transition-colors duration-300 ${location.pathname === '/learn' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
+                        >
+                            <span>Learn</span>
+                        </Link>
+                        <Link to="/pricing" className="flex text-[15px] hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                            <span>Jobs</span>
+                        </Link>
+                        {!isLoggedIn && (
+                            <Link to="/support" className="flex hover:font-bold text-[15px] items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                                <span>Support</span>
+                            </Link>
+                        )}
+                        {isLoggedIn && (
+                            <>
+                                <Link to="/subjects" className="flex hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                                    <span>Subjects</span>
+                                </Link>
+                                <Link to="/test-history" className="flex hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                                    <span>Test History</span>
+                                </Link>
+                            </>
+                        )}
+                        {isLoggedIn && <DropdownMenu isLoggedIn={isLoggedIn} />}
+                    </nav>
+
+                    {/* Desktop Sign In / Cart */}
+                    <div className="hidden md:flex items-center space-x-2 md:mr-[90px]">
+                        {!isLoggedIn && (
+                            <>
+                                <Link
+                                    to="/login"
+                                    className="py-[8px] text-md px-2 bg-white text-gray-900 hover:bg-gray-300 border-blue-500 border rounded-lg transition-colors duration-300"
+                                >
+                                    <span>Sign In</span>
+                                </Link>
+                                <Link to="/register" className="py-[8px] text-md px-4 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
+                                    Sign Up
+                                </Link>
+                            </>
+                        )}
+ {/* Conditionally render Cart Icon on /learn page */}
+ {location.pathname === "/learn" && (
+        <button onClick={toggleCart} className="relative">
+            <AiOutlineShoppingCart className="text-2xl text-gray-700" />
+        </button>
     )}
-</div>
+                    </div>
 
+                    
+                </div>
 
-
-
-
-
-                
-
-                {/* Mobile screen - Slide-out navigation menu */}
-                <div className="flex items-center -mt-2 px-6">
+                  {/* Mobile screen - Slide-out navigation menu */}
+                  <div className="flex items-center -mt-2 px-6">
                 <button 
         onClick={toggleMenu} 
         className="lg:hidden text-black mb-3 text-3xl mr-4" // Increase text size here
@@ -188,29 +191,12 @@ const Header = () => {
                 )}
 
             </header>
+
+
+            {/* Cart Sidebar Component */}
+            <CartSidebar isCartOpen={isCartOpen} toggleCart={toggleCart} />
         </div>
     );
 };
 
 export default Header;
-
-
-function UserIcon(props) {
-    return (
-      <svg
-        {...props}
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-        <circle cx="12" cy="7" r="4" />
-      </svg>
-    )
-  }
