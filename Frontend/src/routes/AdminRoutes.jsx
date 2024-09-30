@@ -6,6 +6,8 @@ import Users from '../pages/list/UserList';
 import Userprofile from '../pages/Userprofile';
 import PageInProgres from '../pages/Progress';
 import AddSubject from '../pages/admin/AddSubject';
+import AddCoursePage from '../pages/admin/courses/AddCourses';
+import CourseListPage from '../pages/admin/courses/CoursesList';
 import AddQuestionPage from '../pages/admin/test/AddQuestions';
 import AdminLandingPage from '../pages/admin/Admin-landing';
 import GoogleDocsQuestionComponent from '../pages/admin/Questions';
@@ -25,6 +27,8 @@ const AdminRoutes = () => {
       <Route path="/" element={<AdminLandingPage />} />
       <Route path="/questions" element={<GoogleDocsQuestionComponent />} />
       <Route path="/test/add-subject" element={<AddSubject />} />
+      <Route path="/Courses/add-Course" element={<AddCoursePage />} />
+      <Route path="/Courses/ CourseListPage" element={< CourseListPage />} />
       <Route path="/test/add-test" element={<AddQuestionPage />} />
       <Route path="/test/mock-test" element={<MockTestPage />} />
       <Route path="/test/main-test" element={<MainTestPage />} />

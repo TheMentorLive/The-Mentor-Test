@@ -22,10 +22,15 @@ import Users from "../../pages/list/UserList";
 import AdminLanding from "../../pages/admin/Admin-landing"; // Adjust import path as necessary
 import { mainContext } from "../../context/mainContex"; // Ensure this is correctly spelled and provided
 
+// Import the new pages/components
+import AddCoursePage from "../../pages/admin/courses/AddCourses";
+import CourseListPage from "../../pages/admin/courses/CoursesList";
+
 export default function Admindash() {
   const [open, setOpen] = useState(false);
   const { signOut } = useContext(mainContext); // Ensure mainContext provides signOut
   const [showTestDropdown, setShowTestDropdown] = useState(false);
+  const [showCoursesDropdown, setShowCoursesDropdown] = useState(false); // State for Courses dropdown
   const [selectedComponent, setSelectedComponent] = useState("dashboard");
 
   const handleSignOut = () => {
@@ -37,10 +42,18 @@ export default function Admindash() {
     setShowTestDropdown((prev) => !prev);
   };
 
+  const toggleCoursesDropdown = () => {
+    setShowCoursesDropdown((prev) => !prev); // Toggle Courses dropdown
+  };
+
   const renderComponent = () => {
     switch (selectedComponent) {
       case "dashboard":
         return <AdminLanding />;
+      case "Courses":
+        return <CourseListPage />; // Show Courses List page
+      case "Add-Courses":
+        return <AddCoursePage />; // Show Add Course page
       case "Subject":
         return <AddSubject />;
       case "Test":
@@ -74,6 +87,12 @@ export default function Admindash() {
       isDropdown: true,
     },
     {
+      label: "Courses",
+      href: "#",
+      icon: <IconBook className={cn("h-7 w-7 flex-shrink-0", showCoursesDropdown ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+      isDropdown: true, // Dropdown for Courses
+    },
+    {
       label: "Users",
       href: "#",
       icon: <IconUserBolt className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Users" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
@@ -96,7 +115,7 @@ export default function Admindash() {
   return (
     <div>
       <AdminHeader />
-      <div className="flex flex-col md:flex-row bg-white w-full flex-1 mx-auto  dark:border-neutral-700 h-screen">
+      <div className="flex flex-col md:flex-row bg-white w-full flex-1 mx-auto dark:border-neutral-700 h-screen">
         <Sidebar open={open} setOpen={setOpen}>
           <SidebarBody className="justify-between gap-10">
             <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
@@ -116,10 +135,10 @@ export default function Admindash() {
                 />
                 {links.map((link, idx) => (
                   <div key={idx}>
-                    <div onClick={link.isDropdown ? toggleTestDropdown : link.onClick}>
+                    <div onClick={link.isDropdown ? (link.label === "Test" ? toggleTestDropdown : toggleCoursesDropdown) : link.onClick}>
                       <SidebarLink link={link} />
                     </div>
-                    {link.isDropdown && showTestDropdown && (
+                    {link.isDropdown && link.label === "Test" && showTestDropdown && (
                       <div className="ml-5 flex flex-col">
                         <SidebarLink
                           link={{
@@ -128,14 +147,6 @@ export default function Admindash() {
                             icon: <IconBook className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Subject" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
                           }}
                           onClick={() => setSelectedComponent("Subject")}
-                        />
-                        <SidebarLink
-                          link={{
-                            label: "Test",
-                            href: "#",
-                            icon: <IconFileText className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Test" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
-                          }}
-                          onClick={() => setSelectedComponent("Test")}
                         />
                         <SidebarLink
                           link={{
@@ -163,16 +174,38 @@ export default function Admindash() {
                         />
                       </div>
                     )}
+                    {link.isDropdown && link.label === "Courses" && showCoursesDropdown && (
+                      <div className="ml-5 flex flex-col">
+                        <SidebarLink
+                          link={{
+                            label: "Courses List",
+                            href: "#",
+                            icon: <IconBook className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Courses" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+                          }}
+                          onClick={() => setSelectedComponent("Courses")}
+                        />
+                        <SidebarLink
+                          link={{
+                            label: "Add Courses",
+                            href: "#",
+                            icon: <IconFileText className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Add-Courses" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+                          }}
+                          onClick={() => setSelectedComponent("Add-Courses")}
+                        />
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
             </div>
           </SidebarBody>
         </Sidebar>
-        {/* Right section renders the selected component */}
-        <div className="p-4 w-screen h-full overflow-y-auto">
-  {renderComponent()}
-</div>
+
+        <main className="flex-1 bg-slate-50 py-4 px-10 overflow-auto h-full">
+          <div className="py-6 max-w-7xl mx-auto w-full flex-1">
+            <div>{renderComponent()}</div>
+          </div>
+        </main>
       </div>
     </div>
   );
