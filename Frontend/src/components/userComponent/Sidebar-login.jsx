@@ -82,7 +82,7 @@ export default function Sidebar() {
         <List>
           {[
             { text: 'Dashboard', icon: <LayoutGridIcon />, link: '/user-dashboard' },
-            { text: 'Courses', icon: <BookIcon />, link: '/courses' },
+            { text: 'Courses', icon: <BookIcon />, link: '/course' },
             { text: 'Mock-test', icon: <FileTextIcon />, link: '/subjects' },
             { text: 'Mentors', icon: <Groups />, link: '/mentors' },
             { text: 'Reports', icon: <BarChart />, link: '/reports' },

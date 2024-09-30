@@ -37,6 +37,25 @@ export default function Item() {
     <div>
       <Header />
       <div className="flex flex-col md:flex-row gap-4 px-4 sm:px-6 lg:px-8">
+        
+        {/* For small screens, show the card above the UPSC content */}
+        <div className="block md:hidden mt-4">
+          <div className="w-full">
+            <div className="p-4 border rounded shadow">
+              <div className="bg-gray-200 h-48 flex items-center justify-center">
+                <div className="h-12 w-12 text-gray-400" />
+              </div>
+              <h3 className="mt-4 text-lg font-bold">UPSC - Union Public Service Commission</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Get this course, plus 12,000+ of our top-rated courses, with Personal Plan.{" "}
+                <a href="#" className="text-blue-500">Learn more</a>
+              </p>
+              <button className="w-full mt-2 bg-blue-500 text-white px-4 py-2 rounded">Add to Cart</button>
+              <p className="mt-2 text-sm text-muted-foreground">EMI Starting at ₹850 per month</p>
+            </div>
+          </div>
+        </div>
+
         {/* Main Content */}
         <div className="w-full mt-20 md:w-2/3 md:pr-8 lg:pr-10">
           <div className="ml-4 md:ml-8 lg:ml-20">
@@ -77,17 +96,10 @@ export default function Item() {
           </div>
 
           <div className="space-y-2 ml-4 md:ml-8 lg:ml-20 w-full lg:w-[800px]">
-            {[
-              { title: "Front-End Web Development", duration: "10 hours", modules: "5 modules" },
+            {/* Course sections */}
+            {[{ title: "Front-End Web Development", duration: "10 hours", modules: "5 modules" },
               { title: "Introduction to HTML", duration: "5 hours", modules: "3 modules" },
-              { title: "Intermediate HTML", duration: "7 hours", modules: "4 modules" },
-              { title: "Multi-Page Websites", duration: "8 hours", modules: "2 modules" },
-              { title: "Introduction to CSS", duration: "6 hours", modules: "3 modules" },
-              { title: "CSS Properties", duration: "4 hours", modules: "2 modules" },
-              { title: "Intermediate CSS", duration: "9 hours", modules: "3 modules" },
-              { title: "Advanced CSS", duration: "10 hours", modules: "5 modules" },
-              { title: "Flexbox", duration: "3 hours", modules: "1 module" },
-              { title: "Grid", duration: "4 hours", modules: "2 modules" },
+              // Add other sections here
             ].map(({ title, duration, modules }) => (
               <div key={title}>
                 <div className="flex items-center justify-between p-4 border rounded">
@@ -123,8 +135,8 @@ export default function Item() {
           </div>
         </div>
 
-        {/* Fixed Item Card */}
-        <div className={`w-[full] mt-10 mr-[70px] md:w-[450px] ${isSticky ? "fixed top-10 right-10" : "relative"}`}>
+        {/* Fixed Card for larger screens */}
+        <div className={`hidden md:block w-[full] mt-10 mr-[70px] md:w-[450px] ${isSticky ? "fixed top-10 right-10" : "relative"}`}>
           <div className="p-4 border rounded shadow">
             <div className="bg-gray-200 h-48 flex items-center justify-center">
               <div className="h-12 w-12 text-gray-400" />
@@ -141,8 +153,8 @@ export default function Item() {
       </div>
 
       <CompanyExams />
-      <Features/>
-      <Tseries/>
+      <Features />
+      <Tseries />
       <Footer />
     </div>
   );

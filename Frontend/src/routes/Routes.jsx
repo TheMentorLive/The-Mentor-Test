@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import ProfileComponent from '../pages/user/Profile';
 import Settings from '../pages/user/Settings';
 import SubjectComponent from '../pages/user/Subject';
+import Course from '../pages/user/courses/courses';
 import TestLandingPage from '../pages/user/test/TestLandingPage';
 import TestPage from '../pages/user/test/TestPage';
 import TestResultsPage from '../pages/user/test/TestResultPage';
@@ -44,6 +45,7 @@ const AppRoutes = () => {
                     <Route path="/user-dashboard" element={<Navigate to="/" />} />
                     <Route path="/profile" element={<Navigate to="/" />} />
                     <Route path="/settings" element={<Navigate to="/" />} />
+                    
                     <Route path="/subjects" element={<Navigate to="/" />} />
                     <Route path="/start-test" element={<Navigate to="/" />} />
                     <Route path="/test" element={<Navigate to="/" />} />
@@ -57,6 +59,7 @@ const AppRoutes = () => {
                     <Route path="/profile" element={<ProfileComponent />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/subjects" element={<SubjectComponent />} />
+                    <Route path="/courses" element={<Course />} />
                     <Route path="/start-test" element={<TestLandingPage />} />
                     <Route path="/test" element={<TestPage />} />
                     <Route path="/result" element={<TestResultsPage />} />
