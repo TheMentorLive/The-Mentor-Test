@@ -14,6 +14,7 @@ import AdminFooter from './components/adminComponent/AdminFooter';
 import Header from './components/Header';
 import EmailOtpLogin from './pages/EmailLogin';
 import Sidebar1 from './pages/Loginn';
+import VideoSection from './pages/user/courses/main';
 import Admindash from './components/adminComponent/admindash';
 import Main from './pages/Live/Main';
 import Support from './pages/support';
@@ -55,6 +56,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/live" element={<Main />} />
           <Route path="/learn" element={<LearnMain />} />
           <Route path="/livee" element={<Sidebar1 />} />
+          <Route path="/main" element={<VideoSection />} />
           <Route path="/reset-password" element={<ResetPassword/>} />
           <Route path="/support" element={<Support/>} />
           <Route path="/details" element={<Item/>} />
