@@ -1,11 +1,11 @@
 export default function Course() {
     return (
-      <div className="p-5">
+      <div className="p-2">
       <section className="flex flex-col md:flex-row p-4 bg-gray-100 w-full md:w-[850px] rounded-2xl">
         {/* Image Section */}
         <div className="w-full md:w-1/3">
           <img
-            src="/placeholder.svg"
+            src="/courses/data-analyst.png"
             alt="Laptop"
             className="rounded-lg w-full h-auto"
             style={{ aspectRatio: "1", objectFit: "cover" }}
@@ -50,7 +50,7 @@ export default function Course() {
             
             {/* Name and Link */}
             <a href="#" className="ml-2 text-blue-600 text-sm">Glen Williams</a>
-            <a href="#" className="ml-auto text-blue-600 text-sm">Read more →</a>
+            <a href="#" className="ml-auto text-blue-600 text-sm">Start Course</a>
           </div>
         </div>
       </section>
