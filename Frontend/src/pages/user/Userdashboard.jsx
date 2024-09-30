@@ -16,7 +16,7 @@ export default function UserDashboard() {
         <p className="ml-5 mt-2 mb-8 text-2xl font-bold">Dashboard</p>
       </div>
       <div className="flex ml-6 mb-5 items-left">
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {cardData.map((app, index) => (
             <div
               key={index}
