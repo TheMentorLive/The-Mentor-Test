@@ -1,62 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { Tabs, Tab, Card, CardContent, Button, Box, Typography, Grid, Container } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import {
+  Container,
+  Box,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  Button,
+  Tabs,
+  Tab,
+  CircularProgress,
+  Alert
+} from '@mui/material';
 import BookIcon from '@mui/icons-material/Book';
-import QuizIcon from '@mui/icons-material/Quiz';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import moment from 'moment'; 
-import { ADMINENDPOINTS, USERENDPOINTS } from '../../constants/ApiConstants';
+import QuizIcon from '@mui/icons-material/Quiz';
+import moment from 'moment';
 
-const SubjectComponent = () => {
-  const [token, setToken] = useState(() => localStorage.getItem('token') || '');
-  const [activeTab, setActiveTab] = useState('');
-  const [subjects, setSubjects] = useState([]);
+const TestSeriesPage = ({ subjects, fetchTests, token }) => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [tests, setTests] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [activeTab, setActiveTab] = useState(subjects[0]?.name || '');
 
-  // Fetch subjects when the component mounts
   useEffect(() => {
-    const fetchSubjects = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(ADMINENDPOINTS.GETSUBJECTS, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setSubjects(response.data);
-        if (response.data.length > 0) {
-          setActiveTab(response.data[0].name); // Set the first subject as the active tab
-        }
+        setLoading(true);
+        const response = await fetchTests(activeTab, token);
+        setTests(response);
       } catch (error) {
-        setError('Error fetching subjects');
-        console.error('Error fetching subjects:', error);
-      }
-    };
-
-    fetchSubjects();
-  }, [token]);
-
-  // Fetch tests based on the selected subject
-  useEffect(() => {
-    const fetchTests = async () => {
-      if (!activeTab) return; // Prevent fetch if no active tab
-
-      setLoading(true);
-      setError('');
-      try {
-        const response = await axios.get(`${USERENDPOINTS.GETTESTS}?subject=${activeTab}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setTests(response.data);
-      } catch (error) {
-        setError('Error fetching tests');
+        setError('Error fetching tests!');
         console.error('Error fetching tests:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchTests();
+    fetchData();
   }, [activeTab, token]);
 
   const handleTabChange = (event, newValue) => {
@@ -65,85 +46,69 @@ const SubjectComponent = () => {
 
   const renderTestCard = (test) => (
     <Grid item xs={12} sm={6} md={4} key={test.id}>
-  <Card sx={{
-    width: "340px",
-    transition: 'transform 0.2s, box-shadow 0.2s',
-    '&:hover': {
-      transform: 'scale(1.04)',
-      boxShadow: 10,
-      bgcolor: 'primary.lighter', // Change background on hover for interaction
-      borderColor: 'primary.main'
-    },
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    borderRadius: 4,
-    bgcolor: 'background.paper',
-    border: '1px solid',
-    borderColor: 'divider',
-    boxShadow: 1,
-    mx: 'auto', // Center the card
-    mb: -1, // Adjust margin to reduce gap
-  }}>
-    <CardContent>
-      <img 
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnyI0pEJ45m-Z4HsH4kPEx3CQS-DKCPpV1PMyqDZcBXrLR1wFMR8H3Fd4Em36Z1RqpZk4&usqp=CAU" 
-        alt={test.description} 
-        style={{ width: '100%', height: 'auto', borderRadius: '4px', objectFit: 'cover' }} 
-      />
-      <Box display="flex" alignItems="center" gap={1} mt={1}>
-        <BookIcon sx={{ color: 'primary.main' }} />
-        <Typography variant="h6" component="h3" fontWeight="bold">
-          {test.description}
-        </Typography>
-      </Box>
-      <Typography variant="body2" color="textSecondary" mt={1}>
-        {moment(test.createdAt).format('MMM D, YYYY h:mm A')} - {test.duration} hours, {test.questions.length} questions
-      </Typography>
-    </CardContent>
-
-    <CardContent sx={{ mt: 'auto' }}>
-      <Box display="flex" gap={2} justifyContent="center">
-        <Link to={`/start-test?id=${test._id}`} style={{ textDecoration: 'none' }}>
+      <Card sx={{
+        transition: 'transform 0.2s, box-shadow 0.2s',
+        '&:hover': {
+          transform: 'scale(1.05)', // Slightly enlarge on hover
+          boxShadow: 10,
+          bgcolor: 'primary.lighter',
+        },
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        borderRadius: 8,
+        bgcolor: 'background.paper',
+        boxShadow: 2,
+        mx: 'auto',
+        mb: 2,
+      }}>
+        <CardContent>
+          <img
+            src={test.image || 'default_image_url.png'}
+            alt={test.description}
+            style={{ width: '100%', height: 'auto', borderRadius: '8px', objectFit: 'cover' }}
+          />
+          <Box display="flex" alignItems="center" gap={1} mt={1}>
+            <BookIcon sx={{ color: 'primary.main' }} />
+            <Typography variant="h5" component="h3" fontWeight="bold">
+              {test.description}
+            </Typography>
+          </Box>
+          <Typography variant="body2" color="textSecondary" mt={1}>
+            {moment(test.createdAt).format('MMM D, YYYY h:mm A')} - {test.duration} hours, {test.questions.length} questions
+          </Typography>
+        </CardContent>
+        <Box display="flex" gap={2} justifyContent="center" sx={{ p: 2 }}>
           <Button variant="contained" startIcon={<PlayCircleOutlineIcon />} sx={{
-            textTransform: 'none',
             bgcolor: '#2463EB',
             '&:hover': { bgcolor: 'primary.dark' },
-            borderRadius: 2,
-            padding: '8px 16px', // Added padding for better clickability
+            borderRadius: '20px',
+            padding: '10px 20px',
           }}>
             Take Test
           </Button>
-        </Link>
-        <Button variant="outlined" sx={{
-          textTransform: 'none',
-          color: '#2463EB',
-          borderColor: '#2463EB',
-          '&:hover': { bgcolor: 'primary.light' },
-          borderRadius: 2,
-          padding: '8px 16px', // Added padding for button size
-        }}>
-          Show Results
-        </Button>
-      </Box>
-    </CardContent>
-
-    <Typography variant="caption" color="textSecondary" p={2} textAlign="center">
-      Register now to secure your spot.
-    </Typography>
-  </Card>
-</Grid>
-
+          <Button variant="outlined" sx={{
+            color: '#2463EB',
+            borderColor: '#2463EB',
+            '&:hover': { bgcolor: 'primary.light' },
+            borderRadius: '20px',
+            padding: '10px 20px',
+          }}>
+            Show Results
+          </Button>
+        </Box>
+      </Card>
+    </Grid>
   );
-  
 
   return (
     <div className="flex flex-1 flex-col min-h-screen">
       <Container maxWidth="lg" sx={{ py: 8 }}>
         <section>
-          <Typography variant="h4" component="h2" gutterBottom>
+          <Typography variant="h4" component="h2" gutterBottom textAlign="center">
             Test Series - JEE & NEET
           </Typography>
+          
           <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
             <Tabs
               value={activeTab}
@@ -165,38 +130,41 @@ const SubjectComponent = () => {
               ))}
             </Tabs>
           </Box>
-          {loading && <Typography>Loading tests...</Typography>}
-          {error && <Typography color="error">{error}</Typography>}
+          
+          {loading && <CircularProgress />}
+          {error && <Alert severity="error">{error}</Alert>}
+          {!loading && !error && tests.length === 0 && (
+            <Typography>No tests available for this subject.</Typography>
+          )}
+
           {!loading && !error && (
             <>
-              {/* Section for non-NEET tests */}
+              {/* Section for JEE Tests */}
               <Grid container spacing={4} mb={4}>
                 <Grid item xs={12}>
                   <Typography variant="h5" component="h3" mb={2}>
                     JEE Tests
                   </Typography>
                 </Grid>
-                {tests.filter(test => test.category !== 'NEET').length > 0 ? (
-                  tests.filter(test => test.category !== 'NEET').map(renderTestCard)
-                ) : (
-                  <Grid item xs={12}>
-                    <Typography>No JEE tests available for this subject.</Typography>
-                  </Grid>
+                {tests.filter(test => test.category !== 'NEET').length > 0 ?
+                  tests.filter(test => test.category !== 'NEET').map(renderTestCard) : (
+                    <Grid item xs={12}>
+                      <Typography>No JEE tests available for this subject.</Typography>
+                    </Grid>
                 )}
               </Grid>
-              {/* Section for NEET tests */}
+              {/* Section for NEET Tests */}
               <Grid container spacing={4}>
                 <Grid item xs={12}>
                   <Typography variant="h5" component="h3" mb={2}>
                     NEET Tests
                   </Typography>
                 </Grid>
-                {tests.filter(test => test.category === 'NEET').length > 0 ? (
-                  tests.filter(test => test.category === 'NEET').map(renderTestCard)
-                ) : (
-                  <Grid item xs={12}>
-                    <Typography>No NEET tests available for this subject.</Typography>
-                  </Grid>
+                {tests.filter(test => test.category === 'NEET').length > 0 ?
+                  tests.filter(test => test.category === 'NEET').map(renderTestCard) : (
+                    <Grid item xs={12}>
+                      <Typography>No NEET tests available for this subject.</Typography>
+                    </Grid>
                 )}
               </Grid>
             </>
@@ -207,4 +175,4 @@ const SubjectComponent = () => {
   );
 };
 
-export default SubjectComponent;
+export default TestSeriesPage;
