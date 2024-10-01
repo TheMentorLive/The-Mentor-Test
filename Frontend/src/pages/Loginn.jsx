@@ -1,180 +1,103 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Container,
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  Button,
-  Tabs,
-  Tab,
-  CircularProgress,
-  Alert
-} from '@mui/material';
-import BookIcon from '@mui/icons-material/Book';
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import QuizIcon from '@mui/icons-material/Quiz';
-import moment from 'moment';
+import React, { useState, useEffect } from 'react';
+import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { USERENDPOINTS } from '../constants/ApiConstants'; // Make sure this file exists and has mock data
+import TestNavbar from './user/test/Navbar';
+import TestFooter from './user/test/Footer';
+
+const spinnerStyles = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #2563EB;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+`;
 
 const Sidebar = () => {
-  const subjects = [{ id: 1, name: 'Physics' }, { id: 2, name: 'Chemistry' }]; // Dummy subjects
+  const [test, setTest] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [tests, setTests] = useState([]);
-  const [activeTab, setActiveTab] = useState(subjects[0]?.name || '');
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
-      // Simulating fetching data
-      try {
-        setLoading(true);
-        // Simulated test data
-        const response = [
-          { id: 1, description: 'Test 1', createdAt: new Date(), duration: 2, questions: [], category: 'JEE', image: '' },
-          { id: 2, description: 'Test 2', createdAt: new Date(), duration: 3, questions: [], category: 'NEET', image: '' },
-        ];
-        setTests(response);
-      } catch (error) {
-        setError('Error fetching tests!');
-        console.error('Error fetching tests:', error);
-      } finally {
-        setLoading(false);
-      }
+    const fetchTest = () => {
+      // Mock data
+      const mockTest = {
+        title: "Mock Test",
+        duration: "30 mins",
+        questions: ["Question 1", "Question 2", "Question 3"],
+        _id: "mock-test-id"
+      };
+      setTest(mockTest);
     };
 
-    fetchData();
-  }, [activeTab]);
+    fetchTest();
+    setLoading(false);
+  }, []);
 
-  const handleTabChange = (event, newValue) => {
-    setActiveTab(newValue);
-  };
+  if (loading) return (
+    <div className="flex justify-center items-center min-h-screen">
+      <style>{spinnerStyles}</style>
+      <div className="spinner"></div>
+      <p className="ml-4 text-blue-500">Loading...</p>
+    </div>
+  );
 
-  const renderTestCard = (test) => (
-    <Grid item xs={12} sm={6} md={4} key={test.id}>
-      <Card sx={{
-        transition: 'transform 0.2s, box-shadow 0.2s',
-        '&:hover': {
-          transform: 'scale(1.05)',
-          boxShadow: 10,
-          bgcolor: 'primary.lighter',
-        },
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        borderRadius: 8,
-        bgcolor: 'background.paper',
-        boxShadow: 2,
-        mx: 'auto',
-        mb: 2,
-      }}>
-        <CardContent>
-          <img
-            src={test.image || 'https://via.placeholder.com/340'}
-            alt={test.description}
-            style={{ width: '100%', height: 'auto', borderRadius: '8px', objectFit: 'cover' }}
-          />
-          <Box display="flex" alignItems="center" gap={1} mt={1}>
-            <BookIcon sx={{ color: 'primary.main' }} />
-            <Typography variant="h5" component="h3" fontWeight="bold">
-              {test.description}
-            </Typography>
-          </Box>
-          <Typography variant="body2" color="textSecondary" mt={1}>
-            {moment(test.createdAt).format('MMM D, YYYY h:mm A')} - {test.duration} hours, {test.questions.length} questions
-          </Typography>
-        </CardContent>
-        <Box display="flex" gap={2} justifyContent="center" sx={{ p: 2 }}>
-          <Button variant="contained" startIcon={<PlayCircleOutlineIcon />} sx={{
-            bgcolor: '#2463EB',
-            '&:hover': { bgcolor: 'primary.dark' },
-            borderRadius: '20px',
-            padding: '10px 20px',
-          }}>
-           Buy Now
-          </Button>
-          <Button variant="outlined" sx={{
-            color: '#2463EB',
-            borderColor: '#2463EB',
-            '&:hover': { bgcolor: 'primary.light' },
-            borderRadius: '20px',
-            padding: '10px 20px',
-          }}>
-            Show Results
-          </Button>
-        </Box>
-      </Card>
-    </Grid>
+  if (error) return (
+    <div className="flex justify-center items-center min-h-screen">
+      <p className="text-red-500 text-lg">{error}</p>
+    </div>
+  );
+
+  if (!test) return (
+    <div className="flex justify-center items-center min-h-screen">
+      <p>No test found</p>
+    </div>
   );
 
   return (
-    <div className="flex flex-1 flex-col min-h-screen">
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <section>
-          <Typography variant="h4" component="h2" gutterBottom textAlign="center">
-            Test Series - JEE & NEET
-          </Typography>
-          
-          <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
-            <Tabs
-              value={activeTab}
-              onChange={handleTabChange}
-              variant="scrollable"
-              scrollButtons="auto"
-              textColor="primary"
-              indicatorColor="primary"
-            >
-              {subjects.map(subject => (
-                <Tab
-                  key={subject.id}
-                  label={subject.name}
-                  value={subject.name}
-                  icon={<QuizIcon />}
-                  iconPosition="start"
-                  sx={{ textTransform: 'none' }}
-                />
-              ))}
-            </Tabs>
-          </Box>
-          
-          {loading && <CircularProgress />}
-          {error && <Alert severity="error">{error}</Alert>}
-          {!loading && !error && tests.length === 0 && (
-            <Typography>No tests available for this subject.</Typography>
-          )}
-
-          {!loading && !error && (
-            <>
-              <Grid container spacing={4} mb={4}>
-                <Grid item xs={12}>
-                  <Typography variant="h5" component="h3" mb={2}>
-                    JEE Tests
-                  </Typography>
-                </Grid>
-                {tests.filter(test => test.category !== 'NEET').length > 0 ?
-                  tests.filter(test => test.category !== 'NEET').map(renderTestCard) : (
-                    <Grid item xs={12}>
-                      <Typography>No JEE tests available for this subject.</Typography>
-                    </Grid>
-                )}
-              </Grid>
-              <Grid container spacing={4}>
-                <Grid item xs={12}>
-                  <Typography variant="h5" component="h3" mb={2}>
-                    NEET Tests
-                  </Typography>
-                </Grid>
-                {tests.filter(test => test.category === 'NEET').length > 0 ?
-                  tests.filter(test => test.category === 'NEET').map(renderTestCard) : (
-                    <Grid item xs={12}>
-                      <Typography>No NEET tests available for this subject.</Typography>
-                    </Grid>
-                )}
-              </Grid>
-            </>
-          )}
-        </section>
-      </Container>
+    <div>
+      <TestNavbar/>
+    <div className="flex flex-col justify-center items-center min-h-screen  p-4">
+      <div className="flex flex-col w-full max-w-5xl bg-white rounded-lg shadow-lg p-8">
+        <div className="flex flex-col md:flex-row">
+          <div className="md:w-1/2 md:pr-8">
+            <h1 className="text-4xl font-bold mb-4">{test.title || 'Test Title Here'}</h1>
+            <div className="flex space-x-12 mb-4">
+              <div>
+                <p className="text-sm text-gray-500">Test duration</p>
+                <p className="text-lg font-medium">{test.duration || '60 mins'}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">No. of questions</p>
+                <p className="text-lg font-medium">{test.questions?.length || '20 questions'}</p>
+              </div>
+            </div>
+          </div>
+          <div className="md:w-1/2 md:pl-8 md:border-l md:border-gray-200">
+            <h2 className="text-2xl font-semibold mb-4">Instructions</h2>
+            <ol className="list-decimal list-inside space-y-4 text-gray-600 mb-8">
+              <li>This is a timed test. Please make sure you are not interrupted during the test, as the timer cannot be paused once started.</li>
+              <li>Please ensure you have a stable internet connection.</li>
+              <li>We recommend you to try the <a href="#" className="text-[#2563EB] underline">sample test</a> for a couple of minutes before taking the main test.</li>
+            </ol>
+            <div className="flex space-x-6">
+              <Link to={`/test/${test._id}`}>
+                <button   className="bg-[#2563EB] px-5 py-2 border rounded-md text-white">Continue</button>
+              </Link>
+              <Button variant="outlined" color="primary" className="border-[#2563EB] text-[#2563EB]">Try Sample Test</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <TestFooter/>
     </div>
   );
 };
