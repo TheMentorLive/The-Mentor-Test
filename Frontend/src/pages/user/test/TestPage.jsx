@@ -4,6 +4,8 @@ import { Flag as FlagIcon } from '@mui/icons-material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { USERENDPOINTS } from '../../../constants/ApiConstants';
+import TestNavbar from './Navbar';
+import TestFooter from './Footer';
 
 
 const spinnerStyles = `
@@ -169,7 +171,9 @@ const TestPage = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen mt-10 bg-white text-black">
+    <div> 
+    <TestNavbar />
+  <div className="flex flex-col  mt-24 bg-white text-black">
       <main className="flex-1 grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-8 pt-20 p-4 md:p-8">
         <div className="bg-card text-card-foreground rounded-md p-4 md:p-6">
           <CustomCard title="Question Map" description="View the status of all questions at a glance.">
@@ -267,6 +271,8 @@ const TestPage = () => {
           </div>
         </div>
       </main>
+    </div>
+    <TestFooter/>
     </div>
   );
 };

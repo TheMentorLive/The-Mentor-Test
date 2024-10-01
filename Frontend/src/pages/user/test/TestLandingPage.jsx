@@ -3,6 +3,8 @@ import { Button } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { USERENDPOINTS } from '../../../constants/ApiConstants';
+import TestFooter from './Footer';
+import TestNavbar from './Navbar';
 
 const spinnerStyles = `
   @keyframes spin {
@@ -70,7 +72,9 @@ const TestLandingPage = () => {
   );
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 p-4">
+    <div>
+      <TestNavbar/>
+    <div className="flex flex-col justify-center items-center min-h-screen  p-4">
   <div className="flex flex-col w-full max-w-5xl bg-white rounded-lg shadow-lg p-8">
     <div className="flex flex-col md:flex-row">
       <div className="md:w-1/2 md:pr-8">
@@ -93,7 +97,7 @@ const TestLandingPage = () => {
           <li>Please ensure you have a stable internet connection.</li>
           <li>
             We recommend you to try the{' '}
-            <a href="#" className="text-blue-500 underline">
+            <a href="#" className="text-[#2563EB] underline">
               sample test
             </a>{' '}
             for a couple of minutes before taking the main test.
@@ -101,13 +105,15 @@ const TestLandingPage = () => {
         </ol>
         <div className="flex space-x-6">
           <Link to={`/test?id=${test._id}`}>
-            <Button variant="contained" color="primary" className="bg-blue-500 text-white">Continue</Button>
+          <button   className="bg-[#2563EB] px-5 py-2 border rounded-md text-white">Continue</button>
           </Link>
-          <Button variant="outlined" color="primary" className="border-blue-500 text-blue-500">Try Sample Test</Button>
+          <Button variant="outlined"  className="border-[#2563EB] text-[#2563EB]">Try Sample Test</Button>
         </div>
       </div>
     </div>
   </div>
+</div>
+<TestFooter/>
 </div>
 
   );
