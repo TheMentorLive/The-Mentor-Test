@@ -45,8 +45,8 @@ export default function AllCourses() {
       : courses.filter((course) => course.category === activeCategory);
 
   return (
-    <div className="flex items-center justify-center">
-    <div className="px-4 md:px-20 lg:px-40 mt-16 mb-16 md:-mt-7 md:mb-32">
+    <div className="flex items-center justify-center lg:mr-[2px] lg:ml-[9px]">
+    <div className="px-4 md:px-20 lg:px-40  md:-mt-7 md:mb-32">
       <div className="space-y-2 text-left ml-7 mb-10">
         <h2 className="text-3xl font-bold">Explore Courses</h2>
         <p className="text-muted-foreground">Browse our selection of courses.</p>

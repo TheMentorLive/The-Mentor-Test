@@ -3,10 +3,10 @@ import Footer from "../components/Footer";
 
 export default function Support() {
     return (
-        <div className="bg-gray-50">
+        <div className="bg-gray-50 ">
             <Header />
             <div className="flex flex-col min-h-screen">
-                <main className="flex-1 py-12 md:py-24">
+                <main className="flex-1 py-12 md:py-24 flex items-center justify-center"> {/* Centering the content */}
                     <div className="container">
                         <div className="max-w-3xl mx-auto space-y-8">
                             <div className="text-center">
@@ -14,7 +14,6 @@ export default function Support() {
                                 <p className="mt-4 text-gray-600">Have a question? Let us know!</p>
                             </div>
                             <div className="bg-white rounded-lg shadow-lg p-6">
-                               
                                 <form className="grid gap-4" onSubmit={(e) => {
                                     e.preventDefault();
                                     // Handle form submission

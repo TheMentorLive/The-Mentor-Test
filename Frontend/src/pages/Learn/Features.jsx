@@ -1,6 +1,6 @@
 export default function Features() {
     return (
-      <section className="flex flex-col items-center mt-20  mx-auto space-y-8 md:mr-40 md:ml-40 lg:mr-40 lg:ml-40">
+      <section className="flex flex-col items-center mt-20  mx-auto space-y-8 ml-64 mr-64">
         <span className="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-gray-600 rounded-full">
           Features
         </span>

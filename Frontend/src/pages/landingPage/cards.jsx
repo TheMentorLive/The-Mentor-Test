@@ -7,16 +7,16 @@ export default function Cards() {
   ];
 
   return (
-    <div className="flex items-center -mb-24 justify-center min-h-screen">
-      <section className="container mx-auto px-4 py-10 sm:px-10 sm:py-20 lg:py-24">
+    <div className="flex items-center justify-center px-4 sm:px-10 md:px-20 lg:px-[165px] -mb-24">
+      <section className="container py-20">
         <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
           {/* Left Section */}
-          <div className="flex flex-col items-center lg:items-start lg:w-[550px]">
+          <div className="flex flex-col items-center lg:items-start lg:w-1/2">
             {/* Text above the image */}
-            <div className="md:mb-12 lg:mb-12 mb-5">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-left whitespace-nowrap">
+            <div className="mb-5 text-center lg:text-left">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
                 The All in One <span className="text-blue-600">Edtech Platform</span>
-                <br/>
+                <br />
                 you've been Looking for
               </h1>
             </div>
@@ -25,7 +25,7 @@ export default function Cards() {
               <img
                 src="/mtp1.png"
                 alt="Mentor Training Program"
-                className="border h-64 rounded-lg"
+                className="border h-64 rounded-lg object-cover"
               />
             </div>
             {/* Text below the image */}
@@ -40,12 +40,12 @@ export default function Cards() {
 
           {/* Right Section */}
           <div className="lg:w-1/2 mt-2">
-            <p className="text-gray-700 mb-8 opacity-85">
+            <p className="text-gray-700 mb-8 opacity-85 text-center lg:text-left">
               Explore our all-in-one EdTech platform offering live mentorship, upskilling courses, job opportunities, and a thriving community.
               Whether you're seeking career guidance, learning new skills, or finding your next job, we've got it covered.
             </p>
 
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {cardData.map((app, index) => (
                 <div
                   key={index}
