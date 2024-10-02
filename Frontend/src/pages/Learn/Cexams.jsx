@@ -4,9 +4,9 @@ export default function Cexams() {
   return (
     <section className="py-4 mt-8 mb-4  flex items-center justify-center md:ml-[150px] lg:ml-[150px]  lg:mr-[145px]">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-start items-start mb-6 gap-4">
+        <div className="flex flex-col md:flex-row justify-start items-start mb-6 gap-16">
           {/* Left Section (Title and Subtitle) */}
-          <div className="flex flex-col w-full md:w-[300px] mt-12 md:mt-0">
+          <div className="flex flex-col w-full md:w-[300px] mt-12 lg:mt-7 md:mt-0">
             <h2 className="text-xl sm:text-2xl font-bold">Competitive Exams</h2>
             <p className="text-gray-600 text-sm sm:text-base">
               Prepare for the top competitive exams in your field.
