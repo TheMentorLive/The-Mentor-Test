@@ -1,105 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { USERENDPOINTS } from '../constants/ApiConstants'; // Make sure this file exists and has mock data
-import TestNavbar from './user/test/Navbar';
-import TestFooter from './user/test/Footer';
+import { Link } from "react-router-dom";
 
-const spinnerStyles = `
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  .spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-left-color: #2563EB;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-  }
-`;
-
-const Sidebar = () => {
-  const [test, setTest] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    const fetchTest = () => {
-      // Mock data
-      const mockTest = {
-        title: "Mock Test",
-        duration: "30 mins",
-        questions: ["Question 1", "Question 2", "Question 3"],
-        _id: "mock-test-id"
-      };
-      setTest(mockTest);
-    };
-
-    fetchTest();
-    setLoading(false);
-  }, []);
-
-  if (loading) return (
-    <div className="flex justify-center items-center min-h-screen">
-      <style>{spinnerStyles}</style>
-      <div className="spinner"></div>
-      <p className="ml-4 text-blue-500">Loading...</p>
-    </div>
-  );
-
-  if (error) return (
-    <div className="flex justify-center items-center min-h-screen">
-      <p className="text-red-500 text-lg">{error}</p>
-    </div>
-  );
-
-  if (!test) return (
-    <div className="flex justify-center items-center min-h-screen">
-      <p>No test found</p>
-    </div>
-  );
-
+export default function Aexams() {
   return (
-    <div>
-      <TestNavbar/>
-    <div className="flex flex-col justify-center items-center min-h-screen  p-4">
-      <div className="flex flex-col w-full max-w-5xl bg-white rounded-lg shadow-lg p-8">
-        <div className="flex flex-col md:flex-row">
-          <div className="md:w-1/2 md:pr-8">
-            <h1 className="text-4xl font-bold mb-4">{test.title || 'Test Title Here'}</h1>
-            <div className="flex space-x-12 mb-4">
-              <div>
-                <p className="text-sm text-gray-500">Test duration</p>
-                <p className="text-lg font-medium">{test.duration || '60 mins'}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">No. of questions</p>
-                <p className="text-lg font-medium">{test.questions?.length || '20 questions'}</p>
-              </div>
-            </div>
+    <section className="py-4 mt-8 mb-4">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-start items-start mb-6 gap-x-4"> {/* Reduced gap between sections */}
+          {/* Left Section (Title and Subtitle) */}
+          <div className="flex w-[300px] mt-12 flex-col">
+            <h2 className="text-xl sm:text-2xl font-bold">Academic Exams</h2>
+            <p className="text-gray-600 text-sm sm:text-base">
+            Prepare for the top academic exams in your field.
+            </p>
+            <button className="mt-5 w-[180px] md:mt-7 px-3 py-2 md:px-4 md:py-2 bg-[#2563EB] text-white rounded-lg hover:bg-blue-600 focus:outline-none">
+              View all Courses
+            </button>
           </div>
-          <div className="md:w-1/2 md:pl-8 md:border-l md:border-gray-200">
-            <h2 className="text-2xl font-semibold mb-4">Instructions</h2>
-            <ol className="list-decimal list-inside space-y-4 text-gray-600 mb-8">
-              <li>This is a timed test. Please make sure you are not interrupted during the test, as the timer cannot be paused once started.</li>
-              <li>Please ensure you have a stable internet connection.</li>
-              <li>We recommend you to try the <a href="#" className="text-[#2563EB] underline">sample test</a> for a couple of minutes before taking the main test.</li>
-            </ol>
-            <div className="flex space-x-6">
-              <Link to={`/test/${test._id}`}>
-                <button   className="bg-[#2563EB] px-5 py-2 border rounded-md text-white">Continue</button>
-              </Link>
-              <Button variant="outlined" color="primary" className="border-[#2563EB] text-[#2563EB]">Try Sample Test</Button>
-            </div>
+          {/* Right Section (Cards) */}
+          <div className="overflow-x-auto flex space-x-4 md:space-x-6 lg:space-x-8">
+            {[
+              {
+                title: "CBSE Board Exams", description: "Prepare for the Central Board of Secondary Education exams.",
+                logo: "/path-to-amazon-logo.png"
+              },
+              {
+                title: "ICSE Board Exams", description: "Prepare for the Indian Certificate of Secondary Education exams.",
+                logo: "/path-to-google-logo.png"
+              },
+              {
+                title: "JEE Main", description: "Prepare for the Joint Entrance Examination (Main) for engineering admissions." ,
+                logo: "/path-to-microsoft-logo.png"
+              },
+              {
+                title: "NATA", description: "Prepare for the National Aptitude Test in Architecture.",
+                logo: "/path-to-flipkart-logo.png"
+              }
+            ].map((exam) => (
+              <div
+                className="bg-white border border-gray-500 border-opacity-20 rounded-lg p-4 flex flex-col justify-between min-w-[200px] w-[200px] sm:w-[240px] flex-shrink-0"
+                key={exam.title}
+              >
+                <div>
+                  <div className="bg-[#2563EB] p-3 py-1 mb-3 border rounded-lg flex justify-between items-center">
+                    <h3 className="text-lg text-white font-bold">{exam.title}</h3>
+                    <img
+                      src={exam.logo}
+                      alt={`${exam.title} Logo`}
+                      width={30}
+                      height={30}
+                      className="rounded-full"
+                    />
+                  </div>
+                  <div className="mb-4 h-24">
+                    <p className="text-sm sm:text-base">{exam.description}</p>
+                  </div>
+                </div>
+                <div className="flex flex-row space-x-2 mt-auto">
+                  <Link to="/details">
+                    <button className="border border-gray-300 text-gray-700 py-2 px-3 rounded-md lg:text-[13px] md:text-[13px] text-[10px]">
+                      Learn More
+                    </button>
+                  </Link>
+                  <Link to="/register">
+                    <button className="bg-blue-600 text-white py-2 px-3 rounded-md lg:text-[13px] md:text-[13px] text-[10px]">
+                      Start Exam
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-    </div>
-    <TestFooter/>
-    </div>
+    </section>
   );
-};
-
-export default Sidebar;
+}

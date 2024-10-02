@@ -14,7 +14,7 @@ export default function Item() {
     if (cardRef.current) {
       const buttonPosition = cardRef.current.getBoundingClientRect().bottom;
       const screenHeight = window.innerHeight;
-      const offset = 300; // Adjust this value to control when the card sticks
+      const offset = 1200; // Adjust this value to control when the card sticks
       setIsSticky(buttonPosition < screenHeight - offset ? false : true);
     }
   };
@@ -36,8 +36,8 @@ export default function Item() {
   return (
     <div>
       <Header />
-      <div className="flex flex-col md:flex-row gap-4 px-4 sm:px-6 lg:px-8">
-        
+      <div className="flex flex-col md:flex-row gap-4 px-4 sm:px-6 ml-[140px] ">
+
         {/* For small screens, show the card above the UPSC content */}
         <div className="block md:hidden mt-4">
           <div className="w-full">
@@ -95,10 +95,10 @@ export default function Item() {
             <p className="text-sm text-muted-foreground">44 sections • 373 lectures • 61h 44m total length</p>
           </div>
 
-          <div className="space-y-2 ml-4 md:ml-8 lg:ml-20 w-full lg:w-[800px]">
+          <div className="space-y-2 ml-4 md:ml-8 lg:ml-20 w-full lg:w-[650px]">
             {/* Course sections */}
             {[{ title: "Front-End Web Development", duration: "10 hours", modules: "5 modules" },
-              { title: "Introduction to HTML", duration: "5 hours", modules: "3 modules" },
+            { title: "Introduction to HTML", duration: "5 hours", modules: "3 modules" },
               // Add other sections here
             ].map(({ title, duration, modules }) => (
               <div key={title}>
@@ -115,9 +115,8 @@ export default function Item() {
                   </div>
                 </div>
                 <div
-                  className={`ml-4 mt-2 transition-all duration-300 ease-in-out overflow-hidden ${
-                    expandedSections[title] ? "max-h-40" : "max-h-0"
-                  }`}
+                  className={`ml-4 mt-2 transition-all duration-300 ease-in-out overflow-hidden ${expandedSections[title] ? "max-h-40" : "max-h-0"
+                    }`}
                 >
                   <div className="text-sm text-muted-foreground">
                     <p><strong>Duration:</strong> {duration}</p>
@@ -136,7 +135,7 @@ export default function Item() {
         </div>
 
         {/* Fixed Card for larger screens */}
-        <div className={`hidden md:block w-[full] mt-10 mr-[70px] md:w-[450px] ${isSticky ? "fixed top-10 right-10" : "relative"}`}>
+        <div className={`hidden md:block w-[full] mt-10 mr-[70px] md:w-[350px] ${isSticky ? "fixed top-10 ml-[760px]" : "relative"}`}>
           <div className="p-4 border rounded shadow">
             <div className="bg-gray-200 h-48 flex items-center justify-center">
               <div className="h-12 w-12 text-gray-400" />
@@ -152,9 +151,16 @@ export default function Item() {
         </div>
       </div>
 
-      <CompanyExams />
-      <Features />
-      <Tseries />
+      <div className="w-full md:w-[1160px]"> {/* Adjust width as needed */}
+        <CompanyExams className="w-full" />
+      </div>
+
+      {/* <Features /> */}
+
+      <div className="w-full md:w-[1160px]"> {/* Adjust width as needed */}
+        <Tseries className="w-full" />
+      </div>
+      
       <Footer />
     </div>
   );

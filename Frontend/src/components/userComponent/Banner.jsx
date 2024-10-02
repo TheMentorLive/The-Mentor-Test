@@ -65,7 +65,7 @@ export default function Banner() {
 
   return (
     <React.Fragment>
-      <section className="ml-1 mt-10 md:mt-0 lg:mt-0 md:ml-40 md:mr-20 md:py-10 lg:py-12 flex justify-center items-center">
+      <section className="ml-1 mt-10 md:mt-0 lg:mt-0 md:ml-[138px] md:mr-[52px] md:py-10  flex justify-center items-center">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
             <div className="flex flex-col justify-center space-y-4">

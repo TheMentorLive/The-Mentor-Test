@@ -2,44 +2,70 @@ import { Link } from "react-router-dom";
 
 export default function Cexams() {
   return (
-    <section className="py-4 mt-8 mb-4 mx-4 sm:mx-8 md:mx-16 lg:mx-40">
+    <section className="py-4 mt-8 mb-4  flex items-center justify-center md:ml-[150px] lg:ml-[150px]  lg:mr-[145px]">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
-          <div>
+        <div className="flex flex-col md:flex-row justify-start items-start mb-6 gap-4">
+          {/* Left Section (Title and Subtitle) */}
+          <div className="flex flex-col w-full md:w-[300px] mt-12 md:mt-0">
             <h2 className="text-xl sm:text-2xl font-bold">Competitive Exams</h2>
             <p className="text-gray-600 text-sm sm:text-base">
               Prepare for the top competitive exams in your field.
             </p>
+            <button className="mt-5 w-full md:w-[180px] md:mt-7 px-3 py-2 md:px-4 md:py-2 bg-[#2563EB] text-white rounded-lg hover:bg-blue-600 focus:outline-none">
+              View all Courses
+            </button>
           </div>
-          <a href="#" className="text-blue-600 text-sm sm:text-base">
-            View All
-          </a>
-        </div>
-        <div className="overflow-x-auto">
-          <div className="flex space-x-4 md:space-x-6 lg:space-x-8">
-            {["UPSC CSE", "GATE", "CAT", "NEET"].map((exam) => (
-              <div className="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between min-w-[200px]" key={exam}>
+          {/* Right Section (Cards) */}
+          <div className="overflow-x-auto flex space-x-4 md:space-x-6 lg:space-x-8 w-full">
+            {[
+              {
+                title: "UPSC CSE",
+                description: "Prepare for the Union Public Service Commission Civil Services Examination.",
+                logo: "/Amzon.png",
+              },
+              {
+                title: "GATE",
+                description: "Prepare for the Graduate Aptitude Test in Engineering.",
+                logo: "/Amzon.png",
+              },
+              {
+                title: "CAT",
+                description: "Prepare for the Common Admission Test for MBA admissions.",
+                logo: "/Amzon.png",
+              },
+              {
+                title: "NEET",
+                description: "Prepare for the National Eligibility cum Entrance Test for medical admissions.",
+                logo: "/Amzon.png",
+              },
+            ].map((exam) => (
+              <div
+                className="bg-white border border-gray-500 border-opacity-20 rounded-lg flex flex-col justify-between min-w-[200px] w-[200px] sm:w-[240px] flex-shrink-0"
+                key={exam.title}
+              >
                 <div>
-                  <div className="mb-4">
-                    <h3 className="text-lg font-bold">{exam}</h3>
+                  <div className="bg-[#2563EB] p-3 py-2 mb-3 border rounded-t-lg flex justify-between items-center">
+                    <h3 className="text-lg text-white font-bold">{exam.title}</h3>
+                    <img
+                      src={exam.logo}
+                      alt={`${exam.title} Logo`}
+                      width={30}
+                      height={30}
+                      className="rounded-full"
+                    />
                   </div>
-                  <div className="mb-4 h-24">
-                    <p className="text-sm sm:text-base">
-                      {exam === "UPSC CSE" && "Prepare for the Union Public Service Commission Civil Services Examination."}
-                      {exam === "GATE" && "Prepare for the Graduate Aptitude Test in Engineering."}
-                      {exam === "CAT" && "Prepare for the Common Admission Test for MBA admissions."}
-                      {exam === "NEET" && "Prepare for the National Eligibility cum Entrance Test for medical admissions."}
-                    </p>
+                  <div className="mb-4 p-4 h-24">
+                    <p className="text-sm sm:text-base">{exam.description}</p>
                   </div>
                 </div>
-                <div className="flex flex-row space-x-2 mt-auto">
+                <div className="flex flex-row space-x-2 p-4 mt-auto">
                   <Link to="/details">
-                    <button className="border border-gray-300 text-gray-700 py-2 px-2 text-[13px] rounded-md">
+                    <button className="border border-gray-300 text-gray-700 py-2 px-3 rounded-md lg:text-[13px] md:text-[13px] text-[10px]">
                       Learn More
                     </button>
                   </Link>
                   <Link to="/register">
-                    <button className="bg-blue-600 text-white py-2 px-2 text-[13px] rounded-md">
+                    <button className="bg-blue-600 text-white py-2 px-3 rounded-md lg:text-[13px] md:text-[13px] text-[10px]">
                       Start Exam
                     </button>
                   </Link>

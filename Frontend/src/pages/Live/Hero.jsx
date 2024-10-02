@@ -54,45 +54,28 @@ export default function Hero() {
     };
     
     return (
-      <section className="flex flex-col-reverse md:flex-row gap-10 items-center justify-center p-4 mt-10 md:mt-32">
+      <section className="flex flex-col-reverse md:flex-row gap-10 items-center justify-center p-4 mt-10 md:mt-32 mx-4 md:mx-0">
         
         {/* Left Image Section */}
         <div className="relative w-full md:w-1/2 flex justify-center">
-          <div className="w-[900px] -ml-[150px] md:w-[900px]">
+          <div className="w-full md:w-[700px] overflow-hidden">
             <img
-              src="/live/Hero.png"
+              src="/learn/learn.png"
               alt="Mentorship"
               className="w-full h-auto border rounded-sm"
             />
           </div>
-          {/* <div className="w-[900px] -ml-[150px] ">
-          <img
-            src="/live/Hero.png"
-            alt="Mentorship"
-            className="w-[1000px] h-auto border rounded-sm"
-            width="10000"
-            height="10000"
-           
-          /></div> */}
-          <div className="absolute bottom-4 left-4 bg-white bg-opacity-70 p-4 rounded-md text-center">
-            <h2 className="text-xl font-bold">Mentorship for</h2>
-            <h2 className="text-xl font-bold text-blue-600">Tomorrow's Leaders</h2>
-          </div>
         </div>
 
         {/* Right Form Section */}
-        <div className="w-full max-w-md border border-blue-200 rounded-lg shadow-md">
+        <div className="w-full max-w-md border border-blue-200 rounded-lg shadow-md flex flex-col justify-center">
           <div className="p-6">
             <h2 className="text-3xl opacity-80 font-bold">Get In Touch</h2>
           </div>
           <form className="p-6 grid gap-4" onSubmit={handleSubmit}>
-
             {/* Name Field */}
             <div className="grid gap-2">
-              <label
-                htmlFor="name"
-                className="text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="name" className="text-sm font-medium text-gray-700">
                 Name
               </label>
               <input
@@ -108,10 +91,7 @@ export default function Hero() {
 
             {/* Email Field */}
             <div className="grid gap-2">
-              <label
-                htmlFor="email"
-                className="text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="email" className="text-sm font-medium text-gray-700">
                 Email
               </label>
               <input
@@ -127,10 +107,7 @@ export default function Hero() {
 
             {/* Phone Number Field */}
             <div className="grid gap-2">
-              <label
-                htmlFor="phone"
-                className="text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="phone" className="text-sm font-medium text-gray-700">
                 Phone Number
               </label>
               <input

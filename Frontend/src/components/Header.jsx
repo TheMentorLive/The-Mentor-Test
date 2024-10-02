@@ -50,10 +50,10 @@ const Header = () => {
 
     return (
         <div className="items-center flex justify-center">
-            <header className="fixed top-0 left-0 w-full bg-white z-50 h-16">
+            <header className="fixed top-0 left-0 w-full bg-white z-50 h-16 md:h-14 lg:h-14 md:-mt-2 lg:-mt-2">
                 <div className="flex items-center justify-between py-2 px-4">
                     {/* Desktop Logo */}
-                    <Link to="/" className="md:flex hidden lg:flex md:ml-[90px]">
+                    <Link to="/" className="md:flex hidden lg:flex md:ml-[147px] lg:ml-[147px]">
                         <img src="/logo.webp" alt="Logo" className="md:h-12 lg:h-12 w-auto" />
                     </Link>
 
@@ -94,7 +94,13 @@ const Header = () => {
                     </nav>
 
                     {/* Desktop Sign In / Cart */}
-                    <div className="hidden md:flex items-center space-x-2 md:mr-[90px]">
+                    <div className="hidden md:flex items-center space-x-2 md:mr-[134px] lg:mr-[134px]">
+                        {/* Conditionally render Cart Icon on /learn page */}
+                        {location.pathname === "/learn" && (
+                            <button onClick={toggleCart} className="relative mr-3">
+                                <AiOutlineShoppingCart className="text-2xl text-gray-700" />
+                            </button>
+                        )}
                         {!isLoggedIn && (
                             <>
                                 <Link
@@ -108,12 +114,7 @@ const Header = () => {
                                 </Link>
                             </>
                         )}
-                        {/* Conditionally render Cart Icon on /learn page */}
-                        {location.pathname === "/learn" && (
-                            <button onClick={toggleCart} className="relative">
-                                <AiOutlineShoppingCart className="text-2xl text-gray-700" />
-                            </button>
-                        )}
+                        
                     </div>
 
 
