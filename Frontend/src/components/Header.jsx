@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai"; // Cart Icon
 import { FaTimes } from "react-icons/fa"; // Close icon
+import { FiUser } from "react-icons/fi";
 import MenuIcon from "@mui/icons-material/Menu"; // Mobile menu icon
 import { mainContext } from "../context/mainContex";
 import DropdownMenu from "./userComponent/DropDownMenu";
@@ -105,8 +106,11 @@ const Header = () => {
                             <>
                                 <Link
                                     to="/login"
-                                    className="py-[8px] text-md px-2 bg-white text-gray-900 hover:bg-gray-300 border-blue-500 border rounded-lg transition-colors duration-300"
+                                    className="flex items-center py-[8px] text-md px-2 bg-white text-gray-900 hover:bg-gray-300 border-blue-500 border rounded-lg transition-colors duration-300"
                                 >
+                                    <span className="mr-2">
+                                        <FiUser />
+                                    </span>
                                     <span>Sign In</span>
                                 </Link>
                                 <Link to="/register" className="py-[8px] text-md px-4 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
@@ -114,7 +118,7 @@ const Header = () => {
                                 </Link>
                             </>
                         )}
-                        
+
                     </div>
 
 
@@ -136,7 +140,7 @@ const Header = () => {
                     </button>
 
                     <Link to="/" className="flex ml-[220px] lg:hidden md:hidden items-center space-x-2 py-2 text-black hover:bg-gray-200 transition-colors duration-300">
-                        <img src="/logo.webp" alt="Logo" className="h-[45px] w-auto" />
+                        <img src="/logo.webp" alt="Logo" className="h-[45px] lg:hidden md:hidden w-auto" />
                     </Link>
                 </div>
 

@@ -20,12 +20,12 @@ export default function Learn() {
       <div className="items-start flex justify-start  mr-2"> {/* Removed left margin (ml-2) */}
         <section className="mt-7 mb-10">
           <div className="text-left ml-4">
-            <h3 className="md:mt-4 md:ml-0 text-[25px] font-semibold text-black lg:text-left lg:ml-0">
+            <h3 className="md:mt-4 md:ml-0 text-[25px] font-semibold text-black lg:text-left lg:-ml-4">
               Learn - AI - Enabled Courses and Resources
             </h3>
           </div>
 
-          <div className="mt-8  relative">
+          <div className="mt-3  relative">
             <div
               ref={carouselRef}
               className="flex gap-4 overflow-x-auto scrollbar-hide"
@@ -51,7 +51,7 @@ export default function Learn() {
                   imgSrc: "/live.png",
                 },
               ].map((item, index) => (
-                <div key={index} className="flex-shrink-0 h-[400px] w-[300px] border rounded-lg shadow-lg flex flex-col">
+                <div key={index} className="flex-shrink-0 h-[400px] w-[300px] border rounded-lg border-slate-300 flex flex-col">
                   <div className="flex flex-col items-center justify-center h-[250px] rounded-lg bg-[#2563EB]">
                     <img
                       src={item.imgSrc}

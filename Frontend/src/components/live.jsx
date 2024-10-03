@@ -12,19 +12,19 @@ export default function Live() {
   return (
     <div className="items-center justify-center mt-10 p-4 md:mr-80 lg:mr-[230px] lg:ml-[148px] md:ml-44 rounded-xl">
      <div className="text-center  mr-2">
-            <h3 className="md:mt-4 md:ml-96 text-[25px] font-semibold text-black lg:text-left lg:ml-7">
+            <h3 className="md:mt-4 md:ml-96 text-[25px] font-semibold text-black lg:text-left lg:ml-1">
             Live - Counselling and Mentorship
             </h3>
           </div>
 
-      <div className="relative mt-8">
+      <div className="relative mt-3">
         <div
           ref={carouselRef}
           className="flex gap-4 overflow-x-auto scrollbar-hide" // Reduced gap to 1 (from 2)
         >
           {/* Cards */}
           {series.map((item, index) => (
-            <div key={index} className="flex-shrink-0 h-[400px] w-[300px] border rounded-lg shadow-lg flex flex-col">
+            <div key={index} className="flex-shrink-0 h-[400px] w-[300px] border rounded-lg border-slate-300 flex flex-col">
               <div className="p-4 flex-grow">
                 <div className="mb-5">
                   <img

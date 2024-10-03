@@ -1,6 +1,6 @@
 export default function Mentorship() {
   return (
-    <div className="flex justify-center p-2 md:p-8 lg:p-8 mb-40 mt-28 bg-blue-100">
+    <div className="flex justify-center p-2 md:p-8 lg:p-8 mb-24 mt-20 bg-blue-100">
       <div className="flex flex-col md:flex-row w-full max-w-5xl bg-white rounded-lg shadow-md">
         
         <div className="w-full md:w-1/2 p-0"> {/* Removed padding */}
