@@ -28,7 +28,7 @@ export default function Tseries() {
                 <h3 className="text-lg font-bold">{course.title}</h3>
                 <p className="text-muted-foreground">{course.description}</p>
               </div>
-              <div className="p-4">
+              <div className="p-4 -mt-5">
                 <div className="flex gap-4">
                   <button className="px-4 py-2 border bg-[#2563EB] text-sm text-white border-gray-300 rounded-md">Buy Now</button>
                   <button className="text-[#2563EB] text-sm">Learn More</button>
