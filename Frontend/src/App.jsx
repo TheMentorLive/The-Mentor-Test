@@ -12,8 +12,9 @@ import Register from './pages/Register';
 import { mainContext } from './context/mainContex';
 import AdminFooter from './components/adminComponent/AdminFooter';
 import Header from './components/Header';
-import EmailOtpLogin from './pages/EmailLogin';
-import Sidebar1 from './pages/Loginn';
+import Userdash from './pages/testing/login';
+
+import Sidebar1 from './pages/testing/Loginn';
 import VideoSection from './pages/user/courses/main';
 import Admindash from './components/adminComponent/admindash';
 import Main from './pages/Live/Main';
@@ -55,7 +56,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           {/* <Route path="/login" element={<Login/>} /> */}
           <Route path="/register" element={<Register/>} />
           <Route path="/auth/callback" element={<AuthCallback/>} />
-          <Route path="/login" element={<EmailOtpLogin/>} />
+          <Route path="/login" element={<Userdash/>} />
           <Route path="/live" element={<Main />} />
           <Route path="/learn" element={<LearnMain />} />
           <Route path="/livee" element={<Sidebar1 />} />
