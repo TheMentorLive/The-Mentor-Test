@@ -51,32 +51,32 @@ const Header = () => {
 
     return (
         <div className="items-center flex justify-center">
-            <header className="fixed top-0 left-0 w-full bg-white z-50 h-16 md:h-14 lg:h-14 md:-mt-2 lg:-mt-2">
+            <header className="fixed top-0 left-0 w-full bg-white z-50 h-16 md:h-14 lg:h-[69px] md:-mt-2 lg:-mt-2">
                 <div className="flex items-center justify-between py-2 px-4">
                     {/* Desktop Logo */}
                     <Link to="/" className="md:flex hidden lg:flex md:ml-[147px] lg:ml-[147px]">
-                        <img src="/logo.webp" alt="Logo" className="md:h-12 lg:h-12 w-auto" />
+                        <img src="/logo.webp" alt="Logo" className="md:h-16 lg:h-[61px] w-auto" />
                     </Link>
 
                     {/* Desktop Navigation Links */}
                     <nav className="hidden lg:flex justify-center gap-5 items-center">
                         <Link
                             to="/live"
-                            className={`flex text-[15px] items-center space-x-1 py-2 px-3 rounded transition-colors duration-300 ${location.pathname === '/live' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
+                            className={`flex text-[17px] items-center space-x-1 py-2 px-3 rounded transition-colors duration-300 ${location.pathname === '/live' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
                         >
                             <span>Live</span>
                         </Link>
                         <Link
                             to="/learn"
-                            className={`flex text-[15px] items-center space-x-1 py-2 px-3 rounded transition-colors duration-300 ${location.pathname === '/learn' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
+                            className={`flex text-[17px] items-center space-x-1 py-2 px-3 rounded transition-colors duration-300 ${location.pathname === '/learn' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
                         >
                             <span>Learn</span>
                         </Link>
-                        <Link to="/pricing" className="flex text-[15px] hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                        <Link to="/pricing" className="flex text-[17px] hover:font-bold items-center space-x-1 py-2 px-3 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
                             <span>Jobs</span>
                         </Link>
                         {!isLoggedIn && (
-                            <Link to="/support" className={`flex text-[15px] items-center space-x-1 py-2 px-3 rounded transition-colors duration-300 ${location.pathname === '/support' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
+                            <Link to="/support" className={`flex text-[17px] items-center space-x-1 py-2 px-3 rounded transition-colors duration-300 ${location.pathname === '/support' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
                             >
                                 <span>Support</span>
                             </Link>
@@ -106,14 +106,14 @@ const Header = () => {
                             <>
                                 <Link
                                     to="/login"
-                                    className="flex items-center py-[8px] text-md px-2 bg-white text-gray-900 hover:bg-gray-300 border-blue-500 border rounded-lg transition-colors duration-300"
+                                    className="flex items-center py-[10px] text-md px-2 bg-white text-gray-900 hover:bg-gray-300 border-blue-500 border rounded-lg transition-colors duration-300"
                                 >
                                     <span className="mr-2">
                                         <FiUser />
                                     </span>
                                     <span>Sign In</span>
                                 </Link>
-                                <Link to="/register" className="py-[8px] text-md px-4 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
+                                <Link to="/register" className="py-[10px] text-md px-4 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
                                     Sign Up
                                 </Link>
                             </>

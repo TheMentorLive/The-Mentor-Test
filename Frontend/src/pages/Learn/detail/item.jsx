@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import CompanyExams from "../CBexams";
-import Features from "../Features";
+import More from "./more";
 import Tseries from "../../landingPage/tseries";
 
 export default function Item() {

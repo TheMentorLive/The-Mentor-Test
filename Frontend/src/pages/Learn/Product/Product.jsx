@@ -1,40 +1,39 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 import "./Product.css";
+import More from "../detail/more";
 import ReportIcon from "@mui/icons-material/Report";
-// import LanguageTwoToneIcon from '@mui/icons-materialLanguageTwoTone';
 import PublicTwoToneIcon from "@mui/icons-material/PublicTwoTone";
-import ClosedCaptionRoundedIcon from "@mui/icons-material/ClosedCaptionRounded";
-
-import ArrowRightSharpIcon from "@mui/icons-material/ArrowRightSharp";
 import StarPurple500SharpIcon from "@mui/icons-material/StarPurple500Sharp";
 import StarHalfSharpIcon from "@mui/icons-material/StarHalfSharp";
-import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
-
 import Header from "../../../components/Header";
-
+import Nav from "./Nav";
 import AccessAlarmsIcon from "@mui/icons-material/AccessAlarms";
-import OndemandVideoSharpIcon from "@mui/icons-material/OndemandVideoSharp";
-import NoteAddSharpIcon from "@mui/icons-material/NoteAddSharp";
-import SystemUpdateAltTwoToneIcon from "@mui/icons-material/SystemUpdateAltTwoTone";
+
 import AllInclusiveTwoToneIcon from "@mui/icons-material/AllInclusiveTwoTone";
 import PhoneAndroidTwoToneIcon from "@mui/icons-material/PhoneAndroidTwoTone";
 import EmojiEventsTwoToneIcon from "@mui/icons-material/EmojiEventsTwoTone";
-
+import { Link } from "react-router-dom";
 
 export const Product = () => {
-
   const cardRef = useRef(null);
   const [isSticky, setIsSticky] = useState(false);
   const [expandedSections, setExpandedSections] = useState({});
+  const [headerVisible, setHeaderVisible] = useState(true); // State to control header visibility
+  const [lastScrollY, setLastScrollY] = useState(0); // State to track last scroll position
 
   const handleScroll = () => {
-    if (cardRef.current) {
-      const buttonPosition = cardRef.current.getBoundingClientRect().bottom;
-      const screenHeight = window.innerHeight;
-      const offset = 1200; // Adjust this value to control when the card sticks
-      setIsSticky(buttonPosition < screenHeight - offset ? false : true);
+    const currentScrollY = window.scrollY; // Get the current scroll position
+
+    // Check if the user scrolled down more than 20 pixels (approximately 2 cm)
+    if (currentScrollY > lastScrollY + 10) {
+      setHeaderVisible(false); // Hide the header
+    } else if (currentScrollY < lastScrollY - 20) {
+      setHeaderVisible(true); // Show the header
     }
+
+    // Update the last scroll position
+    setLastScrollY(currentScrollY);
   };
 
   const toggleSection = (section) => {
@@ -49,68 +48,79 @@ export const Product = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
-
-
+  }, [lastScrollY]); // Add lastScrollY as a dependency
 
   return (
-    <div >
-      <Header className="-z-10"/>
+    <div>
+     
+     
+     <Nav/>
+      {headerVisible && <Header className="z-50" />}
+      
+      {/* Nav with a lower z-index */}
+      
    
       {/* <PlayCircleFilledRoundedIcon/> */}
       <div className="">
-  <div className="bg-[#2563EB] min-h-[350px] p-10">
-    <div className="lg:ml-[135px] lg:mr-[545px]">
-      <h1 className="text-white text-[37px] font-bold mb-7 mt-16">
-        Learning Python for Data Analysis 
-      </h1>
+      <div className="bg-[#2563EB] min-h-[350px] p-10 flex items-center">
+  <div className="lg:ml-[135px] ">
+    <h1 className="text-white text-[37px] font-bold mb-7 mt-16">
+      Learning Python for Data Analysis 
+    </h1>
 
-      <h3 className="white">
-        Learn python and how to use it to analyze, visualize and present
-        data. Includes tons of sample <br/> code and hours of video!
-      </h3>
+    <h3 className="white">
+      Learn python and how to use it to analyze, visualize and present
+      data. Includes tons of sample <br/> code and hours of video!
+    </h3>
 
-      <div>
-        <span className="Ybox">Bestseller</span>
-        <span className="darkyellow">
-          4.3
-          <span>
-            <StarPurple500SharpIcon />
-            <StarPurple500SharpIcon />
-            <StarPurple500SharpIcon />
-            <StarPurple500SharpIcon />
-            <StarHalfSharpIcon />
-          </span>
+    <div>
+      <span className="Ybox">Bestseller</span>
+      <span className="darkyellow">
+        4.3
+        <span>
+          <StarPurple500SharpIcon />
+          <StarPurple500SharpIcon />
+          <StarPurple500SharpIcon />
+          <StarPurple500SharpIcon />
+          <StarHalfSharpIcon />
         </span>
-        
-      </div>
+      </span>
+    </div>
 
-      <div className="Bcreated">
-        <span className="white">Created by </span>
-        <span className="purpal underline">Jose Portilla</span>
-      </div>
+    <div className="Bcreated">
+      <span className="white">Created by </span>
+      <span className="purpal underline">Jose Portilla</span>
+    </div>
 
-      <div className="white BBbottom">
-        <span className="BBicons">
-          <ReportIcon />
-        </span>
-        <span className="BBbottomText">Last updated 9/2019</span>
-        <span className="BBicons">
-          <PublicTwoToneIcon />
-        </span>
-        <span className="BBbottomText">English</span>
-        <span className="BBicons">
-          
-        </span>
-      </div>
+    <div className="white BBbottom">
+      <span className="BBicons">
+        <ReportIcon />
+      </span>
+      <span className="BBbottomText">Last updated 9/2019</span>
+      <span className="BBicons">
+        <PublicTwoToneIcon />
+      </span>
+      <span className="BBbottomText">English</span>
+      <span className="BBicons"></span>
     </div>
   </div>
+
+  {/* Image section */}
+  <div className="hidden overline lg:block mt-20 ml-[80px]">
+    <img 
+      src="/live/Hero.png" // Update with the correct image path
+      alt="Python Data Analysis" 
+      className="max-w-[403px] h-auto" // Adjust the size as needed
+    />
+  </div>
+</div>
+
 </div>
 
 
       {/* ////////////////////////////-------fixBox---------------//////// */}
 
-   <div className="mt-20 lg:-ml-[50px]">
+   <div className="mt-[270px] lg:-ml-[50px]">
   
     <div className=" ">
   <div className="fixBox border border-blue-400 h-fit">
@@ -127,10 +137,11 @@ export const Product = () => {
           <span className="">  5 hours</span> left at this price!
         </div>
       </div>
-
+      <Link to="/Cartpg">
       <button className="w-full bg-[#2563EB] text-white h-12 text-[110%] mt-4 rounded-md border-none cursor-pointer">
         Go to Cart
       </button>
+      </Link>
       <button className="w-full border border-black text-black h-12 text-[110%] rounded-md mt-4 cursor-pointer">
         Buy now
       </button>
@@ -177,7 +188,7 @@ export const Product = () => {
 
       {/* --------------------------------------------------------------- */}
       <div className="lg:ml-[165px]">
-      <h2 className="mt-4  text-lg font-bold">Explore related topics</h2>
+      <h2 className="-mt-14  text-lg font-bold">Explore related topics</h2>
             <div className="mt-2 flex flex-wrap gap-2">
               <span className="bg-gray-200 px-2 py-1 rounded text-xs font-semibold text-gray-700">Web Development</span>
               <span className="bg-gray-200 px-2 py-1 rounded text-xs font-semibold text-gray-700">Development</span>
@@ -195,7 +206,7 @@ export const Product = () => {
       <br />
       <br />
       </div>
-      <div className="mb-4 mt-10 ml-4 md:ml-8 lg:ml-44">
+      <div className="mb-4 -mt-16 ml-4 md:ml-8 lg:ml-44">
             <h2 className="text-2xl font-bold">Course content</h2>
             <p className="text-sm text-muted-foreground">44 sections • 373 lectures • 61h 44m total length</p>
           </div>
@@ -236,7 +247,7 @@ export const Product = () => {
             </button>
           </div>
           </div>
-         
+         <More/>
     </div>
   );
 };
