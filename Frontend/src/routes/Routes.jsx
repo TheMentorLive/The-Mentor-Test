@@ -34,7 +34,7 @@ const AppRoutes = () => {
         <>
           {!isFullScreenPage && !isLoggedIn && <Header />}
           <div className={`layout ${isLoggedIn && !isFullScreenPage ? 'sidebar-visible' : ''}`}>
-            {!isFullScreenPage && isLoggedIn && <Userdash className="sidebar" />}
+            {!isFullScreenPage && isLoggedIn && <Sidebar className="sidebar" />}
             <main className={`content ${isFullScreenPage ? 'pt-0' : 'pt-[80px]'}`}>
               <Routes>
                 {/* Public Routes */}
