@@ -14,14 +14,14 @@ export default function Cards() {
           <div className="flex flex-col items-center lg:items-start lg:w-1/2">
             {/* Text above the image */}
             <div className="mb-5 text-center lg:text-left">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">
                 The All in One <span className="text-blue-600">Edtech Platform</span>
                 <br />
                 you've been Looking for
               </h1>
             </div>
             {/* Image */}
-            <div className="bg-gray-100 w-full h-64 flex items-center justify-center">
+            <div className="bg-gray-100 w-full h-64 -ml-7 flex items-center justify-center">
               <img
                 src="/mtp1.png"
                 alt="Mentor Training Program"
@@ -30,8 +30,8 @@ export default function Cards() {
             </div>
             {/* Text below the image */}
             <div className="mt-8 text-center lg:text-left">
-              <h2 className="text-xl font-bold">Mentor Training Program</h2>
-              <p className="text-gray-700 mb-4">
+              <h2 className="text-lg font-bold">Mentor Training Program</h2>
+              <p className="text-gray-700 mb-4 text-sm">
                 One course to unlock essential skills in law, tech, marketing & finance for career success.
               </p>
               <button className="bg-blue-600 text-white px-4 py-2 rounded">Learn More</button>
@@ -40,7 +40,7 @@ export default function Cards() {
 
           {/* Right Section */}
           <div className="lg:w-1/2 mt-2">
-            <p className="text-gray-700 mb-8 opacity-85 text-center lg:text-left">
+            <p className="text-gray-700 mb-8 opacity-85 text-sm text-center lg:text-left">
               Explore our all-in-one EdTech platform offering live mentorship, upskilling courses, job opportunities, and a thriving community.
               Whether you're seeking career guidance, learning new skills, or finding your next job, we've got it covered.
             </p>
@@ -68,7 +68,7 @@ export default function Cards() {
                         {app.badge}
                       </span>
                     )}
-                    <p className="text-gray-500 text-[12px]">{app.org}</p>
+                    <p className="text-gray-500 text-[11px]">{app.org}</p>
                   </div>
                 </div>
               ))}
