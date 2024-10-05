@@ -51,32 +51,32 @@ const Header = () => {
 
     return (
         <div className="items-center flex justify-center">
-            <header className="fixed top-0 left-0 w-full bg-white z-50 h-14 md:h-12 lg:h-14">
+            <header className="fixed top-0 left-0 w-full bg-white z-50 h-12 md:h-10 lg:h-12">
                 <div className="flex items-center justify-between py-1 px-4">
                     {/* Desktop Logo */}
-                    <Link to="/" className="md:flex hidden lg:flex md:ml-[120px] lg:ml-[120px]">
-                        <img src="/logo.webp" alt="Logo" className="md:h-12 lg:h-14 -mt-1 w-auto" />
+                    <Link to="/" className="md:flex hidden lg:flex md:ml-[100px] lg:ml-[100px]">
+                        <img src="/logo.webp" alt="Logo" className="md:h-10 lg:h-12 -mt-1 w-auto" />
                     </Link>
 
                     {/* Desktop Navigation Links */}
-                    <nav className="hidden lg:flex justify-center gap-4 items-center">
+                    <nav className="hidden lg:flex justify-center gap-3 items-center">
                         <Link
                             to="/live"
-                            className={`flex text-[15px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/live' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
+                            className={`flex text-[14px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/live' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
                         >
                             <span>Live</span>
                         </Link>
                         <Link
                             to="/learn"
-                            className={`flex text-[15px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/learn' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
+                            className={`flex text-[14px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/learn' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
                         >
                             <span>Learn</span>
                         </Link>
-                        <Link to="/pricing" className="flex text-[15px] hover:font-bold items-center space-x-1 py-1 px-2 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                        <Link to="/pricing" className="flex text-[14px] hover:font-bold items-center space-x-1 py-1 px-2 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
                             <span>Jobs</span>
                         </Link>
                         {!isLoggedIn && (
-                            <Link to="/support" className={`flex text-[15px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/support' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}>
+                            <Link to="/support" className={`flex text-[14px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/support' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}>
                                 <span>Support</span>
                             </Link>
                         )}
@@ -94,25 +94,24 @@ const Header = () => {
                     </nav>
 
                     {/* Desktop Sign In / Cart */}
-                    <div className="hidden md:flex items-center space-x-2 md:mr-[120px] lg:mr-[120px]">
-                        {/* Conditionally render Cart Icon on /learn page */}
+                    <div className="hidden md:flex items-center space-x-2 md:mr-[100px] lg:mr-[100px]">
                         {location.pathname === "/learn" && (
                             <button onClick={toggleCart} className="relative mr-2">
-                                <AiOutlineShoppingCart className="text-xl text-gray-700" />
+                                <AiOutlineShoppingCart className="text-lg text-gray-700" />
                             </button>
                         )}
                         {!isLoggedIn && (
                             <>
                                 <Link
                                     to="/login"
-                                    className="flex items-center py-[9px] text-sm px-2 bg-white text-gray-900 hover:bg-gray-300 border-blue-500 border rounded-lg transition-colors duration-300"
+                                    className="flex items-center py-[8px] text-sm px-2 bg-white text-gray-900 hover:bg-gray-300 border-blue-500 border rounded-lg transition-colors duration-300"
                                 >
                                     <span className="mr-1">
                                         <FiUser />
                                     </span>
                                     <span>Sign In</span>
                                 </Link>
-                                <Link to="/register" className="py-[9px] text-sm px-3 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
+                                <Link to="/register" className="py-[8px] text-sm px-3 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
                                     Sign Up
                                 </Link>
                             </>
@@ -124,29 +123,27 @@ const Header = () => {
                 <div className="flex items-center -mt-2 px-4">
                     <button
                         onClick={toggleMenu}
-                        className="lg:hidden text-black mb-2 text-3xl mr-2" // Increase text size here
+                        className="lg:hidden text-black mb-2 text-2xl mr-2"
                         aria-label="Toggle navigation menu"
                     >
-                        <MenuIcon className="h-7 w-7" />
+                        <MenuIcon className="h-6 w-6" />
                     </button>
 
-                    <Link to="/" className="flex ml-[180px] lg:hidden md:hidden items-center space-x-2 py-2 text-black hover:bg-gray-200 transition-colors duration-300">
-                        <img src="/logo.webp" alt="Logo" className="h-[35px] lg:hidden md:hidden w-auto" />
+                    <Link to="/" className="flex ml-[150px] lg:hidden md:hidden items-center space-x-2 py-2 text-black hover:bg-gray-200 transition-colors duration-300">
+                        <img src="/logo.webp" alt="Logo" className="h-[30px] lg:hidden md:hidden w-auto" />
                     </Link>
                 </div>
 
                 <div className={`fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 transform ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out`}>
                     <div className="flex flex-col py-3 px-4">
-                        <button onClick={toggleMenu} className="self-end text-black text-xl" aria-label="Close navigation menu">
+                        <button onClick={toggleMenu} className="self-end text-black text-lg" aria-label="Close navigation menu">
                             <FaTimes />
                         </button>
 
-                        {/* Rest of your menu items */}
                         <Link to="/Live" className={`block py-2 px-4 -mb-3 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300 ${location.pathname === '/live' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}>
                             Live
                         </Link>
 
-                        {/* Conditional Links based on isLoggedIn */}
                         {isLoggedIn && (
                             <>
                                 <Link to="/subjects" className="block py-2 px-4 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
