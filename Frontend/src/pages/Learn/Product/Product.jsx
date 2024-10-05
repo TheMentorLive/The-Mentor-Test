@@ -21,8 +21,18 @@ export const Product = () => {
   const [expandedSections, setExpandedSections] = useState({});
   const [headerVisible, setHeaderVisible] = useState(true); // State to control header visibility
   const [lastScrollY, setLastScrollY] = useState(0); // State to track last scroll position
+  const [offset, setOffset] = useState(0);
 
   const handleScroll = () => {
+    // Get the current scroll position
+    const scrollY = window.scrollY;
+
+    // Update the offset to create an upward movement effect
+    if (scrollY >= 40) {
+      setOffset(scrollY - 40); // The card starts to rise after 40px of scrolling
+    }
+
+
     const currentScrollY = window.scrollY; // Get the current scroll position
 
     // Check if the user scrolled down more than 20 pixels (approximately 2 cm)
@@ -35,6 +45,9 @@ export const Product = () => {
     // Update the last scroll position
     setLastScrollY(currentScrollY);
   };
+  
+
+ 
 
   const toggleSection = (section) => {
     setExpandedSections((prev) => ({
@@ -63,7 +76,7 @@ export const Product = () => {
       {/* <PlayCircleFilledRoundedIcon/> */}
       <div className="">
       <div className="bg-[#2563EB] min-h-[350px] p-10 flex items-center">
-  <div className="lg:ml-[135px] ">
+  <div className="lg:ml-[100px] ">
     <h1 className="text-white text-[37px] font-bold mb-7 mt-16">
       Learning Python for Data Analysis 
     </h1>
@@ -106,11 +119,11 @@ export const Product = () => {
   </div>
 
   {/* Image section */}
-  <div className="hidden overline lg:block mt-20 ml-[80px]">
+  <div className="hidden overline lg:block mt-[90px] ml-[115px]">
     <img 
       src="/live/Hero.png" // Update with the correct image path
       alt="Python Data Analysis" 
-      className="max-w-[403px] h-auto" // Adjust the size as needed
+      className="max-w-[350px] h-auto" // Adjust the size as needed
     />
   </div>
 </div>
@@ -119,76 +132,67 @@ export const Product = () => {
 
 
       {/* ////////////////////////////-------fixBox---------------//////// */}
-
-   <div className="mt-[270px] lg:-ml-[50px]">
-  
-    <div className=" ">
-  <div className="fixBox border border-blue-400 h-fit">
-    
-    <div className="innerFixBox">
-      <div className="Ftop2lines">
-        <div className="flex FTH">
-          <h1 className="FT1"> ₹455 </h1>
-          <span className="FT2"> ₹3,499 </span>
-          <span className="FT3"> 87% off </span>
+      <div className="mt-[270px] lg:-ml-[50px]">
+  <div className="">
+    <div
+      className="fixBox border w-[350px] border-blue-400 h-fit transition-transform duration-500" // Increased width slightly
+      style={{ transform: `translateY(${-Math.min(offset, 200)}px)` }} // Negative translateY to make it rise
+    >
+      <div className="innerFixBox">
+        <div className="Ftop2lines">
+          <div className="flex FTH">
+            <h1 className="FT1 text-[1.25rem]"> ₹455 </h1> {/* Increased text size */}
+            <span className="FT2 text-[1rem]"> ₹3,499 </span> {/* Increased text size */}
+            <span className="FT3 text-[1rem]"> 87% off </span> {/* Increased text size */}
+          </div>
+          <div className="red text-sm"> {/* Kept text size the same */}
+            <AccessAlarmsIcon />
+            <span className=""> 5 hours</span> left at this price!
+          </div>
         </div>
-        <div className="red">
-          <AccessAlarmsIcon />
-          <span className="">  5 hours</span> left at this price!
+        <Link to="/Cartpg">
+          <button className="w-full bg-[#2563EB] text-white h-12 text-[110%] mt-3 rounded-md border-none cursor-pointer"> {/* Increased height and text size */}
+            Go to Cart
+          </button>
+        </Link>
+        <button className="w-full border border-black text-black h-12 text-[110%] rounded-md mt-3 cursor-pointer"> {/* Increased height and text size */}
+          Buy now
+        </button>
+
+        <p className="center mb-6 text-sm">30-Day Money-Back Guarantee</p> {/* Kept text size the same */}
+
+        <div className="ThisCourse">
+          <h4 className="text-[1.2rem]">This course includes:</h4> {/* Increased text size */}
+          <br />
+          <p className="text-sm">
+            <AllInclusiveTwoToneIcon /> Full lifetime access
+          </p>
+          <p className="text-sm">
+            <PhoneAndroidTwoToneIcon /> Access on mobile and TV
+          </p>
+          <p className="text-sm">
+            <EmojiEventsTwoToneIcon /> Certificate of completion
+          </p>
+        </div>
+
+        <div className="gap underline pointer mt-6"> {/* Kept margin the same */}
+          <input
+            id="coupon"
+            type="text"
+            placeholder="Enter Coupon Code" // Removed extra spaces
+            className="w-full h-[45px] mt-3 border border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" // Increased height slightly
+          />
+          <h4 className="text-sm">Apply Coupon</h4> {/* Kept text size the same */}
         </div>
       </div>
-      <Link to="/Cartpg">
-      <button className="w-full bg-[#2563EB] text-white h-12 text-[110%] mt-4 rounded-md border-none cursor-pointer">
-        Go to Cart
-      </button>
-      </Link>
-      <button className="w-full border border-black text-black h-12 text-[110%] rounded-md mt-4 cursor-pointer">
-        Buy now
-      </button>
-
-      <p className="center mb-7">30-Day Money-Back Guarantee</p>
-
-      <div className="ThisCourse">
-        <h4>This course includes:</h4>
-        <br />
-        <p>
-          <AllInclusiveTwoToneIcon /> Full lifetime access
-        </p>
-        <p>
-          <PhoneAndroidTwoToneIcon /> Access on mobile and TV
-        </p>
-        <p>
-          <EmojiEventsTwoToneIcon /> Certificate of completion
-        </p>
-      </div>
-
-      <div className="gap underline pointer mt-7">
-        <input
-          id="coupon"
-          type="text"
-          placeholder="   Enter Coupon Code"
-          className="w-full h-[45px] mt-3 border border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <h4>Apply Coupon</h4>
-      </div>
-
-      {/* <div className="training">
-        <h3>Want to learn more?</h3>
-        <p>
-          Get your membership on top courses anytime,
-          anywhere.
-        </p>
-        <button className="buynowBtn btn2">All Courses</button>
-      </div> */}
     </div>
-  </div>
   </div>
 </div>
 
 
       {/* --------------------------------------------------------------- */}
-      <div className="lg:ml-[165px]">
-      <h2 className="-mt-14  text-lg font-bold">Explore related topics</h2>
+      <div className="lg:ml-[135px]">
+      <h2 className="-mt-[260px]  text-lg font-bold">Explore related topics</h2>
             <div className="mt-2 flex flex-wrap gap-2">
               <span className="bg-gray-200 px-2 py-1 rounded text-xs font-semibold text-gray-700">Web Development</span>
               <span className="bg-gray-200 px-2 py-1 rounded text-xs font-semibold text-gray-700">Development</span>
@@ -206,12 +210,12 @@ export const Product = () => {
       <br />
       <br />
       </div>
-      <div className="mb-4 -mt-16 ml-4 md:ml-8 lg:ml-44">
+      <div className="mb-4 -mt-16 ml-4 md:ml-8 lg:ml-[135px]">
             <h2 className="text-2xl font-bold">Course content</h2>
             <p className="text-sm text-muted-foreground">44 sections • 373 lectures • 61h 44m total length</p>
           </div>
 
-          <div className="space-y-2 ml-4 md:ml-8 lg:ml-44 w-full lg:w-[650px]">
+          <div className="space-y-2 ml-4 md:ml-8 lg:ml-[135px] w-full lg:w-[800px]">
             {/* Course sections */}
             {[{ title: "Front-End Web Development", duration: "10 hours", modules: "5 modules" },
             { title: "Introduction to HTML", duration: "5 hours", modules: "3 modules" },
