@@ -8,7 +8,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import { mainContext } from '../../context/mainContex';
 import { Settings as SettingsIcon, BarChart, ExitToAppTwoTone } from '@mui/icons-material';
 
-export default function Sidebar1() {
+export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { user, signOut } = useContext(mainContext);
