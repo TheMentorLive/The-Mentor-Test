@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./components/ui/sidebar";
 import { Settings as SettingsIcon, BarChart, ExitToAppTwoTone } from '@mui/icons-material';
 import { UserIcon } from 'lucide-react'; // Importing icon from lucide-react
+import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import {
   IconLayoutDashboard,
@@ -26,6 +27,8 @@ export default function Userdash() {
   const { signOut } = useContext(mainContext); // Ensure mainContext provides signOut
   const [selectedComponent, setSelectedComponent] = useState("Dashboard");
   const name = JSON.parse(localStorage.getItem('user'));
+  const navigate = useNavigate();
+
   
   const handleLogout = () => {
     signOut();
