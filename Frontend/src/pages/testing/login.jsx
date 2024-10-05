@@ -40,15 +40,15 @@ export default function Userdash() {
   const renderComponent = () => {
     switch (selectedComponent) {
       case "Dashboard":
-        return <UserDashboard />;
+        navigate("/user-dashboard");
       case "Courses":
-        return <Course />; // Show Courses List page
+        navigate("/courses"); // Show Courses List page
       case "Mock-test":
-        return <SubjectComponent />; // Show Add Course page
+        navigate("/subjects"); // Show Add Course page
       case "Mentors":
       case "Reports":
       default:
-        return <NotFound />; // Handle other cases
+        navigate("/subjects"); // Handle other cases
     }
   };
 
