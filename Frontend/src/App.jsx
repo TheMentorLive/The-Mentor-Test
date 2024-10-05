@@ -12,7 +12,7 @@ import Register from './pages/Register';
 import { mainContext } from './context/mainContex';
 import AdminFooter from './components/adminComponent/AdminFooter';
 import Header from './components/Header';
-import Userdash from './pages/testing/login';
+// import Userdash from './pages/testing/login';
 import Login from './pages/EmailLogin';
 // import Sidebar1 from './pages/testing/Loginn';
 import VideoSection from './pages/user/courses/main';
