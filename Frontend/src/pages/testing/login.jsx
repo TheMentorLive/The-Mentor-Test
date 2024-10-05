@@ -101,7 +101,7 @@ export default function Sidebar() {
       <div className="flex justify-between items-center px-4 py-2 bg-[#2563EB]">
         <div className="flex items-center">
           <Link to="/">
-            <img src="" alt="Logo" style={{ width: 100, height: 40 }} />
+            <img src="/logo.webp" alt="Logo" style={{ width: 100, height: 40 }} />
           </Link>
         </div>
 
