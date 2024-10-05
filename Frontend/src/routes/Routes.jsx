@@ -16,7 +16,7 @@ import TestHistoryPage from '../pages/user/test/TestHistory';
 import { mainContext } from '../context/mainContex';
 import UserDashboard from '../pages/user/Userdashboard';
 // import Sidebar from '../components/userComponent/Sidebar-login';
-import Userdash from '../pages/testing/login';
+import Sidebar from '../pages/testing/login';
 import Footer from '../components/Footer';
 
 const AppRoutes = () => {
@@ -34,7 +34,7 @@ const AppRoutes = () => {
         <>
           {!isFullScreenPage && !isLoggedIn && <Header />}
           <div className={`layout ${isLoggedIn && !isFullScreenPage ? 'sidebar-visible' : ''}`}>
-            {!isFullScreenPage && isLoggedIn && <Userdash className="sidebar" />}
+            {!isFullScreenPage && isLoggedIn && <Sidebar className="sidebar" />}
             <main className={`content ${isFullScreenPage ? 'pt-0' : 'pt-[80px]'}`}>
               <Routes>
                 {/* Public Routes */}
