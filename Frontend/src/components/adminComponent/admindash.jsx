@@ -14,7 +14,7 @@ import { mainContext } from "../../context/mainContex"; // Adjust path to your c
 import { cn } from "./lib/utils"; // Adjust to your utility functions path
  // Adjust logo path as per your project structure
 
-export default function Sidebar() {
+export default function Sidebar1() {
   const [open, setOpen] = useState(false);
   const { signOut } = useContext(mainContext);
   const [selectedComponent, setSelectedComponent] = useState("Dashboard");
