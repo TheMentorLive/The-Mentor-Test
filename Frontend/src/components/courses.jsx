@@ -16,22 +16,22 @@ export default function Learn() {
   };
 
   return (
-    <div className="items-center flex justify-start mt-10 lg:-mt-3 p-4 lg:mr-[230px] lg:ml-[148px] ml-2"> {/* Removed left margin (ml-2) */}
-      <div className="items-start flex justify-start  mr-2"> {/* Removed left margin (ml-2) */}
+    <div className="items-center flex justify-start mt-10 lg:-mt-3 p-4 lg:mr-[230px] lg:ml-[115px] ml-2">
+      <div className="items-start flex justify-start mr-2">
         <section className="mt-7 mb-10">
           <div className="text-left ml-4">
-            <h3 className="md:mt-4 md:ml-0 text-[25px] font-semibold text-black lg:text-left lg:-ml-4">
+            <h3 className="md:mt-4 md:ml-0 text-[24px] font-semibold text-black lg:text-left lg:-ml-4">
               Learn - AI - Enabled Courses and Resources
             </h3>
           </div>
 
-          <div className="mt-3  relative">
+          <div className="mt-3 relative">
             <div
               ref={carouselRef}
-              className="flex gap-4 overflow-x-auto scrollbar-hide"
+              className="flex gap-3 overflow-x-auto scrollbar-hide"
             >
               {/* Cards */}
-              {[ 
+              {[
                 {
                   title: "Courses",
                   description:
@@ -51,19 +51,19 @@ export default function Learn() {
                   imgSrc: "/live.png",
                 },
               ].map((item, index) => (
-                <div key={index} className="flex-shrink-0 h-[400px] w-[300px] border rounded-lg border-slate-300 flex flex-col">
-                  <div className="flex flex-col items-center justify-center h-[250px] rounded-lg bg-[#2563EB]">
+                <div key={index} className="flex-shrink-0 h-[350px] w-[280px] border rounded-lg border-slate-300 flex flex-col">
+                  <div className="flex flex-col items-center justify-center h-[220px] rounded-lg bg-[#2563EB]">
                     <img
                       src={item.imgSrc}
                       alt={item.title}
                       className="h-auto rounded-lg"
-                      width="300"
-                      height="240"
-                      style={{ aspectRatio: "300/240", objectFit: "cover" }}
+                      width="260"
+                      height="200"
+                      style={{ aspectRatio: "260/200", objectFit: "cover" }}
                     />
                   </div>
-                  <div className="p-4">
-                    <h4 className="text-lg font-bold">{item.title}</h4>
+                  <div className="p-3">
+                    <h4 className="text-md font-bold">{item.title}</h4>
                     <p className="text-gray-500 text-sm">{item.description}</p>
                   </div>
                 </div>
@@ -72,13 +72,13 @@ export default function Learn() {
 
             {/* Arrow Buttons */}
             <div className="absolute top-1/2 opacity-0 right-0 transform -translate-y-1/2">
-              <button onClick={scrollLeft} className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full shadow-md">
-                <ArrowLeftIcon className="w-6 h-6 text-gray-600" />
+              <button onClick={scrollLeft} className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full shadow-md">
+                <ArrowLeftIcon className="w-5 h-5 text-gray-600" />
               </button>
             </div>
             <div className="absolute top-1/2 opacity-0 right-0 transform -translate-y-1/2">
-              <button onClick={scrollRight} className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full shadow-md">
-                <ArrowRightIcon className="w-6 h-6 text-gray-600" />
+              <button onClick={scrollRight} className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full shadow-md">
+                <ArrowRightIcon className="w-5 h-5 text-gray-600" />
               </button>
             </div>
           </div>
@@ -93,8 +93,8 @@ function ArrowLeftIcon(props) {
     <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width="22"
+      height="22"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -113,8 +113,8 @@ function ArrowRightIcon(props) {
     <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width="22"
+      height="22"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

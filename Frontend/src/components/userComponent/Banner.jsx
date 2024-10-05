@@ -65,16 +65,16 @@ export default function Banner() {
 
   return (
     <React.Fragment>
-      <section className="ml-1 mt-10 md:mt-0 lg:mt-0 md:ml-[138px] md:mr-[52px] md:py-10  flex justify-center items-center">
+      <section className="ml-1 mt-10 md:mt-0 lg:mt-0 md:ml-[102px] md:mr-[42px] md:py-10  flex justify-center items-center">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-              <h1 className="text-[40px] sm:text-5xl md:text-6xl lg:text-7xl xl:text-6xl/none font-bold opacity-80 tracking-tighter">
-  Master the Future <br />
-  With <br />
-  GenAI Learning
-</h1>
+                <h1 className="text-[34px] sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl/none font-bold opacity-80 tracking-tighter">
+                  Master the Future <br />
+                  With <br />
+                  GenAI Learning
+                </h1>
 
                 <p className="max-w-[600px] text-gray-500 md:text-lg dark:text-gray-400">
                   Take your knowledge to the next level with our comprehensive
@@ -94,7 +94,7 @@ export default function Banner() {
             <div className="flex flex-col items-center justify-center space-y-4">
               <div className="w-full max-w-md border border-blue-200 rounded-lg shadow-md">
                 <div className="p-6">
-                  <h2 className="text-3xl opacity-80 font-bold">Get In Touch</h2>
+                  <h2 className="text-2xl opacity-80 font-bold">Get In Touch</h2>
                 </div>
                 <form className="p-6 grid -mt-5 gap-4" onSubmit={handleSubmit}>
 

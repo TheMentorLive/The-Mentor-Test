@@ -23,17 +23,32 @@ const Payment = () => {
 
   const [price, setPrice] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [nameOnCard, setNameOnCard] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiryMonth, setExpiryMonth] = useState("");
+  const [expiryYear, setExpiryYear] = useState("");
+  const [securityCode, setSecurityCode] = useState("");
 
   // Calculate the total price using dummy data
   useEffect(() => {
-    let total = 0;
-    dummyCart.forEach((el) => {
-      total += el.productId.price;
-    });
+    const total = dummyCart.reduce((acc, el) => acc + el.productId.price, 0);
     setPrice(total);
   }, []);
 
   const navigate = useNavigate();
+
+  const handlePayment = () => {
+    if (!nameOnCard || !cardNumber || !expiryMonth || !expiryYear || !securityCode) {
+      alert("Please fill all the fields.");
+      return;
+    }
+
+    setLoading(true);
+    setTimeout(() => {
+      alert("Payment Success");
+      navigate("/");
+    }, 2000);
+  };
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -61,14 +76,12 @@ const Payment = () => {
             </div>
           </div>
 
-          <div className="space-y-4">
-            {[
-              { name: "Credit/Debit Card", icon: "card-mastercard.svg" },
+          <div className="space-y-4 mb-6">
+            {[{ name: "Credit/Debit Card", icon: "card-mastercard.svg" },
               { name: "UPI", icon: "hpp-upi.svg" },
               { name: "PayTM", icon: "hpp-paytm.svg" },
               { name: "Net Banking", icon: "hpp-billdesk-online.svg" },
-              { name: "Mobile Wallets" },
-            ].map((option, index) => (
+              { name: "Mobile Wallets" }].map((option, index) => (
               <div key={index} className="flex items-center gap-4">
                 <input type="radio" name="payment" className="w-4 h-4" />
                 <span className="font-semibold">{option.name}</span>
@@ -88,28 +101,38 @@ const Payment = () => {
               className="w-full p-2 border rounded-md mb-4"
               type="text"
               placeholder="Name on Card"
+              value={nameOnCard}
+              onChange={(e) => setNameOnCard(e.target.value)}
             />
             <input
               className="w-full p-2 border rounded-md mb-4"
               type="text"
               placeholder="Card Number"
+              value={cardNumber}
+              onChange={(e) => setCardNumber(e.target.value)}
             />
 
             <div className="grid grid-cols-3 gap-4">
-              <select className="w-full p-2 border rounded-md">
-                <option value="disabled">MM</option>
-                {/* Add month options */}
+              <select className="w-full p-2 border rounded-md" value={expiryMonth} onChange={(e) => setExpiryMonth(e.target.value)}>
+                <option value="">MM</option>
+                {Array.from({ length: 12 }, (_, i) => (
+                  <option key={i} value={i + 1}>{i + 1}</option>
+                ))}
               </select>
 
-              <select className="w-full p-2 border rounded-md">
-                <option value="disabled">YYYY</option>
-                {/* Add year options */}
+              <select className="w-full p-2 border rounded-md" value={expiryYear} onChange={(e) => setExpiryYear(e.target.value)}>
+                <option value="">YYYY</option>
+                {Array.from({ length: 10 }, (_, i) => (
+                  <option key={i} value={2023 + i}>{2023 + i}</option>
+                ))}
               </select>
 
               <input
                 className="w-full p-2 border rounded-md"
                 type="text"
                 placeholder="Security Code"
+                value={securityCode}
+                onChange={(e) => setSecurityCode(e.target.value)}
               />
             </div>
 
@@ -132,13 +155,11 @@ const Payment = () => {
               </tr>
               <tr>
                 <td>Coupon discounts:</td>
-                <td className="text-right">- ₹{price * 0.1}</td>
+                <td className="text-right">- ₹{(price * 0.1).toFixed(2)}</td>
               </tr>
               <tr>
                 <td className="font-bold">Total:</td>
-                <td className="text-right font-bold">
-                  ₹{price !== 0 ? price - price * 0.1 : 0}
-                </td>
+                <td className="text-right font-bold">₹{(price - price * 0.1).toFixed(2)}</td>
               </tr>
             </tbody>
           </table>
@@ -159,14 +180,8 @@ const Payment = () => {
             <CircularProgress />
           ) : (
             <button
-              onClick={() => {
-                setLoading(true);
-                setTimeout(() => {
-                  alert("Payment Success");
-                  navigate("/");
-                }, 2000);
-              }}
-              className="w-full bg-blue-500 text-white p-3 rounded-md"
+              onClick={handlePayment}
+              className="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 transition duration-300"
             >
               Complete Payment
             </button>
