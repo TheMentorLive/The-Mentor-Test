@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./components/ui/sidebar";
 import { Settings as SettingsIcon, BarChart, ExitToAppTwoTone } from '@mui/icons-material';
 import { UserIcon } from 'lucide-react'; // Importing icon from lucide-react
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import {
   IconLayoutDashboard,
