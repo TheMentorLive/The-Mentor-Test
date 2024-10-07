@@ -20,6 +20,7 @@ export const Product = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [expandedSections, setExpandedSections] = useState({});
   const [headerVisible, setHeaderVisible] = useState(true); // State to control header visibility
+  const [headerHidden, setHeaderHidden] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0); // State to track last scroll position
   const [offset, setOffset] = useState(0);
 
@@ -32,6 +33,7 @@ export const Product = () => {
       setOffset(scrollY - 40); // The card starts to rise after 40px of scrolling
     }
 
+    
 
     const currentScrollY = window.scrollY; // Get the current scroll position
 
@@ -44,6 +46,20 @@ export const Product = () => {
 
     // Update the last scroll position
     setLastScrollY(currentScrollY);
+
+
+
+     const DetailsScrollY = window.scrollY; // Get the current scroll position
+
+    // Check if the user scrolled down more than 20 pixels (approximately 2 cm)
+    if (DetailsScrollY > lastScrollY + 10) {
+      setHeaderHidden(true); // Hide the header
+    } else if (DetailsScrollY < lastScrollY - 20) {
+      setHeaderHidden(false); // Show the header
+    }
+
+    // Update the last scroll position
+    setLastScrollY(DetailsScrollY);
   };
   
 
@@ -119,25 +135,27 @@ export const Product = () => {
   </div>
 
   {/* Image section */}
-  <div className="hidden overline lg:block mt-[90px] ml-[115px]">
-    <img 
-      src="/live/Hero.png" // Update with the correct image path
-      alt="Python Data Analysis" 
-      className="max-w-[350px] h-auto" // Adjust the size as needed
-    />
-  </div>
+  
 </div>
 
 </div>
 
 
       {/* ////////////////////////////-------fixBox---------------//////// */}
-      <div className="mt-[270px] lg:-ml-[50px]">
-  <div className="">
+      <div className=" lg:ml-[25px]">
+  <div className="mt-[70px]">
     <div
       className="fixBox border w-[350px] border-blue-400 h-fit transition-transform duration-500" // Increased width slightly
-      style={{ transform: `translateY(${-Math.min(offset, 200)}px)` }} // Negative translateY to make it rise
+      style={{ transform: `translateY(${-Math.min(offset, 0)}px)` }} // Negative translateY to make it rise
     >
+
+     {headerVisible && <div className="hidden overline lg:block ">
+    <img 
+      src="/live/Hero.png" // Update with the correct image path
+      alt="Python Data Analysis" 
+      className="max-w-[350px] h-auto" // Adjust the size as needed
+    />
+  </div>}
       <div className="innerFixBox">
         <div className="Ftop2lines">
           <div className="flex FTH">
@@ -161,8 +179,8 @@ export const Product = () => {
 
         <p className="center mb-6 text-sm">30-Day Money-Back Guarantee</p> {/* Kept text size the same */}
 
-        <div className="ThisCourse">
-          <h4 className="text-[1.2rem]">This course includes:</h4> {/* Increased text size */}
+        {headerHidden && <div className="ThisCourse">
+          <h4 className="text-[1.2rem]">This course includes:</h4> 
           <br />
           <p className="text-sm">
             <AllInclusiveTwoToneIcon /> Full lifetime access
@@ -173,7 +191,7 @@ export const Product = () => {
           <p className="text-sm">
             <EmojiEventsTwoToneIcon /> Certificate of completion
           </p>
-        </div>
+        </div>}
 
         <div className="gap underline pointer mt-6"> {/* Kept margin the same */}
           <input
@@ -191,7 +209,7 @@ export const Product = () => {
 
 
       {/* --------------------------------------------------------------- */}
-      <div className="lg:ml-[135px]">
+      <div className="lg:ml-[135px] lg:mt-[290px]">
       <h2 className="-mt-[260px]  text-lg font-bold">Explore related topics</h2>
             <div className="mt-2 flex flex-wrap gap-2">
               <span className="bg-gray-200 px-2 py-1 rounded text-xs font-semibold text-gray-700">Web Development</span>

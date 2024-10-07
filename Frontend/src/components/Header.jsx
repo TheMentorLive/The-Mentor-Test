@@ -129,7 +129,7 @@ const Header = () => {
                         <MenuIcon className="h-6 w-6" />
                     </button>
 
-                    <Link to="/" className="flex ml-[150px] lg:hidden md:hidden items-center space-x-2 py-2 text-black hover:bg-gray-200 transition-colors duration-300">
+                    <Link to="/" className="flex ml-[290px] lg:hidden md:hidden items-center space-x-2 py-2 text-black hover:bg-gray-200 transition-colors duration-300">
                         <img src="/logo.webp" alt="Logo" className="h-[30px] lg:hidden md:hidden w-auto" />
                     </Link>
                 </div>

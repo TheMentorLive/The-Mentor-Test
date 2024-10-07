@@ -51,7 +51,7 @@ export default function Cards() {
                   key={index}
                   className="flex flex-col items-center p-4 border rounded-lg bg-white border-gray-300"
                 >
-                  <div className="border px-8 py-5 rounded-lg bg-blue-100 border-gray-300">
+                  <div className="border px-6 py-5 rounded-lg bg-blue-100 border-gray-300">
                     <img
                       src={card.image}
                       alt={card.name}
