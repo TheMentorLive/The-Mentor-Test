@@ -59,38 +59,29 @@ const Header = () => {
                     </Link>
 
                     {/* Desktop Navigation Links */}
-                    <nav className="hidden lg:flex justify-center gap-2 items-center">
+                    <nav className="hidden lg:flex justify-center gap-9 items-center">
                         <Link
                             to="/live"
-                            className={`flex text-[12px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/live' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
+                            className={`flex text-[13px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/live' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
                         >
                             <span>Live</span>
                         </Link>
                         <Link
                             to="/learn"
-                            className={`flex text-[12px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/learn' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
+                            className={`flex text-[13px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/learn' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
                         >
                             <span>Learn</span>
                         </Link>
-                        <Link to="/pricing" className="flex text-[12px] hover:font-bold items-center space-x-1 py-1 px-2 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
+                        <Link to="/pricing" className="flex text-[13px] hover:font-bold items-center space-x-1 py-1 px-2 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
                             <span>Jobs</span>
                         </Link>
                         {!isLoggedIn && (
-                            <Link to="/support" className={`flex text-[12px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/support' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}>
+                            <Link to="/support" className={`flex text-[13px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/support' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}>
                                 <span>Support</span>
                             </Link>
                         )}
-                        {isLoggedIn && (
-                            <>
-                                <Link to="/subjects" className="flex hover:font-bold items-center space-x-1 py-1 px-2 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                                    <span>Subjects</span>
-                                </Link>
-                                <Link to="/test-history" className="flex hover:font-bold items-center space-x-1 py-1 px-2 text-gray-900 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors duration-300">
-                                    <span>Test History</span>
-                                </Link>
-                            </>
-                        )}
-                        {isLoggedIn && <DropdownMenu isLoggedIn={isLoggedIn} />}
+                        
+                        
                     </nav>
 
                     {/* Desktop Sign In / Cart */}
