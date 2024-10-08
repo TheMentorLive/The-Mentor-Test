@@ -169,15 +169,16 @@ export const Product = () => {
           </div>
         </div>
         <Link to="/Cartpg">
-          <button className="w-full bg-[#2563EB] text-white h-12 text-[110%] mt-3 rounded-md border-none cursor-pointer"> {/* Increased height and text size */}
-            Go to Cart
-          </button>
-        </Link>
-        <button className="w-full border border-black text-black h-12 text-[110%] rounded-md mt-3 cursor-pointer"> {/* Increased height and text size */}
-          Buy now
-        </button>
+  <button className="w-full bg-[#2563EB] text-white h-10 text-[17px] mt-3 rounded-md border-none cursor-pointer flex items-center justify-center">
+    Go to Cart
+  </button>
+</Link>
+<button className="w-full border border-black text-black h-10 text-[110%] rounded-md mt-3 cursor-pointer flex items-center justify-center">
+  Buy now
+</button>
 
-        <p className="center mb-6 text-sm">30-Day Money-Back Guarantee</p> {/* Kept text size the same */}
+
+        <p className="center mb-6 mt-4 text-sm">30-Day Money-Back Guarantee</p> {/* Kept text size the same */}
 
         {headerHidden && <div className="ThisCourse">
           <h4 className="text-[1.2rem]">This course includes:</h4> 
@@ -197,7 +198,7 @@ export const Product = () => {
           <input
             id="coupon"
             type="text"
-            placeholder="Enter Coupon Code" // Removed extra spaces
+            placeholder="  Enter Coupon Code" // Removed extra spaces
             className="w-full h-[45px] mt-3 border border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" // Increased height slightly
           />
           <h4 className="text-sm">Apply Coupon</h4> {/* Kept text size the same */}

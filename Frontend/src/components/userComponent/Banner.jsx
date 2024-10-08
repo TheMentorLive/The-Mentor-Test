@@ -7,8 +7,8 @@ import axios from 'axios';
 export default function Banner() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [name, setName] = useState(""); // State for name
-  const [loading, setLoading] = useState(false); // State for loading
+  const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -18,65 +18,55 @@ export default function Banner() {
     setPhone(event.target.value);
   };
 
-  const handleNameChange = (event) => { // Handle change for name
+  const handleNameChange = (event) => {
     setName(event.target.value);
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-
-    setLoading(true); // Set loading to true when starting submission
+    event.preventDefault();
+    setLoading(true);
 
     try {
       const response = await axios.post(`${API_BASE_URL}auth/SubmitForm`, {
-        name, // Include name in the POST request
+        name,
         email,
         phone,
       });
 
-      // Check the response status
       if (response.status === 201) {
-        // Show success toast message
         toast.success('Form data saved successfully!');
       } else if (response.status === 409) {
-        // Show error toast message for conflict
         toast.error('Lead already exists');
       } else {
-        // Handle unexpected responses
         toast.error('Unexpected response from server');
       }
 
-      // Clear the form data
-      setName(''); // Clear name field
+      setName('');
       setEmail('');
       setPhone('');
     } catch (error) {
       console.error('Error submitting form:', error);
-
-      // Extract error message from the response, if available
       const errorMessage = error.response?.data?.error || 'Error submitting form. Please try again.';
-
-      // Show error toast message
       toast.error(errorMessage);
     } finally {
-      setLoading(false); // Set loading to false when submission is complete
+      setLoading(false);
     }
   };
 
   return (
     <React.Fragment>
-      <section className="ml-1 mt-10 md:mt-0 lg:mt-0 md:ml-[102px] md:mr-[42px] md:py-10  flex justify-center items-center">
+      <section className="ml-1 mt-10 md:mt-0 lg:mt-0 md:ml-[72px] md:mr-[18px] md:py-10 flex justify-center items-center">
         <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+          <div className="grid gap-40 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-                <h1 className="text-[34px] sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl/none font-bold opacity-80 tracking-tighter">
+                <h1 className="text-[30px] sm:text-[32px] md:text-[40px] lg:text-[48px] xl:text-[48px]/none font-bold opacity-80 tracking-tighter">
                   Master the Future <br />
                   With <br />
                   GenAI Learning
                 </h1>
 
-                <p className="max-w-[600px] text-gray-500 md:text-lg dark:text-gray-400">
+                <p className="max-w-[550px] text-gray-500 md:text-[15px] dark:text-gray-400">
                   Take your knowledge to the next level with our comprehensive
                   test series and expertly designed courses.
                 </p>
@@ -84,7 +74,7 @@ export default function Banner() {
               <Link to="/register">
                 <button
                   type="submit"
-                  className="w-full max-w-[200px] bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 rounded"
+                  className="w-full max-w-[180px] bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 rounded"
                 >
                   Get Started
                 </button>
@@ -93,16 +83,14 @@ export default function Banner() {
 
             <div className="flex flex-col items-center justify-center space-y-4">
               <div className="w-full max-w-md border border-blue-200 rounded-lg shadow-md">
-                <div className="p-6">
-                  <h2 className="text-2xl opacity-80 font-bold">Get In Touch</h2>
+                <div className="p-5">
+                  <h2 className="text-[20px] opacity-80 font-bold">Get In Touch</h2>
                 </div>
-                <form className="p-6 grid -mt-5 gap-4" onSubmit={handleSubmit}>
-
-                  {/* Name Field */}
+                <form className="p-5 grid -mt-5 gap-4" onSubmit={handleSubmit}>
                   <div className="grid gap-2">
                     <label
                       htmlFor="name"
-                      className="text-sm font-medium text-gray-700"
+                      className="text-[13px] font-medium text-gray-700"
                     >
                       Name
                     </label>
@@ -117,11 +105,10 @@ export default function Banner() {
                     />
                   </div>
 
-                  {/* Email Field */}
                   <div className="grid gap-2">
                     <label
                       htmlFor="email"
-                      className="text-sm font-medium text-gray-700"
+                      className="text-[13px] font-medium text-gray-700"
                     >
                       Email
                     </label>
@@ -136,11 +123,10 @@ export default function Banner() {
                     />
                   </div>
 
-                  {/* Phone Number Field */}
                   <div className="grid gap-2">
                     <label
                       htmlFor="phone"
-                      className="text-sm font-medium text-gray-700"
+                      className="text-[13px] font-medium text-gray-700"
                     >
                       Phone Number
                     </label>
@@ -155,11 +141,10 @@ export default function Banner() {
                     />
                   </div>
 
-                  {/* Submit Button */}
                   <div className="mt-4">
                     <button
                       type="submit"
-                      disabled={loading} // Disable button while loading
+                      disabled={loading}
                       className={`w-full bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                       {loading ? (
