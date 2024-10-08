@@ -10,7 +10,7 @@ export default function Live() {
   };
 
   return (
-    <div className="items-center justify-center mt-10 p-3 md:mr-72 lg:mr-[200px] lg:ml-[118px] md:ml-40 rounded-xl">
+    <div className="items-center justify-center mt-10 p-3 md:mr-72 lg:mr-[200px] lg:ml-[78px] md:ml-40 rounded-xl">
       <div className="text-center mr-2">
         <h3 className="md:mt-3 md:ml-80 text-[24px] font-semibold text-black lg:text-left lg:ml-1">
           Live - Counselling and Mentorship

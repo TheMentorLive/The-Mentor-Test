@@ -16,7 +16,7 @@ export default function Learn() {
   };
 
   return (
-    <div className="items-center flex justify-start mt-10 lg:-mt-3 p-4 lg:mr-[230px] lg:ml-[115px] ml-2">
+    <div className="items-center flex justify-start mt-10 lg:-mt-3 p-4 lg:mr-[230px] lg:ml-[75px] ml-2">
       <div className="items-start flex justify-start mr-2">
         <section className="mt-7 mb-10">
           <div className="text-left ml-4">

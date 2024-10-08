@@ -10,7 +10,7 @@ export default function Tseries() {
   };
 
   return (
-    <div className="items-center justify-center mt-10 lg:-mt-5 p-8 md:mr-40 lg:mr-[125px] lg:ml-[132px] md:ml-40 rounded-xl">
+    <div className="items-center justify-center mt-10 lg:-mt-5 p-8 md:mr-40 lg:mr-[125px] lg:ml-[64px] md:ml-40 rounded-xl">
       <div className="space-y-2">
         <h2 className="text-3xl font-bold">Explore Test Series</h2>
         <p className="text-muted-foreground">Browse our selection of testseries.</p>

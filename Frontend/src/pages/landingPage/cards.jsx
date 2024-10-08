@@ -7,14 +7,14 @@ export default function Cards() {
   ];
 
   return (
-    <div className="flex items-center justify-center px-4 sm:px-10 md:px-20 lg:px-[165px] -mb-24">
+    <div className="flex items-center justify-center px-4 sm:px-10 lg:-mr-10 lg:ml-14 -mb-24">
       <section className="container py-20">
         <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
           
           {/* Left Section */}
           <div className="flex flex-col items-center lg:items-start lg:w-1/2">
             {/* Text above the image */}
-            <div className="mb-5 text-center lg:text-left lg:-ml-8">
+            <div className="mb-5 text-center lg:text-left lg:-ml-16">
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">
                 The All-in-One <span className="text-blue-600">Edtech Platform</span>
                 <br />
@@ -22,7 +22,7 @@ export default function Cards() {
               </h1>
             </div>
             {/* Image */}
-            <div className="bg-gray-100 w-full h-64 -ml-7 flex items-center justify-center">
+            <div className="bg-gray-100 w-full h-64 -ml-16 flex items-center justify-center">
               <img
                 src="/mtp1.png"
                 alt="Mentor Training Program"
@@ -30,7 +30,7 @@ export default function Cards() {
               />
             </div>
             {/* Text below the image */}
-            <div className="mt-5 text-center lg:text-left lg:-ml-8">
+            <div className="mt-5 text-center lg:text-left lg:-ml-16">
               <h2 className="text-lg font-bold">Mentor Training Program</h2>
               <p className="text-gray-700 mb-4 text-sm">
                 Unlock essential skills in law, tech, marketing & finance for career success.
@@ -40,7 +40,7 @@ export default function Cards() {
           </div>
 
           {/* Right Section */}
-          <div className="lg:w-1/2 mt-2">
+          <div className="lg:w-5/12 -ml-16 mt-2">
             <p className="text-gray-700 mb-8 opacity-85 text-sm text-center lg:text-left">
               Explore our EdTech platform offering mentorship, upskilling courses, job opportunities, and a thriving community.
             </p>
