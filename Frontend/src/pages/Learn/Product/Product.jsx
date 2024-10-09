@@ -92,7 +92,7 @@ export const Product = () => {
       {/* <PlayCircleFilledRoundedIcon/> */}
       <div className="">
       <div className="bg-[#2563EB] min-h-[350px] p-10 flex items-center">
-  <div className="lg:ml-[100px] ">
+  <div className="lg:ml-[90px] ">
     <h1 className="text-white text-[37px] font-bold mb-7 mt-16">
       Learning Python for Data Analysis 
     </h1>

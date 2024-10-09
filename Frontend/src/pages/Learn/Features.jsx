@@ -1,6 +1,6 @@
 export default function Features() {
     return (
-      <section className="flex flex-col items-center mt-20  mx-auto space-y-8 ml-64 mr-64">
+      <section className="flex flex-col items-center mt-20  mx-auto space-y-8 ml-28 mr-36">
         <span className="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-gray-600 rounded-full">
           Features
         </span>
@@ -8,7 +8,7 @@ export default function Features() {
         <p className="text-lg text-center text-gray-500">
           Discover the key features that make our tests the best choice for your assessment needs.
         </p>
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-60 md:grid-cols-2">
           <div className="space-y-6">
             <div>
               <h3 className="text-xl font-semibold">Comprehensive Assessments</h3>
