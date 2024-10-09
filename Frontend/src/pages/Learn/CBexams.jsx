@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 export default function CompanyExams() {
   return (
-    <section className="py-4 mt-8 mb-4 flex items-center justify-center md:ml-[140px] lg:ml-[100px] lg:mr-[100px]">
+    <section className="py-4 mt-8 mb-4 flex items-center justify-center md:ml-[140px] lg:ml-[75px] lg:mr-[100px]">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-start items-start mb-6 gap-16">
+        <div className="flex flex-col md:flex-row justify-start items-start mb-6 gap-24">
           {/* Left Section (Title and Subtitle) */}
           <div className="flex flex-col w-full md:w-[300px] mt-12 lg:mt-7 md:mt-0">
             <h2 className="text-lg sm:text-xl font-bold">Company-based Tests</h2>
@@ -16,7 +16,7 @@ export default function CompanyExams() {
             </button>
           </div>
           {/* Right Section (Cards) */}
-          <div className="overflow-x-auto flex space-x-4 md:space-x-6 lg:space-x-8 w-full">
+          <div className="overflow-x-auto flex space-x-4 md:space-x-6 lg:space-x-9 w-full">
           {[
               {
                 title: "Amazon SDE",

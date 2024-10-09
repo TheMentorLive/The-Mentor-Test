@@ -54,7 +54,7 @@ export default function Hero() {
     };
     
     return (
-      <section className="flex flex-col-reverse md:flex-row gap-24 mb-20 items-center justify-center p-4 mt-10 md:mt-32 mx-4 md:mx-0">
+      <section className="flex flex-col-reverse md:flex-row gap-36 mb-20 items-center justify-center p-4 mt-10 md:mt-32 mx-4 md:mx-0">
         
         {/* Left Image Section */}
         <div className="relative w-full md:w-1/2 flex -ml-10 justify-center">

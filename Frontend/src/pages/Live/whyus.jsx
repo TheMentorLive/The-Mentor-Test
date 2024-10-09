@@ -1,6 +1,6 @@
 export default function Whyus() {
   return (
-    <section className="flex flex-col items-start mx-4 mt-24 mb-24 justify-center w-full max-w-7xl py-8 md:ml-40 md:mt-16 md:mb-16 md:flex-row md:items-center md:justify-between md:px-8">
+    <section className="flex flex-col items-start mx-4 mt-24 mb-24 justify-center w-full max-w-7xl py-8 md:ml-20 md:mt-16 md:mb-16 md:flex-row md:items-center md:justify-between md:px-20">
       <div className="mb-8 md:mb-0 md:w-1/2">
         <h1 className="text-3xl font-bold leading-tight text-black sm:text-4xl md:text-5xl">
           Ever Wondered Why<br /> Someone is Better <br />at Everything They <br />Do?

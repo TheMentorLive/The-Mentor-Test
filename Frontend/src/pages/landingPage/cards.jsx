@@ -7,9 +7,9 @@ export default function Cards() {
   ];
 
   return (
-    <div className="flex items-center justify-center px-4 sm:px-10 lg:-mr-10 lg:ml-14 -mb-24">
+    <div className="flex items-center justify-center px-4 sm:px-10 lg:-mr-10 lg:ml-10 -mb-24">
       <section className="container py-20">
-        <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
+        <div className="flex flex-col lg:flex-row gap-2 justify-center items-center">
           
           {/* Left Section */}
           <div className="flex flex-col items-center lg:items-start lg:w-1/2">
@@ -22,7 +22,7 @@ export default function Cards() {
               </h1>
             </div>
             {/* Image */}
-            <div className="bg-gray-100 w-full h-64 -ml-16 flex items-center justify-center">
+            <div className="bg-gray-100 w-full h-64 -ml-28 flex items-center justify-center">
               <img
                 src="/mtp1.png"
                 alt="Mentor Training Program"
