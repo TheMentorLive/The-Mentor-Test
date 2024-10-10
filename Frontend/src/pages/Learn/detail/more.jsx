@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function More() {
   return (
-    <div className="flex min-h-screen ml-[140px] mr-[570px] flex-col bg-background">
+    <div className="flex min-h-screen ml-[90px] mr-[570px] flex-col bg-background">
       <main className="container mx-auto my-8 flex-1 space-y-8 px-4 sm:px-6 md:px-8">
         <section>
           <div className="flex items-center justify-between">
