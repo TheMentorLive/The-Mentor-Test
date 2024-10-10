@@ -19,51 +19,38 @@ export const Product = () => {
   const cardRef = useRef(null);
   const [isSticky, setIsSticky] = useState(false);
   const [expandedSections, setExpandedSections] = useState({});
-  const [headerVisible, setHeaderVisible] = useState(true); // State to control header visibility
+  const [headerVisible, setHeaderVisible] = useState(true);
   const [headerHidden, setHeaderHidden] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0); // State to track last scroll position
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [offset, setOffset] = useState(0);
 
   const handleScroll = () => {
-    // Get the current scroll position
     const scrollY = window.scrollY;
 
-    // Update the offset to create an upward movement effect
     if (scrollY >= 40) {
-      setOffset(scrollY - 40); // The card starts to rise after 40px of scrolling
+      setOffset(scrollY - 40);
     }
 
-    
+    const currentScrollY = window.scrollY;
 
-    const currentScrollY = window.scrollY; // Get the current scroll position
-
-    // Check if the user scrolled down more than 20 pixels (approximately 2 cm)
     if (currentScrollY > lastScrollY + 10) {
-      setHeaderVisible(false); // Hide the header
+      setHeaderVisible(false);
     } else if (currentScrollY < lastScrollY - 20) {
-      setHeaderVisible(true); // Show the header
+      setHeaderVisible(true);
     }
 
-    // Update the last scroll position
     setLastScrollY(currentScrollY);
 
+    const DetailsScrollY = window.scrollY;
 
-
-     const DetailsScrollY = window.scrollY; // Get the current scroll position
-
-    // Check if the user scrolled down more than 20 pixels (approximately 2 cm)
     if (DetailsScrollY > lastScrollY + 10) {
-      setHeaderHidden(true); // Hide the header
+      setHeaderHidden(true);
     } else if (DetailsScrollY < lastScrollY - 20) {
-      setHeaderHidden(false); // Show the header
+      setHeaderHidden(false);
     }
 
-    // Update the last scroll position
     setLastScrollY(DetailsScrollY);
   };
-  
-
- 
 
   const toggleSection = (section) => {
     setExpandedSections((prev) => ({
@@ -77,72 +64,62 @@ export const Product = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY]); // Add lastScrollY as a dependency
+  }, [lastScrollY]);
 
   return (
     <div>
-     
-     
-     <Nav/>
+      <Nav />
       {headerVisible && <Header className="z-50" />}
-      
-      {/* Nav with a lower z-index */}
-      
-   
-      {/* <PlayCircleFilledRoundedIcon/> */}
+
+      {/* Main container */}
       <div className="">
-      <div className="bg-[#2563EB] min-h-[350px] p-10 flex items-center">
-  <div className="lg:ml-[90px] ">
-    <h1 className="text-white text-[37px] font-bold mb-7 mt-16">
-      Learning Python for Data Analysis 
-    </h1>
+        <div className="bg-[#2563EB] min-h-[350px] p-6 lg:p-10 flex items-center">
+          <div className="lg:ml-[90px]">
+            <h1 className="text-white text-[24px] lg:text-[37px] font-bold mb-4 lg:mb-7 mt-8 lg:mt-16">
+              Learning Python for Data Analysis
+            </h1>
+            <h3 className="white text-sm lg:text-base">
+              Learn python and how to use it to analyze, visualize and present
+              data. Includes tons of sample
+              <br className="hidden lg:block" /> code and hours of video!
+            </h3>
 
-    <h3 className="white">
-      Learn python and how to use it to analyze, visualize and present
-      data. Includes tons of sample <br/> code and hours of video!
-    </h3>
+            <div>
+              <span className="Ybox">Bestseller</span>
+              <span className="darkyellow flex items-center space-x-1">
+                4.3
+                <span className="flex space-x-1">
+                  <StarPurple500SharpIcon />
+                  <StarPurple500SharpIcon />
+                  <StarPurple500SharpIcon />
+                  <StarPurple500SharpIcon />
+                  <StarHalfSharpIcon />
+                </span>
+              </span>
+            </div>
 
-    <div>
-      <span className="Ybox">Bestseller</span>
-      <span className="darkyellow">
-        4.3
-        <span>
-          <StarPurple500SharpIcon />
-          <StarPurple500SharpIcon />
-          <StarPurple500SharpIcon />
-          <StarPurple500SharpIcon />
-          <StarHalfSharpIcon />
-        </span>
-      </span>
-    </div>
+            <div className="Bcreated">
+              <span className="white">Created by </span>
+              <span className="purpal underline">Jose Portilla</span>
+            </div>
 
-    <div className="Bcreated">
-      <span className="white">Created by </span>
-      <span className="purpal underline">Jose Portilla</span>
-    </div>
-
-    <div className="white BBbottom">
-      <span className="BBicons">
-        <ReportIcon />
-      </span>
-      <span className="BBbottomText">Last updated 9/2019</span>
-      <span className="BBicons">
-        <PublicTwoToneIcon />
-      </span>
-      <span className="BBbottomText">English</span>
-      <span className="BBicons"></span>
-    </div>
-  </div>
-
-  {/* Image section */}
-  
-</div>
-
-</div>
+            <div className="white BBbottom">
+              <span className="BBicons">
+                <ReportIcon />
+              </span>
+              <span className="BBbottomText">Last updated 9/2019</span>
+              <span className="BBicons">
+                <PublicTwoToneIcon />
+              </span>
+              <span className="BBbottomText">English</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
-      {/* ////////////////////////////-------fixBox---------------//////// */}
-      <div className=" lg:ml-[25px]">
+            {/* ////////////////////////////-------fixBox---------------//////// */}
+            <div className="hidden lg:flex lg:ml-[25px]">
   <div className="mt-[70px]">
     <div
       className="fixBox border w-[350px] border-blue-400 h-fit transition-transform duration-500" // Increased width slightly
@@ -209,68 +186,116 @@ export const Product = () => {
 </div>
 
 
-      {/* --------------------------------------------------------------- */}
-      <div className="lg:ml-[135px] lg:mt-[290px]">
-      <h2 className="-mt-[260px]  text-lg font-bold">Explore related topics</h2>
-            <div className="mt-2 flex flex-wrap gap-2">
-              <span className="bg-gray-200 px-2 py-1 rounded text-xs font-semibold text-gray-700">Web Development</span>
-              <span className="bg-gray-200 px-2 py-1 rounded text-xs font-semibold text-gray-700">Development</span>
-            </div>
 
-            <h2 className="mt-4 text-lg font-bold">What you'll learn</h2>
-            <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
-              <li>Build 16 web development projects for your portfolio, ready to apply for junior developer jobs.</li>
-              <li>Learn the latest technologies, including Javascript, React, Node, and even Web3 development.</li>
-              <li>After the course you will be able to build ANY website you want.</li>
-              <li>Build fully-fledged websites and web apps for your startup or business.</li>
-            </ul>
-      <br />
-      <br />
-      <br />
-      <br />
+      {/* Explore related topics */}
+      <div className="lg:ml-[135px] lg:mt-[290px] mt-[290px]">
+        <h2 className="-mt-[260px] text-lg font-bold lg:text-left text-center">
+          Explore related topics
+        </h2>
+        <div className="mt-2 flex flex-wrap gap-2 justify-center lg:justify-start">
+          <span className="bg-gray-200 px-2 py-1 rounded text-xs font-semibold text-gray-700">
+            Web Development
+          </span>
+          <span className="bg-gray-200 px-2 py-1 rounded text-xs font-semibold text-gray-700">
+            Development
+          </span>
+        </div>
+
+        <h2 className="mt-4 text-lg font-bold lg:text-left text-center">
+          What you'll learn
+        </h2>
+        <ul className="mt-2 space-y-1 text-sm text-muted-foreground lg:text-left text-center">
+          <li>
+            Build 16 web development projects for your portfolio, ready to apply
+            for junior developer jobs.
+          </li>
+          <li>
+            Learn the latest technologies, including Javascript, React, Node,
+            and even Web3 development.
+          </li>
+          <li>After the course you will be able to build ANY website you want.</li>
+          <li>
+            Build fully-fledged websites and web apps for your startup or
+            business.
+          </li>
+        </ul>
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
-      <div className="mb-4 -mt-16 ml-4 md:ml-8 lg:ml-[135px]">
-            <h2 className="text-2xl font-bold">Course content</h2>
-            <p className="text-sm text-muted-foreground">44 sections • 373 lectures • 61h 44m total length</p>
-          </div>
 
-          <div className="space-y-2 ml-4 md:ml-8 lg:ml-[135px] w-full lg:w-[800px]">
-            {/* Course sections */}
-            {[{ title: "Front-End Web Development", duration: "10 hours", modules: "5 modules" },
-            { title: "Introduction to HTML", duration: "5 hours", modules: "3 modules" },
-              // Add other sections here
-            ].map(({ title, duration, modules }) => (
-              <div key={title}>
-                <div className="flex items-center justify-between p-4 border rounded">
-                  <div className="flex items-center cursor-pointer" onClick={() => toggleSection(title)}>
-                    <span className={`mr-2 transition-transform duration-300 ${expandedSections[title] ? "rotate-90" : ""}`}>
-                      ➔ {/* Arrow icon */}
-                    </span>
-                    <h3>{title}</h3>
-                  </div>
-                  <div className="flex space-x-4">
-                    <a href="#" className="text-blue-600">Learn more</a>
-                    <a href="#" className="text-blue-600">Take test</a>
-                  </div>
-                </div>
-                <div
-                  className={`ml-4 mt-2 transition-all duration-300 ease-in-out overflow-hidden ${expandedSections[title] ? "max-h-40" : "max-h-0"
-                    }`}
+      {/* Course content */}
+      <div className="mb-4 -mt-16 ml-4 md:ml-8 lg:ml-[135px]">
+        <h2 className="text-2xl font-bold text-center lg:text-left">
+          Course content
+        </h2>
+        <p className="text-sm text-muted-foreground text-center lg:text-left">
+          44 sections • 373 lectures • 61h 44m total length
+        </p>
+      </div>
+
+      <div className="space-y-2 ml-4 md:ml-8 lg:ml-[135px] w-full lg:w-[800px]">
+        {/* Course sections */}
+        {[
+          {
+            title: "Front-End Web Development",
+            duration: "10 hours",
+            modules: "5 modules",
+          },
+          {
+            title: "Introduction to HTML",
+            duration: "5 hours",
+            modules: "3 modules",
+          },
+        ].map(({ title, duration, modules }) => (
+          <div key={title}>
+            <div className="flex items-center justify-between p-4 border rounded">
+              <div
+                className="flex items-center cursor-pointer"
+                onClick={() => toggleSection(title)}
+              >
+                <span
+                  className={`mr-2 transition-transform duration-300 ${
+                    expandedSections[title] ? "rotate-90" : ""
+                  }`}
                 >
-                  <div className="text-sm text-muted-foreground">
-                    <p><strong>Duration:</strong> {duration}</p>
-                    <p><strong>Modules:</strong> {modules}</p>
-                  </div>
-                </div>
+                  ➔ {/* Arrow icon */}
+                </span>
+                <h3>{title}</h3>
               </div>
-            ))}
-             <div className="flex justify-center mt-4" ref={cardRef}>
-            <button className="px-4 py-2 text-blue-600 border rounded">
-              34 more sections
-            </button>
+              <div className="flex space-x-4">
+                <a href="#" className="text-blue-600">
+                  Learn more
+                </a>
+                <a href="#" className="text-blue-600">
+                  Take test
+                </a>
+              </div>
+            </div>
+            <div
+              className={`ml-4 mt-2 transition-all duration-300 ease-in-out overflow-hidden ${
+                expandedSections[title] ? "max-h-40" : "max-h-0"
+              }`}
+            >
+              <div className="text-sm text-muted-foreground">
+                <p>
+                  <strong>Duration:</strong> {duration}
+                </p>
+                <p>
+                  <strong>Modules:</strong> {modules}
+                </p>
+              </div>
+            </div>
           </div>
-          </div>
-         <More/>
+        ))}
+        <div className="flex justify-center mt-4" ref={cardRef}>
+          <button className="px-4 py-2 text-blue-600 border rounded">
+            34 more sections
+          </button>
+        </div>
+      </div>
+      <More />
     </div>
   );
 };

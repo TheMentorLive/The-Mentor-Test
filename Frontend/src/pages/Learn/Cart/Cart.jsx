@@ -93,7 +93,7 @@ export const CartPage = () => {
                 <div className="flex justify-between items-center">
                   <p className="text-lg font-semibold">Total: </p>
                   <h1 className="text-2xl font-bold">
-                    <TotalPrice db={data} />
+                  ₹<TotalPrice db={data} />
                   </h1>
                 </div>
 
@@ -109,13 +109,7 @@ export const CartPage = () => {
                 </div>
 
                 <div className="mt-6">
-                  <h4 className="font-semibold">Promotions</h4>
-                  <div className="flex items-center mt-2 bg-white p-2 rounded-md shadow-sm">
-                    <CloseIcon className="text-gray-500" />
-                    <p className="ml-2 text-sm">
-                      <span className="font-bold">KEEPLEARNING </span>is applied
-                    </p>
-                  </div>
+                  
                   <div className="mt-4 flex">
                     <input
                       type="text"
@@ -133,21 +127,7 @@ export const CartPage = () => {
                   </div>
                 </div>
 
-                <div className="mt-6 text-sm">
-                  <p>Buy now, pay later for orders of $25 and over</p>
-                  <div className="flex mt-2">
-                    <img
-                      className="w-20 mr-2"
-                      src="https://www.udemy.com/staticx/udemy/images/v8/klarna-logo.svg"
-                      alt="klarna"
-                    />
-                    <img
-                      className="w-20"
-                      src="https://www.udemy.com/staticx/udemy/images/v8/afterpay-logo.svg"
-                      alt="after pay"
-                    />
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -217,7 +197,7 @@ const CartProdCard = ({ db, remove }) => {
           <li>33 lectures</li>
           <li>{level}</li>
         </ul>
-        <h4 className="mt-4 text-lg font-bold">${price || 0}</h4>
+        <h4 className="mt-4 text-lg font-bold">₹{price || 0}</h4>
       </div>
       <div className="ml-auto mt-4 md:mt-0">
         <button
