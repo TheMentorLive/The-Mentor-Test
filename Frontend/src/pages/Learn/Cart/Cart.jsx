@@ -1,12 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Dialog } from "@mui/material"; // For confirmation dialog
-import { CircularProgress, Rating, Snackbar } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
+import { Dialog, CircularProgress, Snackbar } from "@mui/material";
+import Rating from "@mui/material/Rating";
+import { useNavigate } from "react-router-dom";
 
-// Dummy data to replace backend API call
 const dummyData = [
   {
     productId: {
@@ -63,6 +59,37 @@ export const CartPage = () => {
     setNotification({ open: false, message: "" });
   };
 
+  // Razorpay Payment Integration
+  const handlePayment = async () => {
+    const totalAmount = data.reduce((acc, el) => acc + el.productId.price, 0);
+
+    const options = {
+      key: "rzp_test_UpMbeMfb2X5DTf", // Your Razorpay test key
+      amount: totalAmount * 100, // Amount in paisa
+      currency: "INR",
+      name: "Online Learning Platform",
+      description: "Test Transaction",
+      handler: (response) => {
+        // Handle success here (paymentId, orderId, signature)
+        console.log(response);
+        setNotification({ open: true, message: "Payment Successful!" });
+        // Navigate to success page or handle further logic
+        navigate("/success");
+      },
+      prefill: {
+        name: "John Doe",
+        email: "john.doe@example.com",
+        contact: "9999999999",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
+
   return (
     <>
       <h1 className="text-4xl font-bold text-center my-8">Shopping Cart</h1>
@@ -93,23 +120,20 @@ export const CartPage = () => {
                 <div className="flex justify-between items-center">
                   <p className="text-lg font-semibold">Total: </p>
                   <h1 className="text-2xl font-bold">
-                  ₹<TotalPrice db={data} />
+                    ₹<TotalPrice db={data} />
                   </h1>
                 </div>
 
                 <div className="mt-4">
-                  <Link to="/Payment">
                   <button
                     className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md"
-                    onClick={() => navigate("/payment")}
+                    onClick={handlePayment}
                   >
                     <h4>Checkout</h4>
                   </button>
-                  </Link>
                 </div>
 
                 <div className="mt-6">
-                  
                   <div className="mt-4 flex">
                     <input
                       type="text"
@@ -126,8 +150,6 @@ export const CartPage = () => {
                     </button>
                   </div>
                 </div>
-
-                
               </div>
             </div>
           </div>
@@ -173,39 +195,26 @@ export const CartPage = () => {
 };
 
 const CartProdCard = ({ db, remove }) => {
-  const { title, price, image, level, author, rating } = db;
+  const { title, price, image, author, level, rating } = db;
+
   return (
-    <div className="flex flex-col md:flex-row items-start md:items-center bg-white p-4 rounded-md shadow-md">
-      <div className="w-full md:w-1/4">
-        <img className="rounded-md" src={image} alt={title} />
-      </div>
-      <div className="md:ml-4 flex-1 mt-4 md:mt-0">
-        <h4 className="text-lg font-semibold">{title}</h4>
-        <p className="text-gray-600">{author}</p>
-        <div className="flex items-center space-x-2 mt-2">
-          <button className="bg-yellow-300 text-yellow-900 py-1 px-2 rounded-md">
-            Bestseller
-          </button>
-          <div className="flex items-center">
-            <span className="text-yellow-500 font-semibold">{rating || 4.5}</span>
-            <Rating name="read-only" size="small" precision={0.5} value={rating || 4.5} readOnly />
-            <span className="text-sm text-gray-500">(1200)</span>
+    <div className="p-4 bg-white border border-gray-300 rounded-md shadow-md">
+      <div className="flex gap-4">
+        <img src={image} alt={title} className="w-24 h-24 object-cover rounded-md" />
+        <div className="flex flex-col w-full">
+          <h3 className="text-lg font-semibold">{title}</h3>
+          <p className="text-sm text-gray-600">{author} - {level}</p>
+          <Rating value={rating} precision={0.5} readOnly size="small" />
+          <div className="flex justify-between items-center mt-2">
+            <p className="text-xl font-bold">₹{price}</p>
+            <button
+              className="bg-red-500 text-white rounded-md px-4 py-1 hover:bg-red-600"
+              onClick={remove}
+            >
+              Remove
+            </button>
           </div>
         </div>
-        <ul className="list-disc list-inside mt-2 text-sm text-gray-700">
-          <li>2.5 total hours</li>
-          <li>33 lectures</li>
-          <li>{level}</li>
-        </ul>
-        <h4 className="mt-4 text-lg font-bold">₹{price || 0}</h4>
-      </div>
-      <div className="ml-auto mt-4 md:mt-0">
-        <button
-          className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
-          onClick={remove}
-        >
-          Remove
-        </button>
       </div>
     </div>
   );
@@ -213,5 +222,5 @@ const CartProdCard = ({ db, remove }) => {
 
 const TotalPrice = ({ db }) => {
   const total = db.reduce((acc, el) => acc + el.productId.price, 0);
-  return <>{total}</>;
+  return total;
 };

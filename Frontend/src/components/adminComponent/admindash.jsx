@@ -1,155 +1,208 @@
 import React, { useState, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Sidebar, SidebarBody, SidebarLink } from "./components/ui/sidebar";
 import {
+  IconArrowLeft,
   IconLayoutDashboard,
+  IconSettings,
+  IconUserBolt,
   IconNotes,
   IconBook,
-  IconUserBolt,
-  IconReport,
+  IconFileText,
+  IconFileUpload,
 } from "@tabler/icons-react";
-import { ExitToAppTwoTone } from '@mui/icons-material';
-import { Sidebar as UISidebar, SidebarBody, SidebarLink } from "./components/ui/sidebar"; // Adjust to your structure
-import { UserIcon } from 'lucide-react'; 
-import { mainContext } from "../../context/mainContex"; // Adjust path to your context
-import { cn } from "./lib/utils"; // Adjust to your utility functions path
- // Adjust logo path as per your project structure
+import { cn } from "./lib/utils";
+import AdminHeader from "./AdminHeader";
+import GoogleDocsQuestionComponent from "../../pages/admin/Questions";
+import AddSubject from "../../pages/admin/AddSubject";
+import AdminSettingsPage from "../../pages/admin/Settings";
+import AddQuestionPage from "../../pages/admin/test/AddQuestions";
+import MainTestPage from "../../pages/admin/test/MainTest";
+import MockTestPage from "../../pages/admin/test/MockTest";
+import Users from "../../pages/list/UserList";
+import AdminLanding from "../../pages/admin/Admin-landing"; // Adjust import path as necessary
+import { mainContext } from "../../context/mainContex"; // Ensure this is correctly spelled and provided
 
-export default function Sidebar1() {
+// Import the new pages/components
+import AddCoursePage from "../../pages/admin/courses/AddCourses";
+import CourseListPage from "../../pages/admin/courses/CoursesList";
+
+export default function Admindash() {
   const [open, setOpen] = useState(false);
-  const { signOut } = useContext(mainContext);
-  const [selectedComponent, setSelectedComponent] = useState("Dashboard");
-  const name = JSON.parse(localStorage.getItem('user'));
-  const navigate = useNavigate();
+  const { signOut } = useContext(mainContext); // Ensure mainContext provides signOut
+  const [showTestDropdown, setShowTestDropdown] = useState(false);
+  const [showCoursesDropdown, setShowCoursesDropdown] = useState(false); // State for Courses dropdown
+  const [selectedComponent, setSelectedComponent] = useState("dashboard");
 
-  const handleLogout = () => {
-    signOut();
-    navigate('/');
+  const handleSignOut = () => {
+    signOut(); // Ensure this function is correctly defined in the context
+    window.location.href = "/"; // Redirect to the home page
+  };
+
+  const toggleTestDropdown = () => {
+    setShowTestDropdown((prev) => !prev);
+  };
+
+  const toggleCoursesDropdown = () => {
+    setShowCoursesDropdown((prev) => !prev); // Toggle Courses dropdown
+  };
+
+  const renderComponent = () => {
+    switch (selectedComponent) {
+      case "dashboard":
+        return <AdminLanding />;
+      case "Courses":
+        return <CourseListPage />; // Show Courses List page
+      case "Add-Courses":
+        return <AddCoursePage />; // Show Add Course page
+      case "Subject":
+        return <AddSubject />;
+      case "Test":
+        return <AddQuestionPage />;
+      case "Main-Test":
+        return <MainTestPage />;
+      case "Mock-Test":
+        return <MockTestPage />;
+      case "CSV Bulk":
+        return <GoogleDocsQuestionComponent />;
+      case "Users":
+        return <Users />;
+      case "Settings":
+        return <AdminSettingsPage />;
+      default:
+        return <AdminLanding />;
+    }
   };
 
   const links = [
     {
       label: "Dashboard",
-      icon: (
-        <IconLayoutDashboard
-          className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Dashboard" ? "text-neutral-200" : "text-neutral-700")}
-        />
-      ),
-      onClick: () => {
-        setSelectedComponent("Dashboard");
-        navigate("/user-dashboard");
-      },
+      href: "#",
+      icon: <IconLayoutDashboard className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "dashboard" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+      onClick: () => setSelectedComponent("dashboard"),
+    },
+    {
+      label: "Test",
+      href: "#",
+      icon: <IconNotes className={cn("h-7 w-7 flex-shrink-0", showTestDropdown ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+      isDropdown: true,
     },
     {
       label: "Courses",
-      icon: (
-        <IconNotes
-          className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Courses" ? "text-neutral-200" : "text-neutral-700")}
-        />
-      ),
-      onClick: () => {
-        setSelectedComponent("Courses");
-        navigate("/courses");
-      },
+      href: "#",
+      icon: <IconBook className={cn("h-7 w-7 flex-shrink-0", showCoursesDropdown ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+      isDropdown: true, // Dropdown for Courses
     },
     {
-      label: "Mock-test",
-      icon: (
-        <IconBook
-          className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Mock-test" ? "text-neutral-200" : "text-neutral-700")}
-        />
-      ),
-      onClick: () => {
-        setSelectedComponent("Mock-test");
-        navigate("/subjects");
-      },
+      label: "Users",
+      href: "#",
+      icon: <IconUserBolt className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Users" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+      onClick: () => setSelectedComponent("Users"),
     },
     {
-      label: "Mentors",
-      icon: (
-        <IconUserBolt
-          className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Mentors" ? "text-neutral-200" : "text-neutral-700")}
-        />
-      ),
-      onClick: () => {
-        setSelectedComponent("Mentors");
-        navigate("/mentors");
-      },
-    },
-    {
-      label: "Reports",
-      icon: (
-        <IconReport
-          className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Reports" ? "text-neutral-200" : "text-neutral-700")}
-        />
-      ),
-      onClick: () => {
-        setSelectedComponent("Reports");
-        navigate("/reports");
-      },
+      label: "Settings",
+      href: "#",
+      icon: <IconSettings className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Settings" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+      onClick: () => setSelectedComponent("Settings"),
     },
     {
       label: "Logout",
-      icon: (
-        <ExitToAppTwoTone className="h-7 w-7 flex-shrink-0 text-red-500 mt-[300px]" />
-      ),
-      onClick: handleLogout,
+      href: "#",
+      icon: <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-7 w-7 flex-shrink-0" />,
+      onClick: handleSignOut, // Corrected to call the function
     },
   ];
 
-  // Render the selected component based on the selected state
-  const renderComponent = () => {
-    switch (selectedComponent) {
-      case "Dashboard":
-        return <div>Dashboard Content</div>; // Replace with actual dashboard component
-      case "Courses":
-        return <div>Courses Content</div>; // Replace with actual courses component
-      case "Mock-test":
-        return <div>Mock-test Content</div>; // Replace with actual mock-test component
-      case "Mentors":
-        return <div>Mentors Content</div>; // Replace with actual mentors component
-      case "Reports":
-        return <div>Reports Content</div>; // Replace with actual reports component
-      default:
-        return null;
-    }
-  };
-
   return (
-    <div className="flex flex-col h-screen">
-      {/* Header */}
-      <div className="flex justify-between items-center px-4 py-2 bg-[#2563EB]">
-        <div className="flex items-center">
-          <Link to="/">
-            <img src="/logo.webp" alt="Logo" style={{ width: 100, height: 40 }} />
-          </Link>
-        </div>
-
-        <div className="flex items-center">
-          <UserIcon className="text-white w-6 h-6 cursor-pointer" />
-          <span className="text-white font-bold ml-2">Hello, {name?.name}</span>
-        </div>
-      </div>
-
-      {/* Sidebar and Content */}
-      <div className="flex flex-col md:flex-row bg-white w-full flex-1 mx-auto dark:border-neutral-700">
-        <UISidebar open={open} setOpen={setOpen}>
-          <SidebarBody className="justify-between min-h-lvh gap-10">
-            <div className="flex flex-col flex-1 overflow-y-auto">
-              {links.map((link, index) => (
+    <div>
+      <AdminHeader />
+      <div className="flex flex-col md:flex-row bg-white w-full flex-1 mx-auto dark:border-neutral-700 h-screen">
+        <Sidebar open={open} setOpen={setOpen}>
+          <SidebarBody className="justify-between gap-10">
+            <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+              <div className="mt-8 flex flex-col gap-2">
                 <SidebarLink
-                  key={index}
-                  link={{ label: link.label, icon: link.icon }}
-                  onClick={link.onClick}
+                  link={{
+                    label: "Admin",
+                    href: "#",
+                    icon: (
+                      <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXQdR8ASprCthAPu4yHGB8WDcpG5mhQVDCRxXFQ1rOfPI7Iy9n56IfF6GJU9Xrdz1CyrI&usqp=CAU"
+                        className="h-7 w-7 flex-shrink-0 rounded-full"
+                        alt="Avatar"
+                      />
+                    ),
+                  }}
                 />
-              ))}
+                {links.map((link, idx) => (
+                  <div key={idx}>
+                    <div onClick={link.isDropdown ? (link.label === "Test" ? toggleTestDropdown : toggleCoursesDropdown) : link.onClick}>
+                      <SidebarLink link={link} />
+                    </div>
+                    {link.isDropdown && link.label === "Test" && showTestDropdown && (
+                      <div className="ml-5 flex flex-col">
+                        <SidebarLink
+                          link={{
+                            label: "Subject",
+                            href: "#",
+                            icon: <IconBook className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Subject" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+                          }}
+                          onClick={() => setSelectedComponent("Subject")}
+                        />
+                        <SidebarLink
+                          link={{
+                            label: "Main-Test",
+                            href: "#",
+                            icon: <IconFileText className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Main-Test" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+                          }}
+                          onClick={() => setSelectedComponent("Main-Test")}
+                        />
+                        <SidebarLink
+                          link={{
+                            label: "Mock-Test",
+                            href: "#",
+                            icon: <IconFileText className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Mock-Test" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+                          }}
+                          onClick={() => setSelectedComponent("Mock-Test")}
+                        />
+                        <SidebarLink
+                          link={{
+                            label: "CSV Bulk",
+                            href: "#",
+                            icon: <IconFileUpload className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "CSV Bulk" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+                          }}
+                          onClick={() => setSelectedComponent("CSV Bulk")}
+                        />
+                      </div>
+                    )}
+                    {link.isDropdown && link.label === "Courses" && showCoursesDropdown && (
+                      <div className="ml-5 flex flex-col">
+                        <SidebarLink
+                          link={{
+                            label: "Courses List",
+                            href: "#",
+                            icon: <IconBook className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Courses" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+                          }}
+                          onClick={() => setSelectedComponent("Courses")}
+                        />
+                        <SidebarLink
+                          link={{
+                            label: "Add Courses",
+                            href: "#",
+                            icon: <IconFileText className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Add-Courses" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+                          }}
+                          onClick={() => setSelectedComponent("Add-Courses")}
+                        />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </SidebarBody>
-        </UISidebar>
+        </Sidebar>
 
-        {/* Main Content Area */}
         <main className="flex-1 bg-slate-50 py-4 px-10 overflow-auto h-full">
           <div className="py-6 max-w-7xl mx-auto w-full flex-1">
-            {/* Dynamically render the selected component */}
             <div>{renderComponent()}</div>
           </div>
         </main>
