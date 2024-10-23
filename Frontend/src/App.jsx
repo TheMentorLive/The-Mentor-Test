@@ -12,9 +12,10 @@ import Register from './pages/Register';
 import { mainContext } from './context/mainContex';
 import AdminFooter from './components/adminComponent/AdminFooter';
 import Header from './components/Header';
-// import Userdash from './pages/testing/login';
+
 import Login from './pages/EmailLogin';
-// import Sidebar1 from './pages/testing/Loginn';
+import TermsAndConditions from './components/TAC';
+
 import VideoSection from './pages/user/courses/main';
 import Admindash from './components/adminComponent/admindash';
 import Main from './pages/Live/Main';
@@ -22,7 +23,7 @@ import { CartPage } from './pages/Learn/Cart/Cart';
 import Payment from './pages/Learn/Payment/Payment';
 import Support from './pages/support';
 import LearnMain from './pages/Learn/Main';
-// import Item from './pages/Learn/detail/item';
+import ResultsPage from './pages/testing/login';
 import { Product } from './pages/Learn/Product/Product';
 import AuthCallback from './hooks/AuthCallback';
 import ResetPassword from './pages/ResetPassword';
@@ -58,15 +59,15 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/auth/callback" element={<AuthCallback/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/live" element={<Main />} />
-          {/* <Route path="/livee" element={<Userdash />} /> */}
+          <Route path="/livee" element={<ResultsPage/>} />
           <Route path="/learn" element={<LearnMain />} />
-          {/* <Route path="/livee" element={<Sidebar1 />} /> */}
           <Route path="/main" element={<VideoSection />} />
           <Route path="/Cartpg" element={<CartPage />} />
           <Route path="/Payment" element={<Payment />} />
           <Route path="/reset-password" element={<ResetPassword/>} />
           <Route path="/support" element={<Support/>} />
           <Route path="/details" element={<Product/>} />
+          <Route path="/tac" element={<TermsAndConditions />} />
           
 
           
