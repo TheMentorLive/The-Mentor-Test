@@ -1,139 +1,171 @@
-import React, { useState, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import {
-  IconLayoutDashboard,
-  IconNotes,
-  IconBook,
-  IconUserBolt,
-  IconReport,
-} from "@tabler/icons-react";
-import { ExitToAppTwoTone } from '@mui/icons-material';
-import { Sidebar as UISidebar, SidebarBody, SidebarLink } from "./components/ui/sidebar"; // Adjust to your structure
-import { UserIcon } from 'lucide-react'; 
-import { mainContext } from "../../context/mainContex"; // Adjust path to your context
-import { cn } from "./lib/utils"; // Adjust to your utility functions path
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function Sidebar() {
-  const [open, setOpen] = useState(false);
-  const { signOut } = useContext(mainContext);
-  const [selectedComponent, setSelectedComponent] = useState("Dashboard");
-  const name = JSON.parse(localStorage.getItem('user'));
+const ResultPage = () => {
+  const [showAnswers, setShowAnswers] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    signOut();
-    navigate('/');
+  const handleViewAnswers = () => {
+    setShowAnswers(!showAnswers);
   };
 
-  const links = [
-    {
-      label: "Dashboard",
-      icon: (
-        <IconLayoutDashboard
-          className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Dashboard" ? "text-neutral-200" : "text-neutral-700")}
-        />
-      ),
-      onClick: () => {
-        setSelectedComponent("Dashboard");
-        navigate("/user-dashboard");
-      },
-    },
-    {
-      label: "Courses",
-      icon: (
-        <IconNotes
-          className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Courses" ? "text-neutral-200" : "text-neutral-700")}
-        />
-      ),
-      onClick: () => {
-        setSelectedComponent("Courses");
-        navigate("/courses");
-      },
-    },
-    {
-      label: "Mock-test",
-      icon: (
-        <IconBook
-          className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Mock-test" ? "text-neutral-200" : "text-neutral-700")}
-        />
-      ),
-      onClick: () => {
-        setSelectedComponent("Mock-test");
-        navigate("/subjects");
-      },
-    },
-    {
-      label: "Mentors",
-      icon: (
-        <IconUserBolt
-          className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Mentors" ? "text-neutral-200" : "text-neutral-700")}
-        />
-      ),
-      onClick: () => {
-        setSelectedComponent("Mentors");
-        navigate("/mentors");
-      },
-    },
-    {
-      label: "Reports",
-      icon: (
-        <IconReport
-          className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Reports" ? "text-neutral-200" : "text-neutral-700")}
-        />
-      ),
-      onClick: () => {
-        setSelectedComponent("Reports");
-        navigate("/reports");
-      },
-    },
-    {
-      label: "Logout",
-      icon: (
-        <ExitToAppTwoTone className="h-7 w-7 flex-shrink-0 text-red-500 mt-[300px]" />
-      ),
-      onClick: handleLogout,
-    },
-  ];
+  const goToDashboard = () => {
+    navigate('/dashboard'); // Change '/dashboard' to your actual dashboard route
+  };
 
   return (
-    <div className="flex flex-col h-screen">
-      {/* Header */}
-      <div className="flex justify-between items-center px-4 py-2 bg-[#2563EB]">
-        <div className="flex items-center">
-          <Link to="/">
-            <img src="/logo.webp" alt="Logo" style={{ width: 100, height: 40 }} />
-          </Link>
+    <div className="min-h-screen bg-gray-900 text-white py-12 px-4">
+      <div className="max-w-4xl mx-auto space-y-8">
+        
+        {/* Result Overview */}
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg text-center">
+          <h2 className="text-3xl font-bold mb-4">Test Results</h2>
+          <p className="text-lg">Congratulations on completing the test! Here is your performance summary:</p>
         </div>
 
-        <div className="flex items-center">
-          <UserIcon className="text-white w-6 h-6 cursor-pointer" />
-          <span className="text-white font-bold ml-2">Hello, {name?.name}</span>
+        {/* Score Section */}
+        <div className="bg-gray-700 p-6 rounded-lg shadow-lg text-center space-y-4">
+          <h3 className="text-xl font-semibold">Your Score</h3>
+          <p className="text-4xl font-bold text-green-400">85%</p>
         </div>
-      </div>
 
-      {/* Sidebar and Content */}
-      <div className="flex flex-col md:flex-row bg-white w-full flex-1 mx-auto dark:border-neutral-700">
-        <UISidebar open={open} setOpen={setOpen}>
-          <SidebarBody className="justify-between min-h-lvh gap-10">
-            <div className="flex flex-col flex-1 overflow-y-auto">
-              {links.map((link, index) => (
-                <SidebarLink
-                  key={index}
-                  link={{ label: link.label, icon: link.icon }}
-                  onClick={link.onClick}
-                />
-              ))}
+        {/* Test Summary */}
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h3 className="text-xl font-bold mb-4">Test Summary</h3>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 bg-gray-700 rounded-lg text-center">
+              <p className="text-lg font-semibold">Total Questions</p>
+              <p className="text-2xl font-bold">50</p>
             </div>
-          </SidebarBody>
-        </UISidebar>
-
-        {/* Main Content Area */}
-        <main className="flex-1 bg-slate-50 py-4 px-10 overflow-auto h-full">
-          <div className="py-6 max-w-7xl mx-auto w-full flex-1">
-            {/* Content dynamically renders here based on selected component */}
+            <div className="p-4 bg-gray-700 rounded-lg text-center">
+              <p className="text-lg font-semibold">Correct Answers</p>
+              <p className="text-2xl font-bold text-green-400">42</p>
+            </div>
+            <div className="p-4 bg-gray-700 rounded-lg text-center">
+              <p className="text-lg font-semibold">Wrong Answers</p>
+              <p className="text-2xl font-bold text-red-400">8</p>
+            </div>
+            <div className="p-4 bg-gray-700 rounded-lg text-center">
+              <p className="text-lg font-semibold">Skipped Questions</p>
+              <p className="text-2xl font-bold text-yellow-400">0</p>
+            </div>
           </div>
-        </main>
+        </div>
+
+        {/* View Answers Section */}
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg text-center">
+          <button 
+            onClick={handleViewAnswers} 
+            className="px-6 py-3 bg-purple-500 text-white font-bold rounded-lg hover:bg-purple-600"
+          >
+            {showAnswers ? 'Hide Answers' : 'View Answers'}
+          </button>
+
+          {showAnswers && (
+            <div className="mt-6 space-y-4">
+              {/* Example Question and Answer */}
+              <div className="bg-gray-700 p-4 rounded-lg">
+                <h4 className="font-bold">Question 1:</h4>
+                <p>What is the capital of France?</p>
+                <p className="text-green-400">Your Answer: Paris (Correct)</p>
+              </div>
+              <div className="bg-gray-700 p-4 rounded-lg">
+                <h4 className="font-bold">Question 2:</h4>
+                <p>Which data structure uses FIFO?</p>
+                <p className="text-red-400">Your Answer: Stack (Incorrect)</p>
+                <p className="text-green-400">Correct Answer: Queue</p>
+              </div>
+              {/* Add more questions/answers dynamically */}
+            </div>
+          )}
+        </div>
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg space-y-6">
+  <h3 className="text-2xl font-bold text-white">Performance Analysis</h3>
+  <ul className="list-disc list-inside space-y-4 text-gray-300">
+
+    <li className="flex justify-between">
+      <span>Time Spent:</span>
+      <span className="font-semibold">20 minutes</span>
+    </li>
+
+    <li className="flex justify-between">
+      <span>Difficulty Level:</span>
+      <span className="font-semibold">Medium</span>
+    </li>
+
+    <li className="flex justify-between">
+      <span>Accuracy:</span>
+      <span className="font-semibold">84%</span>
+    </li>
+
+    <li className="flex justify-between">
+      <span>Total Questions:</span>
+      <span className="font-semibold">50</span>
+    </li>
+
+    <li className="flex justify-between">
+      <span>Answered Questions:</span>
+      <span className="font-semibold">50</span>
+    </li>
+
+    <li className="flex justify-between">
+      <span>Correct Answers:</span>
+      <span className="font-semibold text-green-400">42</span>
+    </li>
+
+    <li className="flex justify-between">
+      <span>Incorrect Answers:</span>
+      <span className="font-semibold text-red-400">8</span>
+    </li>
+
+    <li className="flex justify-between">
+      <span>Skipped Questions:</span>
+      <span className="font-semibold text-yellow-400">0</span>
+    </li>
+
+    <li className="flex justify-between">
+      <span>Average Time per Question:</span>
+      <span className="font-semibold">24 seconds</span>
+    </li>
+
+    
+
+
+  </ul>
+
+  <div className="flex justify-end mt-4">
+  </div>
+</div>
+
+
+
+        {/* Suggestions Section */}
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg text-center">
+          <h3 className="text-xl font-bold">What's Next?</h3>
+          <p>We recommend reviewing these areas to improve:</p>
+          <ul className="list-disc list-inside space-y-2">
+            <li>Data Structures</li>
+            <li>Algorithms</li>
+            <li>JavaScript Concepts</li>
+          </ul>
+          <div className='space-x-5'>
+          <button className="mt-4 px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600">
+            Take Another Test
+          </button>
+          <button 
+            onClick={goToDashboard} 
+            className="px-6 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600"
+          >
+            Go to Dashboard
+          </button>
+          </div>
+        </div>
+
+
+  
       </div>
     </div>
   );
-}
+};
+
+export default ResultPage;
