@@ -40,13 +40,10 @@ export default function Support() {
                             <div className="mt-4 text-left">
                                 <div className="mb-2 flex items-center">
                                     <Mail className="mr-2 text-gray-600" />
-                                    <a href="mailto:admin@thementor.live" className="hover:text-blue-500">
-                                        admin@thementor.live
+                                    <a href="mailto:support@genailearning.in" className="hover:text-blue-500">
+                                    support@genailearning.in
                                     </a>
-                                    <span className="mx-2">or</span>
-                                    <a href="mailto:livethementor@gmail.com" className="hover:text-blue-500">
-                                        livethementor@gmail.com
-                                    </a>
+                                    
                                 </div>
                                 <div className="mb-2 flex items-center">
                                     <BrandWhatsapp className="mr-2 text-green-600" />
@@ -80,7 +77,7 @@ export default function Support() {
                                         size="lg"
                                         placeholder="First Name"
                                         name="first-name"
-                                        className="focus:border-t-gray-900"
+                                        className="focus:border-t-gray-900 opacity-20"
                                         containerProps={{ className: "!min-w-full" }}
                                         labelProps={{ className: "hidden" }}
                                     />
@@ -94,7 +91,7 @@ export default function Support() {
                                         size="lg"
                                         placeholder="Last Name"
                                         name="last-name"
-                                        className="focus:border-t-gray-900"
+                                        className="focus:border-t-gray-900 opacity-20"
                                         containerProps={{ className: "!min-w-full" }}
                                         labelProps={{ className: "hidden" }}
                                     />
@@ -109,7 +106,7 @@ export default function Support() {
                                     size="lg"
                                     placeholder="name@email.com"
                                     name="email"
-                                    className="focus:border-t-gray-900"
+                                    className="focus:border-t-gray-900 opacity-20"
                                     containerProps={{ className: "!min-w-full" }}
                                     labelProps={{ className: "hidden" }}
                                 />
@@ -123,7 +120,7 @@ export default function Support() {
                                     color="gray"
                                     placeholder="Message"
                                     name="message"
-                                    className="focus:border-t-gray-900"
+                                    className="focus:border-t-gray-900 opacity-20"
                                     containerProps={{ className: "!min-w-full" }}
                                     labelProps={{ className: "hidden" }}
                                 />
