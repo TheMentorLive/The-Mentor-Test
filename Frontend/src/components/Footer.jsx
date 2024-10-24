@@ -26,8 +26,18 @@ const Footer = () => {
 
     // Footer sections
     { type: 'section', title: 'Support', items: ['Pricing', 'Documentation', 'Guides'] },
-    { type: 'section', title: 'Company', items: ['About Us', 'Blog', 'Jobs', 'Careers'] },
-    { type: 'section', title: 'Legal', items: ['Privacy Policy', <Link to="/tac" className="text-white hover:text-[#3d6ec3] transition-colors duration-200">Terms and Conditions</Link>, 'Refund and Returns Policy'] },
+
+
+    { type: 'section', title: 'Company', items: [
+      <Link to="/AboutUs" className="text-white hover:text-[#3d6ec3] transition-colors duration-200">About Us</Link>,
+      <Link to="/support" className="text-white hover:text-[#3d6ec3] transition-colors duration-200">Contact Us</Link>,
+      <Link to="/" className="text-white hover:text-[#3d6ec3] transition-colors duration-200">Blog</Link>] },
+
+
+    { type: 'section', title: 'Legal', items: [
+      <Link to="/PrivacyPolicy" className="text-white hover:text-[#3d6ec3] transition-colors duration-200">Privacy Policy</Link>, 
+      <Link to="/TaC" className="text-white hover:text-[#3d6ec3] transition-colors duration-200">Terms and Conditions</Link>, 
+      <Link to="/RefundPolicy" className="text-white hover:text-[#3d6ec3] transition-colors duration-200">Refund and Returns Policy</Link>] },
   ];
 
   // JSX structure of the footer
@@ -70,7 +80,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="text-center mt-5 text-sm">
-          © {new Date().getFullYear()} The Mentor. All rights reserved.
+          © {new Date().getFullYear()} GenAi Learning. All rights reserved.
         </div>
       </div>
     </footer>

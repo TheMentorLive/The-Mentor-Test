@@ -89,7 +89,7 @@ const TestResultsPage = () => {
                 <div className="flex items-center justify-center mb-6">
                   <img
                     src="/The-mentor-logo.png"
-                    alt="The Mentor"
+                    alt="GenAi Learning"
                     className="h-16 w-auto mx-auto"
                   />
                 </div>

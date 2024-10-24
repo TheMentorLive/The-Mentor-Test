@@ -15,6 +15,9 @@ import Header from './components/Header';
 
 import Login from './pages/EmailLogin';
 import TermsAndConditions from './components/TAC';
+import About from './components/AboutUs';
+import RefundPolicy from './components/RRP';
+import PrivacyPolicy from './components/PP';
 
 import VideoSection from './pages/user/courses/main';
 import Admindash from './components/adminComponent/admindash';
@@ -67,7 +70,12 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/reset-password" element={<ResetPassword/>} />
           <Route path="/support" element={<Support/>} />
           <Route path="/details" element={<Product/>} />
-          <Route path="/tac" element={<TermsAndConditions />} />
+          <Route path="/TaC" element={<TermsAndConditions />} />
+          <Route path="/AboutUs" element={<About />} />
+          <Route path="/RefundPolicy" element={<RefundPolicy />} />
+          <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+
+          
           
 
           
