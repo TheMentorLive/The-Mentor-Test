@@ -56,7 +56,7 @@ const user = JSON.parse(localStorage.getItem('user'))
         />
        
         <Routes>
-          {/* Route for admin section */}
+      
           {/* <Route path="/login" element={<Login/>} /> */}
           <Route path="/register" element={<Register/>} />
           <Route path="/auth/callback" element={<AuthCallback/>} />
