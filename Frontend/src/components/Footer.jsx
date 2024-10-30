@@ -42,8 +42,8 @@ const Footer = () => {
 
   // JSX structure of the footer
   return (
-    <footer className="bg-[#2952d6] py-10 px-5 text-white">
-      <div className="mr-10 ml-10">
+    <footer className="bg-[#2952d6] py-10 px-5  text-white">
+      <div className="mr-10 ml-10 ">
         <div className="container mx-auto flex flex-col md:flex-row md:justify-between md:ml-32 md:mr-32 lg:mx-0">
           {/* Left section with brand and social icons */}
           <div className="flex flex-col items-start mb-8 md:mb-0 md:ml-4 md:mr-6">
@@ -64,7 +64,7 @@ const Footer = () => {
           </div>
 
           {/* Right section with footer content organized in sections */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:mr-4 md:ml-2 lg:ml-0">
+          <div className="grid grid-cols-2 md:grid-cols-3  gap-8 md:mr-4 md:ml-2 lg:ml-0">
             {/* Mapping over sections and rendering content */}
             {items.filter(item => item.type === 'section').map((item, index) => (
               <div key={index} className="flex flex-col">

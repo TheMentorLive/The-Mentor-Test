@@ -109,7 +109,7 @@ const Sidebar = () => {
                   <ListItemText primary="Subject" />
                 </ListItem>
                 <ListItem button onClick={() => handleLinkClick("/admin/test/add-test")} sx={{ pl: 4 }} className="hover:bg-gray-700">
-                  <ListItemText primary="Test" />
+                  <ListItemText primary="Add-Test" />
                 </ListItem>
                 <ListItem button onClick={() => handleLinkClick("/admin/test/main-test")} sx={{ pl: 4 }} className="hover:bg-gray-700">
                   <ListItemText primary="Main-Test" />
