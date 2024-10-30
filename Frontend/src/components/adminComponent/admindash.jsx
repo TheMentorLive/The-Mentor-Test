@@ -26,7 +26,7 @@ import { mainContext } from "../../context/mainContex"; // Ensure this is correc
 import AddCoursePage from "../../pages/admin/courses/AddCourses";
 import CourseListPage from "../../pages/admin/courses/CoursesList";
 
-export default function Admindash() {
+export const Admindash=() =>{
   const [open, setOpen] = useState(false);
   const { signOut } = useContext(mainContext); // Ensure mainContext provides signOut
   const [showTestDropdown, setShowTestDropdown] = useState(false);
@@ -56,7 +56,7 @@ export default function Admindash() {
         return <AddCoursePage />; // Show Add Course page
       case "Subject":
         return <AddSubject />;
-      case "Test":
+      case "Add-Test":
         return <AddQuestionPage />;
       case "Main-Test":
         return <MainTestPage />;
@@ -155,6 +155,14 @@ export default function Admindash() {
                             icon: <IconFileText className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Main-Test" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
                           }}
                           onClick={() => setSelectedComponent("Main-Test")}
+                        />
+                         <SidebarLink
+                          link={{
+                            label: "Add-Test",
+                            href: "#",
+                            icon: <IconFileText className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Add-Test" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+                          }}
+                          onClick={() => setSelectedComponent("Add-Test")}
                         />
                         <SidebarLink
                           link={{
