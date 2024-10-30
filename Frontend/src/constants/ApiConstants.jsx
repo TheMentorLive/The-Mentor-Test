@@ -17,6 +17,10 @@ export const ADMINENDPOINTS = {
    DELETEMOCKTEST:`${API_BASE_URL}admin/deleteMockTest`,
    GETMOCKTESTDETAILS:`${API_BASE_URL}admin/getMockTestDetails`,
    GETMAINTEST : `${API_BASE_URL}admin/getMainTest`,
+   ADDCOURSE:`${API_BASE_URL}admin/addCourse`,
+   GETCOURSE:`${API_BASE_URL}admin/getCourse`,
+   DELETECOURSE:`${API_BASE_URL}admin/deleteCourse`,
+   UPDATECOURSE:`${API_BASE_URL}admin/updateCourse`,
  
 
  

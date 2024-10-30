@@ -1,3 +1,4 @@
+const Course = require("../model/Course");
 const SubjectModel = require("../model/SubjectModel");
 const Test = require("../model/Test");
 const UserModel = require("../model/UserModel");
@@ -302,6 +303,123 @@ const getMainTests =async(req,res)=>{
   }
 };
 
+const addCourse = async (req, res) => {
+  console.log(req.body);
+
+  try {
+    const {
+      title,
+      description,
+      category,
+      duration,
+      instructor,
+      startDate,
+      price,
+      image, // Assuming this is coming from file upload
+      level,
+      prerequisites,
+      imageUrl,
+      lessons,
+    } = req.body;
+
+    // Validate required fields
+    if (!title || !instructor || !startDate || !category || !duration || !price) {
+      return res.status(400).json({ success: false, message: 'Please fill all required fields.' });
+    }
+
+    // Validate startDate format
+    const parsedDate = new Date(startDate);
+    if (isNaN(parsedDate.getTime())) {
+      return res.status(400).json({ success: false, message: 'Invalid date format for startDate.' });
+    }
+
+    // Validate lessons structure
+    if (!Array.isArray(lessons) || lessons.some(lesson => !lesson.title || !lesson.content)) {
+      return res.status(400).json({ success: false, message: 'Lessons must be an array and contain title and content.' });
+    }
+
+    // Create new course instance
+    const newCourse = new Course({
+      title,
+      description,
+      category,
+      duration: Number(duration), // Ensure numeric
+      instructor,
+      startDate: parsedDate, // Store as Date object
+      price: Number(price), // Ensure numeric
+      image, // Adjust this if you're handling file uploads separately
+      level,
+      prerequisites: Array.isArray(prerequisites) ? prerequisites : [], // Ensure it's an array
+      imageUrl,
+      lessons: lessons.map(lesson => ({
+        title: lesson.title,
+        content: lesson.content,
+        videoUrl: lesson.videoUrl || '', // Default to empty string if not provided
+        duration: Number(lesson.duration) || 0, // Default to 0 if not provided
+      })),
+    });
+
+    // Save course to the database
+    await newCourse.save();
+    return res.status(201).json({ success: true, message: 'Course added successfully', course: newCourse });
+  } catch (error) {
+    console.error('Error saving course:', error);
+    return res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
+  }
+};
+
+module.exports = { addCourse };
+
+
+
+const getCourse=async(req,res)=>{
+  try {
+    const courses = await Course.find();
+    res.json(courses);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching courses" });
+  }
+}
+
+const deleteCourse = async (req, res) => {
+  const { id } = req.query; // Extract id from query parameters
+
+  if (!id) {
+    return res.status(400).json({ message: "Course ID is required." });
+  }
+
+  try {
+    const deletedCourse = await Course.findByIdAndDelete(id);
+    if (deletedCourse) {
+      res.json({ message: "Course deleted successfully." });
+    } else {
+      res.status(404).json({ message: "Course not found." });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting course." });
+  }
+};
+
+const updateCourse = async (req, res) => {
+  const { id } = req.params; // Extract id from URL parameters
+  const { title, duration, instructor,category,price,description } = req.body; // Extract updated data from request body
+
+  try {
+    const updatedCourse = await Course.findByIdAndUpdate(
+      id,
+      { title, duration, instructor ,category,price,description}, // Update only these fields
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedCourse) {
+      return res.status(404).json({ message: "Course not found." });
+    }
+
+    res.json(updatedCourse); // Send back the updated course
+  } catch (error) {
+    res.status(500).json({ message: "Error updating course." });
+  }
+};
 
 module.exports = {
   getUsers,
@@ -317,5 +435,10 @@ module.exports = {
   editMockTests,
   deleteMockTest,
   getMockDetails,
-  getMainTests
+  getMainTests,
+
+  addCourse,
+  getCourse,
+  deleteCourse,
+  updateCourse
 }

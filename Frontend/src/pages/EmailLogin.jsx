@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { API_BASE_URL } from '../constants/ApiConstants';
+import { mainContext } from '../context/mainContex';
 
 // Button component
 function Button({ variant = "default", size = "medium", children, ...props }) {
@@ -111,6 +112,7 @@ const LinkedinIcon = (props) => {
 
 // Login Component
 export default function Login() {
+  const{token,setToken}= useContext(mainContext)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -131,6 +133,7 @@ export default function Login() {
       console.log("datatatta", response.data); // Log response data to check its structure
 
       if (response.data) {
+        setToken(response.data.token)
         // Store token and user details in local storage
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user', JSON.stringify(response.data.user)); // Ensure user object exists

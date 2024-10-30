@@ -20,6 +20,11 @@ router.put("/editMockTest/:id",authMiddleware,AdminController.editMockTests)
 router.delete("/deleteMockTest/:id",authMiddleware,AdminController.deleteMockTest)
 router.get("/getMockTestDetails/:id",authMiddleware,AdminController.getMockDetails)
 
+router.post("/addCourse",authMiddleware,AdminController.addCourse)
+router.get("/getCourse",AdminController.getCourse)
+router.delete("/deleteCourse",AdminController.deleteCourse)
+router.put("/updateCourse/:id",AdminController.updateCourse)
+
 
 
 module.exports= router; 

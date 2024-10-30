@@ -9,6 +9,7 @@ const adminRoute = require("./routes/AdminRoute");
 const userRoute = require("./routes/UserRoute");
 const passport = require('passport');
 const session = require('express-session');
+const bodyParser = require("body-parser")
 
 const { errorHandler } = require("./middleware/errorhandlers");
 
@@ -30,6 +31,8 @@ app.use(
 
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use(express.json());
