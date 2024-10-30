@@ -148,6 +148,14 @@ export const Admindash=() =>{
                           }}
                           onClick={() => setSelectedComponent("Subject")}
                         />
+                         <SidebarLink
+                          link={{
+                            label: "Add-Test",
+                            href: "#",
+                            icon: <IconBook className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Test" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+                          }}
+                          onClick={() => setSelectedComponent("Test")}
+                        />
                         <SidebarLink
                           link={{
                             label: "Main-Test",

@@ -56,7 +56,7 @@ const user = JSON.parse(localStorage.getItem('user'))
         />
        
         <Routes>
-      
+          {/* Route for admin section */}
           {/* <Route path="/login" element={<Login/>} /> */}
           <Route path="/register" element={<Register/>} />
           <Route path="/auth/callback" element={<AuthCallback/>} />
@@ -97,8 +97,8 @@ const user = JSON.parse(localStorage.getItem('user'))
 function AdminLayout() {
   // For local development, we'll always assume the user is an admin.
   const localUser = JSON.parse(localStorage.getItem('user')) || {};
-  // const role =  localUser.role;
-  const role = process.env.NODE_ENV === 'development' ? 'admin' : localUser.role;
+  const role =  localUser.role;
+  // const role = process.env.NODE_ENV === 'development' ? 'admin' : localUser.role;
 
   return (
     <>
