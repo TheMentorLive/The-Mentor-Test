@@ -16,7 +16,7 @@ const ResultPage = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white py-12 px-4">
       <div className="max-w-4xl mx-auto space-y-8">
-        
+
         {/* Result Overview */}
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg text-center">
           <h2 className="text-3xl font-bold mb-4">Test Results</h2>
@@ -54,8 +54,8 @@ const ResultPage = () => {
 
         {/* View Answers Section */}
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg text-center">
-          <button 
-            onClick={handleViewAnswers} 
+          <button
+            onClick={handleViewAnswers}
             className="px-6 py-3 bg-purple-500 text-white font-bold rounded-lg hover:bg-purple-600"
           >
             {showAnswers ? 'Hide Answers' : 'View Answers'}
@@ -80,62 +80,62 @@ const ResultPage = () => {
           )}
         </div>
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg space-y-6">
-  <h3 className="text-2xl font-bold text-white">Performance Analysis</h3>
-  <ul className="list-disc list-inside space-y-4 text-gray-300">
+          <h3 className="text-2xl font-bold text-white">Performance Analysis</h3>
+          <ul className="list-disc list-inside space-y-4 text-gray-300">
 
-    <li className="flex justify-between">
-      <span>Time Spent:</span>
-      <span className="font-semibold">20 minutes</span>
-    </li>
+            <li className="flex justify-between">
+              <span>Time Spent:</span>
+              <span className="font-semibold">20 minutes</span>
+            </li>
 
-    <li className="flex justify-between">
-      <span>Difficulty Level:</span>
-      <span className="font-semibold">Medium</span>
-    </li>
+            <li className="flex justify-between">
+              <span>Difficulty Level:</span>
+              <span className="font-semibold">Medium</span>
+            </li>
 
-    <li className="flex justify-between">
-      <span>Accuracy:</span>
-      <span className="font-semibold">84%</span>
-    </li>
+            <li className="flex justify-between">
+              <span>Accuracy:</span>
+              <span className="font-semibold">84%</span>
+            </li>
 
-    <li className="flex justify-between">
-      <span>Total Questions:</span>
-      <span className="font-semibold">50</span>
-    </li>
+            <li className="flex justify-between">
+              <span>Total Questions:</span>
+              <span className="font-semibold">50</span>
+            </li>
 
-    <li className="flex justify-between">
-      <span>Answered Questions:</span>
-      <span className="font-semibold">50</span>
-    </li>
+            <li className="flex justify-between">
+              <span>Answered Questions:</span>
+              <span className="font-semibold">50</span>
+            </li>
 
-    <li className="flex justify-between">
-      <span>Correct Answers:</span>
-      <span className="font-semibold text-green-400">42</span>
-    </li>
+            <li className="flex justify-between">
+              <span>Correct Answers:</span>
+              <span className="font-semibold text-green-400">42</span>
+            </li>
 
-    <li className="flex justify-between">
-      <span>Incorrect Answers:</span>
-      <span className="font-semibold text-red-400">8</span>
-    </li>
+            <li className="flex justify-between">
+              <span>Incorrect Answers:</span>
+              <span className="font-semibold text-red-400">8</span>
+            </li>
 
-    <li className="flex justify-between">
-      <span>Skipped Questions:</span>
-      <span className="font-semibold text-yellow-400">0</span>
-    </li>
+            <li className="flex justify-between">
+              <span>Skipped Questions:</span>
+              <span className="font-semibold text-yellow-400">0</span>
+            </li>
 
-    <li className="flex justify-between">
-      <span>Average Time per Question:</span>
-      <span className="font-semibold">24 seconds</span>
-    </li>
-
-    
+            <li className="flex justify-between">
+              <span>Average Time per Question:</span>
+              <span className="font-semibold">24 seconds</span>
+            </li>
 
 
-  </ul>
 
-  <div className="flex justify-end mt-4">
-  </div>
-</div>
+
+          </ul>
+
+          <div className="flex justify-end mt-4">
+          </div>
+        </div>
 
 
 
@@ -149,20 +149,20 @@ const ResultPage = () => {
             <li>JavaScript Concepts</li>
           </ul>
           <div className='space-x-5'>
-          <button className="mt-4 px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600">
-            Take Another Test
-          </button>
-          <button 
-            onClick={goToDashboard} 
-            className="px-6 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600"
-          >
-            Go to Dashboard
-          </button>
+            <button className="mt-4 px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600">
+              Take Another Test
+            </button>
+            <button
+              onClick={goToDashboard}
+              className="px-6 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600"
+            >
+              Go to Dashboard
+            </button>
           </div>
         </div>
 
 
-  
+
       </div>
     </div>
   );
