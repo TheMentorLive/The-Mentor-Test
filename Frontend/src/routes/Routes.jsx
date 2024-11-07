@@ -6,7 +6,6 @@ import NotFound from '../pages/PageNotFound';
 import Header from '../components/Header';
 import ProfileComponent from '../pages/user/Profile';
 import Settings from '../pages/user/Settings';
-import SubjectComponent from '../pages/user/Subject';
 import Course from '../pages/user/courses/courses';
 import TestLandingPage from '../pages/user/test/TestLandingPage';
 import TestPage from '../pages/user/test/TestPage';
@@ -18,6 +17,7 @@ import UserDashboard from '../pages/user/Userdashboard';
 import Sidebar from '../components/userComponent/Sidebar-login';
 // import Sidebar from '../pages/testing/login';
 import Footer from '../components/Footer';
+import TestComponent from '../pages/user/Tests';
 
 const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -59,7 +59,7 @@ const AppRoutes = () => {
                     <Route path="/user-dashboard" element={<UserDashboard />} />
                     <Route path="/profile" element={<ProfileComponent />} />
                     <Route path="/settings" element={<Settings />} />
-                    <Route path="/subjects" element={<SubjectComponent />} />
+                    <Route path="/tests" element={<TestComponent />} />
                     <Route path="/courses" element={<Course />} />
                     <Route path="/start-test" element={<TestLandingPage />} />
                     <Route path="/test" element={<TestPage />} />
