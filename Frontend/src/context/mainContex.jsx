@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
+import { API_BASE_URL } from '../constants/ApiConstants';
 
 // Create a context to share token and user information
 export const mainContext = createContext();
@@ -12,7 +13,7 @@ export const MainProvider = ({ children }) => {
   const fetchUserDetails = async () => {
     if (!token) return; // Don't fetch if there is no token
     try {
-      const response = await axios.get('https://genai-backend-ten.vercel.app/api/auth/userDetails', {
+      const response = await axios.get(`${API_BASE_URL}auth/userDetails`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUser(response.data.user);
