@@ -64,7 +64,7 @@ const About = () => {
       <Header />
       <div className="font-sans">
         {/* Hero Section */}
-        <section className="relative bg-cover bg-center h-[72vh] bg-[url('./landing/about-hero.jpeg')]">
+        <section className="relative bg-cover bg-center h-[72vh] bg-[url(https://s3-alpha-sig.figma.com/img/be36/e5b2/1b4730e6f41aa331c0647d38efb22dd8?Expires=1732492800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=IPh9RL4dns8tfAia22zTBksikZqlRqInSyelLwbsdW8O54jow200Z5qIYCieX9GEHl88Vy-x5PmgQZlapfet3QJUJj9lpCHNS~oJ4D8f3wsjTo~zRGJnmdDW6Ym1hy2PLvMyTR1b89YD6jj8~7POpHIIsmgVpMfB38Ge5oS0slf7ZJKZt-VktCoFTLn6oSzmTMm1yvg6sHhNJNEa-u8j6TLykL3Ebr1oc5-JC4aWDDw-raDigfr4-HoEaGlqpjQUQOAXxNi-lZTlS9tDa6mMElIJI92uOScLcjFvT7tCcruHt34oXwkbAIWfKZGGwpM2sRLgrOvjXdc56p-O4p8b8g__')]">
           <div className="flex items-center justify-center h-full bg-black bg-opacity-50 px-4 md:px-8">
             <div className="flex flex-col md:flex-row items-center justify-between max-w-5xl w-full space-y-4">
               {/* Hero Content */}
