@@ -100,7 +100,7 @@ const Header = () => {
                         )}
                         {!isLoggedIn && (
                             <>
-                                <Link
+                                {/* <Link
                                     to="/login"
                                     className="flex items-center py-[6px] text-sm px-2 bg-white text-gray-900 hover:bg-gray-300 border-blue-500 border rounded-lg transition-colors duration-300"
                                 >
@@ -111,6 +111,14 @@ const Header = () => {
                                 </Link>
                                 <Link to="/register" className="py-[6px] text-sm px-3 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
                                     Sign Up
+                                </Link> */}
+
+                                <Link to="/register">
+                                <div className="flex items-center justify-end space-x-2">
+                                    <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                                        Log in / Sign up
+                                    </button>
+                                </div>
                                 </Link>
                             </>
                         )}
