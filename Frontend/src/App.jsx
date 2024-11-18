@@ -26,12 +26,7 @@ import { CartPage } from './pages/Learn/Cart/Cart';
 import Payment from './pages/Learn/Payment/Payment';
 import Support from './pages/support';
 import LearnMain from './pages/Learn/Main';
-<<<<<<< HEAD
 import TestMain from './pages/Test/Main';
-import Main from './pages/testing/homepg/main';
-=======
-// import Main from './pages/testing/homepg/main';
->>>>>>> 075fbb27581fe87ec7d48ae2933c5e37f620ae4d
 import { Product } from './pages/Learn/Product/Product';
 import AuthCallback from './hooks/AuthCallback';
 import ResetPassword from './pages/ResetPassword';
