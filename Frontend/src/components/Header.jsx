@@ -78,7 +78,7 @@ const Header = () => {
                         >
                             <span>Learn</span>
                         </Link>
-                        <Link to="/all-test" className={`flex text-[13px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/test' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}>
+                        <Link to="/Test" className={`flex text-[13px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/test' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}>
                             <span>Test</span>
                         </Link>
 
@@ -147,7 +147,7 @@ const Header = () => {
                             Learn
                         </Link>
 
-                        <Link to="/all-test" className={`block py-2 px-4 mb-2 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300 ${location.pathname === '/all-test' ? 'font-bold text-blue-600' : 'text-gray-900'}`}>
+                        <Link to="/Test" className={`block py-2 px-4 mb-2 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300 ${location.pathname === '/all-test' ? 'font-bold text-blue-600' : 'text-gray-900'}`}>
                             Test
                         </Link>
 

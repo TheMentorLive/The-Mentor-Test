@@ -26,6 +26,7 @@ import { CartPage } from './pages/Learn/Cart/Cart';
 import Payment from './pages/Learn/Payment/Payment';
 import Support from './pages/support';
 import LearnMain from './pages/Learn/Main';
+import TestMain from './pages/Test/Main';
 import Main from './pages/testing/homepg/main';
 import { Product } from './pages/Learn/Product/Product';
 import AuthCallback from './hooks/AuthCallback';
@@ -64,6 +65,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           {/* <Route path="/live" element={<Main />} /> */}
           <Route path="/livee" element={<Main/>} />
           <Route path="/learn" element={<LearnMain />} />
+          <Route path="/Test" element={<TestMain />} />
           <Route path="/main" element={<VideoSection />} />
           <Route path="/Cartpg" element={<CartPage />} />
           <Route path="/Payment" element={<Payment />} />
