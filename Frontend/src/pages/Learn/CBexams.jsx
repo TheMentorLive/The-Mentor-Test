@@ -4,6 +4,7 @@ export default function CompanyExams() {
   return (
     <section className="py-4 mt-8 mb-4 flex items-center justify-center md:ml-[140px] lg:ml-[75px] lg:mr-[100px]">
       <div className="container mx-auto px-4">
+      <h1 className="mt-8 mb-8 text-4xl font-bold text-center">Our Library Of Resources</h1>
         <div className="flex flex-col md:flex-row justify-start items-start mb-6 gap-24">
           {/* Left Section (Title and Subtitle) */}
           <div className="flex flex-col w-full md:w-[300px] mt-12 lg:mt-7 md:mt-0">
