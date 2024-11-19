@@ -2,7 +2,7 @@ import { Facebook, Github, Instagram, Twitter } from 'lucide-react';
 
 export default function Part5() {
   return (
-    <footer className="bg-white py-12 px-4 border-t">
+    <footer className="bg-white mt-20 px-4 border-t">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div className="space-y-4">
           <h2 className="text-4xl font-bold">Gen AI</h2>
