@@ -2,6 +2,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Landingpage from '../pages/landingPage/LandingPage';
+import HomepgMain from '../pages/testing/homepg/main';
 import NotFound from '../pages/PageNotFound';
 import Header from '../components/Header';
 import ProfileComponent from '../pages/user/Profile';
@@ -40,7 +41,7 @@ const AppRoutes = () => {
                 {/* Public Routes */}
                 {!isLoggedIn ? (
                   <>
-                    <Route path="/" element={<Landingpage />} />
+                    <Route path="/" element={<HomepgMain />} />
                     <Route path="/upcoming-test" element={<UpcomingTestsPage />} />
                     {/* Redirect logged-in users to /user-dashboard */}
                     <Route path="/user-dashboard" element={<Navigate to="/" />} />
