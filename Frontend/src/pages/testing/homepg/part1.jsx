@@ -55,7 +55,7 @@ function Part1() {
   return (
     <div className="App">
       {/* Hero Section */}
-      <main className="bg-gray-50  md:mr-32 md:ml-36 lg:ml-36 mb-20 lg:mr-32">
+      <main className="bg-gray-50  md:mr-32 md:ml-48 lg:ml-48 mb-20 lg:mr-32">
         <div className="mx-auto flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-8">
          {/* Left Section: Text */}
 <div className="text-center md:text-left md:w-1/2 space-y-4 px-4 sm:px-6 md:px-0">

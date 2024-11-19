@@ -71,7 +71,7 @@ const AppRoutes = () => {
                 {/* Catch-all for undefined routes */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
-              {!isFullScreenPage && !isLoggedIn && <Footer />}
+              {/* {!isFullScreenPage && !isLoggedIn && <Footer />} */}
             </main>
           </div>
         </>

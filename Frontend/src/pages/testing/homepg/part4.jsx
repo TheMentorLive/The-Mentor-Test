@@ -1,4 +1,4 @@
-import { Star } from 'lucide-react';
+import { Star } from "lucide-react";
 
 export default function Part4() {
   const testimonials = [
@@ -34,9 +34,12 @@ export default function Part4() {
         <h3 className="text-center text-3xl md:text-4xl font-bold mb-12">
           Don&apos;t just take our words
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="flex overflow-x-auto gap-8 md:grid md:grid-cols-3 md:gap-8 mb-12 scrollbar-hide">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white shadow rounded-lg p-6">
+            <div
+              key={index}
+              className="flex-none bg-white shadow rounded-lg p-6 w-80 md:w-auto"
+            >
               <div className="flex items-center mb-4">
                 <img
                   src={testimonial.image}
@@ -50,7 +53,10 @@ export default function Part4() {
               </div>
               <div className="flex mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-current text-yellow-400" />
+                  <Star
+                    key={i}
+                    className="w-4 h-4 fill-current text-yellow-400"
+                  />
                 ))}
               </div>
               <p className="text-sm">{testimonial.content}</p>
