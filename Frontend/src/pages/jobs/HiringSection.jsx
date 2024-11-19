@@ -2,10 +2,10 @@ import React from 'react';
 
 const HiringSection = () => {
   return (
-    <div className="min-h-screen bg-gray-50 px-4 md:px-16 py-12">
+    <div className="min-h-screen bg-gray-50 px-4 md:px-8 py-8">
       {/* Top Companies Hiring Now */}
-      <section className="mb-12">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
+      <section className="mb-8">
+        <h2 className="text-xl md:text-2xl font-semibold text-center mb-4">
           Top companies hiring now
         </h2>
         <div className="flex flex-wrap justify-center gap-4">
@@ -57,19 +57,17 @@ const HiringSection = () => {
           ].map((category, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow p-4 w-72 flex flex-col items-center"
+              className="bg-white rounded-lg shadow p-3 w-56 flex flex-col items-center"
             >
-              <h3 className="font-semibold text-lg text-gray-700">{category.title} &rarr;</h3>
-              <p className="text-sm text-gray-500 mb-4">
-                {category.count} are actively hiring
-              </p>
+              <h3 className="font-semibold text-md text-gray-700">{category.title} &rarr;</h3>
+              <p className="text-xs text-gray-500 mb-3">{category.count} are actively hiring</p>
               <div className="flex space-x-2">
                 {category.logos.map((logo, idx) => (
                   <img
                     key={idx}
                     src={logo}
                     alt={`${category.title} logo ${idx + 1}`}
-                    className="w-12 h-12 rounded-md bg-gray-200 object-contain"
+                    className="w-10 h-10 rounded-md bg-gray-200 object-contain"
                   />
                 ))}
               </div>
@@ -80,11 +78,11 @@ const HiringSection = () => {
 
       {/* Featured Companies */}
       <section>
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
+        <h2 className="text-xl md:text-2xl font-semibold text-center mb-4">
           Featured companies actively hiring
         </h2>
         {/* Filter Buttons */}
-        <div className="flex justify-center gap-4 mb-8">
+        <div className="flex justify-center gap-3 mb-6">
           {["All", "IT Services", "BFSI"].map((filter, idx) => (
             <button
               key={idx}
@@ -100,7 +98,7 @@ const HiringSection = () => {
         </div>
 
         {/* Company Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mx-2 py-16">
           {[
             {
               logo: "https://via.placeholder.com/80x80?text=Empower",
@@ -114,8 +112,7 @@ const HiringSection = () => {
               name: "Navi Technologies",
               rating: "4.0",
               reviews: "1.2K",
-              description:
-                "Fastest growing financial services companies in India.",
+              description: "Fastest growing financial services companies in India.",
             },
             {
               logo: "https://via.placeholder.com/80x80?text=SCB",
@@ -141,21 +138,19 @@ const HiringSection = () => {
           ].map((company, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow p-6 flex flex-col items-center text-center"
+              className="bg-white rounded-lg shadow p-2 flex flex-col items-center text-center"
             >
               <img
                 src={company.logo}
                 alt={company.name}
-                className="w-16 h-16 mb-4 rounded-full object-contain"
+                className="w-10 h-10 mb-2 rounded-full object-contain"
               />
-              <h3 className="font-semibold text-lg text-gray-700 mb-1">
-                {company.name}
-              </h3>
-              <p className="text-sm text-gray-500 mb-2">
+              <h3 className="font-semibold text-sm text-gray-700 mb-1">{company.name}</h3>
+              <p className="text-xs text-gray-500 mb-2">
                 ⭐ {company.rating} | {company.reviews} reviews
               </p>
-              <p className="text-sm text-gray-600 mb-4">{company.description}</p>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+              <p className="text-xs text-gray-600 mb-3">{company.description}</p>
+              <button className="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs hover:bg-blue-700 transition">
                 View jobs
               </button>
             </div>
@@ -163,7 +158,7 @@ const HiringSection = () => {
         </div>
 
         {/* View All Companies */}
-        <div className="flex justify-center mt-8">
+        <div className="flex justify-center mt-6">
           <button className="px-6 py-2 bg-white border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition">
             View all companies
           </button>
