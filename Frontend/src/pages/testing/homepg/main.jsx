@@ -10,7 +10,7 @@ import Header from '../../../components/Header';
 
 const HomepgMain = () => {
   return (
-    <div className="container mx-auto p-8">
+    <div className="">
       <Header/>
      <Part1/>
      <Cmpnycarousel/>
