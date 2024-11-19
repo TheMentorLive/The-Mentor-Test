@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { API_BASE_URL } from '../../constants/ApiConstants';
+
+import { API_BASE_URL } from '../../../constants/ApiConstants';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-export default function Hero() {
+export default function Part1() {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [name, setName] = useState(""); 
@@ -53,7 +53,7 @@ export default function Hero() {
       }
     };
   return (
-    <section className=" min-h-[400px] ml-40 ">
+    <section className=" min-h-[400px] ml-28 ">
       <div className="container px-4 py-12 grid lg:grid-cols-2 gap-8 items-center">
         <div className="space-y-6">
           <div className="text-black/80 text-sm">

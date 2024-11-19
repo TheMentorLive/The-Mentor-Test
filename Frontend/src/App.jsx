@@ -27,6 +27,8 @@ import Payment from './pages/Learn/Payment/Payment';
 import Support from './pages/support';
 import LearnMain from './pages/Learn/Main';
 import TestMain from './pages/Test/Main';
+import HomepgMain from './pages/testing/homepg/main';
+import TestdetailpgMain from './pages/testing/testdetailpg/main';
 import { Product } from './pages/Learn/Product/Product';
 import AuthCallback from './hooks/AuthCallback';
 import ResetPassword from './pages/ResetPassword';
@@ -62,7 +64,8 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/auth/callback" element={<AuthCallback/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/live" element={<Main />} />
-          {/* <Route path="/livee" element={<Main/>} /> */}
+          <Route path="/homee" element={<HomepgMain/>} />
+          <Route path="/testdetail" element={<TestdetailpgMain/>} />
           <Route path="/learn" element={<LearnMain />} />
           <Route path="/Test" element={<TestMain />} />
           <Route path="/main" element={<VideoSection />} />

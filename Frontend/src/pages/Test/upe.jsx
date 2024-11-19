@@ -5,10 +5,10 @@ export default function UPE() {
         {/* Why take Gen AI section */}
         <section className="w-full bg-blue-600 py-16 border rounded-lg ">
           <div className="container px-4 md:px-6">
-            <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+            <h2 className="text-center text-3xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl">
               Why take Gen AI Learning Test Series?
             </h2>
-            <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-12 grid gap-8 sm:grid-cols-2 text-white lg:grid-cols-3">
               {[...Array(3)].map((_, index) => (
                 <div key={index} className="flex flex-col items-center text-center">
                   <div className="mb-4 rounded-full bg-white p-3">
@@ -98,7 +98,7 @@ export default function UPE() {
           <p className="mx-auto mb-8 max-w-2xl text-gray-100">
             Lorem ipsum dolor sit amet consectetur. Sociis ut tortor enim ut pellentesque vulputate aliquet.
           </p>
-          <button variant="secondary" size="lg" className="font-semibold border p-4 border-black">
+          <button variant="secondary" size="lg" className="font-semibold border p-4 rounded-lg border-black text-blue-600 bg-white">
             Get Started
           </button>
         </div>

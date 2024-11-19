@@ -3,7 +3,7 @@ import { GraduationCap, Clock } from 'lucide-react';
 export default function Part2() {
   const courses = [
     {
-      title: "Digital Marketing - Beginner to Advanced",
+      title: "Digital Marketing",
       image: "/placeholder.svg",
       instructor: "Prof. Sachin Teli",
       duration: "1 hours 56 minutes",
