@@ -52,113 +52,115 @@ const Header = () => {
 
     return (
         <div className="items-center flex justify-center">
-            <header className="fixed top-0 left-0 w-full bg-white z-50 h-10 md:h-8 lg:h-0">
-                <TopHeader />
-                <div className="flex items-center justify-between py-1 px-3">
-                    {/* Desktop Logo */}
-                    <Link to="/" className="md:flex hidden lg:flex md:ml-[80px] lg:ml-[80px] mt-2">
-                        <img
-                            src="/logo.webp"
-                            alt="Logo"
-                            className="md:h-8 lg:h-10 -mt-1 w-auto transform transition duration-300 ease-in-out hover:scale-110"
-                        />
-                    </Link>
+            <header className="fixed top-0 left-0 w-full bg-white  z-50 ">
+                {/* Top Header */}
+                {/* <TopHeader /> */}
 
-                    {/* Desktop Navigation Links */}
-                    <nav className="hidden lg:flex justify-center gap-9 items-center">
-                        <Link
-                            to="/live"
-                            className={`flex text-[13px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/live' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
-                        >
-                            <span>Live</span>
-                        </Link>
-                        <Link
-                            to="/learn"
-                            className={`flex text-[13px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/learn' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}
-                        >
-                            <span>Learn</span>
-                        </Link>
-                        <Link to="/all-test" className={`flex text-[13px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/test' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}>
-                            <span>Test</span>
-                        </Link>
+                {/* Main Header */}
+                <div className="flex items-center justify-between px-4 py-2 sm:px-8 md:px-16 lg:px-24 lg:py-3">
+    {/* Logo */}
+    <Link to="/" className="flex items-center">
+        <img
+            src="/logo.webp"
+            alt="Logo"
+            className="h-8 w-auto transform transition duration-300 ease-in-out hover:scale-110"
+        />
+    </Link>
 
-                        <Link to="/jobs" className={`flex text-[13px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/jobs' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}>
-                            <span>Jobs</span>
-                        </Link>
+    {/* Desktop Navigation Links */}
+    <nav className="hidden lg:flex space-x-6">
+        {["Live", "Learn", "Tests", "Jobs", "About"].map((page) => (
+            <Link
+                key={page}
+                to={`/${page}`}
+                className={`text-sm font-medium py-1 px-3 rounded transition-colors duration-300 ${
+                    location.pathname === `/${page}`
+                        ? "font-bold text-blue-600"
+                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                }`}
+            >
+                {page.charAt(0).toUpperCase() + page.slice(1)}
+            </Link>
+        ))}
+    </nav>
 
-                        <Link to="/about" className={`flex text-[13px] items-center space-x-1 py-1 px-2 rounded transition-colors duration-300 ${location.pathname === '/about' ? 'font-bold text-blue-600' : 'text-gray-900 hover:text-blue-600 hover:bg-gray-100'}`}>
-                            <span>About Us</span>
-                        </Link>
-                    </nav>
+    {/* Desktop Buttons */}
+    <div className="hidden md:flex items-center space-x-3">
+        {location.pathname === "/learn" && (
+            <button onClick={toggleCart} className="relative">
+                <AiOutlineShoppingCart className="text-xl text-gray-700" />
+            </button>
+        )}
+        {!isLoggedIn ? (
+            <>
+                <Link
+                    to="/login"
+                    className="flex items-center text-sm px-4 py-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-100 transition"
+                >
+                    <FiUser className="mr-2" />
+                    Sign In
+                </Link>
+                <Link
+                    to="/register"
+                    className="text-sm px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                >
+                    Sign Up
+                </Link>
+            </>
+        ) : (
+            <DropdownMenu />
+        )}
+    </div>
 
-                    {/* Desktop Sign In / Cart */}
-                    <div className="hidden md:flex items-center space-x-2 md:mr-[80px] lg:mr-[80px]">
-                        {location.pathname === "/learn" && (
-                            <button onClick={toggleCart} className="relative mr-2">
-                                <AiOutlineShoppingCart className="text-lg text-gray-700" />
-                            </button>
-                        )}
-                        {!isLoggedIn && (
-                            <>
-                                <Link
-                                    to="/login"
-                                    className="flex items-center py-[6px] text-sm px-2 bg-white text-gray-900 hover:bg-gray-300 border-blue-500 border rounded-lg transition-colors duration-300"
-                                >
-                                    <span className="mr-1">
-                                        <FiUser />
-                                    </span>
-                                    <span>Sign In</span>
-                                </Link>
-                                <Link to="/register" className="py-[6px] text-sm px-3 bg-blue-600 text-white hover:bg-blue-800 rounded-lg transition-colors duration-300">
-                                    Sign Up
-                                </Link>
-                            </>
-                        )}
-                    </div>
-                </div>
+    {/* Mobile Menu Icon */}
+    <button
+        onClick={toggleMenu}
+        className="lg:hidden text-gray-700 text-2xl py-2 px-4"
+        aria-label="Toggle navigation menu"
+    >
+        <MenuIcon />
+    </button>
+</div>
 
-                {/* Mobile screen - Slide-out navigation menu */}
-                <div className="flex items-center justify-between -mt-2 px-3">
-                    <button
-                        onClick={toggleMenu}
-                        className="lg:hidden text-black mb-2 text-2xl mr-2"
-                        aria-label="Toggle navigation menu"
-                    >
-                        <MenuIcon className="h-5 w-5" />
-                    </button>
-
-                    {/* Mobile Logo */}
-                    <Link to="/" className="lg:hidden md:hidden flex items-center ml-2 space-x-2 py-2 text-black hover:bg-gray-200 transition-colors duration-300">
-                        <img src="/logo.webp" alt="Logo" className="h-[28px] w-auto" />
-                    </Link>
-                </div>
 
                 {/* Mobile Navigation Menu */}
-                <div className={`fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 transform ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out`}>
-                    <div className="flex flex-col py-3 px-3">
-                        <button onClick={toggleMenu} className="self-end text-black text-lg" aria-label="Close navigation menu">
+                <div
+                    className={`fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 transform ${
+                        isMenuOpen ? "translate-x-0" : "-translate-x-full"
+                    } transition-transform duration-300`}
+                >
+                    <div className="flex flex-col py-4 px-5">
+                        <button
+                            onClick={toggleMenu}
+                            className="self-end text-gray-700 text-2xl"
+                            aria-label="Close navigation menu"
+                        >
                             <FaTimes />
                         </button>
-
-                        <Link to="/Live" className={`block py-2 px-4 mb-2 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300 ${location.pathname === '/live' ? 'font-bold text-blue-600' : 'text-gray-900'}`}>
-                            Live
-                        </Link>
-                        <Link to="/learn" className={`block py-2 px-4 mb-2 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300 ${location.pathname === '/learn' ? 'font-bold text-blue-600' : 'text-gray-900'}`}>
-                            Learn
-                        </Link>
-
-                        <Link to="/all-test" className={`block py-2 px-4 mb-2 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300 ${location.pathname === '/all-test' ? 'font-bold text-blue-600' : 'text-gray-900'}`}>
-                            Test
-                        </Link>
-
-                        <Link to="/jobs" className={`block py-2 px-4 mb-2 font-semibold text-black hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300 ${location.pathname === '/jobs' ? 'font-bold text-blue-600' : 'text-gray-900'}`}>
-                            Jobs
-                        </Link>
-
-                        <Link to="/login" className="block py-2 px-4 font-semibold text-[#2563EB] hover:text-blue-600 hover:bg-gray-200 transition-colors duration-300">
+                        {["Live", "Learn", "Test", "Jobs", "About"].map((page) => (
+                            <Link
+                                key={page}
+                                to={`/${page}`}
+                                onClick={toggleMenu}
+                                className={`block py-2 px-4 mb-2 text-lg font-medium ${
+                                    location.pathname === `/${page}`
+                                        ? "text-blue-600 font-bold"
+                                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                                }`}
+                            >
+                                {page.charAt(0).toUpperCase() + page.slice(1)}
+                            </Link>
+                        ))}
+                        <Link
+                            to="/login"
+                            className="block py-2 px-4 text-lg text-blue-500 font-medium hover:bg-blue-100 transition"
+                        >
                             Sign In
                         </Link>
-                        <Link to="/register" className="block py-2 px-4 font-semibold text-white bg-blue-600 hover:bg-blue-800 rounded-md mt-2 transition-colors duration-300">
+                        <Link
+                            to="/register"
+                            className="block py-2 px-4 mt-2 text-lg bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700 transition"
+                        >
                             Sign Up
                         </Link>
                     </div>

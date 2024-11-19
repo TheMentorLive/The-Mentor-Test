@@ -63,130 +63,138 @@ const About = () => {
     <>
       <Header />
       <div className="font-sans">
-        {/* Hero Section */}
-        <section className="relative bg-cover bg-center h-[72vh] bg-[url(https://s3-alpha-sig.figma.com/img/be36/e5b2/1b4730e6f41aa331c0647d38efb22dd8?Expires=1732492800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=IPh9RL4dns8tfAia22zTBksikZqlRqInSyelLwbsdW8O54jow200Z5qIYCieX9GEHl88Vy-x5PmgQZlapfet3QJUJj9lpCHNS~oJ4D8f3wsjTo~zRGJnmdDW6Ym1hy2PLvMyTR1b89YD6jj8~7POpHIIsmgVpMfB38Ge5oS0slf7ZJKZt-VktCoFTLn6oSzmTMm1yvg6sHhNJNEa-u8j6TLykL3Ebr1oc5-JC4aWDDw-raDigfr4-HoEaGlqpjQUQOAXxNi-lZTlS9tDa6mMElIJI92uOScLcjFvT7tCcruHt34oXwkbAIWfKZGGwpM2sRLgrOvjXdc56p-O4p8b8g__')]">
-          <div className="flex items-center justify-center h-full bg-black bg-opacity-50 px-4 md:px-8">
-            <div className="flex flex-col md:flex-row items-center justify-between max-w-5xl w-full space-y-4">
-              {/* Hero Content */}
-              <div className="text-white md:w-1/2 mb-8 md:mb-0 md:pr-8 space-y-2">
-                <h1 className="text-[30px] sm:text-[32px] md:text-[40px] lg:text-[48px] xl:text-[48px]/none font-bold  tracking-tighter">
-                  Empowering Learning With AI-Driven Precision
-                </h1>
-                <div className="py-2">
+      <section className="relative flex flex-col md:flex-row items-center justify-center mt-10 md:mt-16 h-auto md:h-[72vh]">
+  {/* Background Image */}
+  <img
+    src="https://s3-alpha-sig.figma.com/img/be36/e5b2/1b4730e6f41aa331c0647d38efb22dd8?Expires=1732492800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=IPh9RL4dns8tfAia22zTBksikZqlRqInSyelLwbsdW8O54jow200Z5qIYCieX9GEHl88Vy-x5PmgQZlapfet3QJUJj9lpCHNS~oJ4D8f3wsjTo~zRGJnmdDW6Ym1hy2PLvMyTR1b89YD6jj8~7POpHIIsmgVpMfB38Ge5oS0slf7ZJKZt-VktCoFTLn6oSzmTMm1yvg6sHhNJNEa-u8j6TLykL3Ebr1oc5-JC4aWDDw-raDigfr4-HoEaGlqpjQUQOAXxNi-lZTlS9tDa6mMElIJI92uOScLcjFvT7tCcruHt34oXwkbAIWfKZGGwpM2sRLgrOvjXdc56p-O4p8b8g__"
+    alt="Hero Background"
+    className="absolute inset-0 w-full h-full object-cover z-0"
+  />
+  <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-               
-                <Link to="/register">
-                  <button
-                    type="submit"
-                    className="w-full max-w-[180px] bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 rounded"
-                  >
-                    Get Started
-                  </button>
-                </Link>
-                </div>
-              </div>
+  <div className="relative z-10 flex flex-col-reverse md:flex-row items-center justify-between max-w-6xl w-full space-y-8 md:space-y-0 md:space-x-8 px-4 md:px-8">
+    {/* Hero Content */}
+    <div className="text-white md:w-1/2 flex flex-col items-center md:items-start space-y-4">
+      <h1 className="text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] font-bold tracking-tight leading-tight text-center md:text-left">
+        Empowering Learning With AI-Driven Precision
+      </h1>
+      <div className="py-2">
+        <Link to="/register">
+          <button
+            type="button"
+            className="w-full max-w-[180px] bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 rounded"
+          >
+            Get Started
+          </button>
+        </Link>
+      </div>
+    </div>
 
-              {/* Form Section */}
-              <div className="flex flex-col items-center justify-center rounded-lg bg-white w-[55vh] space-y-4 shadow-md">
-                <div className="w-full max-w-md border border-blue-200 rounded-lg shadow-md">
-                  <div className="p-5">
-                    <h2 className="text-[20px] opacity-80 font-bold">Get In Touch</h2>
-                  </div>
-                  <form className="p-5 grid -mt-5 gap-4" onSubmit={handleSubmit}>
-                    <div className="grid gap-2">
-                      <label
-                        htmlFor="name"
-                        className="text-[13px] font-medium text-gray-700"
-                      >
-                        Name
-                      </label>
-                      <input
-                        id="name"
-                        type="text"
-                        placeholder="Enter your name"
-                        value={name}
-                        onChange={handleNameChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                        required
-                      />
-                    </div>
+    {/* Form Section */}
+    <div className="w-full max-w-md bg-white border border-blue-200 rounded-lg shadow-md p-6 space-y-4">
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-800 text-center">
+        Get In Touch
+      </h2>
+      <form className="grid gap-4" onSubmit={handleSubmit}>
+        {/* Name Field */}
+        <div className="grid gap-2">
+          <label
+            htmlFor="name"
+            className="text-sm font-medium text-gray-700"
+          >
+            Name
+          </label>
+          <input
+            id="name"
+            type="text"
+            placeholder="Enter your name"
+            value={name}
+            onChange={handleNameChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+        </div>
 
-                    <div className="grid gap-2">
-                      <label
-                        htmlFor="email"
-                        className="text-[13px] font-medium text-gray-700"
-                      >
-                        Email
-                      </label>
-                      <input
-                        id="email"
-                        type="email"
-                        placeholder="m@example.com"
-                        value={email}
-                        onChange={handleEmailChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                        required
-                      />
-                    </div>
+        {/* Email Field */}
+        <div className="grid gap-2">
+          <label
+            htmlFor="email"
+            className="text-sm font-medium text-gray-700"
+          >
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            placeholder="m@example.com"
+            value={email}
+            onChange={handleEmailChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+        </div>
 
-                    <div className="grid gap-2">
-                      <label
-                        htmlFor="phone"
-                        className="text-[13px] font-medium text-gray-700"
-                      >
-                        Phone Number
-                      </label>
-                      <input
-                        id="phone"
-                        type="tel"
-                        placeholder="Enter your phone number"
-                        value={phone}
-                        onChange={handlePhoneChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                        required
-                      />
-                    </div>
+        {/* Phone Number Field */}
+        <div className="grid gap-2">
+          <label
+            htmlFor="phone"
+            className="text-sm font-medium text-gray-700"
+          >
+            Phone Number
+          </label>
+          <input
+            id="phone"
+            type="tel"
+            placeholder="Enter your phone number"
+            value={phone}
+            onChange={handlePhoneChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+        </div>
 
-                    <div className="mt-4">
-                      <button
-                        type="submit"
-                        disabled={loading}
-                        className={`w-full bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                      >
-                        {loading ? (
-                          <span className="flex items-center justify-center">
-                            <svg
-                              className="animate-spin h-5 w-5 mr-3 text-white"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                            >
-                              <circle
-                                className="opacity-25"
-                                cx="12"
-                                cy="12"
-                                r="10"
-                                stroke="currentColor"
-                                strokeWidth="4"
-                              ></circle>
-                              <path
-                                className="opacity-75"
-                                fill="none"
-                                d="M4 12a8 8 0 018-8v2a6 6 0 00-6 6H4z"
-                              ></path>
-                            </svg>
-                            Loading...
-                          </span>
-                        ) : (
-                          'Send'
-                        )}
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Submit Button */}
+        <div>
+          <button
+            type="submit"
+            disabled={loading}
+            className={`w-full bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 rounded ${
+              loading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+          >
+            {loading ? (
+              <span className="flex items-center justify-center">
+                <svg
+                  className="animate-spin h-5 w-5 mr-3 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="none"
+                    d="M4 12a8 8 0 018-8v2a6 6 0 00-6 6H4z"
+                  ></path>
+                </svg>
+                Loading...
+              </span>
+            ) : (
+              'Send'
+            )}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
 
         <Cmpnycarousel />
 
@@ -349,16 +357,20 @@ const About = () => {
 
         {/* Awards Section */}
         <section className="py-16 text-center">
-          <h2 className="text-4xl font-bold mb-8">Our Awards</h2>
-          <div className="flex justify-center space-x-8">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <div key={index} className="text-center">
-                <div className="text-5xl mb-4">🏆</div>
-                <p className="text-gray-700">Award {index + 1}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+  <h2 className="text-3xl sm:text-4xl font-bold mb-8">Our Awards</h2>
+  <div className="flex flex-wrap justify-center gap-6 sm:gap-8">
+    {Array.from({ length: 5 }).map((_, index) => (
+      <div
+        key={index}
+        className="text-center w-1/2 sm:w-1/4 lg:w-1/5"
+      >
+        <div className="text-5xl mb-4">🏆</div>
+        <p className="text-gray-700 text-sm sm:text-base">Award {index + 1}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
 
         {/* Final Introduction Section */}
         <section className="py-16 px-4 md:px-8 text-center">
