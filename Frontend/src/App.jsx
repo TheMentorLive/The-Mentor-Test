@@ -31,6 +31,7 @@ import { Product } from './pages/Learn/Product/Product';
 import AuthCallback from './hooks/AuthCallback';
 import ResetPassword from './pages/ResetPassword';
 import JobsMain from './pages/jobs/Jobs-main';
+import TestMain from './pages/Test/Main';
 
 
 
@@ -71,8 +72,10 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/support" element={<Support/>} />
           <Route path="/details" element={<Product/>} />
           <Route path="/jobs" element={<JobsMain />} />
+          <Route path="/tests" element={<TestMain />} />
           <Route path="/TaC" element={<TermsAndConditions />} />
           <Route path="/about" element={<About />} />
+
           <Route path="/RefundPolicy" element={<RefundPolicy />} />
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
 
