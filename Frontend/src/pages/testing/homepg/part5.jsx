@@ -1,4 +1,4 @@
-import { Facebook, Github, Instagram, Twitter } from 'lucide-react';
+import { Facebook, Linkedin, Instagram, Twitter } from 'lucide-react';
 
 export default function Part5() {
   return (
@@ -31,7 +31,7 @@ export default function Part5() {
   <a href="#" className="text-gray-400 hover:text-gray-500">
     <span className="sr-only">GitHub</span>
     <div className="p-2 border rounded-full border-gray-400 hover:border-gray-500">
-      <Github size={24} />
+      <Linkedin size={24} />
     </div>
   </a>
 </div>
