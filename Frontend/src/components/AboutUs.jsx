@@ -75,14 +75,14 @@ const About = () => {
   <div className="relative z-10 flex flex-col-reverse md:flex-row items-center justify-between max-w-6xl w-full space-y-8 md:space-y-0 md:space-x-8 px-4 md:px-8">
     {/* Hero Content */}
     <div className="text-white md:w-1/2 flex flex-col items-center md:items-start space-y-4">
-      <h1 className="text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] p-8 font-bold tracking-tight leading-tight text-center md:text-left">
+      <h1 className="text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] p-2 font-bold tracking-tight leading-tight text-center md:text-left">
         Empowering Learning With AI-Driven Precision
       </h1>
       <div className="py-2">
         <Link to="/register">
           <button
             type="button"
-            className="w-full max-w-[180px] bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 rounded hidden md:block"
+            className="w-full max-w-[180px] bg-[#2563EB] hover:bg-blue-500 text-white font-medium py-2 px-4 p-2 rounded hidden md:block"
           >
             Get Started
           </button>

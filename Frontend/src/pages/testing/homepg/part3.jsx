@@ -38,8 +38,11 @@ export default function Part3() {
               className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 focus:outline-none border-b-2 transition-all"
             >
               {tab.label}
+              
             </button>
+            
           ))}
+          
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {examCategories.map((exam, index) => (
@@ -50,12 +53,15 @@ export default function Part3() {
               <span>{exam.name}</span>
               <ChevronRight className="text-gray-400" />
             </div>
+            
           ))}
-        </div>
-        <div className="text-right mt-4">
-          <a href="#" className="text-blue-600 hover:underline">
+          <a href="#" className="text-blue-600 ml-3 mt-3 hover:underline">
             Explore All Exams
           </a>
+        </div>
+        
+        <div className="text-right mt-4">
+          
         </div>
       </div>
       <div className="bg-blue-600 text-white p-8 rounded-lg shadow flex flex-col md:flex-row items-center">

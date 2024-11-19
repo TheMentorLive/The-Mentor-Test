@@ -30,6 +30,7 @@ import LearnMain from './pages/Learn/Main';
 import { Product } from './pages/Learn/Product/Product';
 import AuthCallback from './hooks/AuthCallback';
 import ResetPassword from './pages/ResetPassword';
+import JobsMain from './pages/jobs/Jobs-main';
 
 
 
@@ -70,6 +71,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/reset-password" element={<ResetPassword/>} />
           <Route path="/support" element={<Support/>} />
           <Route path="/details" element={<Product/>} />
+          <Route path="/jobs" element={<JobsMain />} />
           <Route path="/TaC" element={<TermsAndConditions />} />
           <Route path="/about" element={<About />} />
           <Route path="/RefundPolicy" element={<RefundPolicy />} />
