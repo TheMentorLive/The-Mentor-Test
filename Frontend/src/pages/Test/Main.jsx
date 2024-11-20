@@ -10,7 +10,7 @@ export default function TestMain() {
             <Header/>
             <div className="mt-20">
                 <Hero/>
-                <div className="mr-40 ml-40">
+                <div className="lg:mr-40 lg:ml-40">
                 <Searchsec/>
                 <UPE/>
                 </div>
