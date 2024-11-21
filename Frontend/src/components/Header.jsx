@@ -52,18 +52,18 @@ const Header = () => {
 
     return (
         <div className="items-center flex justify-center">
-           <header className="fixed top-0 left-0 w-full bg-white  z-50 rounded-b-lg border-b border-gray-200">
+           <header className="fixed top-0 left-0 w-full bg-white lg:h-[48px]  z-50  ">
     {/* Top Header */}
     {/* <TopHeader /> */}
 
     {/* Main Header */}
-    <div className="flex items-center justify-between px-4 py-2 sm:px-8 md:px-16 lg:px-24 lg:py-3">
+    <div className="flex items-center justify-between px-4 py-2 sm:px-8 md:px-16 lg:px-24 ">
         {/* Logo */}
-        <Link to="/" className="flex items-center">
+        <Link to="/" className="flex items-center -mt-2">
             <img
                 src="/logo.webp"
                 alt="Logo"
-                className="h-8 w-auto transform transition duration-300 ease-in-out hover:scale-110"
+                className="h-12 w-auto "
             />
         </Link>
 

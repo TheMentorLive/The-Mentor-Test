@@ -1,6 +1,7 @@
 'use client';
 import React, { useRef } from "react";
 
+
 import { useState } from "react";
 import { ChevronRight, Clock, FileText, Search } from 'lucide-react';
 
@@ -76,7 +77,7 @@ export default function Searchsec() {
   ];
 
   return (
-    <div className="  px-4 py-8">
+    <div className="  px-4 mt-9">
       <h1 className="text-center text-3xl font-bold mb-8">EXPLORE TEST SERIES</h1>
       
       <div className="relative max-w-xl mx-auto mb-12">
@@ -90,6 +91,8 @@ export default function Searchsec() {
         />
       </div>
 
+
+{/* 
       <h2 className="text-2xl font-semibold mb-6">Competitive Exams</h2>
       
       <div className="relative">
@@ -223,7 +226,7 @@ export default function Searchsec() {
         <div className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg">
           <ChevronRight className="w-6 h-6" />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
