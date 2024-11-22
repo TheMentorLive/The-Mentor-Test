@@ -15,7 +15,7 @@ import Header from './components/Header';
 
 import Login from './pages/EmailLogin';
 import TermsAndConditions from './components/TAC';
-import About from './components/AboutUs';
+import Aboutmain from './pages/About/Main';
 import RefundPolicy from './components/RRP';
 import PrivacyPolicy from './components/PP';
 
@@ -76,7 +76,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/jobs" element={<JobsMain />} />
           <Route path="/tests" element={<TestMain />} />
           <Route path="/TaC" element={<TermsAndConditions />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<Aboutmain />} />
 
           <Route path="/RefundPolicy" element={<RefundPolicy />} />
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />

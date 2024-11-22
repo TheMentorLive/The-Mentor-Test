@@ -72,7 +72,7 @@ export default function Part2() {
 
 
       <section>
-      <div className="w-full max-w-3xl mx-auto space-y-8 p-4">
+      <div className="w-full  mx-auto space-y-8 p-4">
       {/* Test Module Section */}
       <div className="rounded-lg border bg-gray-100">
         <h2 className="text-lg font-medium p-4">Test Module</h2>
