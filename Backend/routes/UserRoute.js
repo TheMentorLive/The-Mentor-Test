@@ -9,4 +9,10 @@ router.post("/submitTest",authMiddleware,UserController.SubmitTest)
 router.get("/results",authMiddleware,UserController.getResults);
 router.get("/history",authMiddleware,UserController.getHistory);
 
+
+//GUEST USER ROUTES
+
+router.get("/getGuestJobs",UserController.guestJobs);
+
+
 module.exports= router; 
