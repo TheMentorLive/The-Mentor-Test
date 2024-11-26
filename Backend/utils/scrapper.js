@@ -1,4 +1,4 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
 
 const scrapeJobDetails = async (url, selectors) => {
   // Use safer options for Puppeteer in production
