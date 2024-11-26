@@ -55,8 +55,8 @@ function Part1() {
   return (
     <div className="App">
       {/* Hero Section */}
-      <main className="bg-gray-50  md:mr-32 md:ml-48 lg:ml-48 mb-20 lg:mr-32">
-        <div className="mx-auto flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-8">
+      <main className="  mlg:ml-48 mb-20 lg:ml-28">
+      <div className="mx-auto flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-36"> {/* Changed from space-x-8 to space-x-12 */}
          {/* Left Section: Text */}
 <div className="text-center md:text-left md:w-1/2 space-y-4 px-4 sm:px-6 md:px-0">
   <p className="text-gray-500 text-sm sm:text-lg">One stop solution for all edtech needs</p>

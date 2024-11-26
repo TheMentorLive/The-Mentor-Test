@@ -15,7 +15,7 @@ import Header from './components/Header';
 
 import Login from './pages/EmailLogin';
 import TermsAndConditions from './components/TAC';
-import About from './components/AboutUs';
+import Aboutmain from './pages/About/Main';
 import RefundPolicy from './components/RRP';
 import PrivacyPolicy from './components/PP';
 
@@ -27,6 +27,7 @@ import Payment from './pages/Learn/Payment/Payment';
 import Support from './pages/support';
 import LearnMain from './pages/Learn/Main';
 import HomepgMain from './pages/testing/homepg/main';
+import TestdetailpgMain from './pages/testing/testdetailpg/main';
 import { Product } from './pages/Learn/Product/Product';
 import AuthCallback from './hooks/AuthCallback';
 import ResetPassword from './pages/ResetPassword';
@@ -64,6 +65,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/login" element={<Login/>} />
           <Route path="/live" element={<Main />} />
           <Route path="/HomepgMain" element={<HomepgMain/>} />
+          <Route path="/Testdetails" element={<TestdetailpgMain/>} />
           <Route path="/learn" element={<LearnMain />} />
           <Route path="/main" element={<VideoSection />} />
           <Route path="/Cartpg" element={<CartPage />} />
@@ -74,7 +76,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/jobs" element={<JobsMain />} />
           <Route path="/tests" element={<TestMain />} />
           <Route path="/TaC" element={<TermsAndConditions />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<Aboutmain />} />
 
           <Route path="/RefundPolicy" element={<RefundPolicy />} />
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />

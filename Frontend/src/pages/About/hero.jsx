@@ -55,10 +55,10 @@ export default function Hero() {
     
     return (
 
-      <section className="relative flex flex-col md:flex-row items-center justify-center  md:mt-11 h-auto md:h-[400px]">
+      <section className="relative flex flex-col md:flex-row items-center justify-center mb-10  md:mt-11 h-auto md:h-[400px]">
       {/* Background Image */}
       <img
-        src="./learn/hero.jpeg"
+        src="./test/test-hero.png"
         alt="Hero Background"
         className="absolute inset-0 w-full h-full object-cover z-0"
       />
@@ -66,13 +66,11 @@ export default function Hero() {
     
       <div className="relative z-10 flex flex-col-reverse md:flex-row items-center justify-between max-w-6xl w-full px-4 md:px-8 space-y-8 md:space-y-0 md:space-x-8">
         {/* Hero Content */}
-        <div className="text-white md:w-1/2 flex flex-col items-center md:items-start space-y-4">
+        <div className="text-white md:w-2/4 flex flex-col items-center md:items-start space-y-4">
           <h1 className="text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] p-2 font-bold tracking-tight leading-tight text-center md:text-left">
-            Learn Smarter, not Harder By using AI.
+          Empowering Learning with AI-Driven Precision
           </h1>
-          <p className="max-w-[550px] text-gray-400 text-center md:text-left p-2 text-sm md:text-base hidden md:block">
-            Take your knowledge to the next level with our comprehensive test series and expertly designed courses.
-          </p>
+          
           <div className="py-2">
             <Link to="/register">
               <button
@@ -85,7 +83,7 @@ export default function Hero() {
           </div>
         </div>
     
-        {/* Form Section */}
+           {/* Form Section */}
        {/* Form Section */}
 <div className="w-full max-w-xs bg-white border border-gray-200 rounded-lg shadow-md p-3 space-y-4">
   <h2 className="text-xl md:text-2xl font-bold text-gray-800 text-center">
@@ -184,7 +182,6 @@ export default function Hero() {
 
       </div>
     </section>
-    
-
+  
     );
 }

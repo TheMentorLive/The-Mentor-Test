@@ -32,28 +32,7 @@ export default function Part2() {
     <section className="w-full items-center justify-center mb-20 bg-white">
       <div className="container px-4 md:px-6">
       
-      <div className="mx-auto lg:mb-28 lg:mt-28 sm:px-8 flex flex-col lg:flex-row items-center lg:items-start space-y-12 lg:space-y-0 lg:ml-56 lg:space-x-16">
-  {/* Left Section: Text */}
-  <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6">
-    <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl">
-      The All-in-One Edtech<br />
-      Platform you've been <br />
-      Looking for!
-    </h2>
-  </div>
-
-  {/* Right Section: Icons */}
-  <div className="w-full lg:w-1/2 flex flex-row justify-center sm:justify-start space-x-8">
-    {["LEARN", "TEST", "JOB"].map((item) => (
-      <div key={item} className="flex flex-col items-center">
-        <div className="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center mb-2">
-          <GraduationCap className="w-8 h-8 text-white" />
-        </div>
-        <span className="text-sm font-medium">{item}</span>
-      </div>
-    ))}
-  </div>
-</div>
+      
 
 
 
