@@ -66,7 +66,7 @@ export default function Hero() {
     
       <div className="relative z-10 flex flex-col-reverse md:flex-row items-center justify-between max-w-6xl w-full px-4 md:px-8 space-y-8 md:space-y-0 md:space-x-8">
         {/* Hero Content */}
-        <div className="text-white md:w-1/2 flex flex-col items-center md:items-start space-y-4">
+        <div className="text-white flex flex-col items-center md:items-start space-y-4">
           <h1 className="text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] p-2 font-bold tracking-tight leading-tight text-center md:text-left">
           India's Structured Online Test series platform
           </h1>

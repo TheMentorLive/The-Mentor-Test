@@ -80,21 +80,20 @@ export default function Part3() {
         <div className="flex-1 mb-6 md:mb-0">
           <div className="flex items-center gap-3 mb-4">
             <GraduationCap size={32} />
-            <h2 className="text-2xl font-bold">Land Your Dream Job Today</h2>
+            <h2 className="text-2xl font-bold">Empower Your Learning Journey</h2>
           </div>
           <p className="mb-4">
-            Lorem ipsum dolor sit amet consectetur. Duis libero at suspendisse in commodo sit mauris platea. Massa felis mollis
-            morbi egestas. Venenatis quis.
+          The Mentor connects you with top-notch mentors who guide you in every step of your academic and professional growth. Unlock curated courses, personalized mentorship, and actionable insights to transform your career.  Your success story starts here.
           </p>
           <button className="px-4 py-2 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all">
             Learn More
           </button>
         </div>
-        <div className="flex-1 flex justify-center">
+        <div className="flex-1 lg:-mb-8 flex justify-center">
           <img
-            src="/placeholder.svg"
+            src="./landing/student.png"
             alt="Professional with laptop"
-            className="max-w-full h-auto"
+            className="max-w-full h-[270px]"
           />
         </div>
       </div>

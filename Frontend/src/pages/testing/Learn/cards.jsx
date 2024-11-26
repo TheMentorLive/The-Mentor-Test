@@ -6,29 +6,29 @@ const placeholder = "https://via.placeholder.com/150";
 export default function Cards() {
   const courses = [
     {
-      imageUrl: placeholder,
-      instructorImageUrl: placeholder,
+      imageUrl: "./courses/Image1.png",
+      instructorImageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ35KZR24ZOkDWpCvR1KzF6FdnLeUaul4u11aV48JS49WiLqaFUJ8b5Fw_N0tf81waZhpY&usqp=CAU",
       instructorName: 'Prof. Sachin Teli',
       title: 'Digital Marketing - Beginner to Advanced',
       duration: '1 hour 56 minutes',
     },
     {
-      imageUrl: placeholder,
-      instructorImageUrl: placeholder,
+      imageUrl: "./courses/Image2.png",
+      instructorImageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ35KZR24ZOkDWpCvR1KzF6FdnLeUaul4u11aV48JS49WiLqaFUJ8b5Fw_N0tf81waZhpY&usqp=CAU",
       instructorName: 'Prof. Sachin Teli',
       title: 'Chat GPT',
       duration: '30 minutes',
     },
     {
-      imageUrl: placeholder,
-      instructorImageUrl: placeholder,
+      imageUrl: "./courses/Image3.png",
+      instructorImageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ35KZR24ZOkDWpCvR1KzF6FdnLeUaul4u11aV48JS49WiLqaFUJ8b5Fw_N0tf81waZhpY&usqp=CAU",
       instructorName: 'Prof. Sachin Teli',
       title: 'Python Basics',
       duration: '3 hours 30 minutes',
     },
     {
-      imageUrl: placeholder,
-      instructorImageUrl: placeholder,
+      imageUrl: "./courses/Image4.png",
+      instructorImageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ35KZR24ZOkDWpCvR1KzF6FdnLeUaul4u11aV48JS49WiLqaFUJ8b5Fw_N0tf81waZhpY&usqp=CAU",
       instructorName: 'Prof. Sachin Teli',
       title: 'UI UX - Figma Advance',
       duration: '1 hour 56 minutes',
@@ -36,7 +36,7 @@ export default function Cards() {
   ];
 
   return (
-    <section className="py-12 bg-gray-50 sm:mr-4 sm:ml-4 md:mr-16 md:ml-16 lg:mr-36 lg:ml-36">
+    <section className="py-12 bg-gray-50 sm:mr-4 sm:ml-4 md:mr-16 md:ml-16 lg:mr-48 lg:ml-48">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-8">Our Library Of Resources</h2>
         

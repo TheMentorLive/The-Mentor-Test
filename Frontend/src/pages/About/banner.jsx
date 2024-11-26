@@ -1,42 +1,37 @@
 import { GraduationCap } from "lucide-react";
 
 export default function Banners() {
- 
-  
   const features = [
     {
-      title: "Comprehensive Test Coverage",
-      description: "Covers all topics with updated and relevant questions.",
+      title: "Orient ",
+      description: "Guiding school students toward clarity in academics and career choices with personalized mentorship and progress tracking.",
       Icon: GraduationCap,
     },
     {
-      title: "Expertly Curated Questions",
-      description: "Questions prepared by industry experts for effective learning.",
+      title: "Emerge",
+      description: "Empowering college students with industry insights, skill-building, and a smooth transition into the workforce.",
       Icon: GraduationCap,
     },
     {
-      title: "Track Your Progress",
-      description: "Analyze performance and improve with detailed insights.",
+      title: "Elevate",
+      description: " Helping professionals advance their careers with leadership training, work-life balance strategies, and expert guidance.",
       Icon: GraduationCap,
     },
   ];
 
-  
+  return (
+    <div className="mb-10">
+      {/* Why take Gen AI section */}
+      <section className="bg-blue-600 py-16 px-4 sm:px-8 lg:ml-28 lg:mr-28 rounded-lg mb-16">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl">
+            Our Programs:
 
-    return (
-      <div className="mb-10">
-        {/* Why take Gen AI section */}
-       
-  
-
-
-
-    <section className=" bg-blue-600 py-16 border ml-28 mr-28 rounded-lg mb-16">
-      <div className="  px-4 md:px-6">
-        <h2 className="text-center text-3xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl">
-        Values that define the learning <br/> Experience with Gen AI
-        </h2>
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 text-white lg:grid-cols-3">
+            <br />  Designed for Every Stage
+            Reply
+          </h2>
+        </div>
+        <div className="mt-12 grid gap-8 text-white sm:grid-cols-2 lg:grid-cols-3">
           {features.map(({ title, description, Icon }, index) => (
             <div key={index} className="flex flex-col items-center text-center">
               <div className="mb-4 rounded-full bg-white p-3">
@@ -47,15 +42,7 @@ export default function Banners() {
             </div>
           ))}
         </div>
-      </div>
-    </section>
-
-        
-   
-    
-
-  
-      </div>
-    );
-  }
-  
+      </section>
+    </div>
+  );
+}
