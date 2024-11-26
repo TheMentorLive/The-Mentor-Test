@@ -65,9 +65,11 @@ export default function Part4() {
         </div>
         <div className="bg-blue-600 text-white rounded-lg p-8 text-center">
           <h3 className="text-2xl md:text-3xl font-bold mb-6">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit
-          </h3>
-          <button className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition">
+          WHY THE MENTOR?<br/></h3>
+          <p>
+Personalized guidance, real-world skills, and expert mentorship—all in one place. Join a community that’s empowered thousands to achieve their dreams. Your success starts here!
+</p>
+          <button className="px-6 py-3 mt-5 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition">
             Get Started
           </button>
         </div>

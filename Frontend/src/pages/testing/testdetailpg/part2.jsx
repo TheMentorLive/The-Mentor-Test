@@ -8,7 +8,7 @@ export default function Part2() {
     }
   }
   return (
-    <div className="container mx-auto p-6">
+    <div className="mx-auto p-6 lg:ml-16 mr-16">
       <div className="grid gap-6 lg:grid-cols-[1fr_400px]">
         <div className="space-y-8">
           {/* About the Test Section */}
@@ -48,7 +48,7 @@ export default function Part2() {
         <div className="bg-white rounded-lg shadow-lg h-fit p-6">
           <div className="space-y-4">
             <img
-              src="/placeholder.svg?height=200&width=400"
+              src="./courses/Image4.png"
               width={400}
               height={200}
               alt="Hexagonal pattern"

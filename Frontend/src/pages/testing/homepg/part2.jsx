@@ -4,25 +4,25 @@ export default function Part2() {
   const courses = [
     {
       title: "Digital Marketing",
-      image: "/placeholder.svg",
+      image: "./courses/Image1.png",
       instructor: "Prof. Sachin Teli",
       duration: "1 hours 56 minutes",
     },
     {
       title: "Chat GPT",
-      image: "/placeholder.svg",
+      image: "./courses/Image2.png",
       instructor: "Prof. Sachin Teli",
       duration: "30 minutes",
     },
     {
       title: "Python Basics",
-      image: "/placeholder.svg",
+      image: "./courses/Image3.png",
       instructor: "Prof. Sachin Teli",
       duration: "3 hours 30 minutes",
     },
     {
       title: "UI UX - Figma Advance",
-      image: "/placeholder.svg",
+      image: "./courses/Image4.png",
       instructor: "Prof. Sachin Teli",
       duration: "1 hours 56 minutes",
     },
