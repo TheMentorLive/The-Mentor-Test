@@ -1,5 +1,6 @@
 const Test = require("../model/Test");
 const ResultModel = require('../model/ResultModel');
+const Jobs = require("../model/Jobs");
 
 
 const getTests= async (req, res) => {
@@ -181,12 +182,27 @@ const getHistory = async (req, res) => {
 
 
 
+const guestJobs = async (req, res) => {
+  try {
+    const jobs = await Jobs.find().sort({ createdAt: -1 });
+    res.json(jobs);
+  } catch (err) {
+    res.status(500).send('Error fetching jobs');
+  }
+}
+
+
+
+
 module.exports={
   getTests,
   getTestsLanding,
   getResults,
   SubmitTest,
   getHistory,
+
+  // scrapeJobs
+
+  guestJobs
  
-    
 }

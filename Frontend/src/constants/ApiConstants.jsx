@@ -26,6 +26,7 @@ export const ADMINENDPOINTS = {
    GETJOBS:`${API_BASE_URL}admin/getJobs`,
    GETAllJOBS:`${API_BASE_URL}admin/getAllJobs`,
  
+   
  
 
  
@@ -38,4 +39,9 @@ export const USERENDPOINTS = {
      SUBMITTEST: `${API_BASE_URL}user/submitTest`,
       GETCURRENTTESTRESULT: `${API_BASE_URL}user/results`,
         GETTESTHISTORY:`${API_BASE_URL}user/history `
+}
+
+export const GEUESTENDPOINTS = {
+  GETGUESTJOBS: `${API_BASE_URL}user/getGuestJobs`,
+ 
 }
