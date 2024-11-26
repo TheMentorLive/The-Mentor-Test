@@ -15,7 +15,7 @@ function JobsMain() {
 
         <div className="min-h-screen ">
   {/* Hero Section */}
-  <section className="relative bg-cover bg-center  flex items-center justify-center \">
+  <section className="relative bg-cover bg-center  flex items-center justify-center mt-24">
     <div className="absolute inset-0 "></div>
     <div className="relative z-5 text-black text-center max-h-10">
       <h1 className="text-4xl md:text-4xl font-bold">Explore Job Opportunities</h1>
@@ -53,89 +53,84 @@ function JobsMain() {
 
 
 {/* Job Listings Section */}
-<div className="py-8 px-4 md:px-16">
+<div className="py-8 px-4 md:px-16 lg:ml-24 lg:mr-24">
   {/* Page Title */}
   <div className="mb-8 text-center">
-    <h1 className="text-2xl font-bold text-gray-800">Job Opening</h1>
-    <p className="text-sm text-gray-600 opacity-70">Find your next opportunity from the latest job openings.</p>
+    <h1 className="text-3xl font-extrabold text-gray-900">Job Openings</h1>
+    <p className="text-sm text-gray-600 opacity-80">Find your next opportunity from the latest job openings.</p>
   </div>
 
-  <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-    {/* Tags Section */}
-    <div className="md:col-span-1">
-  <h2 className="text-sm font-semibold text-gray-800 opacity-80 mb-4">Tags</h2>
-  <div className="grid grid-cols-3 gap-2">
-    {['Job Openings', 'Remote Jobs', 'TechCorp Inc.', 'Full-Time', 'Frontend', 'Backend'].map((tag, index) => (
+  {/* Tags Section */}
+  <div className="mb-8">
+    <h2 className="text-lg font-semibold text-gray-800 mb-4">Explore Tags</h2>
+    <div className="flex flex-wrap gap-3">
+      {['Job Openings', 'Remote Jobs', 'TechCorp Inc.', 'Full-Time', 'Frontend', 'Backend'].map((tag, index) => (
+        <div
+          key={index}
+          className="py-1.5 px-4 bg-blue-100 text-sm rounded-full text-blue-700 font-medium hover:bg-blue-200 transition cursor-pointer"
+        >
+          {tag}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Job Listings Section */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {[...Array(6)].map((_, index) => (
       <div
         key={index}
-        className="py-1 px-2 bg-gray-100 text-xs rounded-md text-gray-700 hover:bg-gray-200 transition cursor-pointer text-center"
+        className="p-5 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 ease-in-out"
       >
-        {tag}
+        {/* Company Logo */}
+        <div className="flex items-center mb-4">
+          <img
+            src="https://via.placeholder.com/50"
+            alt="Company Logo"
+            className="w-12 h-12 rounded-full border border-gray-300"
+          />
+          <div className="ml-3">
+            <h2 className="text-lg font-semibold text-gray-800 hover:text-blue-600 transition duration-200">
+              Frontend Developer
+            </h2>
+            <p className="text-sm text-gray-500">TechCorp Inc.</p>
+          </div>
+        </div>
+
+        {/* Job Details */}
+        <div className="space-y-2 text-sm">
+          <p className="flex items-center text-gray-600">
+            <span className="font-medium text-gray-800 mr-1">Location:</span> Remote
+          </p>
+          <p className="flex items-center text-gray-600">
+            <span className="font-medium text-gray-800 mr-1">Salary:</span> $60k - $80k/year
+          </p>
+          <p className="flex items-center text-gray-600">
+            <span className="font-medium text-gray-800 mr-1">Experience:</span> 2-4 years
+          </p>
+          <p className="flex items-center text-gray-600">
+            <span className="font-medium text-gray-800 mr-1">Posted:</span> {index + 3} days ago
+          </p>
+        </div>
+
+        {/* View Details Button */}
+        <div className="mt-4">
+          <button className="w-full py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200">
+            View Details
+          </button>
+        </div>
       </div>
     ))}
   </div>
-</div>
 
-
-    {/* Job Listings Section */}
-    <div className="md:col-span-3">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[...Array(6)].map((_, index) => (
-          <div
-            key={index}
-            className="p-4 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 ease-in-out"
-          >
-            {/* Company Logo */}
-            <div className="flex items-center mb-3">
-              <img
-                src="https://via.placeholder.com/40"
-                alt="Company Logo"
-                className="w-10 h-10 rounded-full mr-3"
-              />
-              <div>
-                <h2 className="text-sm font-semibold text-gray-800 hover:text-blue-600 transition duration-200">
-                  Frontend Developer
-                </h2>
-                <p className="text-xs text-gray-500">TechCorp Inc.</p>
-              </div>
-            </div>
-
-          {/* Job Details */}
-<div className="mb-4">
-  <p className="text-xs text-gray-600">
-    <span className="font-medium">Location:</span> Remote
-  </p>
-  <p className="text-xs text-gray-600">
-    <span className="font-medium">Salary:</span> $60k - $80k/year
-  </p>
-  <p className="text-xs text-gray-600">
-    <span className="font-medium">Experience:</span> 2-4 years
-  </p>
-  <p className="text-xs text-gray-600">
-    <span className="font-medium">Posted:</span> {index + 3} days ago
-  </p>
-</div>
-
-
-            {/* View Details Button */}
-            <div className="flex justify-end">
-              <button className="px-2 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out">
-                View Details
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* View More Button */}
-      <div className="mt-6 flex justify-center">
-        <button className="px-4 py-2 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200">
-          View More
-        </button>
-      </div>
-    </div>
+  {/* View More Button */}
+  <div className="mt-10 flex justify-center">
+    <button className="px-6 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-200">
+      View More
+    </button>
   </div>
 </div>
+
 
 
 
