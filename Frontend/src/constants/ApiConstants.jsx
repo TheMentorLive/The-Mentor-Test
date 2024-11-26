@@ -21,6 +21,11 @@ export const ADMINENDPOINTS = {
    GETCOURSE:`${API_BASE_URL}admin/getCourse`,
    DELETECOURSE:`${API_BASE_URL}admin/deleteCourse`,
    UPDATECOURSE:`${API_BASE_URL}admin/updateCourse`,
+
+   ADDJOBS:`${API_BASE_URL}admin/addJobs`,
+   GETJOBS:`${API_BASE_URL}admin/getJobs`,
+   GETAllJOBS:`${API_BASE_URL}admin/getAllJobs`,
+ 
  
 
  

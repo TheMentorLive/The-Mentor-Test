@@ -26,5 +26,9 @@ router.delete("/deleteCourse",AdminController.deleteCourse)
 router.put("/updateCourse/:id",AdminController.updateCourse)
 
 
+router.post("/addJobs",authMiddleware,AdminController.addJobs)
+router.get("/getJobs",authMiddleware,AdminController.getJobs)
+router.get("/getAllJobs",authMiddleware,AdminController.getAllJobs)
+
 
 module.exports= router; 
