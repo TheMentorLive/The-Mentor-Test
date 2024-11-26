@@ -9,6 +9,7 @@ import {
   IconBook,
   IconFileText,
   IconFileUpload,
+  IconBriefcase,
 } from "@tabler/icons-react";
 import { cn } from "./lib/utils";
 import AdminHeader from "./AdminHeader";
@@ -25,12 +26,15 @@ import { mainContext } from "../../context/mainContex"; // Ensure this is correc
 // Import the new pages/components
 import AddCoursePage from "../../pages/admin/courses/AddCourses";
 import CourseListPage from "../../pages/admin/courses/CoursesList";
+import AddJob from "/src/pages/admin/jobs-admin/AddJobs";
+import AdminJobList from "/src/pages/admin/jobs-admin/JobsList";
 
-export const Admindash=() =>{
+export const Admindash = () => {
   const [open, setOpen] = useState(false);
   const { signOut } = useContext(mainContext); // Ensure mainContext provides signOut
   const [showTestDropdown, setShowTestDropdown] = useState(false);
   const [showCoursesDropdown, setShowCoursesDropdown] = useState(false); // State for Courses dropdown
+  const [showJobDropdown, setShowJobDropdown] = useState(false); // State for Courses dropdown
   const [selectedComponent, setSelectedComponent] = useState("dashboard");
 
   const handleSignOut = () => {
@@ -45,6 +49,11 @@ export const Admindash=() =>{
   const toggleCoursesDropdown = () => {
     setShowCoursesDropdown((prev) => !prev); // Toggle Courses dropdown
   };
+
+  const toggleJobDropdown = () => {
+    setShowJobDropdown((prev) => !prev); // Toggle Courses dropdown
+  };
+
 
   const renderComponent = () => {
     switch (selectedComponent) {
@@ -68,6 +77,10 @@ export const Admindash=() =>{
         return <Users />;
       case "Settings":
         return <AdminSettingsPage />;
+      case "Jobs":
+        return <AddJob />;
+        case "Jobslist":
+          return <AdminJobList />;
       default:
         return <AdminLanding />;
     }
@@ -92,6 +105,13 @@ export const Admindash=() =>{
       icon: <IconBook className={cn("h-7 w-7 flex-shrink-0", showCoursesDropdown ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
       isDropdown: true, // Dropdown for Courses
     },
+    {
+      label: "Jobs",
+      href: "#",
+      icon: <IconBriefcase className={cn("h-7 w-7 flex-shrink-0", showJobDropdown ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+      isDropdown: true, // Dropdown for Courses
+    },
+
     {
       label: "Users",
       href: "#",
@@ -135,7 +155,18 @@ export const Admindash=() =>{
                 />
                 {links.map((link, idx) => (
                   <div key={idx}>
-                    <div onClick={link.isDropdown ? (link.label === "Test" ? toggleTestDropdown : toggleCoursesDropdown) : link.onClick}>
+                    <div
+                      onClick={
+                        link.isDropdown
+                          ? (link.label === "Test"
+                            ? toggleTestDropdown
+                            : link.label === "Courses"
+                              ? toggleCoursesDropdown
+                              : toggleJobDropdown)
+                          : link.onClick
+                      }
+                    >
+
                       <SidebarLink link={link} />
                     </div>
                     {link.isDropdown && link.label === "Test" && showTestDropdown && (
@@ -156,7 +187,7 @@ export const Admindash=() =>{
                           }}
                           onClick={() => setSelectedComponent("Main-Test")}
                         />
-                         <SidebarLink
+                        <SidebarLink
                           link={{
                             label: "Add-Test",
                             href: "#",
@@ -199,6 +230,27 @@ export const Admindash=() =>{
                             icon: <IconFileText className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Add-Courses" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
                           }}
                           onClick={() => setSelectedComponent("Add-Courses")}
+                        />
+                      </div>
+                    )}
+
+                    {link.isDropdown && link.label === "Jobs" && showJobDropdown && (
+                      <div className="ml-5 flex flex-col">
+                        <SidebarLink
+                          link={{
+                            label: "Add Jobs",
+                            href: "#",
+                            icon: <IconBriefcase className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Jobs" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+                          }}
+                          onClick={() => setSelectedComponent("Jobs")}
+                        />
+                        <SidebarLink
+                          link={{
+                            label: "Jobs List",
+                            href: "#",
+                            icon: <IconFileText className={cn("h-7 w-7 flex-shrink-0", selectedComponent === "Jobslist" ? "text-black" : "text-neutral-700 dark:text-neutral-200")} />,
+                          }}
+                          onClick={() => setSelectedComponent("Jobslist")}
                         />
                       </div>
                     )}

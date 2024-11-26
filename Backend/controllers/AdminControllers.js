@@ -1,7 +1,10 @@
 const Course = require("../model/Course");
+const Jobs = require("../model/Jobs");
 const SubjectModel = require("../model/SubjectModel");
 const Test = require("../model/Test");
 const UserModel = require("../model/UserModel");
+const { scrapeJobDetails } = require("../utils/scrapper");
+const jobSelectors = require("../utils/selectors");
 
 
 const getUsers = async (req, res) => {
@@ -421,6 +424,69 @@ const updateCourse = async (req, res) => {
   }
 };
 
+const addJobs= async(req,res)=>{
+  console.log(req.body);
+    
+  const { url, siteKey } = req.body;
+
+  // Validate inputs
+  if (!url || !siteKey) {
+    return res.status(400).json({ error: "URL and site key are required." });
+  }
+
+  const selectors = jobSelectors[siteKey];
+  if (!selectors) {
+    return res.status(400).json({ error: "Invalid site key provided." });
+  }
+
+  try {
+    // Scrape job details using the provided URL and selectors
+    const scrapedData = await scrapeJobDetails(url, selectors);
+
+    // Include URL and siteKey in the job data
+    const jobData = {
+      ...scrapedData,
+      url,
+      siteKey,
+    };
+
+    // Save the job to the database
+    const job = new Jobs(jobData);
+    await job.save();
+
+    res.status(200).json({ message: "Job added successfully!", job });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to scrape and save job details." });
+  }
+};
+
+const getJobs = async (req, res) => {
+  try {
+    // Fetch the latest 2 jobs from DB, sorted by creation date (descending)
+    const jobs = await Jobs.find().sort({ createdAt: -1 }).limit(3);
+
+    // Send the jobs as the response
+    res.status(200).json({ jobs });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch jobs." });
+  }
+};
+
+const getAllJobs = async (req, res) => {
+  try {
+    // Fetch the latest 2 jobs from DB, sorted by creation date (descending)
+    const jobs = await Jobs.find().sort({ createdAt: -1 })
+
+    // Send the jobs as the response
+    res.status(200).json({ jobs });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch jobs." });
+  }
+};
+
+
+
 module.exports = {
   getUsers,
   getMessages,
@@ -440,5 +506,9 @@ module.exports = {
   addCourse,
   getCourse,
   deleteCourse,
-  updateCourse
+  updateCourse,
+
+  addJobs,
+  getJobs,
+  getAllJobs
 }
