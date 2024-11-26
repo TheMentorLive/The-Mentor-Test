@@ -1,15 +1,17 @@
 const chromium = require("chrome-aws-lambda");
 
 const scrapeJobDetails = async (url, selectors) => {
-  const browser = await chromium.puppeteer.launch({
-    executablePath: await chromium.executablePath, // Path to Chromium binary
-    headless: chromium.headless,
-    args: chromium.args, // Arguments for headless Chromium
-  });
-
-  const page = await browser.newPage();
-
+  let browser = null;
   try {
+    browser = await chromium.puppeteer.launch({
+      headless: chromium.headless,
+      executablePath: await chromium.executablePath, // Path to Chromium binary provided by chrome-aws-lambda
+      args: chromium.args, // Arguments for headless Chromium
+      defaultViewport: chromium.defaultViewport,
+    });
+
+    const page = await browser.newPage();
+
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     );
@@ -39,12 +41,14 @@ const scrapeJobDetails = async (url, selectors) => {
       };
     }, selectors);
 
-    await browser.close();
     return jobDetails;
   } catch (error) {
     console.error("Error scraping the page:", error);
-    await browser.close();
     throw error;
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
   }
 };
 
