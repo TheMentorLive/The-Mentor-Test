@@ -3,8 +3,9 @@ import { ChevronRight, Clock } from "lucide-react";
 export default function ExploreTests() {
   const tests = [
     {
+      
       id: 1,
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ35KZR24ZOkDWpCvR1KzF6FdnLeUaul4u11aV48JS49WiLqaFUJ8b5Fw_N0tf81waZhpY&usqp=CAU",
       title: "Lorem ipsum dolor sit",
       description: "Lorem ipsum dolor sit amet consectetur. Proin duis sed non eu.",
       questions: 30,
@@ -13,7 +14,7 @@ export default function ExploreTests() {
     },
     {
       id: 2,
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ35KZR24ZOkDWpCvR1KzF6FdnLeUaul4u11aV48JS49WiLqaFUJ8b5Fw_N0tf81waZhpY&usqp=CAU",
       title: "Lorem ipsum dolor sit",
       description: "Lorem ipsum dolor sit amet consectetur. Augue ut sed turpis.",
       questions: 30,
@@ -22,7 +23,7 @@ export default function ExploreTests() {
     },
     {
       id: 3,
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ35KZR24ZOkDWpCvR1KzF6FdnLeUaul4u11aV48JS49WiLqaFUJ8b5Fw_N0tf81waZhpY&usqp=CAU",
       title: "Lorem ipsum dolor sit",
       description: "Lorem ipsum dolor sit amet consectetur. Euismod duis nec est in.",
       questions: 30,
@@ -31,7 +32,7 @@ export default function ExploreTests() {
     },
     {
       id: 4,
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ35KZR24ZOkDWpCvR1KzF6FdnLeUaul4u11aV48JS49WiLqaFUJ8b5Fw_N0tf81waZhpY&usqp=CAU",
       title: "Lorem ipsum dolor sit",
       description: "Lorem ipsum dolor sit amet consectetur. Tempor gravida morbi.",
       questions: 30,

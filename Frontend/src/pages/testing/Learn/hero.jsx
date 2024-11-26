@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { API_BASE_URL } from "../../../constants/ApiConstants";
+import { API_BASE_URL } from '../../../constants/ApiConstants';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
@@ -55,7 +55,7 @@ export default function Hero() {
     
     return (
 
-      <section className="relative flex flex-col md:flex-row items-center justify-center mb-10  md:mt-11 h-auto md:h-[400px]">
+      <section className="relative flex flex-col md:flex-row items-center justify-center  md:mt-11 h-auto md:h-[400px]">
       {/* Background Image */}
       <img
         src="./test/test-hero.png"
@@ -66,13 +66,13 @@ export default function Hero() {
     
       <div className="relative z-10 flex flex-col-reverse md:flex-row items-center justify-between max-w-6xl w-full px-4 md:px-8 space-y-8 md:space-y-0 md:space-x-8">
         {/* Hero Content */}
-        <div className="text-white md:w-2/4 flex flex-col items-center md:items-start space-y-4">
-        <h1 className="text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] p-2 font-bold tracking-tight leading-tight text-center md:text-left">
-          UPSC CSE test 
+        <div className="text-white flex flex-col items-center md:items-start space-y-4">
+          <h1 className="text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] p-2 font-bold tracking-tight leading-tight text-center md:text-left">
+          India's Structured Online Test series platform
           </h1>
           <p className="max-w-[550px] text-gray-400 text-center md:text-left p-2 text-sm md:text-base hidden md:block">
-          Lorem ipsum dolor sit amet, consectetur          </p>
-          
+          Boost your exam preparation with Test Series for Banking, SSC, RRB & All other Govt. Exams
+          </p>
           <div className="py-2">
             <Link to="/register">
               <button

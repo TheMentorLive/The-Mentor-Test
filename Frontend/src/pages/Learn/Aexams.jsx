@@ -59,7 +59,7 @@ export default function Aexams() {
                   </div>
                 </div>
                 <div className="flex flex-row space-x-2 p-3 mt-auto">
-                  <Link to="/details">
+                <Link to="/Testdetails">
                     <button className="border border-gray-300 text-gray-700 py-1 px-2 rounded-md lg:text-[12px] md:text-[12px] text-[9px]">
                       Learn More
                     </button>

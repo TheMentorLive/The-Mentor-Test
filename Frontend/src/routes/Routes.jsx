@@ -50,7 +50,7 @@ const AppRoutes = () => {
                     
                     <Route path="/subjects" element={<Navigate to="/" />} />
                     <Route path="/start-test" element={<Navigate to="/" />} />
-                    {/* <Route path="/test" element={<Navigate to="/" />} /> */}
+                    <Route path="/test" element={<Navigate to="/" />} />
                     <Route path="/result" element={<Navigate to="/" />} />
                     <Route path="/test-history" element={<Navigate to="/" />} />
                   </>
