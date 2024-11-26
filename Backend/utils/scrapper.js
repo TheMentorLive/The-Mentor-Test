@@ -5,7 +5,7 @@ const scrapeJobDetails = async (url, selectors) => {
   try {
     browser = await chromium.puppeteer.launch({
       headless: chromium.headless,
-      executablePath: await chromium.executablePath, // Path to Chromium binary provided by chrome-aws-lambda
+      executablePath: await chromium.executablePath, // Path to the Chromium binary
       args: chromium.args, // Arguments for headless Chromium
       defaultViewport: chromium.defaultViewport,
     });
