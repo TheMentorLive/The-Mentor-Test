@@ -1,23 +1,26 @@
-const chromium = require("chrome-aws-lambda");
+const chromium = require("@sparticuz/chromium");
 
 const scrapeJobDetails = async (url, selectors) => {
   let browser = null;
-
   try {
+    // Launch the browser
     browser = await chromium.puppeteer.launch({
       executablePath: await chromium.executablePath,
       args: chromium.args,
       headless: chromium.headless,
-      defaultViewport: chromium.defaultViewport,
     });
 
     const page = await browser.newPage();
 
+    // Set the user agent to mimic a browser request
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     );
+
+    // Navigate to the URL
     await page.goto(url, { waitUntil: "networkidle2", timeout: 0 });
 
+    // Scrape the job details
     const jobDetails = await page.evaluate((selectors) => {
       const getText = (selector) =>
         document.querySelector(selector)?.innerText.trim() || "Not Available";
