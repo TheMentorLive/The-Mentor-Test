@@ -36,6 +36,7 @@
     "passport-google-oauth": "^2.0.0",
     "passport-linkedin-oauth2": "^2.0.0",
     "puppeteer": "^23.9.0",
+    "puppeteer-core": "^10.1.0",
     "twilio": "^5.2.2"
   }
 }
