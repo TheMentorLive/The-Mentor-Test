@@ -1,21 +1,20 @@
 const puppeteer = require('puppeteer-core');
-const chromium = require('@sparticuz/chromium'); // Or any other headless chromium solution
+const chromium = require('@sparticuz/chromium'); // Or chrome-aws-lambda for AWS Lambda
 
 const scrapeJobDetails = async (url, selectors) => {
   let browser = null;
   try {
-    // Ensure you get the correct executablePath (not launch())
-    browser = await puppeteer.connect({
-      browserWSEndpoint: await chromium.executablePath(),  // Connect using the executable path from @sparticuz/chromium
-      headless: chromium.headless,  // Headless mode configuration
+    // Launch Chromium using executablePath from @sparticuz/chromium
+    browser = await puppeteer.launch({
+      executablePath: await chromium.executablePath(), // Ensure this is the correct path for your environment
+      headless: chromium.headless, // Should be headless in cloud environments
+      args: chromium.args, // Pass the correct arguments for cloud environments
     });
 
     const page = await browser.newPage();
-    await page.setUserAgent(
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-    );
-
     await page.goto(url, { waitUntil: "networkidle2", timeout: 0 });
+
+    // Your scraping code remains the same
 
     const jobDetails = await page.evaluate((selectors) => {
       const getText = (selector) =>
