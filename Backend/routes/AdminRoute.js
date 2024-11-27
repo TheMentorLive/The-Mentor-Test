@@ -31,4 +31,8 @@ router.get("/getJobs",authMiddleware,AdminController.getJobs)
 router.get("/getAllJobs",authMiddleware,AdminController.getAllJobs)
 
 
+//fot test pthunderclient
+router.get("/scrapJobs",AdminController.scrapeJobs)
+
+
 module.exports= router; 

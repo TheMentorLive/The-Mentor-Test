@@ -485,6 +485,34 @@ const getAllJobs = async (req, res) => {
   }
 };
 
+//for testing thunderclient
+
+const scrapeJobs = async (req, res) => {
+  // const { url, siteKey } = req.body;
+
+  const url="https://www.naukri.com/job-listings-ble-sse-lead-quest-global-kochi-bengaluru-thiruvananthapuram-5-to-10-years-251124010682?src=gnbjobs_homepage_srch&sid=17326820684269598&xp=1&px=1"
+  const siteKey = "naukri"
+  if (!url || !siteKey) {
+    return res.status(400).json({ error: "URL and site key are required." });
+  }
+
+  const selectors = jobSelectors[siteKey];
+  console.log(selectors);
+  
+  if (!selectors) {
+    return res.status(400).json({ error: "Invalid site key provided." });
+  }
+
+  try {
+    const jobDetails = await scrapeJobDetails(url, selectors);
+    console.log(jobDetails);
+    
+    res.status(200).json(jobDetails);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to scrape job details." });
+  }
+};
+
 
 
 module.exports = {
@@ -510,5 +538,8 @@ module.exports = {
 
   addJobs,
   getJobs,
-  getAllJobs
+  getAllJobs,
+
+
+  scrapeJobs
 }
