@@ -2,13 +2,12 @@ const chromium = require("chrome-aws-lambda");
 
 const scrapeJobDetails = async (url, selectors) => {
   let browser = null;
-  try {
 
-    process.env.LD_LIBRARY_PATH = `${process.env.LD_LIBRARY_PATH || ""}:${__dirname}/lib`;
+  try {
     browser = await chromium.puppeteer.launch({
+      executablePath: await chromium.executablePath,
+      args: chromium.args,
       headless: chromium.headless,
-      executablePath: await chromium.executablePath, // Path to the Chromium binary
-      args: chromium.args, // Arguments for headless Chromium
       defaultViewport: chromium.defaultViewport,
     });
 

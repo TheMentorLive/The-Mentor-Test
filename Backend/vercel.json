@@ -15,7 +15,16 @@
         "src": "/(.*)",
         "dest": "/index.html",
         "headers":{"Access-Control-Allow-Origin":"*"}
+      },
+      {
+        "functions": {
+          "api/*.js": {
+            "runtime": "nodejs18.x",
+            "memory": 1024
+          }
+        }
       }
+      
     ]
   }
   
