@@ -1,23 +1,22 @@
-const chromium = require('@sparticuz/chromium');
+const puppeteer = require('puppeteer-core');
+const chromium = require('@sparticuz/chromium'); // Or any other headless chromium solution
 
 const scrapeJobDetails = async (url, selectors) => {
   let browser = null;
   try {
-    // Use pre-configured browser environment provided by the platform
-    browser = await chromium.puppeteer.connect({
-      browserWSEndpoint: await chromium.executablePath,  // Connect to existing WebSocket browser endpoint
-      headless: chromium.headless,
+    // Ensure you get the correct executablePath (not launch())
+    browser = await puppeteer.connect({
+      browserWSEndpoint: await chromium.executablePath(),  // Connect using the executable path from @sparticuz/chromium
+      headless: chromium.headless,  // Headless mode configuration
     });
 
-    const page = await browser.newPage();  // Open a new page instance
-
+    const page = await browser.newPage();
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     );
 
-    await page.goto(url, { waitUntil: "networkidle2", timeout: 0 });  // Wait for the page to load
+    await page.goto(url, { waitUntil: "networkidle2", timeout: 0 });
 
-    // Scrape job details based on provided selectors
     const jobDetails = await page.evaluate((selectors) => {
       const getText = (selector) =>
         document.querySelector(selector)?.innerText.trim() || "Not Available";
@@ -42,13 +41,13 @@ const scrapeJobDetails = async (url, selectors) => {
       };
     }, selectors);
 
-    return jobDetails;  // Return the scraped details
+    return jobDetails;
   } catch (error) {
-    console.error("Error scraping the page:", error);  // Log any errors
-    throw error;  // Rethrow the error for higher-level handling
+    console.error("Error scraping the page:", error);
+    throw error;
   } finally {
     if (browser) {
-      await browser.close();  // Ensure that the browser is closed after use
+      await browser.close();
     }
   }
 };
