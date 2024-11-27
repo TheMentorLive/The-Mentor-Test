@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const chromium = require('@sparticuz/chromium'); // Or any other headless chromium solution
 
 const scrapeJobDetails = async (url, selectors) => {
