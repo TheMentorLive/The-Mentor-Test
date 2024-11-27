@@ -1,9 +1,9 @@
-const chromium = require("@sparticuz/chromium");
+const chromium = require('@sparticuz/chromium'); // Import the chromium package
 
 const scrapeJobDetails = async (url, selectors) => {
   let browser = null;
   try {
-    // Launch the browser
+    // Launch the browser using the direct chromium instance
     browser = await chromium.puppeteer.launch({
       executablePath: await chromium.executablePath,
       args: chromium.args,
