@@ -55,7 +55,7 @@ function JobsHero() {
     
     return (
 
-      <section className="relative flex flex-col md:flex-row items-center justify-center mt-10 md:mt-16  md:mx-0 h-[72vh]">
+      <section className="relative flex flex-col md:flex-row items-center justify-center mt-10 md:mt-10  md:mx-0 h-[72vh]">
   {/* Background Image */}
   <img
     src="https://media.licdn.com/dms/image/D4E12AQEmv4lYUyq1bg/article-cover_image-shrink_600_2000/0/1704524969164?e=2147483647&v=beta&t=STuyEyXrilWmEVL9GaEVyFArrKbeoAyA6zvVi-0wCo8"

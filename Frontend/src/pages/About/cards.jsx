@@ -1,6 +1,6 @@
 export default function Cards() {
   return (
-    <section className="relative overflow-hidden px-4 sm:px-8 lg:ml-48 lg:mr-48 mt-14 mb-16 py-16">
+    <section className="relative overflow-hidden px-4 sm:px-8 lg:ml-24 lg:mr-24 mt-14 mb-16 py-16">
       <div className="container relative z-10">
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="flex flex-col justify-center space-y-8">
@@ -23,7 +23,7 @@ export default function Cards() {
               </a>
             </div>
           </div>
-          <div className="relative flex justify-center lg:flex hidden">
+          <div className="relative  justify-center lg:flex hidden">
             {/* Replace decorative shapes with images */}
             <img
               src="./mentors/Background.png"
