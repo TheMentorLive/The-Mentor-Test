@@ -12,11 +12,12 @@ export default function TestMain() {
             <Header/>
             <div className="mt-20">
                 <Hero/>
+                <UPE/>
                 <div className="lg:mr-40 lg:ml-40">
                 <Searchsec/>
                 </div>
                 <Exams/>
-                <UPE/>
+                
                 <div className="lg:mr-40 lg:ml-40">
                 <Banners/>
                 </div>

@@ -36,7 +36,7 @@ export default function Cards() {
   ];
 
   return (
-    <section className="py-12 bg-gray-50 sm:mr-4 sm:ml-4 md:mr-16 md:ml-16 lg:mr-48 lg:ml-48">
+    <section className="py-12 bg-gray-50 sm:mr-4 sm:ml-4 md:mr-16 md:ml-16 lg:mr-24 lg:ml-24">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-8">Our Library Of Resources</h2>
         

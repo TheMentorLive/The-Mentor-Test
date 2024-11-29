@@ -69,7 +69,7 @@ const Header = () => {
 
         {/* Desktop Navigation Links */}
         <nav className="hidden lg:flex space-x-6">
-            {["Live", "Learn", "Tests", "Jobs", "About"].map((page) => (
+            {["", "Learn", "Tests", "Jobs", "About"].map((page) => (
                 <Link
                     key={page}
                     to={`/${page}`}
@@ -136,7 +136,7 @@ const Header = () => {
             >
                 <FaTimes />
             </button>
-            {["Live", "Learn", "Test", "Jobs", "About"].map((page) => (
+            {["", "Learn", "Test", "Jobs", "About"].map((page) => (
                 <Link
                     key={page}
                     to={`/${page}`}

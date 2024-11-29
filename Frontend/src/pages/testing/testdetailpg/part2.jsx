@@ -8,8 +8,8 @@ export default function Part2() {
     }
   }
   return (
-    <div className="mx-auto p-6 lg:ml-16 mr-16">
-      <div className="grid gap-6 lg:grid-cols-[1fr_400px]">
+    <div className="mx-auto p-6 lg:ml-9 mr-16">
+      <div className="grid gap-6 ">
         <div className="space-y-8">
           {/* About the Test Section */}
           <section className="space-y-4">
@@ -45,34 +45,12 @@ export default function Part2() {
         </div>
 
         {/* Card Section */}
-        <div className="bg-white rounded-lg shadow-lg h-fit p-6">
-          <div className="space-y-4">
-            <img
-              src="./courses/Image4.png"
-              width={400}
-              height={200}
-              alt="Hexagonal pattern"
-              className="rounded-lg object-cover"
-            />
-            <h3 className="text-xl font-bold">Lorem ipsum</h3>
-            <div className="flex items-baseline gap-2">
-              <span className="text-lg font-bold">₹ 499/-</span>
-              <span className="text-sm text-gray-500 line-through">₹1500</span>
-              <span className="text-sm text-green-600">67% OFF</span>
-            </div>
-            <p className="text-sm text-gray-500">
-              In at iaculis lorem. Praesent tempor dictum tellus ut molestie. Sed sed ullamcorper lorem
-            </p>
-            <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg text-lg hover:bg-blue-700">
-              Buy Now
-            </button>
-          </div>
-        </div>
+        
       </div>
 
 
       <section>
-      <div className="w-full  mx-auto space-y-8 p-4">
+      <div className="w-full lg:-ml-9 lg:-mr-9 space-y-8 p-4">
       {/* Test Module Section */}
       <div className="rounded-lg border bg-gray-100">
         <h2 className="text-lg font-medium p-4">Test Module</h2>
