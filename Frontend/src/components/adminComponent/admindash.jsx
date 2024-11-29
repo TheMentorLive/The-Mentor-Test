@@ -16,7 +16,7 @@ import AdminHeader from "./AdminHeader";
 import GoogleDocsQuestionComponent from "../../pages/admin/Questions";
 import AddSubject from "../../pages/admin/AddSubject";
 import AdminSettingsPage from "../../pages/admin/Settings";
-import AddQuestionPage from "../../pages/admin/test/AddQuestions";
+import AddQuestionPage from "../../pages/admin/test/AddTest";
 import MainTestPage from "../../pages/admin/test/MainTest";
 import MockTestPage from "../../pages/admin/test/MockTest";
 import Users from "../../pages/list/UserList";

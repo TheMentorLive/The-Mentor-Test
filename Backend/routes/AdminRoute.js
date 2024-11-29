@@ -32,7 +32,15 @@ router.get("/getAllJobs",authMiddleware,AdminController.getAllJobs)
 
 
 //fot test pthunderclient
-router.get("/scrapJobs",AdminController.scrapeJobs)
+router.get("/scrapJobs",AdminController.scrapeJobs);
+
+
+router.post("/addCategory",authMiddleware,AdminController.addCategory)
+router.get("/getCategory",authMiddleware,AdminController.getCategory)
+router.post("/addExamType",authMiddleware,AdminController.addExamType)
+router.get("/getExamType",authMiddleware,AdminController.getExamType)
+router.delete("/deleteCategory/:id",authMiddleware,AdminController.deleteCategory)
+router.delete("/deleteExamType/:id",authMiddleware,AdminController.deleteExamType)
 
 
 module.exports= router; 

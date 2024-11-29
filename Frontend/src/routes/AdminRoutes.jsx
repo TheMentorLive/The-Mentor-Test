@@ -8,7 +8,7 @@ import PageInProgres from '../pages/Progress';
 import AddSubject from '../pages/admin/AddSubject';
 import AddCoursePage from '../pages/admin/courses/AddCourses';
 import CourseListPage from '../pages/admin/courses/CoursesList';
-import AddQuestionPage from '../pages/admin/test/AddQuestions';
+import AddQuestionPage from '../pages/admin/test/AddTest';
 import AdminLandingPage from '../pages/admin/Admin-landing';
 import GoogleDocsQuestionComponent from '../pages/admin/Questions';
 import MockTestPage from '../pages/admin/test/MockTest';

@@ -25,6 +25,14 @@ export const ADMINENDPOINTS = {
    ADDJOBS:`${API_BASE_URL}admin/addJobs`,
    GETJOBS:`${API_BASE_URL}admin/getJobs`,
    GETAllJOBS:`${API_BASE_URL}admin/getAllJobs`,
+
+   ADDCATEGORY:`${API_BASE_URL}admin/addCategory`,
+   ADDEXAMTYPE:`${API_BASE_URL}admin/addExamType`,
+   GETCATEGORIES:`${API_BASE_URL}admin/getCategory`,
+   GETEXAMTYPES:`${API_BASE_URL}admin/getExamType`,
+
+   DELETECATEGORY:`${API_BASE_URL}admin/deleteCategory`,
+   DELETEEXAMTYPE:`${API_BASE_URL}admin/deleteExamType`,
  
    
  

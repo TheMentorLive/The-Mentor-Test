@@ -5,7 +5,8 @@ const Test = require("../model/Test");
 const UserModel = require("../model/UserModel");
 const { scrapeJobDetails } = require("../utils/scrapper");
 const jobSelectors = require("../utils/selectors");
-
+const ExamType = require("../model/ExamType");
+const Category = require("../model/Category");
 
 const getUsers = async (req, res) => {
   try {
@@ -138,23 +139,52 @@ const deleteSubject = async (req, res) => {
 
 const createTest = async (req, res) => {
   try {
-    const { questions, duration, category, description, testType, subject } = req.body;
-
-    const newTest = new Test({
+    // Destructure the request body to match the provided structure
+    const {
+      questions,
       duration,
       category,
       description,
       testType,
       subject,
-      questions, // No need to parse JSON since it's already an object
+      title,
+      examtype, // Corrected to match the provided data
+      testLevel,
+      testModules, 
+      summary// Corrected typo: "testModeules" => "testModules"
+    } = req.body;
+
+    // Create a new Test document using the destructured data
+    const newTest = new Test({
+      title,
+      examType: examtype, // Ensure the field aligns with the schema (case-sensitive)
+      testLevel,
+      duration,
+      category,
+      description,
+      testType,
+      subject,
+      questions,
+      testModules,
+      summary // Ensure consistency with schema and frontend data
     });
 
+    // Save the test to the database
     await newTest.save();
 
-    res.status(201).json({ message: 'Test added successfully', test: newTest });
+    // Respond with success
+    res.status(201).json({
+      message: 'Test added successfully',
+      test: newTest,
+    });
   } catch (error) {
+    // Log the error for debugging
     console.error('Error adding test:', error);
-    res.status(500).json({ message: 'Server error. Failed to add test.' });
+
+    // Respond with an error message
+    res.status(500).json({
+      message: 'Server error. Failed to add test.',
+    });
   }
 };
 
@@ -514,6 +544,107 @@ const scrapeJobs = async (req, res) => {
 };
 
 
+const addCategory = async (req, res) => {
+  let { name, examTypeId } = req.body;
+  console.log("Request Body:", req.body);
+
+  if (!name || !examTypeId) {
+    return res.status(400).json({ message: 'Name and Exam Type ID are required.' });
+  }
+
+  // Convert name to uppercase
+  name = name.toUpperCase();
+
+  try {
+    console.log('Checking Exam Type...');
+    const examType = await ExamType.findById(examTypeId);
+    if (!examType) {
+      return res.status(404).json({ message: 'Exam Type not found.' });
+    }
+
+    // Check if the category already exists
+    const existingCategory = await Category.findOne({ name, examType: examTypeId });
+    if (existingCategory) {
+      return res.status(400).json({ message: 'Category already exists for this exam type.' });
+    }
+
+    console.log('Creating Category...');
+    const category = new Category({
+      name,
+      examType: examTypeId,
+      createdAt: Date.now()  // Add createdAt field with the current date and time
+    });
+    await category.save();
+
+    console.log('Updating Exam Type...');
+    examType.categories.push(category._id);
+    await examType.save();
+
+    console.log('Category saved successfully:', category);
+    res.status(201).json({ message: 'Category created successfully.', category });
+  } catch (error) {
+    console.error('Error during category creation:', error);
+    res.status(500).json({ message: 'An error occurred while adding the category.', error: error.message });
+  }
+};
+
+
+const getCategory= async(req,res)=>{
+
+  try {
+    const categories = await Category.find().populate('examType').sort({ createdAt: -1 });
+    res.status(200).json(categories);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const addExamType= async(req,res)=>{
+
+  const { name } = req.body;
+  try {
+    const examType = new ExamType({ name });
+    await examType.save();
+    res.status(201).json(examType);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+const getExamType= async(req,res)=>{
+  try {
+    const examTypes = await ExamType.find().populate('categories');
+    res.status(200).json(examTypes);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+const deleteCategory = async(req,res)=>{
+  try {
+    const { id } = req.params;
+    const category = await Category.findByIdAndDelete(id);
+
+    if (!category) {
+      return res.status(404).json({ message: 'Category not found' });
+    }
+
+    res.status(200).json({ message: 'Category deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting category:', error);
+    res.status(500).json({ message: 'Error deleting category' });
+  }
+}
+
+
+const deleteExamType = async(req,res)=>{
+  try {
+    
+  } catch (error) {
+    
+  }
+}
 
 module.exports = {
   getUsers,
@@ -540,6 +671,14 @@ module.exports = {
   getJobs,
   getAllJobs,
 
+  scrapeJobs,
 
-  scrapeJobs
+  addCategory,
+  getCategory,
+  addExamType,
+  getExamType,
+  deleteExamType,
+  deleteCategory,
+  
+  
 }

@@ -15,31 +15,64 @@ const AddQuestionPage = () => {
   ]);
   const [token, setToken] = useState(() => localStorage.getItem('token') || '');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [testModules, setTestModules] = useState([{ moduleNumber: 1, title: '', description: ''}]);
   const [duration, setDuration] = useState(60);
   const [category, setCategory] = useState('');
+  const [examType, setExamType] = useState('');
+  const [examTypes, setExamTypes] = useState([]);
+  const [summary, setSummary] = useState('');
+  const [testLevel, setTestLevel] = useState('easy');
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [testType, setTestType] = useState('mock');
-  const [subject, setSubject] = useState(''); // New state for subject
-  const [subjects, setSubjects] = useState([]); // New state to store fetched subjects
+  const [subject, setSubject] = useState('');
+  const [subjects, setSubjects] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [image, setImage] = useState(null);
   
 
   // Fetch subjects from the backend on component mount
-  useEffect(() => {
-    const fetchSubjects = async () => {
-      try {
-        const response = await axios.get(ADMINENDPOINTS.GETSUBJECTS, {
-            headers: { Authorization: `Bearer ${token}` },
-          });// Replace with your backend endpoint
-        setSubjects(response.data);
-      } catch (error) {
-        console.error('Failed to fetch subjects', error);
-      }
-    };
+  
+  const fetchSubjects = async () => {
+    try {
+      const response = await axios.get(ADMINENDPOINTS.GETSUBJECTS, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setSubjects(response.data); 
+    } catch (error) {
+      console.error('Failed to fetch subjects', error);
+    }
+  };
 
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(ADMINENDPOINTS.GETCATEGORIES, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCategories(response.data); 
+    } catch (error) {
+      console.error('Failed to fetch categories', error);
+    }
+  };
+
+  const fetchExamTypes = async () => {
+    try {
+      const response = await axios.get(ADMINENDPOINTS.GETEXAMTYPES, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setExamTypes(response.data); 
+    } catch (error) {
+      console.error('Failed to fetch exam types', error);
+    }
+  };
+
+  useEffect(() => {
     fetchSubjects();
+    fetchCategories();
+    fetchExamTypes();
   }, []);
 
   const handleQuestionChange = (index, key, value) => {
@@ -76,6 +109,36 @@ const AddQuestionPage = () => {
     }
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      setImage(URL.createObjectURL(file));
+    } else {
+      setError('Please upload a valid image file.');
+    }
+  };
+
+  const handleAddModule = () => {
+    const newModule = { moduleNumber: testModules.length + 1, title: '', description: '', };
+    setTestModules([...testModules, newModule]);
+  };
+
+  const handleModuleChange = (index, field, value) => {
+    const newModules = [...testModules];
+    newModules[index][field] = value;
+    setTestModules(newModules);
+  };
+
+  const handleRemoveModule = (index) => {
+    setTestModules((prevModules) => {
+      const newModules = [...prevModules];  // Create a shallow copy of the previous modules
+      newModules.splice(index, 1);          // Remove the module at the specified index
+      return newModules;                   // Return the updated modules
+    });
+  };
+  
+  
+
   const handleAddAnswer = (questionIndex) => {
     const updatedQuestions = [...questions];
     updatedQuestions[questionIndex].answers.push('');
@@ -104,6 +167,12 @@ const AddQuestionPage = () => {
         description: description,
         testType: testType,
         subject: subject, // Include subject in the data object
+        examtype: examType,
+        title:title,
+        testModules:testModules,
+        testLevel:testLevel,
+        summary:summary
+
       };
   
       // Make POST request
@@ -144,12 +213,24 @@ const AddQuestionPage = () => {
     <p  className=" text-center text-3xl mb-5 font-bold text-gray-800">
       Add New Test
     </p>
+
+   
     
     <Grid container spacing={4}>
       {/* Sidebar for test details */}
       <Grid item xs={12} md={4}>
         <Card className="shadow-lg rounded-lg">
           <CardContent className="space-y-4">
+          <TextField
+                label="Title"
+                fullWidth
+                multiline
+                rows={1}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                margin="normal"
+                sx={{ fontSize: '0.75rem', '& input': { fontSize: '0.75rem' } }}
+              />
             <TextField
               label="Test Duration (minutes)"
               type="number"
@@ -159,19 +240,36 @@ const AddQuestionPage = () => {
               fullWidth
               sx={{ fontSize: '0.875rem', '& input': { fontSize: '0.875rem' } }}
             />
-            <FormControl fullWidth margin="normal">
-              <InputLabel>Category</InputLabel>
-              <Select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                sx={{ fontSize: '0.875rem' }}
-              >
-                <MenuItem value="EXAM">Exam</MenuItem>
-                <MenuItem value="NEET">NEET</MenuItem>
-                <MenuItem value="JEE">JEE</MenuItem>
-                <MenuItem value="OTHER">TEST-EXAM</MenuItem>
-              </Select>
-            </FormControl>
+             <FormControl fullWidth margin="normal">
+                <InputLabel sx={{ fontSize: '0.75rem' }}>Exam Type</InputLabel>
+                <Select
+                  value={examType}
+                  onChange={(e) => setExamType(e.target.value)}
+                  sx={{ fontSize: '0.75rem' }}
+                >
+                  {examTypes && examTypes.length > 0 ? examTypes.map((types) => (
+                    <MenuItem key={types._id} value={types.name} sx={{ fontSize: '0.75rem' }}>
+                      {types.name}
+                    </MenuItem>
+                  )) : null}
+                </Select>
+              </FormControl>
+
+              <FormControl fullWidth margin="normal">
+                <InputLabel sx={{ fontSize: '0.75rem' }}>Category</InputLabel>
+                <Select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  sx={{ fontSize: '0.75rem' }}
+                >
+                  {categories && categories.length > 0 ? categories.map((cat) => (
+                    <MenuItem key={cat._id} value={cat.name} sx={{ fontSize: '0.75rem' }}>
+                      {cat.name}
+                    </MenuItem>
+                  )) : null}
+                </Select>
+              </FormControl>
+
             <TextField
               label="Description"
               fullWidth
@@ -179,6 +277,16 @@ const AddQuestionPage = () => {
               rows={3}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              margin="normal"
+              sx={{ fontSize: '0.875rem', '& input': { fontSize: '0.875rem' } }}
+            />
+             <TextField
+              label="Summary"
+              fullWidth
+              multiline
+              rows={2}
+              value={summary}
+              onChange={(e) => setSummary(e.target.value)}
               margin="normal"
               sx={{ fontSize: '0.875rem', '& input': { fontSize: '0.875rem' } }}
             />
@@ -193,6 +301,22 @@ const AddQuestionPage = () => {
                 <MenuItem value="main">Main</MenuItem>
               </Select>
             </FormControl>
+
+            <FormControl fullWidth margin="normal">
+              <InputLabel>Level</InputLabel>
+              <Select
+                value={testLevel}
+                onChange={(e) => setTestLevel(e.target.value)}
+                sx={{ fontSize: '0.875rem' }}
+              >
+                <MenuItem value="hard">Hard</MenuItem>
+                <MenuItem value="medium">Medium</MenuItem>
+                <MenuItem value="easy">Easy</MenuItem>
+              </Select>
+            </FormControl>
+            <Typography variant="body2" color="textSecondary" gutterBottom>
+        Optional
+      </Typography>
             <FormControl fullWidth margin="normal">
               <InputLabel>Subject</InputLabel>
               <Select
@@ -207,6 +331,15 @@ const AddQuestionPage = () => {
                 ))}
               </Select>
             </FormControl>
+
+            <TextField
+                type="file"
+                fullWidth
+                margin="normal"
+                onChange={handleImageChange}
+                inputProps={{ accept: 'image/*' }}
+              />
+              
           </CardContent>
         </Card>
       </Grid>
@@ -281,7 +414,9 @@ const AddQuestionPage = () => {
                           </MenuItem>
                         ))}
                       </Select>
+                      
                     </FormControl>
+                    
                   </Box>
                 )
               ))}
@@ -308,6 +443,60 @@ const AddQuestionPage = () => {
                 Remove Question
               </Button>
             )}
+
+
+          </CardActions>
+        </Card>
+        {image && <img src={image} alt="Test Image" className="mt-4 w-30 h-40 object-fit" />}
+      </Grid>
+    </Grid>
+
+    <div>
+                <Typography variant="h6" gutterBottom>
+                  Test Modules
+                </Typography>
+                {testModules.map((module, index) => (
+                  <div key={index} className="space-y-3">
+                    <TextField
+                      label={`Module ${module.moduleNumber} Title`}
+                      variant="outlined"
+                      value={module.title}
+                      onChange={(e) => handleModuleChange(index, 'title', e.target.value)}
+                      fullWidth
+                      sx={{ fontSize: '0.75rem' }}
+                    />
+                    <TextField
+                      label={`Module ${module.moduleNumber} Description`}
+                      variant="outlined"
+                      multiline
+                      rows={2}
+                      value={module.description}
+                      onChange={(e) => handleModuleChange(index, 'description', e.target.value)}
+                      fullWidth
+                      sx={{ fontSize: '0.75rem' }}
+                    />
+                   
+                   
+                  </div>
+                ))}
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={handleAddModule}
+                  size="small"
+                  sx={{ fontSize: '0.75rem' }}
+                >
+                  Add Module
+                </Button>
+
+                <IconButton
+                      onClick={() => handleRemoveModule(index)}
+                      color="error"
+                    >
+                      <RemoveCircleIcon fontSize="small" />
+                    </IconButton>
+              </div>
+              
             <Button
               variant="contained"
               color="primary"
@@ -318,11 +507,6 @@ const AddQuestionPage = () => {
             >
               {isSubmitting ? 'Submitting...' : 'Submit Test'}
             </Button>
-          </CardActions>
-        </Card>
-      </Grid>
-    </Grid>
-  
     {/* Success or Error Messages */}
     {error && (
       <Typography color="error" className="text-center mt-4">
