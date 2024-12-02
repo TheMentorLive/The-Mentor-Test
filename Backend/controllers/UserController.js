@@ -1,6 +1,7 @@
 const Test = require("../model/Test");
 const ResultModel = require('../model/ResultModel');
 const Jobs = require("../model/Jobs");
+const ExamType = require("../model/ExamType");
 
 
 const getTests= async (req, res) => {
