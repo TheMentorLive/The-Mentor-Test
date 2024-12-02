@@ -80,9 +80,9 @@ export default function Part3() {
         <div className="flex-1 mb-6 md:mb-0">
           <div className="flex items-center gap-3 mb-4">
             <GraduationCap size={32} />
-            <h2 className="text-2xl font-bold">Empower Your Learning Journey</h2>
+            <h2 className="text-2xl ">Empower Your Learning Journey</h2>
           </div>
-          <p className="mb-4">
+          <p className="mb-4 text-1xl">
           The Mentor connects you with top-notch mentors who guide you in every step of your academic and professional growth. Unlock curated courses, personalized mentorship, and actionable insights to transform your career.  Your success story starts here.
           </p>
           <button className="px-4 py-2 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all">
