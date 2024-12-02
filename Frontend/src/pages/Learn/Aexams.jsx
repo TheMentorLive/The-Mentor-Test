@@ -11,7 +11,7 @@ export default function Aexams({exams}) {
         <div className="flex flex-col w-full md:w-[300px] mt-12 lg:mt-7 md:mt-0">
           <h2 className="text-lg sm:text-xl font-bold">Academic Exams</h2>
           <p className="text-gray-600 text-xs sm:text-sm">
-            Prepare for the top competitive exams in your field.
+            Prepare for the top Academic exams in your field.
           </p>
           <button className="mt-5 w-full md:w-[180px] md:mt-7 px-2 py-1 md:px-3 md:py-2 bg-[#2563EB] text-white rounded-lg hover:bg-blue-600 focus:outline-none">
             View all Courses

@@ -16,7 +16,7 @@ export default function UPE() {
       try {
         const response = await axios.get(GEUESTENDPOINTS.EXAM_TYPES);
 
-        console.error("Error fetching upe:", response.data);
+    
 
         setExamTypes(response.data);
 
@@ -44,7 +44,7 @@ export default function UPE() {
             examType: selectedExamType,
           },
         });
-        console.error("Error fetching upe fghjk exams:", response.data);
+      
         
         setExamData(response.data);
       } catch (error) {
@@ -103,7 +103,7 @@ export default function UPE() {
           {/* Test details */}
           <div className="relative">
             {loading ? (
-              <div className="text-center py-10">Loading...</div>
+              <div className="text-center py-10"><div className="spinner-border animate-spin inline-block w-4 h-4 border-4 border-blue-500 rounded-full border-t-transparent"></div></div>
             ) : examData.length > 0 ? (
               <div className="flex flex-wrap gap-4">
                 {examData.map((exam, i) => (
