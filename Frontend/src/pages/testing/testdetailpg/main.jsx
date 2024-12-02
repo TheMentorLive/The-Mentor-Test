@@ -50,7 +50,7 @@ const TestdetailpgMain = () => {
   }, [testId]);
 
   if (loading) {
-    return <div>Loading...</div>; // Show loading state while fetching data
+    return <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 border-blue-500 rounded-full border-t-transparent"></div>; // Show loading state while fetching data
   }
 
   if (error) {
