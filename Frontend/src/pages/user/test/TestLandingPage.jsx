@@ -78,7 +78,7 @@ const TestLandingPage = () => {
   <div className="flex flex-col w-full max-w-5xl bg-white rounded-lg shadow-lg p-8">
     <div className="flex flex-col md:flex-row">
       <div className="md:w-1/2 md:pr-8">
-        <h1 className="text-4xl font-bold mb-4">{test.description || 'Test Title Here'}</h1>
+        <h1 className="text-4xl font-bold mb-4">{test.title || 'Test Title Here'}</h1>
         <div className="flex space-x-12 mb-4">
           <div>
             <p className="text-sm text-gray-500">Test duration</p>

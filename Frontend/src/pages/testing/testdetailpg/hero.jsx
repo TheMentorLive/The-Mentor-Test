@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Hero() {
+export default function Hero({testDetails}) {
   return (
     <section className="relative flex flex-col md:flex-row items-center justify-center mb-10 md:mt-11 h-auto md:h-[400px]">
       {/* Background Image */}
@@ -16,10 +16,10 @@ export default function Hero() {
         {/* Hero Content */}
         <div className="text-white md:w-2/4 flex flex-col items-center md:items-start lg:-ml-10 space-y-4">
           <h1 className="text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] p-2 font-bold tracking-tight leading-tight text-center md:text-left">
-            UPSC CSE Test
+            {testDetails.category}
           </h1>
           <p className="max-w-[550px] text-gray-400 text-center md:text-left p-2 text-sm md:text-base hidden md:block">
-            Lorem ipsum dolor sit amet, consectetur
+           {testDetails.description}
           </p>
 
           <div className="py-2">
@@ -42,9 +42,9 @@ export default function Hero() {
               alt="Hexagonal pattern"
               className="rounded-lg object-cover w-full h-[150px]"
             />
-            <h3 className="text-base font-bold">Lorem ipsum</h3>
+            <h3 className="text-base font-bold">{testDetails.title}/{testDetails.category}</h3>
             <div className="flex items-baseline gap-1">
-              <span className="text-sm font-bold">₹ 499/-</span>
+              <span className="text-sm font-bold">₹ {testDetails.price}/-</span>
               <span className="text-xs text-gray-500 line-through">₹1500</span>
               <span className="text-xs text-green-600">67% OFF</span>
             </div>

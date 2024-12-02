@@ -1,24 +1,57 @@
+import axios from "axios";
+import { GEUESTENDPOINTS } from "/src/constants/ApiConstants";
 import { Video, Users, GraduationCap } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import moment from "moment";
 
 export default function UPE() {
-  const [selectedCategory, setSelectedCategory] = useState("Government Exams");
+  const [examTypes, setExamTypes] = useState([]); // Stores all exam types
+  const [examData, setExamData] = useState([]); // Stores test data for the selected exam type
+  const [selectedExamType, setSelectedExamType] = useState(""); // Tracks the selected exam type
+  const [loading, setLoading] = useState(false);
 
-  const examData = {
-    "Government Exams": [
-      { title: "UPSC - Prelims", date: "12th June 2025" },
-      { title: "SSC CGL - Tier 1", date: "20th July 2025" },
-    ],
-    "Competitive Exams": [
-      { title: "CAT - Management", date: "25th Nov 2025" },
-      { title: "GATE - Engineering", date: "7th Feb 2026" },
-    ],
-    "Academic Exams": [
-      { title: "IPCC Group 1 - Taxation", date: "4th June 2025" },
-      { title: "NET - Economics", date: "10th Dec 2025" },
-    ],
-  };
-  
+  // Fetch all exam types on component mount
+  useEffect(() => {
+    const fetchExamTypes = async () => {
+      try {
+        const response = await axios.get(GEUESTENDPOINTS.EXAM_TYPES);
+        setExamTypes(response.data);
+
+        // Set default selection to the first exam type, if available
+        if (response.data.length > 0) {
+          setSelectedExamType(response.data[0].name);
+        }
+      } catch (error) {
+        console.error("Error fetching exam types:", error);
+      }
+    };
+
+    fetchExamTypes();
+  }, []);
+
+  // Fetch tests when the selected exam type changes
+  useEffect(() => {
+    if (!selectedExamType) return;
+
+    const fetchExamData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(GEUESTENDPOINTS.TESTS_BY_TYPE, {
+          params: {
+            examType: selectedExamType,
+          },
+        });
+        setExamData(response.data);
+      } catch (error) {
+        console.error("Error fetching exam data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchExamData();
+  }, [selectedExamType]);
+
   const features = [
     {
       title: "Comprehensive Test Coverage",
@@ -37,55 +70,67 @@ export default function UPE() {
     },
   ];
 
-  
+  return (
+    <div className="mb-10">
+      <section className="px-4 md:px-6 mt-16 mb-16 mr-20 ml-20">
+        <h2 className="mb-8 text-3xl font-bold tracking-tighter">
+          Upcoming Professional Exams
+        </h2>
 
-    return (
-      <div className="mb-10">
-        {/* Why take Gen AI section */}
-       
-  
-       
-        <section className="  px-4 md:px-6 mt-16 mb-16 mr-20 ml-20">
-      <h2 className="mb-8 text-3xl font-bold tracking-tighter">
-        Upcoming Professional Exams
-      </h2>
-      <div className="grid gap-6 lg:grid-cols-[200px_1fr]">
-        <div className="space-y-1 mt-8">
-          {Object.keys(examData).map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`w-full justify-start px-4 py-2 rounded-md ${
-                selectedCategory === category
-                  ? "bg-blue-600 text-white"
-                  : "text-blue-600 border border-blue-600 hover:bg-blue-50"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-        <div className="relative">
-          <div className="flex space-x-4 overflow-x-auto pb-4">
-            {examData[selectedCategory].map((exam, i) => (
-              <div
-                key={i}
-                className="min-w-[300px] bg-white rounded-lg shadow-lg p-6"
+        {/* Sidebar for selecting exam types */}
+        <div className="grid gap-6 lg:grid-cols-[200px_1fr]">
+          <div className="space-y-2 mt-8">
+            {examTypes.map((type) => (
+              <button
+                key={type._id}
+                onClick={() => setSelectedExamType(type.name)}
+                className={`w-full px-4 py-2 rounded-md text-left ${
+                  selectedExamType === type.name
+                    ? "bg-blue-600 text-white"
+                    : "text-blue-600 border border-blue-600 hover:bg-blue-50"
+                }`}
               >
-                <div className="flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-full bg-gray-100" />
-                  <h3 className="font-semibold">{exam.title}</h3>
-                </div>
-                <p className="mt-4 text-sm text-gray-600">
-                  Exam Date: {exam.date}
-                </p>
-                <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                  Get Started
-                </button>
-              </div>
+                {type.name}
+              </button>
             ))}
           </div>
-          <button className="absolute -right-4 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-white shadow-lg flex items-center justify-center">
+
+          {/* Test details */}
+          <div className="relative">
+            {loading ? (
+              <div className="text-center py-10">Loading...</div>
+            ) : examData.length > 0 ? (
+              <div className="flex flex-wrap gap-4">
+                {examData.map((exam, i) => (
+                  <div
+                    key={i}
+                    className="w-full md:w-[300px] bg-white rounded-lg shadow-lg p-6"
+                  >
+                    <div className="flex items-center gap-4">
+                      <img
+                        src={exam.image || "https://via.placeholder.com/40"}
+                        alt="Exam"
+                        className="h-10 w-10 rounded-full"
+                      />
+                      <h3 className="font-semibold">{exam.title}</h3>
+                    </div>
+                    <p className="mt-4 text-sm text-gray-600">
+                      Exam Created Date:  {exam.updatedAt
+                        ? moment(exam.updatedAt).format("DD MMM YYYY")
+                        : "TBA"}
+                    </p>
+                    <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                      Get Started
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-10">
+                No tests available for this category.
+              </div>
+            )}
+            <button className="absolute -right-4 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-white shadow-lg flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4 text-gray-600"
@@ -101,15 +146,10 @@ export default function UPE() {
               />
             </svg>
           </button>
+          </div>
+          
         </div>
-      </div>
-    </section>
-
-
-
-
-  
-      </div>
-    );
-  }
-  
+      </section>
+    </div>
+  );
+}

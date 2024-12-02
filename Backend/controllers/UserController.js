@@ -192,6 +192,74 @@ const guestJobs = async (req, res) => {
 }
 
 
+const upcommingGuestTest=async(req,res)=>{
+ 
+  
+  try {
+    const tests = await Test.find();
+    res.status(200).json(tests);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch tests", error });
+  }
+}
+const guestExamType = async (req, res) => {
+  
+  try {
+    // Fetch only the 'name' field for all exam types
+    const types = await ExamType.find({ name: { $ne: "Company-based Tests" } }).select("name");
+    res.status(200).json(types);
+  } catch (error) {
+    console.error("Error fetching exam types:", error);
+    res.status(500).json({ message: "Failed to fetch exam types", error });
+  }
+};
+
+const guestTestByType= async(req,res)=>{
+  const { examType } = req.query; // Retrieve examType from query parameters
+  if (!examType) {
+    return res.status(400).json({ message: "examType is required" });
+  }
+
+  try {
+    // Find the ExamType by name
+    const examTypeData = await ExamType.findOne({ name: examType }).populate("categories"); 
+    if (!examTypeData) {
+      return res.status(404).json({ message: "Exam type not found" });
+    }
+    // Find all tests associated with the exam type's categories
+    const tests = await Test.find({ examType: { $in: examTypeData.name } }).limit(3);
+    res.status(200).json(tests);
+  } catch (error) {
+    console.error("Error fetching tests by exam type:", error);
+    res.status(500).json({ message: "Internal server error", error });
+  }
+}
+
+const guestTestById = async(req,res)=>{
+  const { id } = req.query; // Get the 'id' from the query parameters
+
+  if (!id) {
+    return res.status(400).json({ message: "Test ID is required" });
+  }
+
+  try {
+    // Fetch the test from the database by ID
+    const test = await Test.findById(id);
+    
+    if (!test) {
+      return res.status(404).json({ message: "Test not found" });
+    }
+
+    // Return the test details as a JSON response
+    res.status(200).json(test);
+  } catch (error) {
+    console.error("Error fetching test:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+
 
 
 module.exports={
@@ -201,8 +269,14 @@ module.exports={
   SubmitTest,
   getHistory,
 
-  // scrapeJobs
+  // scrapeJobs,
 
-  guestJobs
+  guestJobs,
+
+  upcommingGuestTest,
+  guestExamType,
+  guestTestByType,
+  guestTestById,
  
+    
 }

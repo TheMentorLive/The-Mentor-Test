@@ -15,4 +15,11 @@ router.get("/history",authMiddleware,UserController.getHistory);
 router.get("/getGuestJobs",UserController.guestJobs);
 
 
+router.get("/upcommingTest",UserController.upcommingGuestTest);
+router.get("/guestExamType",UserController.guestExamType);
+router.get("/test-by-Type",UserController.guestTestByType);
+router.get("/test-by-id",UserController.guestTestById);
+
+
+
 module.exports= router; 

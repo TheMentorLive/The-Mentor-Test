@@ -1,12 +1,18 @@
+import { useState } from "react";
 
 
-export default function Part2() {
-  function toggleAccordion(e) {
-    const content = e.target.nextElementSibling;
-    if (content) {
-      content.classList.toggle("hidden");
+export default function Part2({testDetails}) {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  // Function to toggle the accordion
+  const toggleAccordion = (index) => {
+    // If the clicked item is already open, close it, otherwise open it
+    if (openIndex === index) {
+      setOpenIndex(null); // Close it if it is already open
+    } else {
+      setOpenIndex(index); // Open the clicked item
     }
-  }
+  };
   return (
     <div className="mx-auto p-6 lg:ml-9 mr-16">
       <div className="grid gap-6 ">
@@ -15,31 +21,25 @@ export default function Part2() {
           <section className="space-y-4">
             <h1 className="text-2xl font-bold tracking-tight">About the Test</h1>
             <p className="text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur dolorii adipiscing elit. Felis donec massa aliquam id. Lorem ipsum
-              dolor sit amet, consectetur adipiscing elit. Purus viverra praesent felis consequat pellentesque turpis et
-              quisque platea. Eu, elit ut nunc ac mauris bibendum nulla placerat. Sagittis sit eu sit massa sapien,
+              {testDetails.description}
             </p>
             <div className="space-y-4 border-t pt-4">
               <div className="flex gap-2">
                 <span className="font-medium">Type:</span>
-                <span className="text-gray-500">Competitive Exams</span>
+                <span className="text-gray-500">{testDetails.examType}</span>
               </div>
               <div className="flex gap-2">
                 <span className="font-medium">Time:</span>
-                <span className="text-gray-500">60 mins</span>
+                <span className="text-gray-500">{testDetails.duration}. min</span>
               </div>
             </div>
           </section>
 
           {/* Summary Section */}
           <section className="space-y-4">
-            <h2 className="text-2xl font-bold tracking-tight">Summary of the UPSC: test</h2>
+            <h2 className="text-2xl font-bold tracking-tight">Summary of the {testDetails.title}</h2>
             <p className="text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur dolorii adipiscing elit. Felis donec massa aliquam id. Lorem ipsum
-              dolor sit amet, consectetur adipiscing elit. Purus viverra praesent felis consequat pellentesque turpis et
-              quisque platea. Eu, elit ut nunc ac mauris bibendum nulla placerat. Sagittis sit eu sit massa sapien, risus
-              diam. In lorem eu sed euismod laoreet urna, feugiat et. Euismod sem purus rutrum in. Tortor varius a bibendum
-              nisl et tellus. Aliquet elit senectus iaculis netus gravida.
+             {testDetails.summary}
             </p>
           </section>
         </div>
@@ -52,78 +52,28 @@ export default function Part2() {
       <section>
       <div className="w-full lg:-ml-9 lg:-mr-9 space-y-8 p-4">
       {/* Test Module Section */}
-      <div className="rounded-lg border bg-gray-100">
-        <h2 className="text-lg font-medium p-4">Test Module</h2>
-        <div className="w-full">
-          {/* Accordion Item 1 */}
-          <div className="border-b">
+       <div className="rounded-lg border bg-gray-100">
+      <h2 className="text-lg font-medium p-4">Test Module</h2>
+      <div className="w-full">
+        {testDetails.testModules.map((module, index) => (
+          <div key={index} className="border-b">
             <button
               className="w-full flex justify-between items-center px-4 py-2 hover:bg-gray-200"
-              onClick={(e) => toggleAccordion(e)}
+              onClick={() => toggleAccordion(index)}
             >
               <div className="flex gap-2">
-                <span className="text-gray-500">01</span>
-                <span>Front-End Web Development</span>
+                <span className="text-gray-500">{String(index + 1).padStart(2, "0")}</span>
+                <span>{module.title}</span>
               </div>
-              <span>+</span>
+              <span>{openIndex === index ? "-" : "+"}</span>
             </button>
-            <div className="hidden px-4 pt-1 pb-3">
-              Ensure data accuracy and consistency by removing irrelevant information.
+            <div className={`px-4 pt-1 pb-3 ${openIndex === index ? "block" : "hidden"}`}>
+              {module.description}
             </div>
           </div>
-
-          {/* Accordion Item 2 */}
-          <div className="border-b">
-            <button
-              className="w-full flex justify-between items-center px-4 py-2 hover:bg-gray-200"
-              onClick={(e) => toggleAccordion(e)}
-            >
-              <div className="flex gap-2">
-                <span className="text-gray-500">02</span>
-                <span>Introduction to HTML</span>
-              </div>
-              <span>+</span>
-            </button>
-            <div className="hidden px-4 pt-1 pb-3">
-              Learn the fundamentals of HTML and web structure.
-            </div>
-          </div>
-
-          {/* Accordion Item 3 */}
-          <div className="border-b">
-            <button
-              className="w-full flex justify-between items-center px-4 py-2 hover:bg-gray-200"
-              onClick={(e) => toggleAccordion(e)}
-            >
-              <div className="flex gap-2">
-                <span className="text-gray-500">03</span>
-                <span>Lorem ipsum dol</span>
-              </div>
-              <span>+</span>
-            </button>
-            <div className="hidden px-4 pt-1 pb-3">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </div>
-          </div>
-
-          {/* Accordion Item 4 */}
-          <div className="border-b">
-            <button
-              className="w-full flex justify-between items-center px-4 py-2 hover:bg-gray-200"
-              onClick={(e) => toggleAccordion(e)}
-            >
-              <div className="flex gap-2">
-                <span className="text-gray-500">04</span>
-                <span>Lorem ipsum dosation</span>
-              </div>
-              <span>+</span>
-            </button>
-            <div className="hidden px-4 pt-1 pb-3">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
+    </div>
 
       {/* FAQ Section */}
       <div className="rounded-lg border bg-gray-100">

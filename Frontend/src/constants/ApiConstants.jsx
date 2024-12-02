@@ -51,5 +51,12 @@ export const USERENDPOINTS = {
 
 export const GEUESTENDPOINTS = {
   GETGUESTJOBS: `${API_BASE_URL}user/getGuestJobs`,
+  
+  UPCOMMINGTESTS: `${API_BASE_URL}user/upcommingTest`, //not using complete test fetch
+
+  EXAM_TYPES:`${API_BASE_URL}user/guestExamType`,
+  TESTS_BY_TYPE:`${API_BASE_URL}user/test-by-Type`,
+  GUESTTESTDETAIL_BY_ID:`${API_BASE_URL}user/test-by-id`
+ 
  
 }
