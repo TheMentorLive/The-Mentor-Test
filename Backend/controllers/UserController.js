@@ -228,6 +228,8 @@ const guestTestByType= async(req,res)=>{
     }
     // Find all tests associated with the exam type's categories
     const tests = await Test.find({ examType: { $in: examTypeData.name } }).limit(3);
+    console.log("upe",tests);
+    
     res.status(200).json(tests);
   } catch (error) {
     console.error("Error fetching tests by exam type:", error);

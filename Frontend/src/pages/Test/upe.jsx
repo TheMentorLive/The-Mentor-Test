@@ -15,6 +15,9 @@ export default function UPE() {
     const fetchExamTypes = async () => {
       try {
         const response = await axios.get(GEUESTENDPOINTS.EXAM_TYPES);
+
+        console.error("Error fetching upe:", response.data);
+
         setExamTypes(response.data);
 
         // Set default selection to the first exam type, if available
@@ -41,6 +44,8 @@ export default function UPE() {
             examType: selectedExamType,
           },
         });
+        console.error("Error fetching upe fghjk exams:", response.data);
+        
         setExamData(response.data);
       } catch (error) {
         console.error("Error fetching exam data:", error);
