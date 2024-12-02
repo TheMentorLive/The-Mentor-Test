@@ -103,7 +103,7 @@ export default function UPE() {
           {/* Test details */}
           <div className="relative">
             {loading ? (
-              <div className="text-center py-10"><div className="spinner-border animate-spin inline-block w-4 h-4 border-4 border-blue-500 rounded-full border-t-transparent"></div></div>
+              <div className="text-center py-10"><div className="spinner-border animate-spin inline-block w-8 h-8 border-4 border-blue-500 rounded-full border-t-transparent"></div></div>
             ) : examData.length > 0 ? (
               <div className="flex flex-wrap gap-4">
                 {examData.map((exam, i) => (
