@@ -10,9 +10,8 @@ const { verifyRazorpaySignature } = require("../utils/verifyRazorpaySignature");
 dotenv.config();
 
 
-const getTests= async (req, res) => {
 
- 
+const getTests= async (req, res) => {
   const { subject } = req.query;
 
   try {
