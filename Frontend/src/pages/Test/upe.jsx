@@ -77,7 +77,7 @@ export default function UPE() {
 
   return (
     <div className="mb-10">
-      <section className="px-4 md:px-6 mt-16 mb-16 mr-20 ml-20">
+      <section className="px-4 md:px-6 mt-16 mb-16 lg:mr-20 lg:ml-20">
         <h2 className="mb-8 text-3xl font-bold tracking-tighter">
           Upcoming Professional Exams
         </h2>
