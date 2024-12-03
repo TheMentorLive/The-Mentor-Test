@@ -270,8 +270,8 @@ const guestTestById = async(req,res)=>{
 
 
 const razorpayInstance = new Razorpay({
-  key_id: process.env.razorPay_Key_id, // Replace with your Razorpay API key
-  key_secret: process.env.razorPay_Key_secret, // Replace with your Razorpay API secret
+  key_id: process.env.KEY, // Replace with your Razorpay API key
+  key_secret: process.env.SECRET, // Replace with your Razorpay API secret
 });
 
 const createPayment=async (req, res) => {
@@ -313,7 +313,7 @@ const verifyPayment = async (req, res) => {
 
   try {
     // Razorpay secret key for verification
-    const razorpaySecret = process.env.key_secret;  // Replace with your Razorpay secret
+    const razorpaySecret = process.env.SECRET;  // Replace with your Razorpay secret
 
     // Verify Razorpay payment signature
     const isValid = verifyRazorpaySignature(paymentId, orderId, signature, razorpaySecret);
