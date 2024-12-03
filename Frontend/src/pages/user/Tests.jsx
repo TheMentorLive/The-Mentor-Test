@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Box,
   Card,
@@ -26,11 +26,13 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ADMINENDPOINTS, USERENDPOINTS } from '../../constants/ApiConstants';
+import { ShoppingCartIcon } from 'lucide-react';
+import Razorpay from "razorpay";
+import { mainContext } from '/src/context/mainContex';
 
 const TestComponent = () => {
   const [token, setToken] = useState(() => localStorage.getItem('token') || '');
   const [subjects, setSubjects] = useState([]);
-  const [tests, setTests] = useState([]);
   const [filteredTests, setFilteredTests] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -41,48 +43,88 @@ const TestComponent = () => {
   const [openCategory, setOpenCategory] = useState(false);
   const [openDifficulty, setOpenDifficulty] = useState(false);
   const [openSubjects, setOpenSubjects] = useState(false);
+  const {user}= useContext(mainContext)
 
-  useEffect(() => {
-    const fetchSubjects = async () => {
-      try {
-        const response = await axios.get(ADMINENDPOINTS.GETSUBJECTS, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setSubjects(response.data);
-        if (response.data.length > 0) {
-          setActiveSubject(response.data[0].name); // Set the first subject as the active subject
-        }
-      } catch (error) {
-        setError('Error fetching subjects');
-        console.error('Error fetching subjects:', error);
+  const [tests, setTests] = useState([]);
+  const [hasPaid, setHasPaid] = useState([]);
+
+
+
+console.log(hasPaid);
+
+
+ 
+
+  
+useEffect(() => {
+  const fetchSubjects = async () => {
+    try {
+      const response = await axios.get(ADMINENDPOINTS.GETSUBJECTS, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setSubjects(response.data);
+      if (response.data.length > 0) {
+        setActiveSubject(response.data[0].name); // Set the first subject as the active subject
       }
-    };
+    } catch (error) {
+      setError('Error fetching subjects');
+      console.error('Error fetching subjects:', error);
+    }
+  };
 
-    fetchSubjects();
-  }, [token]);
+  fetchSubjects();
+}, [token]); // Depend on token to ensure it stays updated
 
-  useEffect(() => {
-    const fetchTests = async () => {
-      if (!activeSubject) return; // Prevent fetch if no active subject
+// Fetch tests based on the active subject
+useEffect(() => {
+  const fetchTests = async () => {
+    if (!activeSubject) return; // Prevent fetch if no active subject
 
-      setLoading(true);
-      setError('');
-      try {
-        const response = await axios.get(`${USERENDPOINTS.GETTESTS}?subject=${activeSubject}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setTests(response.data);
-        setFilteredTests(response.data); // Set filtered tests initially
-      } catch (error) {
-        setError('Error fetching tests');
-        console.error('Error fetching tests:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    setLoading(true);
+    setError('');
+    try {
+      const response = await axios.get(`${USERENDPOINTS.GETTESTS}?subject=${activeSubject}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setTests(response.data);
+      setFilteredTests(response.data); // Set filtered tests initially
+    } catch (error) {
+      setError('Error fetching tests');
+      console.error('Error fetching tests:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchTests();
-  }, [activeSubject, token]);
+  fetchTests();
+}, [activeSubject, token]); // Fetch tests whenever activeSubject or token changes
+
+// Check payment status for the user and set paid test IDs
+useEffect(() => {
+  const checkPaymentStatus = async () => {
+    setLoading(true); // Ensure loading is handled
+    setError(''); // Clear any existing errors
+
+    try {
+      const response = await axios.get(USERENDPOINTS.PAIDTEST, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      console.log('Paid Test IDs:', response.data.testIds);
+      
+      // Check if the current test ID is in the list of paid tests
+      setHasPaid(response.data.testIds); // Store paid test IDs in state
+    } catch (error) {
+      console.error('Error fetching paid tests:', error);
+      setError('Error fetching paid tests');
+    } finally {
+      setLoading(false); // Turn off loading after the request is done
+    }
+  };
+
+  checkPaymentStatus();
+}, [token]); 
 
   useEffect(() => {
     const filterTests = () => {
@@ -133,6 +175,78 @@ const TestComponent = () => {
     setDifficultyFilters((prev) => ({ ...prev, [difficulty]: !prev[difficulty] }));
   };
 
+  const handleBuyNow = async (testId) => {
+    try {
+      // Make a request to your backend to create a Razorpay order using axios
+      const response = await axios.post(USERENDPOINTS.CREATEPAYMENT, { testId });
+      console.log("Backend response:", response.data);
+  
+      const data = response.data;
+      // Check if the backend response contains order details
+      if (data && data.order && data.order.id && data.order.amount) {
+        const { id, amount } = data.order;
+        console.log("Received orderId:", id);
+        console.log("Received amount:", amount);
+  
+        // Razorpay options for checkout
+        const options = {
+          key: "rzp_test_AVLwAyEyI2Fn5Q", // Replace with your Razorpay API key
+          amount: amount, // The amount to be charged (in paise)
+          currency: "INR", // Currency
+          order_id: id, // The order ID created in the backend
+          name: "Test Payment", // Your company or test name
+          description: "Purchase Test",
+          image: "https://example.com/logo.png", // Your company logo
+  
+          handler: function (response) {
+            console.log("Payment response:", response);
+  
+            // Send the payment details to your backend for verification
+            axios.post(USERENDPOINTS.VERIFYPAYMENT, {
+              paymentId: response.razorpay_payment_id,
+              orderId: response.razorpay_order_id,
+              signature: response.razorpay_signature,
+               // Pass the logged-in user's ID
+              testId: testId
+            },{
+              headers: {
+                Authorization: `Bearer ${token}`,} // Send the token as Bearer token
+              }).then((res) => {
+              console.log("Payment verified:", res.data);
+            }).catch((err) => {
+              console.error("Payment verification failed:", err);
+            });
+          },
+          prefill: {
+            name: "John Doe",
+            email: "john@example.com",
+            contact: "+919876543210",
+          },
+          notes: {
+            address: "Test address",
+          },
+          theme: {
+            color: "#FF5722",
+          },
+        };
+  
+        // Ensure Razorpay is loaded before calling the checkout
+        if (window.Razorpay) {
+          const rzp = new window.Razorpay(options);
+          rzp.open(); // Open Razorpay checkout
+        } else {
+          console.error("Razorpay script not loaded.");
+        }
+      } else {
+        console.error("Invalid response: Missing orderId or amount");
+      }
+    } catch (error) {
+      console.error("Error creating Razorpay order:", error);
+    }
+  };
+  
+  
+  
   const renderTestCard = (test) => (
     <Grid item xs={12} sm={6} md={4} key={test.id}>
       <Card
@@ -157,13 +271,13 @@ const TestComponent = () => {
         <CardContent>
           <img
             src="https://img.freepik.com/premium-vector/test-icon-illustration_430232-32.jpg"
-            alt={test.description}
+            alt={test.title}
             style={{ width: '100%', height: '120px', borderRadius: '2px', objectFit: 'cover' }}
           />
           <Box display="flex" alignItems="center" gap={0.5} mt={0.5}>
             <BookIcon sx={{ color: 'primary.main', fontSize: '18px' }} />
             <Typography variant="body2" component="h3" fontWeight="bold" noWrap>
-              {test.description}
+              {test.title}
             </Typography>
           </Box>
           <Typography variant="caption" color="textSecondary" mt={0.5}>
@@ -173,22 +287,59 @@ const TestComponent = () => {
 
         <CardContent sx={{ mt: 'auto' }}>
           <Box display="flex" gap={1} justifyContent="center">
-            <Link to={`/start-test?id=${test._id}`} style={{ textDecoration: 'none' }}>
-              <Button
-                variant="contained"
-                startIcon={<PlayCircleOutlineIcon sx={{ fontSize: 18 }} />}
-                sx={{
-                  textTransform: 'none',
-                  bgcolor: '#2463EB',
-                  '&:hover': { bgcolor: 'primary.dark' },
-                  borderRadius: 2,
-                  padding: '4px 8px',
-                  fontSize: '14px',
-                }}
-              >
-                Take Test
-              </Button>
-            </Link>
+
+          {hasPaid && hasPaid.includes(test._id) ? (
+  // If the user has paid for the test, show "Take Test" button
+  <Link to={`/start-test?id=${test._id}`} style={{ textDecoration: 'none' }}>
+    <Button
+      variant="contained"
+      startIcon={<PlayCircleOutlineIcon sx={{ fontSize: 18 }} />}
+      sx={{
+        textTransform: 'none',
+        bgcolor: '#2463EB',
+        '&:hover': { bgcolor: 'primary.dark' },
+        borderRadius: 2,
+        padding: '4px 8px',
+        fontSize: '14px',
+      }}
+    >
+      Take Test
+    </Button>
+  </Link>
+) : (
+  // If the user hasn't paid for the test, show the "Buy Now" button
+  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+    <Typography
+      sx={{
+        fontSize: '14px',
+        color: '#FF5722',
+        fontWeight: 'bold',
+      }}
+    >
+      Price: ${test.price}
+    </Typography>
+    <Button
+      variant="contained"
+      startIcon={<ShoppingCartIcon sx={{ fontSize: 18 }} />}
+      sx={{
+        textTransform: 'none',
+        bgcolor: '#FFC107',
+        '&:hover': { bgcolor: 'primary.dark' },
+        borderRadius: 2,
+        padding: '2px 4px',
+        fontSize: '13px',
+      }}
+      onClick={() => handleBuyNow(test._id)}
+    >
+      Buy Now
+    </Button>
+  </Box>
+)}
+
+
+
+
+
             <Button
               variant="outlined"
               sx={{

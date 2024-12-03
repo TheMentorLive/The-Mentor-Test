@@ -46,7 +46,11 @@ export const USERENDPOINTS = {
     GETTESTSLANDING: `${API_BASE_URL}user/getTestsLanding`,
      SUBMITTEST: `${API_BASE_URL}user/submitTest`,
       GETCURRENTTESTRESULT: `${API_BASE_URL}user/results`,
-        GETTESTHISTORY:`${API_BASE_URL}user/history `
+        GETTESTHISTORY:`${API_BASE_URL}user/history `,
+
+        CREATEPAYMENT:`${API_BASE_URL}user/create-payment `,
+        VERIFYPAYMENT:`${API_BASE_URL}user/verify-payment `,
+        PAIDTEST:`${API_BASE_URL}user/paid-test `,
 }
 
 export const GEUESTENDPOINTS = {
