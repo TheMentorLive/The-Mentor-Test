@@ -1,4 +1,5 @@
 import React from "react";
+import { IconShoppingCart, IconCreditCard } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
 export default function Hero({testDetails}) {
@@ -14,7 +15,7 @@ export default function Hero({testDetails}) {
 
       <div className="relative z-10 flex flex-col-reverse md:flex-row items-center justify-between max-w-6xl w-full px-4 md:px-8 space-y-8 md:space-y-0">
         {/* Hero Content */}
-        <div className="text-white md:w-2/4 flex flex-col items-center md:items-start lg:-ml-10 space-y-4">
+        <div className="text-white md:w-2/4 flex flex-col items-center md:items-start lg:-ml-[110px]  space-y-6">
           <h1 className="text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] p-2 font-bold tracking-tight leading-tight text-center md:text-left">
             {testDetails.category}
           </h1>
@@ -52,9 +53,19 @@ export default function Hero({testDetails}) {
               In at iaculis lorem. Praesent tempor dictum tellus ut molestie.
               Sed sed ullamcorper lorem
             </p>
-            <button className="w-full bg-blue-600 text-white py-2 px-3 rounded-lg text-sm hover:bg-blue-700">
-              Buy Now
-            </button>
+            <div className="flex gap-3">
+      {/* Add to Cart Button */}
+      <button className="w-full flex items-center justify-center bg-gray-200 text-gray-800 py-2 px-3 rounded-lg text-sm hover:bg-gray-300 gap-2">
+        <IconShoppingCart size={16} />
+        Add to Cart
+      </button>
+      
+      {/* Checkout Button */}
+      <button className="w-full flex items-center justify-center bg-blue-600 text-white py-2 px-3 rounded-lg text-sm hover:bg-blue-700 gap-2">
+        <IconCreditCard size={16} />
+        Checkout
+      </button>
+    </div>
           </div>
         </div>
       </div>

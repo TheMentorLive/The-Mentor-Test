@@ -1,226 +1,125 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Dialog, CircularProgress, Snackbar } from "@mui/material";
-import Rating from "@mui/material/Rating";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import Header from "../../../components/Header";
+import Footer from "../../../components/Footer";
+import { Trash, Bookmark } from "lucide-react";
 
-const dummyData = [
-  {
-    productId: {
-      title: "React for Beginners",
-      price: 299,
-      image: "https://img-c.udemycdn.com/course/240x135/965528_737d_7.jpg",
-      _id: "1",
-      level: "Beginner",
-      author: "John Doe",
-      rating: 4.5,
+export default function CartMain() {
+  const initialItems = [
+    {
+      id: 1,
+      title: "JEE Physics Mastery 2024",
+      instructor: "Dr. Ramesh Gupta",
+      image: "/images/jee-physics.jpg",
+      price: 15000,
     },
-  },
-  {
-    productId: {
-      title: "Advanced JavaScript",
-      price: 499,
-      image: "https://img-c.udemycdn.com/course/240x135/756150_c033_4.jpg",
-      _id: "2",
-      level: "Advanced",
-      author: "Jane Smith",
-      rating: 4.7,
+    {
+      id: 2,
+      title: "NEET Biology Essentials 2024",
+      instructor: "Dr. Anjali Sharma",
+      image: "/images/neet-biology.jpg",
+      price: 13500,
     },
-  },
-];
+    {
+      id: 3,
+      title: "JEE Chemistry Excellence 2024",
+      instructor: "Dr. Pankaj Verma",
+      image: "/images/jee-chemistry.jpg",
+      price: 14000,
+    },
+  ];
 
-export const CartPage = () => {
-  const [data, setData] = useState([]);
-  const [coupon, setCoupon] = useState("");
-  const [notification, setNotification] = useState({ open: false, message: "" });
-  const [openDialog, setOpenDialog] = useState(false); // Confirmation dialog
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const loading = useRef(true);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    loading.current = false;
-    setData(dummyData); // Set dummy data as cart items
-  }, []);
-
-  const applyCoupon = () => {
-    if (coupon.toLowerCase() === "keeplearning") {
-      setNotification({ open: true, message: "Coupon applied successfully!" });
-    } else {
-      setNotification({ open: true, message: "Invalid coupon!" });
-    }
-  };
-
-  const removeFromCart = (productId) => {
-    setData((prev) => prev.filter((item) => item.productId._id !== productId));
-    setNotification({ open: true, message: "Item removed from cart." });
-  };
-
-  const handleCloseNotification = () => {
-    setNotification({ open: false, message: "" });
-  };
-
-  // Razorpay Payment Integration
-  const handlePayment = async () => {
-    const totalAmount = data.reduce((acc, el) => acc + el.productId.price, 0);
-
-    const options = {
-      key: "rzp_test_UpMbeMfb2X5DTf", // Your Razorpay test key
-      amount: totalAmount * 100, // Amount in paisa
-      currency: "INR",
-      name: "Online Learning Platform",
-      description: "Test Transaction",
-      handler: (response) => {
-        // Handle success here (paymentId, orderId, signature)
-        console.log(response);
-        setNotification({ open: true, message: "Payment Successful!" });
-        // Navigate to success page or handle further logic
-        navigate("/success");
-      },
-      prefill: {
-        name: "John Doe",
-        email: "john.doe@example.com",
-        contact: "9999999999",
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
-
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  };
+  const [items, setItems] = useState(initialItems);
+  const removeItem = (id) => setItems(items.filter((item) => item.id !== id));
+  const saveForLater = (id) => console.log("Save for later:", id);
+  const handleCheckout = () => console.log("Proceeding to checkout");
+  const subtotal = items.reduce((sum, item) => sum + item.price, 0);
 
   return (
-    <>
-      <h1 className="text-4xl font-bold text-center my-8">Shopping Cart</h1>
-
-      {loading.current ? (
-        <CircularProgress size={"8rem"} className="flex justify-center items-center my-8" />
-      ) : (
-        <div className="cart-body mx-auto px-4 lg:px-40">
-          <div className="flex flex-col md:flex-row gap-8">
-            <div className="cart-items w-full md:w-2/3">
-              <p className="text-lg font-semibold mb-4">Courses in Cart</p>
-              <div className="space-y-4">
-                {data.map((el) => (
-                  <CartProdCard
-                    db={el.productId}
-                    key={el.productId._id}
-                    remove={() => {
-                      setSelectedProduct(el.productId._id);
-                      setOpenDialog(true);
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="w-full md:w-1/3">
-              <div className="bg-gray-100 p-4 rounded-md shadow-md">
-                <div className="flex justify-between items-center">
-                  <p className="text-lg font-semibold">Total: </p>
-                  <h1 className="text-2xl font-bold">
-                    ₹<TotalPrice db={data} />
-                  </h1>
+    <div>
+      <Header />
+      <div className="bg-background mt-14 lg:ml-20 lg:mr-20">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex justify-between items-baseline mb-8">
+            <h1 className="text-3xl font-bold">Shopping Cart</h1>
+            <p className="text-muted-foreground">
+              {items.length} Course{items.length !== 1 ? "s" : ""} in Cart
+            </p>
+          </div>
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              {items.length > 0 ? (
+                <div className="space-y-1">
+                  {items.map((item) => (
+                    <div key={item.id} className="flex gap-4 py-6 border-b bg-white shadow rounded">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        width={160}
+                        height={90}
+                        className="object-cover rounded"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-lg leading-tight line-clamp-2">{item.title}</h3>
+                        <p className="text-sm text-muted-foreground mt-1">By {item.instructor}</p>
+                        <div className="flex gap-4 mt-4">
+                          <button
+                            className="flex items-center gap-2 text-destructive hover:text-destructive hover:bg-destructive/10 px-2 py-1 rounded transition duration-200"
+                            onClick={() => removeItem(item.id)}
+                            aria-label={`Remove ${item.title} from cart`}
+                          >
+                            <Trash size={16} />
+                            Remove
+                          </button>
+                          <button
+                            className="flex items-center gap-2 hover:bg-muted/10 px-2 py-1 rounded transition duration-200"
+                            onClick={() => saveForLater(item.id)}
+                            aria-label={`Save ${item.title} for later`}
+                          >
+                            <Bookmark size={16} />
+                            Save for later
+                          </button>
+                        </div>
+                      </div>
+                      <div className="text-lg font-semibold">₹{item.price.toFixed(2)}</div>
+                    </div>
+                  ))}
                 </div>
-
-                <div className="mt-4">
-                  <button
-                    className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md"
-                    onClick={handlePayment}
-                  >
-                    <h4>Checkout</h4>
+              ) : (
+                <div className="text-center py-12">
+                  <p className="text-xl text-muted-foreground">Your cart is empty</p>
+                </div>
+              )}
+            </div>
+            <div className="lg:col-span-1">
+              <div className="bg-card p-6 rounded-lg border space-y-4">
+                <div className="flex justify-between text-lg font-semibold">
+                  <span>Total:</span>
+                  <span>₹{subtotal.toFixed(2)}</span>
+                </div>
+                <div className="space-y-2">
+                  <input
+                    className="w-full px-4 py-2 border rounded"
+                    placeholder="Enter coupon code"
+                  />
+                  <button className="w-full border rounded py-2 disabled:bg-gray-300" disabled={!items.length}>
+                    Apply Coupon
                   </button>
                 </div>
-
-                <div className="mt-6">
-                  <div className="mt-4 flex">
-                    <input
-                      type="text"
-                      className="w-full border border-gray-300 rounded-l-md p-2"
-                      placeholder="Enter Coupon"
-                      value={coupon}
-                      onChange={(e) => setCoupon(e.target.value)}
-                    />
-                    <button
-                      className="bg-blue-500 text-white rounded-r-md px-4 py-2 hover:bg-blue-600"
-                      onClick={applyCoupon}
-                    >
-                      Apply
-                    </button>
-                  </div>
-                </div>
+                <button
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-2 transition duration-200"
+                  onClick={handleCheckout}
+                >
+                  Checkout
+                </button>
+                <p className="text-sm text-muted-foreground text-center mt-4">
+                  30-Day Money-Back Guarantee
+                </p>
               </div>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* Snackbar for Notifications */}
-      <Snackbar
-        open={notification.open}
-        autoHideDuration={3000}
-        onClose={handleCloseNotification}
-        message={notification.message}
-      />
-
-      {/* Confirmation Dialog for Removing Items */}
-      <Dialog
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
-      >
-        <div className="p-4">
-          <h4>Are you sure you want to remove this item from the cart?</h4>
-          <div className="flex mt-4 justify-end gap-2">
-            <button
-              className="bg-gray-300 text-gray-700 py-1 px-2 rounded-md"
-              onClick={() => setOpenDialog(false)}
-            >
-              Cancel
-            </button>
-            <button
-              className="bg-red-500 text-white py-1 px-2 rounded-md"
-              onClick={() => {
-                removeFromCart(selectedProduct);
-                setOpenDialog(false);
-              }}
-            >
-              Remove
-            </button>
-          </div>
-        </div>
-      </Dialog>
-    </>
-  );
-};
-
-const CartProdCard = ({ db, remove }) => {
-  const { title, price, image, author, level, rating } = db;
-
-  return (
-    <div className="p-4 bg-white border border-gray-300 rounded-md shadow-md">
-      <div className="flex gap-4">
-        <img src={image} alt={title} className="w-24 h-24 object-cover rounded-md" />
-        <div className="flex flex-col w-full">
-          <h3 className="text-lg font-semibold">{title}</h3>
-          <p className="text-sm text-gray-600">{author} - {level}</p>
-          <Rating value={rating} precision={0.5} readOnly size="small" />
-          <div className="flex justify-between items-center mt-2">
-            <p className="text-xl font-bold">₹{price}</p>
-            <button
-              className="bg-red-500 text-white rounded-md px-4 py-1 hover:bg-red-600"
-              onClick={remove}
-            >
-              Remove
-            </button>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
-};
-
-const TotalPrice = ({ db }) => {
-  const total = db.reduce((acc, el) => acc + el.productId.price, 0);
-  return total;
-};
+}

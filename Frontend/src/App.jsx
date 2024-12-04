@@ -22,7 +22,7 @@ import PrivacyPolicy from './components/PP';
 import VideoSection from './pages/user/courses/main';
 import {Admindash} from './components/adminComponent/admindash';
 import Main from './pages/Live/Main';
-import { CartPage } from './pages/Learn/Cart/Cart';
+import CartMain from './pages/Learn/Cart/Cart';
 import Payment from './pages/Learn/Payment/Payment';
 import Support from './pages/support';
 import LearnMain from './pages/testing/Learn/main';
@@ -68,7 +68,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/Testdetails" element={<TestdetailpgMain/>} />
           <Route path="/learn" element={<LearnMain />} />
           <Route path="/main" element={<VideoSection />} />
-          <Route path="/Cartpg" element={<CartPage />} />
+          <Route path="/Cart" element={<CartMain />} />
           <Route path="/Payment" element={<Payment />} />
           <Route path="/reset-password" element={<ResetPassword/>} />
           <Route path="/support" element={<Support/>} />
