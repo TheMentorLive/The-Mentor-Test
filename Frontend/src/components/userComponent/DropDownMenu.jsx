@@ -50,7 +50,7 @@ const DropdownMenu = ({ isLoggedIn }) => {
   };
 
   return (
-    <div ref={dropdownRef} className="relative inline-block text-left ">
+    <div ref={dropdownRef} className=" hidden lg-block relative inline-block text-left ">
       {/* Dropdown Button */}
       <button
         onClick={toggleDropdown}
@@ -68,7 +68,7 @@ const DropdownMenu = ({ isLoggedIn }) => {
 
       {/* Dropdown Menu */}
       <AnimatePresence>
-        {isOpen && (
+        {isOpen && ( 
          <motion.div
          initial={{ opacity: 0, y: -10 }}
          animate={{ opacity: 1, y: 0 }}

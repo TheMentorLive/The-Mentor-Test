@@ -9,6 +9,7 @@ import DropdownMenu from "./userComponent/DropDownMenu";
 import CartSidebar from "./cart/CartSidebar"; // Cart Sidebar Component
 import TopHeader from "./userComponent/landingpageComponents/TopHeader";
 import { Bell, Heart, ShoppingCartIcon } from "lucide-react";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 const Header = () => {
    
@@ -49,6 +50,14 @@ const Header = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+
+    const getInitial = () => {
+        if (user && user.name) {
+          return user.name.charAt(0).toUpperCase();
+        }
+        return "U"; // Default fallback if user or name is not available
+      };
 
     return (
         <div className="items-center flex justify-center">
@@ -99,7 +108,7 @@ const Header = () => {
                 
             
                   {/* Cart Icon */}
-                  <button onClick={toggleCart} className="text-gray-600 hover:text-black transition-colors duration-200">
+                  <button onClick={toggleCart} className="hidden lg:block text-gray-600 hover:text-black transition-colors duration-200">
                     <ShoppingCartIcon size={20} />
                   </button>
             
@@ -114,7 +123,7 @@ const Header = () => {
                     </Link>
                     <Link
                         to="/register"
-                        className="text-sm px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                        className=" hidden lg:block text-sm px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                     >
                         Sign Up
                     </Link>
@@ -127,26 +136,32 @@ const Header = () => {
                 {/* Left Section */}
                
             
-                {/* Right Section */}
-                <div className="flex items-center space-x-4">
-                  {/* Wishlist Icon */}
-                  <button className="text-gray-600 hover:text-black transition-colors duration-200">
-                    <Heart size={20} />
-                  </button>
-            
-                  {/* Cart Icon */}
-                  <button onClick={toggleCart} className="text-gray-600 hover:text-black transition-colors duration-200">
-                    <ShoppingCartIcon size={20} />
-                  </button>
-            
-                  {/* Notification Icon */}
-                  <button className="text- hover:text-black transition-colors duration-200">
-                    <Bell size={20} />
-                  </button>
-                  <p className="text-xs text-blue-600 font-semibold text-gray-700">Welcome Back..!</p>
-                  {/* Dropdown Menu */}
-                  <DropdownMenu />
-                </div>
+               {/* Right Section */}
+{/* Right Section */}
+<div className="hidden lg:flex items-center space-x-4">
+  {/* Wishlist Icon */}
+  <button className="text-gray-600 hover:text-black transition-colors duration-200">
+    <Heart size={20} />
+  </button>
+
+  {/* Cart Icon */}
+  <button onClick={toggleCart} className=" hidden lg:block text-gray-600 hover:text-black transition-colors duration-200">
+    <ShoppingCartIcon size={20} />
+  </button>
+
+  {/* Notification Icon */}
+  <button className="text-gray-600 hover:text-black transition-colors duration-200">
+    <Bell size={20} />
+  </button>
+
+  {/* Welcome Message */}
+  <p className="text-xs text-blue-600 font-semibold text-gray-700">Welcome Back..!</p>
+
+  {/* Dropdown Menu */}
+  <DropdownMenu />
+</div>
+
+
                 
               </div>
             )}
@@ -155,7 +170,7 @@ const Header = () => {
         {/* Mobile Menu Icon */}
         <button
             onClick={toggleMenu}
-            className="lg:hidden text-gray-700 text-2xl py-2 px-4"
+            className="lg:hidden text-gray-700 text-2xl py-2 px-4 "
             aria-label="Toggle navigation menu"
         >
             <MenuIcon />
@@ -163,46 +178,81 @@ const Header = () => {
     </div>
 
     {/* Mobile Navigation Menu */}
+
     <div
         className={`fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 transform ${
             isMenuOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300`}
     >
+        
         <div className="flex flex-col py-4 px-5">
-            <button
-                onClick={toggleMenu}
-                className="self-end text-gray-700 text-2xl"
-                aria-label="Close navigation menu"
-            >
-                <FaTimes />
-            </button>
-            {["", "Learn", "Tests", "Jobs", "About"].map((page) => (
-                <Link
-                    key={page}
-                    to={`/${page}`}
-                    onClick={toggleMenu}
-                    className={`block py-2 px-4 mb-2 text-lg font-medium ${
-                        location.pathname === `/${page}`
-                            ? "text-blue-600 font-bold"
-                            : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
-                    }`}
-                >
-                    {page.charAt(0).toUpperCase() + page.slice(1)}
-                </Link>
-            ))}
-            <Link
-                to="/login"
-                className="block py-2 px-4 text-lg text-blue-500 font-medium hover:bg-blue-100 transition"
-            >
-                Sign In
-            </Link>
-            <Link
-                to="/register"
-                className="block py-2 px-4 mt-2 text-lg bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700 transition"
-            >
-                Sign Up
-            </Link>
-        </div>
+  {/* User Info Section */}
+  <div className="flex items-center px-4 py-3 border-b">
+    {/* Round and big user icon */}
+    <div className="bg-black text-white w-12 h-12 flex items-center justify-center rounded-full text-lg font-bold">
+      {getInitial()}
+    </div>
+    <div className="ml-3">
+      <p className="font-semibold text-sm">
+        {user.name||"GUEST"}</p>
+      <p className="text-gray-500 text-xs">{user.email||"example@gmail.com"}</p>
+    </div>
+
+  </div>
+
+  {/* Close Button */}
+  <button
+    onClick={toggleMenu}
+    className="self-end text-gray-700 text-2xl mt-4"
+    aria-label="Close navigation menu"
+  >
+    <FaTimes />
+  </button>
+
+  {/* Navigation Links */}
+  {["", "Learn", "Tests", "Jobs", "About"].map((page) => (
+    <Link
+      key={page}
+      to={`/${page}`}
+      onClick={toggleMenu}
+      className={`block py-2 px-4 mb-2 text-lg font-medium ${
+        location.pathname === `/${page}`
+          ? "text-blue-600 font-bold"
+          : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+      }`}
+    >
+      {page.charAt(0).toUpperCase() + page.slice(1)}
+    </Link>
+  ))}
+
+  {/* Conditional Rendering for Buttons */}
+  {!isLoggedIn ? (
+    <>
+      <Link
+        to="/login"
+        className="block py-2 px-4 text-lg text-blue-500 font-medium hover:bg-blue-100 transition"
+      >
+        Sign In
+      </Link>
+      <Link
+        to="/register"
+        className="block py-2 px-4 mt-2 text-lg bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700 transition"
+      >
+        Sign Up
+      </Link>
+    </>
+  ) : (
+
+    
+    <button
+      onClick={handleLogout}
+      className="block py-2 px-4 mt-4 text-lg bg-red-600 text-white rounded-lg text-center hover:bg-red-700 transition"
+    >
+      Log Out
+    </button>
+  )}
+</div>
+
     </div>
 </header>
 
