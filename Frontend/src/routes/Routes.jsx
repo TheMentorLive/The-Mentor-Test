@@ -33,21 +33,24 @@ const AppRoutes = () => {
 
       return (
         <>
+        <Header />
           {!isFullScreenPage && !isLoggedIn && <Header />}
           <div className={`layout ${isLoggedIn && !isFullScreenPage ? 'sidebar-visible' : ''}`}>
-            {!isFullScreenPage && isLoggedIn && <Sidebar className="sidebar" />}
+            {/* {!isFullScreenPage && isLoggedIn && <Sidebar className="sidebar" />} */}
             <main className={`content ${isFullScreenPage ? 'pt-0' : 'pt-[80px]'}`}>
               <Routes>
                 {/* Public Routes */}
-                {!isLoggedIn ? (
+               
+                {isLoggedIn ? (
                   <>
+                 
                     <Route path="/" element={<HomepgMain />} />
                     <Route path="/upcoming-test" element={<UpcomingTestsPage />} />
                     {/* Redirect logged-in users to /user-dashboard */}
                     <Route path="/user-dashboard" element={<Navigate to="/" />} />
-                    <Route path="/profile" element={<Navigate to="/" />} />
+                   
                     <Route path="/settings" element={<Navigate to="/" />} />
-                    
+                    <Route path="/profile" element={<ProfileComponent />} />
                     <Route path="/subjects" element={<Navigate to="/" />} />
                     <Route path="/start-test" element={<Navigate to="/" />} />
                     <Route path="/test" element={<Navigate to="/" />} />
@@ -57,8 +60,9 @@ const AppRoutes = () => {
                 ) : (
                   <>
                     <Route path="/" element={<Navigate to="/user-dashboard" />} />
-                    <Route path="/user-dashboard" element={<UserDashboard />} />
-                    <Route path="/profile" element={<ProfileComponent />} />
+                    <Route path="/user-dashboard" element={<HomepgMain />} />
+                   
+                    <Route path="/profile" element={<Navigate to="/" />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/all-tests" element={<TestComponent />} />
                     <Route path="/courses" element={<Course />} />

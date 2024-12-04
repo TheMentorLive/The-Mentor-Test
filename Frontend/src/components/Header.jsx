@@ -8,6 +8,7 @@ import { mainContext } from "../context/mainContex";
 import DropdownMenu from "./userComponent/DropDownMenu";
 import CartSidebar from "./cart/CartSidebar"; // Cart Sidebar Component
 import TopHeader from "./userComponent/landingpageComponents/TopHeader";
+import { Bell, Heart, ShoppingCartIcon } from "lucide-react";
 
 const Header = () => {
    
@@ -51,7 +52,7 @@ const Header = () => {
 
     return (
         <div className="items-center flex justify-center">
-           <header className="fixed top-0 left-0 w-full bg-white lg:h-[48px]  z-50  ">
+           <header className="fixed top-0 left-0 w-full bg-white lg:h-[48px]  z-50  shadow-md">
     {/* Top Header */}
     {/* <TopHeader /> */}
 
@@ -67,7 +68,7 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex space-x-6">
+         <nav className="hidden lg:flex space-x-6">
             {["", "Learn", "Tests", "Jobs", "About"].map((page) => (
                 <Link
                     key={page}
@@ -84,14 +85,26 @@ const Header = () => {
         </nav>
 
         {/* Desktop Buttons */}
-        <div className="hidden md:flex items-center space-x-3">
-            {location.pathname === "/Tests" && (
+        {/* <div className="hidden md:flex items-center space-x-3"> */}
+            {/* {location.pathname === "/Tests" && (
                 <button onClick={toggleCart} className="relative">
                     <AiOutlineShoppingCart className="text-xl text-gray-700" />
                 </button>
-            )}
+            )}  */}
             {!isLoggedIn ? (
                 <>
+                <div className="flex items-center justify-between mt-[-10px]  ">
+                <div className="flex items-center space-x-4">
+                  {/* Wishlist Icon */}
+                
+            
+                  {/* Cart Icon */}
+                  <button onClick={toggleCart} className="text-gray-600 hover:text-black transition-colors duration-200">
+                    <ShoppingCartIcon size={20} />
+                  </button>
+            
+                 
+
                     <Link
                         to="/login"
                         className="flex items-center text-sm px-4 py-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-100 transition"
@@ -105,11 +118,39 @@ const Header = () => {
                     >
                         Sign Up
                     </Link>
+
+                    </div>
+                    </div>
                 </>
             ) : (
-                <DropdownMenu />
+                <div className="flex items-center justify-between mt-[-10px]  ">
+                {/* Left Section */}
+               
+            
+                {/* Right Section */}
+                <div className="flex items-center space-x-4">
+                  {/* Wishlist Icon */}
+                  <button className="text-gray-600 hover:text-black transition-colors duration-200">
+                    <Heart size={20} />
+                  </button>
+            
+                  {/* Cart Icon */}
+                  <button onClick={toggleCart} className="text-gray-600 hover:text-black transition-colors duration-200">
+                    <ShoppingCartIcon size={20} />
+                  </button>
+            
+                  {/* Notification Icon */}
+                  <button className="text- hover:text-black transition-colors duration-200">
+                    <Bell size={20} />
+                  </button>
+                  <p className="text-xs text-blue-600 font-semibold text-gray-700">Welcome Back..!</p>
+                  {/* Dropdown Menu */}
+                  <DropdownMenu />
+                </div>
+                
+              </div>
             )}
-        </div>
+        {/* </div> */}
 
         {/* Mobile Menu Icon */}
         <button
@@ -135,7 +176,7 @@ const Header = () => {
             >
                 <FaTimes />
             </button>
-            {["", "Learn", "Test", "Jobs", "About"].map((page) => (
+            {["", "Learn", "Tests", "Jobs", "About"].map((page) => (
                 <Link
                     key={page}
                     to={`/${page}`}
