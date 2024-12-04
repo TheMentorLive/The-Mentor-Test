@@ -39,14 +39,14 @@ export default function Hero({testDetails}) {
         <div className="bg-white rounded-lg shadow-lg h-fit p-4 md:ml-auto w-full md:w-[300px] lg:w-[350px]">
           <div className="space-y-3">
             <img
-              src="./courses/Image4.png"
+              src={testDetails.image}
               alt="Hexagonal pattern"
               className="rounded-lg object-cover w-full h-[150px]"
             />
             <h3 className="text-base font-bold">{testDetails.title}/{testDetails.category}</h3>
             <div className="flex items-baseline gap-1">
               <span className="text-sm font-bold">₹ {testDetails.price}/-</span>
-              <span className="text-xs text-gray-500 line-through">₹1500</span>
+              <span className="text-xs text-gray-500 line-through">₹1000</span>
               <span className="text-xs text-green-600">67% OFF</span>
             </div>
             <p className="text-xs text-gray-500">

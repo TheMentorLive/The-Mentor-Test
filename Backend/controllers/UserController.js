@@ -2,11 +2,16 @@ const Test = require("../model/Test");
 const ResultModel = require('../model/ResultModel');
 const Jobs = require("../model/Jobs");
 const ExamType = require("../model/ExamType");
+const dotenv = require("dotenv");
+const PaidTest = require("../model/PaidTest");
+const UserModel = require("../model/UserModel");
+const Razorpay = require('razorpay');
+const { verifyRazorpaySignature } = require("../utils/verifyRazorpaySignature");
+dotenv.config();
+
 
 
 const getTests= async (req, res) => {
-
- 
   const { subject } = req.query;
 
   try {
@@ -264,6 +269,112 @@ const guestTestById = async(req,res)=>{
 
 
 
+const razorpayInstance = new Razorpay({
+  key_id: process.env.KEY, // Replace with your Razorpay API key
+  key_secret: process.env.SECRET, // Replace with your Razorpay API secret
+});
+
+const createPayment=async (req, res) => {
+  console.log(req.body);
+  
+  const { testId } = req.body;
+
+  try {
+    // Fetch the test details from your database (example)
+    const test = await Test.findById(testId); // Replace with your database query
+    const amount = test.price * 100; // Razorpay expects amount in paise (1 INR = 100 paise)
+    console.log(amount);
+    
+
+    // Create an order on Razorpay
+    const order = await razorpayInstance.orders.create({
+      amount: amount, // Amount in paise
+      currency: "INR",
+      receipt: `order_rcptid_${new Date().getTime()}`, // Unique receipt ID
+    });
+
+    // Send the order ID and amount back to the frontend
+    res.json({
+      order: {
+        id: order.id,
+        amount: order.amount,
+      },
+    });
+  } catch (error) {
+    console.error("Error creating Razorpay order", error);
+    res.status(500).json({ error: "Failed to create Razorpay order" });
+  }
+};
+
+const verifyPayment = async (req, res) => {
+  console.log(req.body,"Payment verification data");
+
+  const { paymentId, orderId, signature, userId, testId } = req.body;
+
+  try {
+    // Razorpay secret key for verification
+    const razorpaySecret = process.env.SECRET;  // Replace with your Razorpay secret
+
+    // Verify Razorpay payment signature
+    const isValid = verifyRazorpaySignature(paymentId, orderId, signature, razorpaySecret);
+
+    if (isValid) {
+      // Fetch the test details
+      const test = await Test.findById(testId);
+      if (!test) {
+        return res.status(400).json({ error: 'Test not found' });
+      }
+
+      // Fetch the user (optional)
+      const user = await UserModel.findById(req.user.id);
+      if (!user) {
+        return res.status(400).json({ error: 'User not found' });
+      }
+
+      // Create a record in the PaidTest collection
+      const paidTest = new PaidTest({
+        userId: user._id,
+        testId: test._id,
+        orderId: orderId,
+        paymentId: paymentId,
+        amount: test.price,
+        status: 'success',
+      });
+
+      // Save the paid test record
+      await paidTest.save();
+
+      // Send a response indicating payment success
+      res.json({ message: 'Payment successful, test is added to paid tests' });
+    } else {
+      // Payment verification failed
+      res.status(400).json({ error: 'Payment verification failed' });
+    }
+  } catch (error) {
+    console.error("Error verifying payment", error);
+    res.status(500).json({ error: 'Payment verification failed' });
+  }
+};
+
+
+const paidTest = async (req, res) => {
+  try {
+    // Fetch paid tests where the user has paid and the status is 'success'
+    const paidTests = await PaidTest.find({ userId: req.user.id, status: 'success' })
+      .populate('testId', 'name price') // Populate test details like name and price
+      .exec();
+
+    // Extract only the testId from each paidTest document
+    const testIds = paidTests.map((paidTest) => paidTest.testId._id);
+console.log(testIds);
+
+    // Send the testIds to the frontend
+    res.status(200).json({ testIds });
+  } catch (error) {
+    console.error('Error fetching paid tests:', error);
+    res.status(500).send('Server error');
+  }
+};
 
 module.exports={
   getTests,
@@ -280,6 +391,10 @@ module.exports={
   guestExamType,
   guestTestByType,
   guestTestById,
+
+  createPayment,
+  verifyPayment,
+  paidTest
  
     
 }

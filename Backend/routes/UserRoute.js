@@ -20,6 +20,11 @@ router.get("/guestExamType",UserController.guestExamType);
 router.get("/test-by-Type",UserController.guestTestByType);
 router.get("/test-by-id",UserController.guestTestById);
 
+router.post("/create-payment",UserController.createPayment);
+router.post("/verify-payment",authMiddleware,UserController.verifyPayment);
+router.get("/paid-test",authMiddleware,UserController.paidTest);
+
+
 
 
 module.exports= router; 
