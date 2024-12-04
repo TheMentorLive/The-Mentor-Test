@@ -10,21 +10,20 @@ import CartSidebar from "./cart/CartSidebar"; // Cart Sidebar Component
 import TopHeader from "./userComponent/landingpageComponents/TopHeader";
 
 const Header = () => {
-    const location = useLocation();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isCartOpen, setIsCartOpen] = useState(false); // State for cart sidebar
+   
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const { user, setToken, signOut } = useContext(mainContext);
     const navigate = useNavigate();
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+    const location = useLocation();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isCartOpen, setIsCartOpen] = useState(false); // State for cart sidebar
 
-    const toggleCart = () => {
-        setIsCartOpen(!isCartOpen); // Toggle cart state
-    };
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const toggleCart = () => setIsCartOpen(!isCartOpen); // Toggle cart sidebar
 
+   
+   
     const handleLogout = () => {
         signOut();
         setToken("");
@@ -86,7 +85,7 @@ const Header = () => {
 
         {/* Desktop Buttons */}
         <div className="hidden md:flex items-center space-x-3">
-            {location.pathname === "/learn" && (
+            {location.pathname === "/Tests" && (
                 <button onClick={toggleCart} className="relative">
                     <AiOutlineShoppingCart className="text-xl text-gray-700" />
                 </button>
@@ -168,7 +167,7 @@ const Header = () => {
 
 
             {/* Cart Sidebar */}
-            {isCartOpen && <CartSidebar onClose={toggleCart} />}
+            <CartSidebar isCartOpen={isCartOpen} toggleCart={toggleCart} />
         </div>
     );
 };

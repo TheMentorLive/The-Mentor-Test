@@ -1,32 +1,40 @@
 import React, { useState } from 'react';
 import { FaTimes, FaShoppingCart, FaTrashAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const CartSidebar = ({ isCartOpen, toggleCart }) => {
     // Dummy cart items state
     const [cartItems, setCartItems] = useState([
         {
             id: 1,
-            name: 'Course 1: Introduction to Web Development',
-            category: 'Web Development',
-            price: 7900, // Price in Rupees
-            image: '/images/web-development.jpg',
+            name: 'JEE Series: Physics Mastery',
+            category: 'JEE Preparation',
+            price: 15000, // Price in Rupees
+            image: '/images/jee-physics.jpg',
         },
         {
             id: 2,
-            name: 'Course 2: Advanced Data Analysis Techniques',
-            category: 'Data Analyst',
-            price: 9999,
-            image: '/images/data-analyst.jpg',
+            name: 'NEET Series: Biology Essentials',
+            category: 'NEET Preparation',
+            price: 13500,
+            image: '/images/neet-biology.jpg',
         },
         {
             id: 3,
-            name: 'Course 3: React for Beginners',
-            category: 'Frontend Development',
-            price: 7200,
-            image: '/images/react-beginners.jpg',
+            name: 'JEE Series: Chemistry Excellence',
+            category: 'JEE Preparation',
+            price: 14000,
+            image: '/images/jee-chemistry.jpg',
+        },
+        {
+            id: 4,
+            name: 'NEET Series: Physics Crash Course',
+            category: 'NEET Preparation',
+            price: 12000,
+            image: '/images/neet-physics.jpg',
         },
     ]);
-
+    
     // Calculate total price
     const totalPrice = cartItems.reduce((acc, item) => acc + item.price, 0);
 
@@ -89,20 +97,7 @@ const CartSidebar = ({ isCartOpen, toggleCart }) => {
                     {/* Sticky Bottom Section */}
                     <div className="sticky bottom-0 bg-gray-50 py-4 space-y-4">
                         {/* Coupon Section */}
-                        <div>
-                            <label htmlFor="coupon" className="block text-sm font-medium text-gray-700">
-                                Have a Coupon?
-                            </label>
-                            <input
-                                id="coupon"
-                                type="text"
-                                placeholder="Enter Coupon Code"
-                                className="w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
-                            <button className="mt-2 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 w-full">
-                                Apply Coupon
-                            </button>
-                        </div>
+                      
 
                         {/* Total Price Summary */}
                         <div>
@@ -111,9 +106,11 @@ const CartSidebar = ({ isCartOpen, toggleCart }) => {
 
                         {/* Checkout Button */}
                         <div>
-                            <button className="w-full bg-green-500 text-white py-3 px-4 rounded-md hover:bg-green-600 flex items-center justify-center transition ease-in-out duration-300">
+                            <Link to="/Cart">
+                            <button  className="w-full bg-green-500 text-white py-3 px-4 rounded-md hover:bg-green-600 flex items-center justify-center transition ease-in-out duration-300">
                                 <FaShoppingCart className="mr-2" /> Proceed to Checkout
                             </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

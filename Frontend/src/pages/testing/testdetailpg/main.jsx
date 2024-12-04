@@ -63,7 +63,9 @@ const TestdetailpgMain = () => {
   return (
     <div>
       <Header />
+      <div className="">
       <Hero testDetails={testDetails} />
+      </div>
       <div className="lg:mr-7 lg:ml-11">
         <Part2 testDetails={testDetails} />
         <Part3 testDetails={testDetails} />
