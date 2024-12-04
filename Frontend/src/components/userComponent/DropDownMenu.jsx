@@ -50,7 +50,7 @@ const DropdownMenu = ({ isLoggedIn }) => {
   };
 
   return (
-    <div ref={dropdownRef} className=" hidden lg-block relative inline-block text-left ">
+    <div ref={dropdownRef} className=" relative inline-block text-left ">
       {/* Dropdown Button */}
       <button
         onClick={toggleDropdown}
