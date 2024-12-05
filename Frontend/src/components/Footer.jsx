@@ -33,7 +33,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white py-10 px-5 text-black">
+    <footer className="bg-white py-10 px-5 text-black border-t">
       <div className="mr-10 ml-10 ">
         <div className="container mx-auto flex flex-col md:flex-row md:justify-between md:ml-32 md:mr-32 lg:mx-0">
           <div className="flex flex-col items-start mb-8 md:mb-0 md:ml-4 md:mr-6">

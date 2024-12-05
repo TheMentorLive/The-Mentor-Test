@@ -72,7 +72,7 @@ export default function CartMain({ user }) {
   return (
     <div>
       <Header />
-      <div className="bg-background mt-14 lg:ml-20 lg:mr-20">
+      <div className="bg-background mt-14 lg:ml-20 lg:mr-20 min-h-screen">
         <div className="container mx-auto px-4 py-8">
           <div className="flex justify-between items-baseline mb-8">
             <h1 className="text-2xl font-semibold">Shopping Cart</h1>
