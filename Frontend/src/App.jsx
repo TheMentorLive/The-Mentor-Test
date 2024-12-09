@@ -19,6 +19,8 @@ import Aboutmain from './pages/About/Main';
 import RefundPolicy from './components/RRP';
 import PrivacyPolicy from './components/PP';
 
+import Userdash from './pages/testing/User/dash';
+
 import VideoSection from './pages/user/courses/main';
 import {Admindash} from './components/adminComponent/admindash';
 import Main from './pages/Live/Main';
@@ -73,6 +75,8 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/reset-password" element={<ResetPassword/>} />
           <Route path="/support" element={<Support/>} />
           <Route path="/details" element={<Product/>} />
+          <Route path="/Dashboard" element={< Userdash/>} />
+
           <Route path="/jobs" element={<JobsMain />} />
           <Route path="/tests" element={<TestMain />} />
           <Route path="/TaC" element={<TermsAndConditions />} />
