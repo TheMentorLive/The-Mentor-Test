@@ -24,21 +24,33 @@ const spinnerStyles = `
 const TestLandingPage = () => {
   const [token, setToken] = useState(() => localStorage.getItem('token') || '');
   const [test, setTest] = useState(null);
+  const [selectedTest, setSelectedTest] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const testId = queryParams.get('id');
+
+  const mainTestId = queryParams.get('mainTestId');
+  const selectedTestId = queryParams.get('selectedTestId');
 
   useEffect(() => {
-    if (testId) {
+    if (mainTestId) {
       const fetchTest = async () => {
         try {
-          const response = await axios.get(`${USERENDPOINTS.GETTESTSLANDING}?id=${testId}`, {
-            headers: { Authorization: `Bearer ${token}` }
-          });
-          setTest(response.data);
+          const response = await axios.get(
+            `${USERENDPOINTS.GETTESTSLANDING}?id=${mainTestId}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+
+          const testData = response.data;
+          setTest(testData);
+
+          // Find the selected test from the tests array
+          const selected = testData.tests.find((t) => t._id === selectedTestId);
+          setSelectedTest(selected);
         } catch (error) {
           setError('Error fetching test details');
           console.error('Error fetching test details:', error);
@@ -49,73 +61,99 @@ const TestLandingPage = () => {
 
       fetchTest();
     }
-  }, [testId]);
+  }, [mainTestId, selectedTestId, token]);
 
-  if (loading) return (
-    <div className="flex justify-center items-center min-h-screen">
-      <style>{spinnerStyles}</style>
-      <div className="spinner"></div>
-      <p className="ml-4 text-blue-500">Loading...</p>
-    </div>
-  );
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <style>{spinnerStyles}</style>
+        <div className="spinner"></div>
+        <p className="ml-4 text-blue-500">Loading...</p>
+      </div>
+    );
 
-  if (error) return (
-    <div className="flex justify-center items-center min-h-screen">
-      <p className="text-red-500 text-lg">{error}</p>
-    </div>
-  );
+  if (error)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-red-500 text-lg">{error}</p>
+      </div>
+    );
 
-  if (!test) return (
-    <div className="flex justify-center items-center min-h-screen">
-      <p>No test found</p>
-    </div>
-  );
+  if (!test || !selectedTest)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p>No test found</p>
+      </div>
+    );
 
   return (
     <div>
-      <TestNavbar/>
-    <div className="flex flex-col justify-center items-center min-h-screen  p-4">
-  <div className="flex flex-col w-full max-w-5xl bg-white rounded-lg shadow-lg p-8">
-    <div className="flex flex-col md:flex-row">
-      <div className="md:w-1/2 md:pr-8">
-        <h1 className="text-4xl font-bold mb-4">{test.title || 'Test Title Here'}</h1>
-        <div className="flex space-x-12 mb-4">
-          <div>
-            <p className="text-sm text-gray-500">Test duration</p>
-            <p className="text-lg font-medium">{test.duration || '60 mins'}</p>
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">No. of questions</p>
-            <p className="text-lg font-medium">{test.questions?.length || '20 questions'}</p>
-          </div>
-        </div>
-      </div>
-      <div className="md:w-1/2 md:pl-8 md:border-l md:border-gray-200">
-        <h2 className="text-2xl font-semibold mb-4">Instructions</h2>
-        <ol className="list-decimal list-inside space-y-4 text-gray-600 mb-8">
-          <li>This is a timed test. Please make sure you are not interrupted during the test, as the timer cannot be paused once started.</li>
-          <li>Please ensure you have a stable internet connection.</li>
-          <li>
-            We recommend you to try the{' '}
-            <a href="#" className="text-[#2563EB] underline">
-              sample test
-            </a>{' '}
-            for a couple of minutes before taking the main test.
-          </li>
-        </ol>
-        <div className="flex space-x-6">
-          <Link to={`/test?id=${test._id}`}>
-          <button   className="bg-[#2563EB] px-5 py-2 border rounded-md text-white">Continue</button>
-          </Link>
-          <Button variant="outlined"  className="border-[#2563EB] text-[#2563EB]">Try Sample Test</Button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<TestFooter/>
-</div>
+      <TestNavbar />
+      <div className="flex flex-col justify-center items-center min-h-screen p-4">
+        <div className="flex flex-col w-full max-w-5xl bg-white rounded-lg shadow-lg p-8">
+          <div className="flex flex-col md:flex-row">
+            <div className="md:w-1/2 md:pr-8">
+              <h1 className="text-4xl font-bold mb-4">
+                {selectedTest.testTitle || 'Test Title Here'}
+              </h1>
+              <p className="text-gray-600 mb-4">
+                {selectedTest.testdescription || 'No description available'}
+              </p>
+              <div className="flex space-x-12 mb-4">
+                <div>
+                  <p className="text-sm text-gray-500">Test duration</p>
+                  <p className="text-lg font-medium">
+                    {test.duration || '60 mins'}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">No. of questions</p>
+                  <p className="text-lg font-medium">
+                    {selectedTest.questions?.length || '0 questions'}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="md:w-1/2 md:pl-8 md:border-l md:border-gray-200">
+              <h2 className="text-2xl font-semibold mb-4">Instructions</h2>
+              <ol className="list-decimal list-inside space-y-4 text-gray-600 mb-8">
+                <li>
+                  This is a timed test. Please make sure you are not interrupted
+                  during the test, as the timer cannot be paused once started.
+                </li>
+                <li>
+                  Please ensure you have a stable internet connection.
+                </li>
+                <li>
+                  We recommend you to try the{' '}
+                  <a href="#" className="text-[#2563EB] underline">
+                    sample test
+                  </a>{' '}
+                  for a couple of minutes before taking the main test.
+                </li>
+              </ol>
+              <div className="flex space-x-6">
+              <Link
+  to={`/test?mainTestId=${mainTestId}&selectedTestId=${selectedTest._id}`}
+>
+  <button className="bg-[#2563EB] px-5 py-2 border rounded-md text-white">
+    Continue
+  </button>
+</Link>
 
+                <Button
+                  variant="outlined"
+                  className="border-[#2563EB] text-[#2563EB]"
+                >
+                  Try Sample Test
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <TestFooter />
+    </div>
   );
 };
 

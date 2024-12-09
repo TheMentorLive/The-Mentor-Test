@@ -63,104 +63,186 @@ const getTestsLanding = async (req, res) => {
 
 const SubmitTest = async (req, res) => {
   try {
-    const { testId, answers, correctAnswers, completionTime, totalDuration, flaggedQuestions } = req.body;
+    const {
+      testId,
+      selectedTestId,
+      answers,
+      correctAnswers,
+      completionTime,
+      totalDuration,
+      flaggedQuestions,
+    } = req.body;
+
+    const userId = req.user.id;
 
     // Validate request
-    if (!testId || !answers || !correctAnswers) {
-      return res.status(400).json({ error: 'Invalid input' });
+    if (!testId || !selectedTestId || !answers || !correctAnswers) {
+      return res.status(400).json({ error: 'Invalid input data' });
     }
 
-    // Calculate score and total correct answers
-    const totalCorrect = answers.reduce((acc, answer, index) => (
-      answer === correctAnswers[index] ? acc + 1 : acc
-    ), 0);
+    // Calculate score and accuracy
+    const totalCorrect = answers.reduce(
+      (acc, answer, index) => (answer === correctAnswers[index] ? acc + 1 : acc),
+      0
+    );
 
     const score = totalCorrect;
-    const accuracy = totalCorrect / correctAnswers.length * 100;
+    const accuracy = (totalCorrect / correctAnswers.length) * 100;
+    const status = score > correctAnswers.length / 2 ? 'Passed' : 'Failed';
 
-    // Fetch test details to get the total number of questions
-    const testDetails = await Test.findOne({ _id: testId });
-    if (!testDetails) {
-      return res.status(404).json({ error: 'Test details not found' });
-    }
+    // Find existing test result for the user and test
+    let userTestResult = await ResultModel.findOne({ userId, testId });
 
-    const totalQuestions = testDetails.questions.length;
-
-    // Determine result status based on score
-    const status = score > totalQuestions / 2 ? 'Passed' : 'Failed';
-
-    // Find existing result if any
-    const existingResult = await ResultModel.findOne({ testId, userId: req.user._id });
-
-    if (existingResult) {
-      // Update existing result
-      existingResult.answers = answers;
-      existingResult.correctAnswers = correctAnswers;
-      existingResult.completionTime = completionTime;
-      existingResult.totalDuration = totalDuration;
-      existingResult.flaggedQuestions = flaggedQuestions;
-      existingResult.score = score;
-      existingResult.status = status;
-      existingResult.accuracy = accuracy;
-      existingResult.totalCorrect = totalCorrect;
-      existingResult.attempts = (existingResult.attempts || 0) + 1; // Increment attempt count
-
-      await existingResult.save();
-
-      res.status(200).json({ message: 'Test updated successfully!', result: existingResult });
-    } else {
-      // Save new result
-      const result = new ResultModel({
+    if (!userTestResult) {
+      // Create a new document if none exists for the given user and testId
+      userTestResult = new ResultModel({
+        userId,
         testId,
-        userId: req.user._id, // Assuming you have user authentication middleware
-        answers,
-        correctAnswers,
-        completionTime,
-        totalDuration,
-        flaggedQuestions,
-        score,
-        status,
-        accuracy,
-        totalCorrect,
-        attempts: 1 // Initialize attempt count
+        tests: [], // Initialize tests array
       });
-
-      await result.save();
-
-      res.status(201).json({ message: 'Test submitted successfully!', result });
     }
+
+    // Find the test within the user's test results using selectedTestId
+    const testIndex = userTestResult.tests.findIndex(
+      (test) => test.selectedTestId.toString() === selectedTestId
+    );
+
+    if (testIndex !== -1) {
+      // Test exists, update its data
+      const selectedTest = userTestResult.tests[testIndex];
+
+      if (selectedTest.results && selectedTest.results.length > 0) {
+        // Increment the attempt count for the first result
+        selectedTest.results[0].attempts = (selectedTest.results[0].attempts || 0) + 1;
+
+        // Replace the existing result with new data
+        selectedTest.results[0] = {
+          ...selectedTest.results[0], // Keep existing properties intact
+          answers,
+          correctAnswers,
+          completionTime,
+          totalDuration,
+          flaggedQuestions,
+          score,
+          status,
+          accuracy,
+          totalCorrect,
+          attempts: selectedTest.results[0].attempts, // Updated attempts
+        };
+      } else {
+        // No existing results, add a new one
+        selectedTest.results.push({
+          answers,
+          correctAnswers,
+          completionTime,
+          totalDuration,
+          flaggedQuestions,
+          score,
+          status,
+          accuracy,
+          totalCorrect,
+          attempts: 1, // Initial attempt count
+        });
+      }
+    } else {
+      // Test does not exist, add a new test entry
+      userTestResult.tests.push({
+        selectedTestId,
+        results: [
+          {
+            answers,
+            correctAnswers,
+            completionTime,
+            totalDuration,
+            flaggedQuestions,
+            score,
+            status,
+            accuracy,
+            totalCorrect,
+            attempts: 1, // Initial attempt count
+          },
+        ],
+      });
+    }
+
+    // Mark fields as modified if necessary
+    userTestResult.markModified('tests');
+
+    // Save the updated document
+    await userTestResult.save();
+
+    res.status(201).json({
+      message: 'Test result updated successfully!',
+      result: userTestResult,
+    });
   } catch (error) {
-    console.error('Error submitting test:', error);
-    res.status(500).json({ error: 'Error submitting test' });
+    console.error('Error updating test result:', error);
+    res.status(500).json({ error: 'Error updating test result' });
   }
 };
 
 
 
-const getResults=async (req, res) => {
+
+const getResults = async (req, res) => {
   try {
-    const { testId } = req.query;
+    const { testId, selectedTestId } = req.query;
     const userId = req.user._id;
 
-    // Fetch test result based on testId and userId
+    // console.log(testId, userId, selectedTestId);
+
+    // Fetch the result based on testId and userId
     const result = await ResultModel.findOne({ testId, userId });
     if (!result) {
       return res.status(404).json({ message: 'Test result not found.' });
     }
+    // console.log("Result fetched from DB ///////////////////////////////////////////////////////////", result);
 
     // Fetch test details based on testId
-    const testDetails = await Test.findOne({_id: testId });
+    const testDetails = await Test.findOne({ _id: testId });
     if (!testDetails) {
       return res.status(404).json({ message: 'Test details not found.' });
     }
+    // console.log("Test details fetched from DB ///////////////////////////////////////////////////////////", testDetails);
 
-    const detailedResults = testDetails.questions.map(question => {
+    // Find the selected test based on selectedTestId
+    const selectedTest = testDetails.tests.find(test => test._id.toString() === selectedTestId);
+    if (!selectedTest) {
+      return res.status(404).json({ message: 'Selected test not found.' });
+    }
+    // console.log("Selected test found ///////////////////////////////////////////////////////////", selectedTest);
+
+    // Find the result for the selected test
+    const selectedTestResult = result.tests.find(test => test.selectedTestId.toString() === selectedTestId);
+    if (!selectedTestResult) {
+      return res.status(404).json({ message: 'No result found for the selected test.' });
+    }
+    // console.log("Selected test result fetched ///////////////////////////////////////////////////////////", selectedTestResult);
+
+    // Map detailed results for the selected test
+    const detailedResults = selectedTest.questions.map((question, index) => {
+      // console.log("Mapping detailed results ///////////////////////////////////////////////////////////", question);
+
+      const userAnswer = selectedTestResult.results[0].answers[index] || null;
+
+      // console.log("Question user answer ///////////////////////////////////////////////////////////", userAnswer);
+
       return {
         ...question,
-        userAnswer: result.answers[question.number - 1],
-        isCorrect: question.correctAnswer === result.answers[question.number - 1]
+        userAnswer,
+        isCorrect: question.correctAnswer === userAnswer,
       };
     });
+
+const responseData= {
+  result,
+  testDetails: {
+    ...testDetails,
+    questions: detailedResults
+  }
+}
+
+
 
     res.json({
       result,
@@ -175,6 +257,7 @@ const getResults=async (req, res) => {
     res.status(500).json({ error: 'Error fetching test results' });
   }
 };
+
 
 
 const getHistory = async (req, res) => {

@@ -138,35 +138,54 @@ const deleteSubject = async (req, res) => {
 };
 
 const createTest = async (req, res) => {
+  // console.log(req.body);
+  
   try {
-    // Destructure the request body to match the provided structure
+    // Destructure the request body to get all the necessary data
     const {
-      questions,
+      title,
       duration,
       category,
       description,
+      summary,
       testType,
-      subject,
-      title,
-      examtype, // Corrected to match the provided data
-      testLevel,
-      testModules, 
-      summary// Corrected typo: "testModeules" => "testModules"
+      examType,
+      level,
+      price,
+      paymentAccess,
+      tests, // Array of individual tests with questions and modules
     } = req.body;
+
+    // Validate required fields
+    if (
+      !title ||
+      !duration ||
+      !category ||
+      !description ||
+      !summary ||
+      !testType ||
+      !level ||
+      !tests || 
+      !Array.isArray(tests) || tests.length === 0
+    ) {
+      return res.status(400).json({
+        message: 'Missing required fields. Please ensure all fields are provided.',
+      });
+    }
 
     // Create a new Test document using the destructured data
     const newTest = new Test({
       title,
-      examType: examtype, // Ensure the field aligns with the schema (case-sensitive)
-      testLevel,
       duration,
       category,
       description,
+      summary,
       testType,
-      subject,
-      questions,
-      testModules,
-      summary // Ensure consistency with schema and frontend data
+      examType,
+      level,
+      price,
+      paymentAccess,
+      tests, // Array of individual tests
     });
 
     // Save the test to the database
@@ -179,11 +198,12 @@ const createTest = async (req, res) => {
     });
   } catch (error) {
     // Log the error for debugging
-    console.error('Error adding test:', error);
+    console.error('Error adding test:', error.message, error.stack);
 
     // Respond with an error message
     res.status(500).json({
       message: 'Server error. Failed to add test.',
+      error: error.message,
     });
   }
 };

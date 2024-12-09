@@ -1,47 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { Button, TextField, Typography, Card, CardContent, CardActions, IconButton, MenuItem, Select, InputLabel, FormControl, Grid, Box } from '@mui/material';
-import { AddCircle as AddCircleIcon, RemoveCircle as RemoveCircleIcon } from '@mui/icons-material';
-import axios from 'axios'; // Import axios for making API calls
-import { ADMINENDPOINTS } from '../../../constants/ApiConstants';
+import { mainContext } from "/src/context/mainContex";
+import { ADMINENDPOINTS } from "/src/constants/ApiConstants";
+import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
 
-const AddQuestionPage = () => {
-  const [questions, setQuestions] = useState([
-    {
-      number: 1,
-      text: '',
-      answers: ['', '', '', ''],
-      correctAnswer: 0,
-    },
-  ]);
-  const [token, setToken] = useState(() => localStorage.getItem('token') || '');
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [testModules, setTestModules] = useState([{ moduleNumber: 1, title: '', description: ''}]);
-  const [duration, setDuration] = useState(60);
-  const [category, setCategory] = useState('');
-  const [examType, setExamType] = useState('');
-  const [examTypes, setExamTypes] = useState([]);
-  const [summary, setSummary] = useState('');
-  const [testLevel, setTestLevel] = useState('easy');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [testType, setTestType] = useState('mock');
-  const [subject, setSubject] = useState('');
-  const [subjects, setSubjects] = useState([]);
+const AddTestPageCompact = () => {
+  const [testData, setTestData] = useState({
+    title: "",
+    duration: "",
+    category: "",
+    description: "",
+    summary: "",
+    testType: "mock", // Default is 'mock'
+    examType: "",
+    level: "easy",
+    price: "100.00", // Default price
+    paymentAccess: false,
+    image: "",
+    tests: [],
+  });
+  const { token } = useContext(mainContext);
   const [categories, setCategories] = useState([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [image, setImage] = useState(null);
-  
+  const [examTypes, setExamTypes] = useState([]);
+  const [subjects, setSubjects] = useState([]);
 
-  // Fetch subjects from the backend on component mount
-  
   const fetchSubjects = async () => {
     try {
       const response = await axios.get(ADMINENDPOINTS.GETSUBJECTS, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setSubjects(response.data); 
+      setSubjects(response.data);
     } catch (error) {
       console.error('Failed to fetch subjects', error);
     }
@@ -52,7 +39,7 @@ const AddQuestionPage = () => {
       const response = await axios.get(ADMINENDPOINTS.GETCATEGORIES, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setCategories(response.data); 
+      setCategories(response.data);
     } catch (error) {
       console.error('Failed to fetch categories', error);
     }
@@ -63,7 +50,7 @@ const AddQuestionPage = () => {
       const response = await axios.get(ADMINENDPOINTS.GETEXAMTYPES, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setExamTypes(response.data); 
+      setExamTypes(response.data);
     } catch (error) {
       console.error('Failed to fetch exam types', error);
     }
@@ -75,453 +62,410 @@ const AddQuestionPage = () => {
     fetchExamTypes();
   }, []);
 
-  const handleQuestionChange = (index, key, value) => {
-    const updatedQuestions = [...questions];
-    updatedQuestions[index][key] = value;
-    setQuestions(updatedQuestions);
+  const handleInputChange = (field, value) => {
+    setTestData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
   };
 
-  const handleAnswerChange = (questionIndex, answerIndex, value) => {
-    const updatedQuestions = [...questions];
-    updatedQuestions[questionIndex].answers[answerIndex] = value;
-    setQuestions(updatedQuestions);
+  const handleTestTypeChange = (value) => {
+    setTestData((prev) => ({
+      ...prev,
+      testType: value,
+    }));
   };
 
-  const handleAddQuestion = () => {
-    setQuestions([
-      ...questions,
-      {
-        number: questions.length + 1,
-        text: '',
-        answers: ['', '', '', ''],
-        correctAnswer: 0,
-      },
-    ]);
-    setCurrentQuestionIndex(questions.length);
+  const handleAddTest = () => {
+    setTestData((prev) => ({
+      ...prev,
+      tests: [
+        ...prev.tests,
+        {
+          testTitle: "",
+          subject: "",
+          testdescription:"",
+          questions: [],
+          testModules: [],
+        },
+      ],
+    }));
   };
 
-  const handleRemoveQuestion = (index) => {
-    if (questions.length > 1) {
-      setQuestions(questions.filter((_, i) => i !== index));
-      if (currentQuestionIndex >= index) {
-        setCurrentQuestionIndex(prevIndex => Math.max(prevIndex - 1, 0));
-      }
-    }
+  const handleRemoveTest = (testIndex) => {
+    const updatedTests = testData.tests.filter((_, index) => index !== testIndex);
+    setTestData((prev) => ({
+      ...prev,
+      tests: updatedTests,
+    }));
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type.startsWith('image/')) {
-      setImage(URL.createObjectURL(file));
-    } else {
-      setError('Please upload a valid image file.');
-    }
+  const handleTestChange = (index, field, value) => {
+    const updatedTests = [...testData.tests];
+    updatedTests[index][field] = value;
+    setTestData((prev) => ({
+      ...prev,
+      tests: updatedTests,
+    }));
   };
 
-  const handleAddModule = () => {
-    const newModule = { moduleNumber: testModules.length + 1, title: '', description: '', };
-    setTestModules([...testModules, newModule]);
-  };
-
-  const handleModuleChange = (index, field, value) => {
-    const newModules = [...testModules];
-    newModules[index][field] = value;
-    setTestModules(newModules);
-  };
-
-  const handleRemoveModule = (index) => {
-    setTestModules((prevModules) => {
-      const newModules = [...prevModules];  // Create a shallow copy of the previous modules
-      newModules.splice(index, 1);          // Remove the module at the specified index
-      return newModules;                   // Return the updated modules
+  const handleAddQuestion = (testIndex) => {
+    const updatedTests = [...testData.tests];
+    const questionNumber = updatedTests[testIndex].questions.length + 1; // Increment the question number based on the current length
+    updatedTests[testIndex].questions.push({
+      number: questionNumber, // Add the question number here
+      text: "",
+      answers: ["", "", "", ""],
+      correctAnswer: "",
     });
+    setTestData((prev) => ({
+      ...prev,
+      tests: updatedTests,
+    }));
   };
   
-  
 
-  const handleAddAnswer = (questionIndex) => {
-    const updatedQuestions = [...questions];
-    updatedQuestions[questionIndex].answers.push('');
-    setQuestions(updatedQuestions);
+  const handleRemoveQuestion = (testIndex, questionIndex) => {
+    const updatedTests = [...testData.tests];
+    updatedTests[testIndex].questions = updatedTests[testIndex].questions.filter((_, index) => index !== questionIndex);
+    setTestData((prev) => ({
+      ...prev,
+      tests: updatedTests,
+    }));
   };
 
-  const handleRemoveAnswer = (questionIndex, answerIndex) => {
-    const updatedQuestions = [...questions];
-    if (updatedQuestions[questionIndex].answers.length > 2) {
-      updatedQuestions[questionIndex].answers.splice(answerIndex, 1);
-      setQuestions(updatedQuestions);
-    }
+  const handleQuestionChange = (testIndex, questionIndex, field, value) => {
+    const updatedTests = [...testData.tests];
+    updatedTests[testIndex].questions[questionIndex][field] = value;
+    setTestData((prev) => ({
+      ...prev,
+      tests: updatedTests,
+    }));
+  };
+  
+
+  const handleOptionChange = (testIndex, questionIndex, optionIndex, value) => {
+    const updatedTests = [...testData.tests];
+    updatedTests[testIndex].questions[questionIndex].answers[optionIndex] = value;
+    setTestData((prev) => ({
+      ...prev,
+      tests: updatedTests,
+    }));
+  };
+
+  const handleAddModule = (testIndex) => {
+    const updatedTests = [...testData.tests];
+    const moduleNumber = updatedTests[testIndex].testModules.length + 1; // Increment the module number based on the current length
+    updatedTests[testIndex].testModules.push({
+      moduleNumber, // Add the module number here
+      title: "",
+      description: "",
+    });
+    setTestData((prev) => ({
+      ...prev,
+      tests: updatedTests,
+    }));
+  };
+
+  const handleModuleChange = (testIndex, moduleIndex, field, value) => {
+    const updatedTests = [...testData.tests];
+    updatedTests[testIndex].testModules[moduleIndex][field] = value;
+    setTestData((prev) => ({
+      ...prev,
+      tests: updatedTests,
+    }));
   };
 
   const handleSubmit = async () => {
-    setIsSubmitting(true);
-    setError('');
-    setSuccess('');
+    console.log("ADMINENDPOINTS.ADDTEST", testData);
   
     try {
-      // Create a data object
-      const data = {
-        questions: questions,
-        duration: duration,
-        category: category,
-        description: description,
-        testType: testType,
-        subject: subject, // Include subject in the data object
-        examtype: examType,
-        title:title,
-        testModules:testModules,
-        testLevel:testLevel,
-        summary:summary
-
-      };
   
-      // Make POST request
-      const response = await axios.post(ADMINENDPOINTS.ADDTEST, data, {
-        headers: {
-          'Content-Type': 'application/json', // Set content type to JSON
-          Authorization: `Bearer ${token}` // Include authorization header
-        }
-      });
+      if (!token) {
+        alert("Authentication token is missing.");
+        return;
+      }
   
-      // Reset state on successful submission
-      setQuestions([
+      const response = await axios.post(
+        ADMINENDPOINTS.ADDTEST,
+        testData,
         {
-          number: 1,
-          text: '',
-          answers: ['', '', '', ''],
-          correctAnswer: 0,
-        },
-      ]);
-      setCurrentQuestionIndex(0);
-      setDuration(60);
-      setCategory('');
-      setDescription('');
-      setTestType('mock');
-      setSubject(''); // Reset subject selection
-      setSuccess(`Test submitted successfully! Total number of questions: ${questions.length}`);
-    } catch (err) {
-      setError('Failed to submit questions. Please try again.');
-    } finally {
-      setIsSubmitting(false);
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Sending token as Bearer
+          },
+        }
+      );
+  
+      if (response.status === 200 || response.status === 201) {
+        alert("Test added successfully!");
+        console.log(response.data);
+      } else {
+        alert("Failed to add test data. Please try again.");
+        console.error("Error response:", response);
+      }
+    } catch (error) {
+      alert("Failed to add test data.");
+      console.error("Error:", error);
     }
   };
   
-  
 
   return (
-    <div className="flex flex-col  p-6 bg-gray-50 text-gray-900">
-    <p  className=" text-center text-3xl mb-5 font-bold text-gray-800">
-      Add New Test
-    </p>
+    <div className="p-4 max-w-5xl mx-auto bg-gray-50 shadow-md rounded">
+      <h1 className="text-xl font-bold mb-4">Add Test</h1>
 
-   
+      {/* Test Details */}
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        <input
+          type="text"
+          placeholder="Test Title"
+          value={testData.title}
+          onChange={(e) => handleInputChange("title", e.target.value)}
+          className="p-2 border rounded"
+        />
+        <input
+          type="number"
+          placeholder="Duration (minutes)"
+          value={testData.duration}
+          onChange={(e) => handleInputChange("duration", e.target.value)}
+          className="p-2 border rounded"
+        />
+
+        {/* Category Select */}
+        <select
+          value={testData.category}
+          onChange={(e) => handleInputChange("category", e.target.value)}
+          className="p-2 border rounded"
+        >
+          <option value="">Select Category</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.name}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+
+        {/* Exam Type Select */}
+        <select
+          value={testData.examType}
+          onChange={(e) => handleInputChange("examType", e.target.value)}
+          className="p-2 border rounded"
+        >
+          <option value="">Select Exam Type</option>
+          {examTypes.map((examType) => (
+            <option key={examType.id} value={examType.name}>
+              {examType.name}
+            </option>
+          ))}
+        </select>
+
+        <textarea
+          placeholder="Description"
+          value={testData.description}
+          onChange={(e) => handleInputChange("description", e.target.value)}
+          className="p-2 border rounded col-span-2"
+        />
+        <textarea
+          placeholder="Summary"
+          value={testData.summary}
+          onChange={(e) => handleInputChange("summary", e.target.value)}
+          className="p-2 border rounded col-span-2"
+        />
+
+        {/* Price Setting */}
+        <input
+          type="number"
+          placeholder="Price"
+          value={testData.price}
+          onChange={(e) => handleInputChange("price", e.target.value)}
+          className="p-2 border rounded"
+        />
+
+        {/* Test Type Selector */}
+        <select
+          value={testData.testType}
+          onChange={(e) => handleTestTypeChange(e.target.value)}
+          className="p-2 border rounded"
+        >
+          <option value="mock">Mock</option>
+          <option value="main">Main</option>
+        </select>
+      </div>
+
+      {/* Tests */}
+      <div className="space-y-4">
+        {testData.tests.map((test, testIndex) => (
+          <div key={testIndex} className="p-4 bg-white border rounded shadow">
+            <h2 className="font-semibold">Test #{testIndex + 1}</h2>
+            <button
+              onClick={() => handleRemoveTest(testIndex)}
+              className="text-red-500 text-sm mt-2"
+            >
+              Remove Test
+            </button>
+            <div className="grid grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder="Test Title"
+                value={test.testTitle}
+                onChange={(e) => handleTestChange(testIndex, "testTitle", e.target.value)}
+                className="p-2 border rounded"
+              />
+
+<input
+                type="text"
+                placeholder="Test description"
+                value={test.testdescription}
+                onChange={(e) => handleTestChange(testIndex, "testdescription", e.target.value)}
+                className="p-2 border rounded"
+              />
+
+              {/* Subject Select */}
+              <select
+                value={test.subject}
+                onChange={(e) => handleTestChange(testIndex, "subject", e.target.value)}
+                className="p-2 border rounded"
+              >
+                <option value="">Select Subject</option>
+                {subjects.map((subject) => (
+                  <option key={subject.id} value={subject.name}>
+                    {subject.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Questions */}
+            <div className="mt-4">
+              <h3 className="font-semibold">Questions</h3>
+              {test.questions.map((question, questionIndex) => (
+  <div key={questionIndex} className="p-2 border rounded mt-2">
+    {/* Display the question number */}
+    <input
+      type="text"
+      placeholder="Question Number"
+      value={question.number}
+      onChange={(e) =>
+        handleQuestionChange(testIndex, questionIndex, "number", e.target.value)
+      }
+      className="p-2 w-full border rounded"
+    />
     
-    <Grid container spacing={4}>
-      {/* Sidebar for test details */}
-      <Grid item xs={12} md={4}>
-        <Card className="shadow-lg rounded-lg">
-          <CardContent className="space-y-4">
-          <TextField
-                label="Title"
-                fullWidth
-                multiline
-                rows={1}
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                margin="normal"
-                sx={{ fontSize: '0.75rem', '& input': { fontSize: '0.75rem' } }}
-              />
-            <TextField
-              label="Test Duration (minutes)"
-              type="number"
-              value={duration}
-              onChange={(e) => setDuration(parseInt(e.target.value))}
-              margin="normal"
-              fullWidth
-              sx={{ fontSize: '0.875rem', '& input': { fontSize: '0.875rem' } }}
-            />
-             <FormControl fullWidth margin="normal">
-                <InputLabel sx={{ fontSize: '0.75rem' }}>Exam Type</InputLabel>
-                <Select
-                  value={examType}
-                  onChange={(e) => setExamType(e.target.value)}
-                  sx={{ fontSize: '0.75rem' }}
-                >
-                  {examTypes && examTypes.length > 0 ? examTypes.map((types) => (
-                    <MenuItem key={types._id} value={types.name} sx={{ fontSize: '0.75rem' }}>
-                      {types.name}
-                    </MenuItem>
-                  )) : null}
-                </Select>
-              </FormControl>
-
-              <FormControl fullWidth margin="normal">
-                <InputLabel sx={{ fontSize: '0.75rem' }}>Category</InputLabel>
-                <Select
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  sx={{ fontSize: '0.75rem' }}
-                >
-                  {categories && categories.length > 0 ? categories.map((cat) => (
-                    <MenuItem key={cat._id} value={cat.name} sx={{ fontSize: '0.75rem' }}>
-                      {cat.name}
-                    </MenuItem>
-                  )) : null}
-                </Select>
-              </FormControl>
-
-            <TextField
-              label="Description"
-              fullWidth
-              multiline
-              rows={3}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              margin="normal"
-              sx={{ fontSize: '0.875rem', '& input': { fontSize: '0.875rem' } }}
-            />
-             <TextField
-              label="Summary"
-              fullWidth
-              multiline
-              rows={2}
-              value={summary}
-              onChange={(e) => setSummary(e.target.value)}
-              margin="normal"
-              sx={{ fontSize: '0.875rem', '& input': { fontSize: '0.875rem' } }}
-            />
-            <FormControl fullWidth margin="normal">
-              <InputLabel>Type of Test</InputLabel>
-              <Select
-                value={testType}
-                onChange={(e) => setTestType(e.target.value)}
-                sx={{ fontSize: '0.875rem' }}
-              >
-                <MenuItem value="mock">Mock</MenuItem>
-                <MenuItem value="main">Main</MenuItem>
-              </Select>
-            </FormControl>
-
-            <FormControl fullWidth margin="normal">
-              <InputLabel>Level</InputLabel>
-              <Select
-                value={testLevel}
-                onChange={(e) => setTestLevel(e.target.value)}
-                sx={{ fontSize: '0.875rem' }}
-              >
-                <MenuItem value="hard">Hard</MenuItem>
-                <MenuItem value="medium">Medium</MenuItem>
-                <MenuItem value="easy">Easy</MenuItem>
-              </Select>
-            </FormControl>
-            <Typography variant="body2" color="textSecondary" gutterBottom>
-        Optional
-      </Typography>
-            <FormControl fullWidth margin="normal">
-              <InputLabel>Subject</InputLabel>
-              <Select
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                sx={{ fontSize: '0.875rem' }}
-              >
-                {subjects.map((subj) => (
-                  <MenuItem key={subj._id} value={subj.name}>
-                    {subj.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <TextField
-                type="file"
-                fullWidth
-                margin="normal"
-                onChange={handleImageChange}
-                inputProps={{ accept: 'image/*' }}
-              />
-              
-          </CardContent>
-        </Card>
-      </Grid>
-  
-      {/* Main section for questions */}
-      <Grid item xs={12} md={8}>
-        <Card className="shadow-lg rounded-lg">
-          <CardContent>
-            <Box className="space-y-6">
-              {questions.map((question, index) => (
-                index === currentQuestionIndex && (
-                  <Box key={index}>
-                    <Typography variant="h6" className="font-semibold mb-2" sx={{ fontSize: '1rem' }}>
-                      Question {question.number}
-                    </Typography>
-                    <TextField
-                      label="Question Text"
-                      fullWidth
-                      multiline
-                      rows={1}
-                      value={question.text}
-                      onChange={(e) => handleQuestionChange(index, 'text', e.target.value)}
-                      margin="normal"
-                      sx={{ fontSize: '0.875rem', '& input': { fontSize: '0.875rem' } }}
-                    />
-                    <Box>
-                      {question.answers.map((answer, ansIndex) => (
-                        <Grid container spacing={2} alignItems="center" key={ansIndex}>
-                          <Grid item xs={10}>
-                            <TextField
-                              label={`Answer ${ansIndex + 1}`}
-                              value={answer}
-                              onChange={(e) => handleAnswerChange(index, ansIndex, e.target.value)}
-                              margin="dense"
-                              fullWidth
-                              sx={{
-                                fontSize: '0.875rem',
-                                '& input': { fontSize: '0.875rem' },
-                                '& .MuiFormLabel-root': { fontSize: '0.875rem' },
-                              }}
-                            />
-                          </Grid>
-                          <Grid item xs={2}>
-                            <IconButton onClick={() => handleRemoveAnswer(index, ansIndex)}>
-                              <RemoveCircleIcon fontSize="small" />
-                            </IconButton>
-                          </Grid>
-                        </Grid>
-                      ))}
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        startIcon={<AddCircleIcon />}
-                        onClick={() => handleAddAnswer(index)}
-                        size="small"
-                        
-                        sx={{ fontSize: '0.875rem', marginTop:'10px', marginBottom:'15px' }}
-                      >
-                        Add Answer
-                      </Button>
-                    </Box>
-                    <FormControl fullWidth margin="normal">
-                      <InputLabel className='-mt-2'>Correct Answer</InputLabel>
-                      <Select
-                        value={question.correctAnswer}
-                        onChange={(e) => handleQuestionChange(index, 'correctAnswer', parseInt(e.target.value))}
-                        sx={{ fontSize: '0.875rem' }}
-                      >
-                        {question.answers.map((_, ansIndex) => (
-                          <MenuItem key={ansIndex} value={ansIndex}>
-                            Answer {ansIndex + 1}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                      
-                    </FormControl>
-                    
-                  </Box>
-                )
-              ))}
-            </Box>
-          </CardContent>
-          <CardActions className="flex justify-between p-4">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleAddQuestion}
-              size="small"
-              sx={{ fontSize: '0.875rem' }}
-            >
-              Add Question
-            </Button>
-            {questions.length > 1 && (
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={() => handleRemoveQuestion(currentQuestionIndex)}
-                size="small"
-                sx={{ fontSize: '0.875rem' }}
-              >
-                Remove Question
-              </Button>
-            )}
-
-
-          </CardActions>
-        </Card>
-        {image && <img src={image} alt="Test Image" className="mt-4 w-30 h-40 object-fit" />}
-      </Grid>
-    </Grid>
-
-    <div>
-                <Typography variant="h6" gutterBottom>
-                  Test Modules
-                </Typography>
-                {testModules.map((module, index) => (
-                  <div key={index} className="space-y-3">
-                    <TextField
-                      label={`Module ${module.moduleNumber} Title`}
-                      variant="outlined"
-                      value={module.title}
-                      onChange={(e) => handleModuleChange(index, 'title', e.target.value)}
-                      fullWidth
-                      sx={{ fontSize: '0.75rem' }}
-                    />
-                    <TextField
-                      label={`Module ${module.moduleNumber} Description`}
-                      variant="outlined"
-                      multiline
-                      rows={2}
-                      value={module.description}
-                      onChange={(e) => handleModuleChange(index, 'description', e.target.value)}
-                      fullWidth
-                      sx={{ fontSize: '0.75rem' }}
-                    />
-                   
-                   
-                  </div>
-                ))}
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={handleAddModule}
-                  size="small"
-                  sx={{ fontSize: '0.75rem' }}
-                >
-                  Add Module
-                </Button>
-
-                <IconButton
-                      onClick={() => handleRemoveModule(index)}
-                      color="error"
-                    >
-                      <RemoveCircleIcon fontSize="small" />
-                    </IconButton>
-              </div>
-              
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSubmit}
-              size="small"
-              disabled={isSubmitting}
-              sx={{ fontSize: '0.875rem' }}
-            >
-              {isSubmitting ? 'Submitting...' : 'Submit Test'}
-            </Button>
-    {/* Success or Error Messages */}
-    {error && (
-      <Typography color="error" className="text-center mt-4">
-        {error}
-      </Typography>
-    )}
-    {success && (
-      <Typography color="primary" className="text-center mt-4">
-        {success}
-      </Typography>
-    )}
+    <input
+      type="text"
+      placeholder="Question"
+      value={question.text}
+      onChange={(e) =>
+        handleQuestionChange(testIndex, questionIndex, "text", e.target.value)
+      }
+      className="p-2 w-full border rounded"
+    />
+    
+    <div className="mt-2">
+      {question.answers.map((answer, optionIndex) => (
+        <input
+          key={optionIndex}
+          type="text"
+          placeholder={`Option ${optionIndex + 1}`}
+          value={answer}
+          onChange={(e) =>
+            handleOptionChange(testIndex, questionIndex, optionIndex, e.target.value)
+          }
+          className="p-2 border rounded"
+        />
+      ))}
+    </div>
+    
+    <input
+      type="number"
+      placeholder="Correct Answer (1-4)"
+      value={question.correctAnswer}
+      onChange={(e) =>
+        handleQuestionChange(testIndex, questionIndex, "correctAnswer", e.target.value)
+      }
+      className="p-2 w-full mt-2 border rounded"
+    />
+    
+    <button
+      onClick={() => handleRemoveQuestion(testIndex, questionIndex)}
+      className="text-red-500 text-sm mt-2"
+    >
+      Remove Question
+    </button>
   </div>
-  
+))}
 
+              <button
+                onClick={() => handleAddQuestion(testIndex)}
+                className="text-blue-500 text-sm mt-2"
+              >
+                Add Question
+              </button>
+            </div>
+
+            {/* Modules */}
+            <div className="mt-4">
+              <h3 className="font-semibold">Modules</h3>
+              {test.testModules.map((module, moduleIndex) => (
+  <div key={moduleIndex} className="p-2 border rounded mt-2">
+    {/* Display the module number */}
+    <input
+      type="number"
+      placeholder="Module Number"
+      value={module.moduleNumber}
+      onChange={(e) =>
+        handleModuleChange(testIndex, moduleIndex, "moduleNumber", e.target.value)
+      }
+      className="p-2 w-full border rounded"
+    />
+    
+    <input
+      type="text"
+      placeholder="Module Title"
+      value={module.title}
+      onChange={(e) =>
+        handleModuleChange(testIndex, moduleIndex, "title", e.target.value)
+      }
+      className="p-2 w-full border rounded"
+    />
+    
+    <textarea
+      placeholder="Module Description"
+      value={module.description}
+      onChange={(e) =>
+        handleModuleChange(testIndex, moduleIndex, "description", e.target.value)
+      }
+      className="p-2 w-full mt-2 border rounded"
+    />
+  </div>
+))}
+
+              <button
+                onClick={() => handleAddModule(testIndex)}
+                className="text-blue-500 text-sm mt-2"
+              >
+                Add Module
+              </button>
+            </div>
+          </div>
+        ))}
+        <button
+          onClick={handleAddTest}
+          className="bg-blue-500 text-white py-2 px-4 rounded"
+        >
+          Add Test
+        </button>
+      </div>
+
+      <button
+        onClick={handleSubmit}
+        className="bg-green-500 text-white py-2 px-4 rounded mt-4"
+      >
+        Submit Test Data
+      </button>
+    </div>
   );
 };
 
-export default AddQuestionPage;
+export default AddTestPageCompact;

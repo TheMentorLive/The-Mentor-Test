@@ -52,9 +52,10 @@ const AppRoutes = () => {
                     <Route path="/settings" element={<Navigate to="/" />} />
                     <Route path="/profile" element={<ProfileComponent />} />
                     <Route path="/subjects" element={<Navigate to="/" />} />
-                    <Route path="/start-test" element={<Navigate to="/" />} />
-                    <Route path="/test" element={<Navigate to="/" />} />
-                    <Route path="/result" element={<Navigate to="/" />} />
+                    <Route path="/start-test" element={<TestLandingPage />} />
+                    <Route path="/test" element={<TestPage />} />
+                    <Route path="/result" element={<TestResultsPage />} />
+                  
                     <Route path="/test-history" element={<Navigate to="/" />} />
                   </>
                 ) : (
@@ -66,9 +67,12 @@ const AppRoutes = () => {
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/all-tests" element={<TestComponent />} />
                     <Route path="/courses" element={<Course />} />
-                    <Route path="/start-test" element={<TestLandingPage />} />
-                    <Route path="/test" element={<TestPage />} />
-                    <Route path="/result" element={<TestResultsPage />} />
+                 
+                    <Route path="/test" element={<Navigate to="/" />} />
+                    {/* <Route path="/start-test" element={<Navigate to="/" />} /> */}
+                   
+                  
+                   
                     <Route path="/test-history" element={<TestHistoryPage />} />
                   </>
                 )}
