@@ -4,10 +4,17 @@ import { Link } from "react-router-dom";
 import { mainContext } from "/src/context/mainContex";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { USERENDPOINTS } from "/src/constants/ApiConstants";
+import Swal from "sweetalert2";
+import { List } from "lucide-react";
+import { usePaidTests } from "/src/hooks/usePaidTest";
 
 export default function Hero({ testDetails }) {
   const [cart, setCart] = useState([]);
-  const { user } = useContext(mainContext);
+  const { user,token } = useContext(mainContext);
+  const { paidTests, loading: paidTestsLoading, error: paidTestsError } =
+  usePaidTests(token);
+  
 
   // Load cart from local storage on initial render
   useEffect(() => {
@@ -60,6 +67,96 @@ export default function Hero({ testDetails }) {
     return cart.some((cartItem) => cartItem._id === item._id);
   };
 
+
+  const handleBuyNow = async (testId) => {
+    if (!token) {
+      // Show SweetAlert2 popup for login
+      Swal.fire({
+        title: "Login Required",
+        text: "You must log in to purchase this test.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Go to Login",
+        cancelButtonText: "Cancel",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Redirect to login page
+          window.location.href = "/login"; // Update with your actual login page route
+        }
+      });
+  
+      return; // Exit the function if the user is not logged in
+    }
+    
+    try {
+      // Make a request to your backend to create a Razorpay order using axios
+      const response = await axios.post(USERENDPOINTS.CREATEPAYMENT, { testId });
+  
+      const data = response.data;
+      // Check if the backend response contains order details
+      if (data && data.order && data.order.id && data.order.amount) {
+        const { id, amount } = data.order;    
+        // Razorpay options for checkout
+        const options = {
+          key: "rzp_test_AVLwAyEyI2Fn5Q", // Replace with your Razorpay API key
+          amount: amount, // The amount to be charged (in paise)
+          currency: "INR", // Currency
+          order_id: id, // The order ID created in the backend
+          name: "The Mentor Payment", // Your company or test name
+          description: "Purchase Test",
+          image: "https://thementor.live/wp-content/uploads/2021/10/Google-Logo-300x124.png", // Your company logo
+  
+          handler: function (response) {
+            // Send the payment details to your backend for verification
+            axios.post(USERENDPOINTS.VERIFYPAYMENT, {
+              paymentId: response.razorpay_payment_id,
+              orderId: response.razorpay_order_id,
+              signature: response.razorpay_signature,
+               // Pass the logged-in user's ID
+              testId: testId
+            },{
+              headers: {
+                Authorization: `Bearer ${token}`,} // Send the token as Bearer token
+              }).then((res) => {
+                    // Reload the page after successful payment verification
+          
+              console.log("Payment verified:", res.data);
+              window.location.reload();
+            }).catch((err) => {
+              console.error("Payment verification failed:", err);
+            });
+          },
+          prefill: {
+            name: user.name,
+            email: user.email,
+            contact: user.contact,
+          },
+          notes: {
+            address: "Test address",
+          },
+          theme: {
+            color: "#FF5722",
+          },
+        };
+  
+        // Ensure Razorpay is loaded before calling the checkout
+        if (window.Razorpay) {
+          const rzp = new window.Razorpay(options);
+          rzp.open(); // Open Razorpay checkout
+        } else {
+          console.error("Razorpay script not loaded.");
+        }
+      } else {
+        console.error("Invalid response: Missing orderId or amount");
+      }
+    } catch (error) {
+      console.error("Error creating Razorpay order:", error);
+    }
+  };
+
+  const isTestPurchased = paidTests.includes(testDetails?._id);
+
   return (
     <section className="relative flex flex-col md:flex-row items-center justify-center mb-10 md:mt-11 h-auto md:h-[400px]">
       {/* Background Image */}
@@ -81,14 +178,30 @@ export default function Hero({ testDetails }) {
           </p>
 
           <div className="py-2">
-            <Link to="/register">
+            {isTestPurchased ?(  
+               <Link to="/Tests">
+ <button
+ type="button"
+ className="w-full max-w-[180px] bg-[#2563EB] hover:bg-blue-500 p-2 text-white font-medium py-2 px-4 rounded hidden md:block"
+>
+Explore More
+
+</button>
+</Link>
+
+            ):(
+              <Link to="/register">
               <button
                 type="button"
                 className="w-full max-w-[180px] bg-[#2563EB] hover:bg-blue-500 p-2 text-white font-medium py-2 px-4 rounded hidden md:block"
               >
-                Get Started
+                 Get Started
               </button>
             </Link>
+
+
+             )}
+            
           </div>
         </div>
 
@@ -123,6 +236,15 @@ export default function Hero({ testDetails }) {
     </Link>
   ) : (
     <>
+     {isTestPurchased ? (
+        <button
+        className="w-full flex items-center justify-center bg-gray-200 text-gray-800 py-2 px-3 rounded-lg text-sm hover:bg-gray-300 gap-2"
+       
+      >
+        <List size={16} />
+        Go To Learnings
+      </button>
+      ) : (
     <button
       className="w-full flex items-center justify-center bg-gray-200 text-gray-800 py-2 px-3 rounded-lg text-sm hover:bg-gray-300 gap-2"
       onClick={() => addToCart(testDetails)}
@@ -130,11 +252,18 @@ export default function Hero({ testDetails }) {
       <IconShoppingCart size={16} />
       Add to Cart
     </button>
-
-<button className="w-full flex items-center justify-center bg-blue-600 text-white py-2 px-3 rounded-lg text-sm hover:bg-blue-700 gap-2">
+     )}
+     
+    {isTestPurchased ? (
+        <p className="text-green-500">You own this test.</p>
+      ) : (
+       
+     
+<button className="w-full flex items-center justify-center bg-blue-600 text-white py-2 px-3 rounded-lg text-sm hover:bg-blue-700 gap-2"onClick={() => handleBuyNow(testDetails._id)}>
 <IconCreditCard size={16} />
 Checkout
 </button>
+ )}
 </>
   )}
 

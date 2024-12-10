@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { mainContext } from "/src/context/mainContex";
+import { usePaidTests } from "/src/hooks/usePaidTest";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Part2({ testDetails }) {
@@ -6,6 +8,9 @@ export default function Part2({ testDetails }) {
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
   const [showAllModules, setShowAllModules] = useState(false); // State to toggle the visibility of all modules
   const navigate = useNavigate();
+  const{token,user}=useContext(mainContext)
+  const { paidTests, loading: paidTestsLoading, error: paidTestsError } =
+  usePaidTests(token);
 
   const toggleShowAllModules = () => {
     setShowAllModules((prevState) => !prevState); // Toggle the visibility of all modules
@@ -43,6 +48,8 @@ export default function Part2({ testDetails }) {
     // Navigate to the test start page with the main test ID and selected test ID as query parameters
     navigate(`/start-test?mainTestId=${mainTestId}&selectedTestId=${selectedTestId}`);
   };
+
+  const isTestPurchased = paidTests.includes(testDetails?._id);
 
   return (
     <div className="mx-auto p-6 lg:ml-9 mr-16">
@@ -106,12 +113,28 @@ export default function Part2({ testDetails }) {
                 </div>
 
                 {/* Take Test Button */}
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded text-xs"
-                  onClick={() => handleTakeTest(testDetails._id, test._id)} // Pass both IDs
-                >
-                  Take Test
-                </button>
+                {!user._id ? (
+        <button className="bg-blue-500 text-white px-4 py-2 rounded text-xs">
+          Login
+        </button>
+      ) : !isTestPurchased ? (
+        <button
+          className="bg-green-500 text-white px-4 py-2 rounded text-xs"
+          onClick={() => {
+            // Handle purchase logic here
+            console.log("Proceed to purchase the test");
+          }}
+        >
+          Purchase
+        </button>
+      ) : (
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded text-xs"
+          onClick={() => handleTakeTest(testDetails._id, test._id)} // Pass both IDs
+        >
+          Take Test
+        </button>
+      )}
               </div>
             </div>
 
