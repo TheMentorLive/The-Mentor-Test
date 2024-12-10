@@ -2,6 +2,8 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { useState } from "react";
 import TestCards from "./alltest"; //the path as necessary
+import Wishlist from "./wishlist";
+import MyTests from "./mytests";
 
 export default function Userdash() {
   const [activeTab, setActiveTab] = useState("allTests");
@@ -19,9 +21,9 @@ export default function Userdash() {
       case "allTests":
         return <TestCards />;
       case "myTests":
-        return <p>Your saved lists will appear here.</p>;
+        return <MyTests/>;
       case "wishlist":
-        return <p>Your wishlist items are displayed here.</p>;
+        return <Wishlist/>;
       case "archived":
         return <p>Archived courses are listed here.</p>;
       case "learningTools":
