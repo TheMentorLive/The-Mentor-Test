@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import moment from "moment";
 
-export default function TestCards() {
+export default function MyTests() {
   const exams = [
     { _id: 1, title: "AWS Certified Developer", category: "AWS", image: "https://via.placeholder.com/40", updatedAt: "2023-10-01" },
     { _id: 2, title: "React Developer Certification", category: "React", image: "https://via.placeholder.com/40", updatedAt: "2023-11-15" },
@@ -21,7 +21,7 @@ export default function TestCards() {
       {/* First Section */}
       <section className="py-4 mt-8 mb-4 flex flex-col items-center justify-center md:ml-[140px] lg:ml-[75px] lg:mr-[100px]">
         <div className="container mx-auto px-4">
-          <h2 className="text-lg sm:text-xl font-bold mb-4">Popular Technical Exams</h2>
+          <h2 className="text-lg sm:text-xl font-bold mb-4">Completed Tests</h2>
           <div className="flex flex-row overflow-x-auto space-x-4 w-full">
             {exams.map((exam) => (
               <div
@@ -65,7 +65,7 @@ export default function TestCards() {
       {/* NEET Exams Section */}
       <section className="py-4 mt-8 mb-4 flex flex-col items-center justify-center md:ml-[140px] lg:ml-[75px] lg:mr-[100px]">
         <div className="container mx-auto px-4">
-          <h2 className="text-lg sm:text-xl font-bold mb-4">NEET Exam Preparation</h2>
+          <h2 className="text-lg sm:text-xl font-bold mb-4">Pending Tests</h2>
           <div className="flex flex-row overflow-x-auto space-x-4 w-full">
             {neetExams.map((exam) => (
               <div
