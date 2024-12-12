@@ -21,6 +21,7 @@ export default function Hero({ testDetails }) {
  
     // Fetch cart data on component mount
     const fetchCart = async () => {
+      if(user._id){
       try {
         const response = await axios.get(USERENDPOINTS.GET_CART, {
           headers: {
@@ -38,7 +39,7 @@ export default function Hero({ testDetails }) {
       } catch (error) {
         toast.error("An error occurred while fetching cart data.");
         console.error(error);
-      }
+      }}
     };
 
     useEffect(() => {

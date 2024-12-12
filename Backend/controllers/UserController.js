@@ -515,7 +515,7 @@ const dashboardData = async (req, res) => {
 };
 
 const addTocart= async(req,res)=>{
-  console.log(req.body);
+  
   try {
     const { testId } = req.body;
       const userId=req.user.id
