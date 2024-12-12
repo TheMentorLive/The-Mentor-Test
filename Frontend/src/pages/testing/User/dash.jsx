@@ -1,15 +1,21 @@
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { useState } from "react";
-import TestCards from "./alltest"; //the path as necessary
+import TestCards from "./alltest"; // Update the path as necessary
 import Wishlist from "./wishlist";
 import MyTests from "./mytests";
 
+const LoadingSpinner = () => (
+  <div className="flex justify-center items-center h-32">
+    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-700"></div>
+  </div>
+);
+
 export default function Userdash() {
-  const [activeTab, setActiveTab] = useState("myTests");
+  const [activeTab, setActiveTab] = useState("allTests");
 
   const tabs = [
-  
+    { id: "allTests", label: "All Tests" },
     { id: "myTests", label: "My Tests" },
     { id: "wishlist", label: "Wishlist" },
     { id: "archived", label: "Archived" },
@@ -18,14 +24,20 @@ export default function Userdash() {
 
   const renderContent = () => {
     switch (activeTab) {
+      case "allTests":
+        return <TestCards />;
       case "myTests":
-        return <TestCards />; 
+        return <MyTests />;
       case "wishlist":
-        return <Wishlist/>;
+        return <Wishlist />;
       case "archived":
-        return <p>Archived courses are listed here.</p>;
       case "learningTools":
-        return <p>Explore various learning tools here.</p>;
+        return (
+          <div>
+            <LoadingSpinner />
+            <p className="text-center mt-4 text-zinc-400">Content is under progress...</p>
+          </div>
+        );
       default:
         return null;
     }
@@ -34,7 +46,7 @@ export default function Userdash() {
   return (
     <div>
       <Header />
-      <div className="space-y-6 mt--[-100] mb-[400px]">
+      <div className="space-y-6 mt-11 mb-[400px]">
         <div className="bg-zinc-900 text-white p-8 sm:p-16">
           <div className="container mx-auto max-w-[1330px]">
             <h1 className="text-2xl sm:text-4xl mb-6">My learning</h1>
@@ -59,9 +71,7 @@ export default function Userdash() {
           </div>
         </div>
 
-        <div className="">
-          {renderContent()}
-        </div>
+        <div>{renderContent()}</div>
       </div>
       <div className="border border-t-gray-700">
         <Footer />
