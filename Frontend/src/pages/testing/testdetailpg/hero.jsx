@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { IconShoppingCart, IconCreditCard } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { mainContext } from "/src/context/mainContex";
@@ -18,17 +18,21 @@ export default function Hero({ testDetails }) {
   const { paidTests, loading: paidTestsLoading, error: paidTestsError,refetch } =
   usePaidTests(token);
   
- 
+  useEffect(() => {
+    if (user._id) {
+      fetchCart();
+    }
+  }, [user._id]);
     // Fetch cart data on component mount
     const fetchCart = async () => {
-      if(user._id){
+   
       try {
         const response = await axios.get(USERENDPOINTS.GET_CART, {
           headers: {
             Authorization: `Bearer ${token}`, // Include user's token
           },
         });
-        console.log(response.data.testIds);
+       
         
 
         if (response.status === 200) {
@@ -39,12 +43,10 @@ export default function Hero({ testDetails }) {
       } catch (error) {
         toast.error("An error occurred while fetching cart data.");
         console.error(error);
-      }}
+      }
     };
 
-    useEffect(() => {
-    fetchCart();
-  }, []);
+    
   // Load cart from local storage on initial render
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -196,9 +198,11 @@ export default function Hero({ testDetails }) {
       console.error("Error creating Razorpay order:", error);
     }
   };
+  const userCar = useMemo(() => new Set(userCart), [userCart]);
 
   const isTestPurchased = paidTests.includes(testDetails?._id);
-  const userCartIncludes = userCart.includes(testDetails?._id)
+  // const userCartIncludes = userCart.includes(testDetails?._id)
+  const userCartIncludes = useMemo(() => userCar.has(testDetails?._id), [userCart, testDetails?._id]);
 
 
   return (
