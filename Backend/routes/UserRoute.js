@@ -23,6 +23,7 @@ router.get("/test-by-id",UserController.guestTestById);
 router.post("/create-payment",UserController.createPayment);
 router.post("/verify-payment",authMiddleware,UserController.verifyPayment);
 router.get("/paid-test",authMiddleware,UserController.paidTest);
+router.get("/dashboard-data",authMiddleware,UserController.dashboardData);
 
 
 

@@ -51,6 +51,7 @@ export const USERENDPOINTS = {
         CREATEPAYMENT:`${API_BASE_URL}user/create-payment `,
         VERIFYPAYMENT:`${API_BASE_URL}user/verify-payment `,
         PAIDTEST:`${API_BASE_URL}user/paid-test `,
+        DASHBOARD_DATA:`${API_BASE_URL}user/dashboard-data `,
 }
 
 export const GEUESTENDPOINTS = {
