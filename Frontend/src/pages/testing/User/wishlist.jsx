@@ -40,8 +40,8 @@ export default function Wishlist() {
   };
 
   return (
-    <section className="py-4 mt-8 mb-4 flex flex-col items-center justify-center">
-      <div className="container mx-auto px-4">
+    <section className="py-4 mt-8 mb-4 flex flex-col items-center justify-center md:ml-[140px] lg:ml-[75px] lg:mr-[100px]">
+        <div className="container mx-auto px-4">
         <h2 className="text-lg sm:text-xl font-bold mb-4">Your Wishlist</h2>
         <div className="flex flex-row overflow-x-auto space-x-4 w-full">
           {wishlistItems.map((item) => (

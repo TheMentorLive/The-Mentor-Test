@@ -104,7 +104,9 @@ const TestdetailpgMain = () => {
       </div>
       <div className="lg:mr-7 lg:ml-11">
         <Part2 testDetails={testDetails}  />
+        <div className="lg:mr-16 lg:ml-9">
         <Part3 testDetails={testDetails} />
+        </div>
         <ExploreTests testDetails={testDetails} />
       </div>
       <Footer />

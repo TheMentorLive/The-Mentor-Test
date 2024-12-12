@@ -1,9 +1,15 @@
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { useState } from "react";
-import TestCards from "./alltest"; //the path as necessary
+import TestCards from "./alltest"; // Update the path as necessary
 import Wishlist from "./wishlist";
 import MyTests from "./mytests";
+
+const LoadingSpinner = () => (
+  <div className="flex justify-center items-center h-32">
+    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-700"></div>
+  </div>
+);
 
 export default function Userdash() {
   const [activeTab, setActiveTab] = useState("allTests");
@@ -21,13 +27,17 @@ export default function Userdash() {
       case "allTests":
         return <TestCards />;
       case "myTests":
-        return <MyTests/>;
+        return <MyTests />;
       case "wishlist":
-        return <Wishlist/>;
+        return <Wishlist />;
       case "archived":
-        return <p>Archived courses are listed here.</p>;
       case "learningTools":
-        return <p>Explore various learning tools here.</p>;
+        return (
+          <div>
+            <LoadingSpinner />
+            <p className="text-center mt-4 text-zinc-400">Content is under progress...</p>
+          </div>
+        );
       default:
         return null;
     }
@@ -61,9 +71,7 @@ export default function Userdash() {
           </div>
         </div>
 
-        <div className="">
-          {renderContent()}
-        </div>
+        <div>{renderContent()}</div>
       </div>
       <div className="border border-t-gray-700">
         <Footer />
