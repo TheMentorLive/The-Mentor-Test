@@ -25,6 +25,9 @@ router.post("/verify-payment",authMiddleware,UserController.verifyPayment);
 router.get("/paid-test",authMiddleware,UserController.paidTest);
 router.get("/dashboard-data",authMiddleware,UserController.dashboardData);
 
+router.post("/addtoCart",authMiddleware,UserController.addTocart)
+router.get("/get-cart",authMiddleware,UserController.getCart)
+
 
 
 

@@ -11,11 +11,39 @@ import { usePaidTests } from "/src/hooks/usePaidTest";
 
 export default function Hero({ testDetails }) {
   const [cart, setCart] = useState([]);
+ // State to hold cart data
+ const [userCart, setuserCart] = useState([]);
+  const [isInCart, setIsInCart] = useState(false);
   const { user,token } = useContext(mainContext);
-  const { paidTests, loading: paidTestsLoading, error: paidTestsError } =
+  const { paidTests, loading: paidTestsLoading, error: paidTestsError,refetch } =
   usePaidTests(token);
   
+ 
+    // Fetch cart data on component mount
+    const fetchCart = async () => {
+      try {
+        const response = await axios.get(USERENDPOINTS.GET_CART, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include user's token
+          },
+        });
+        console.log(response.data.testIds);
+        
 
+        if (response.status === 200) {
+          setuserCart(response.data.testIds); // Set cart data
+        } else {
+          toast.error("Failed to fetch cart data.");
+        }
+      } catch (error) {
+        toast.error("An error occurred while fetching cart data.");
+        console.error(error);
+      }
+    };
+
+    useEffect(() => {
+    fetchCart();
+  }, []);
   // Load cart from local storage on initial render
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -32,40 +60,53 @@ export default function Hero({ testDetails }) {
   const addToCart = async (item) => {
     try {
       if (user._id) {
-       
-        
-        // Store in backend if user is logged in
-        const response = await axios.post("/api/cart", {
-          userId: user.id,
-          product: item,
-        });
-
+        // Send request to the backend
+        const response = await axios.post(
+          USERENDPOINTS.ADD_TO_CART,
+          { testId: item._id }, // Only send the required test ID
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include the user's token for authentication
+              "Content-Type": "application/json", // Set content type
+            },
+          }
+        );
+  
+        // Check response status and display message
         if (response.status === 200) {
-          toast.success(`${item.title} added to cart!`);
+          toast.success(response.data.message); 
+          fetchCart();// Show success message from the backend
         } else {
-          toast.error("Failed to add item to the cart. Please try again.");
+          toast.error("Failed to add item to the cart. Please try again."); // Handle unexpected status
         }
       } else {
-
-        // Store in local storage if no user
+        // Handle case for unauthenticated users (local storage logic)
         const newCart = [...cart, item];
         setCart(newCart);
-        const cartWithoutQuestions = newCart.map(({ questions, ...rest }) => rest)
-        // Immediately update local storage
+        const cartWithoutQuestions = newCart.map(({ questions, ...rest }) => rest);
         localStorage.setItem("cart", JSON.stringify(cartWithoutQuestions));
-  
         toast.success(`${item.title} added to cart!`);
-       
       }
     } catch (error) {
-      toast.error("An error occurred while adding to the cart.");
-      console.error(error);
+      // Show the backend error message or a generic fallback
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(error.response.data.message); // Backend message
+      } else if (error.message) {
+        toast.error(`Error: ${error.message}`); // General Axios/network error
+      } else {
+        toast.error("An unexpected error occurred. Please try again."); // Fallback
+      }
+  
+      console.error("Add to Cart Error:", error);
     }
   };
+  
 
   const isItemInCart = (item) => {
     return cart.some((cartItem) => cartItem._id === item._id);
   };
+
+
 
 
   const handleBuyNow = async (testId) => {
@@ -122,7 +163,7 @@ export default function Hero({ testDetails }) {
                     // Reload the page after successful payment verification
           
               console.log("Payment verified:", res.data);
-              window.location.reload();
+             refetch();
             }).catch((err) => {
               console.error("Payment verification failed:", err);
             });
@@ -156,6 +197,8 @@ export default function Hero({ testDetails }) {
   };
 
   const isTestPurchased = paidTests.includes(testDetails?._id);
+  const userCartIncludes = userCart.includes(testDetails?._id)
+
 
   return (
     <section className="relative flex flex-col md:flex-row items-center justify-center mb-10 md:mt-11 h-auto md:h-[400px]">
@@ -227,7 +270,7 @@ Explore More
             </p>
             <div className="flex gap-3">
   {/* Conditional Rendering for Add to Cart or Go to Cart */}
-  {isItemInCart(testDetails) ? (
+  {isItemInCart(testDetails)||userCartIncludes ? (
     <Link to="/cart">
       <button className="w-full flex items-center justify-center bg-gray-200 text-gray-800 py-2 px-8 rounded-lg text-sm hover:bg-gray-300 ml-12">
         <IconShoppingCart size={16} />
@@ -237,6 +280,7 @@ Explore More
   ) : (
     <>
      {isTestPurchased ? (
+      <Link to="/dashboard">
         <button
         className="w-full flex items-center justify-center bg-gray-200 text-gray-800 py-2 px-3 rounded-lg text-sm hover:bg-gray-300 gap-2"
        
@@ -244,6 +288,7 @@ Explore More
         <List size={16} />
         Go To Learnings
       </button>
+      </Link>
       ) : (
     <button
       className="w-full flex items-center justify-center bg-gray-200 text-gray-800 py-2 px-3 rounded-lg text-sm hover:bg-gray-300 gap-2"

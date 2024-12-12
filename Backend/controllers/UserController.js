@@ -7,6 +7,7 @@ const PaidTest = require("../model/PaidTest");
 const UserModel = require("../model/UserModel");
 const Razorpay = require('razorpay');
 const { verifyRazorpaySignature } = require("../utils/verifyRazorpaySignature");
+const Cart = require("../model/Cart");
 dotenv.config();
 
 
@@ -513,26 +514,104 @@ const dashboardData = async (req, res) => {
   }
 };
 
-module.exports={
-  getTests,
-  getTestsLanding,
-  getResults,
-  SubmitTest,
-  getHistory,
-
-  // scrapeJobs,
-
-  guestJobs,
-
-  upcommingGuestTest,
-  guestExamType,
-  guestTestByType,
-  guestTestById,
-
-  createPayment,
-  verifyPayment,
-  paidTest,
-  dashboardData
- 
-    
-}
+const addTocart= async(req,res)=>{
+  console.log(req.body);
+  try {
+    const { testId } = req.body;
+      const userId=req.user.id
+  
+    // Find the test by its ID
+    const test = await Test.findById(testId);
+    if (!test) {
+      return res.status(404).json({ message: "Test not found" });
+    }
+  
+    // Find the user's cart or create a new one
+    let cart = await Cart.findOne({ userId });
+  
+    if (!cart) {
+      // If no cart exists, create a new one with the test
+      cart = new Cart({
+        userId,
+        tests: [{
+          test: test._id,
+          title: test.title,
+          description:test.title,
+          examType:test.examType,
+          price:test.price,
+          duration:test.duration,
+        }],
+      });
+    } else {
+      // If the cart exists, add the test to the cart if it's not already there
+      const testExists = cart.tests.some(item => item.test.toString() === test._id.toString());
+  
+      if (!testExists) {
+        cart.tests.push({
+          test: test._id,
+          title: test.title,
+          description:test.title,
+          examType:test.examType,
+          price:test.price,
+          duration:test.duration,
+        });
+      } else {
+        return res.status(400).json({ message: "Test is already in the cart" });
+      }
+    }
+  
+    // Save the updated cart
+    await cart.save();
+  
+    res.status(200).json({ message: "Test added to cart successfully" });
+  } catch (error) {
+    console.error("Error adding test to cart:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+  };
+  
+  const getCart = async (req, res) => {
+    try {
+      const userId = req.user.id;
+  
+      // Find the user's cart
+      const cart = await Cart.findOne({ userId }).populate('tests.test', 'title');
+  
+      if (!cart) {
+        return res.status(200).json({ testIds: [] }); // Return an empty array if no cart exists
+      }
+  
+      // Extract test IDs
+      const testIds = cart.tests.map((item) => item.test._id);
+  
+      res.status(200).json({ testIds });
+    } catch (error) {
+      console.error("Error fetching cart data:", error);
+      res.status(500).json({ message: "Server error" });
+    }
+  };
+  
+  
+  module.exports={
+    getTests,
+    getTestsLanding,
+    getResults,
+    SubmitTest,
+    getHistory,
+    // scrapeJobs,
+  
+    guestJobs,
+  
+    upcommingGuestTest,
+    guestExamType,
+    guestTestByType,
+    guestTestById,
+    createPayment,
+    verifyPayment,
+    paidTest,
+    dashboardData,
+  
+    addTocart,
+    getCart
+      
+  }
