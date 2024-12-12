@@ -459,6 +459,60 @@ console.log(testIds);
   }
 };
 
+const dashboardData = async (req, res) => {
+  const userId = req.user.id; // Assume userId is retrieved from authentication middleware
+
+  if (!userId) {
+    return res.status(400).json({ message: "User ID is required" });
+  }
+
+  try {
+    // Fetch all Paid Tests for the user and populate test details
+    const allTests = await PaidTest.find({ userId })
+      .populate({
+        path: "testId", // Populate test details
+        select: "title category examType price", // Only fetch specific fields
+      });
+
+    // Map and extract populated test details
+    const testDetails = allTests.map((paidTest) => ({
+      ...paidTest.testId._doc,
+      isPaid: true, // Indicate that this is a paid test
+    }));
+
+    // Separate paid tests (in this case, all will be paid since fetched from PaidTest)
+    const paidTests = testDetails;
+
+    // Group tests by category
+    const testsByCategory = testDetails.reduce((categories, test) => {
+      if (!categories[test.category]) {
+        categories[test.category] = [];
+      }
+      categories[test.category].push(test);
+      return categories;
+    }, {});
+
+    // Group tests by examType
+    const testsByExamType = testDetails.reduce((examTypes, test) => {
+      if (!examTypes[test.examType]) {
+        examTypes[test.examType] = [];
+      }
+      examTypes[test.examType].push(test);
+      return examTypes;
+    }, {});
+
+    res.json({
+      allTests: testDetails,
+      paidTests,
+      testsByCategory,
+      testsByExamType,
+    });
+  } catch (err) {
+    console.error("Error fetching tests:", err);
+    res.status(500).json({ message: "Error fetching tests" });
+  }
+};
+
 module.exports={
   getTests,
   getTestsLanding,
@@ -477,7 +531,8 @@ module.exports={
 
   createPayment,
   verifyPayment,
-  paidTest
+  paidTest,
+  dashboardData
  
     
 }

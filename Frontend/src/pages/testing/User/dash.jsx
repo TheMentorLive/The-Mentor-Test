@@ -6,10 +6,10 @@ import Wishlist from "./wishlist";
 import MyTests from "./mytests";
 
 export default function Userdash() {
-  const [activeTab, setActiveTab] = useState("allTests");
+  const [activeTab, setActiveTab] = useState("myTests");
 
   const tabs = [
-    { id: "allTests", label: "All Tests" },
+  
     { id: "myTests", label: "My Tests" },
     { id: "wishlist", label: "Wishlist" },
     { id: "archived", label: "Archived" },
@@ -18,10 +18,8 @@ export default function Userdash() {
 
   const renderContent = () => {
     switch (activeTab) {
-      case "allTests":
-        return <TestCards />;
       case "myTests":
-        return <MyTests/>;
+        return <TestCards />; 
       case "wishlist":
         return <Wishlist/>;
       case "archived":
@@ -36,7 +34,7 @@ export default function Userdash() {
   return (
     <div>
       <Header />
-      <div className="space-y-6 mt-11 mb-[400px]">
+      <div className="space-y-6 mt--[-100] mb-[400px]">
         <div className="bg-zinc-900 text-white p-8 sm:p-16">
           <div className="container mx-auto max-w-[1330px]">
             <h1 className="text-2xl sm:text-4xl mb-6">My learning</h1>

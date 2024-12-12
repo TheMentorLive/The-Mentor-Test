@@ -91,7 +91,7 @@ const DropdownMenu = ({ isLoggedIn }) => {
        
          <div className="px-2 py-2 border-b">
            <Link
-             to="/my-learning"
+             to="/dashboard"
              className="flex items-center px-4 py-2 hover:bg-gray-100 transition-colors duration-200"
              onClick={() => setIsOpen(false)}
            >
