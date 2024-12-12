@@ -23,8 +23,8 @@ export default function Part3() {
     
     
     return (
-      <div className="container mx-auto p-6">
-       <section className="w-full bg-blue-600 py-16 border rounded-lg">
+      <div className="container mx-auto p-6 ">
+       <section className="w-full bg-blue-600 py-16 border rounded-lg ">
       <div className="  px-4 md:px-6">
         <h2 className="text-center text-3xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl">
           Why take Gen AI Learning Test Series?
