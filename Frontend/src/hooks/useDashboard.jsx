@@ -38,7 +38,7 @@ const useDashboardData = (token) => {
     }
   }, [token]); // Refetch if token changes
 
-  return { allTests, testsByCategory, testsByExamType, error  };
+  return { allTests, testsByCategory, testsByExamType,isLoading:loading, error  };
 };
 
 export default useDashboardData;
