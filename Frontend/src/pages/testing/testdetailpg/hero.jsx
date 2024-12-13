@@ -8,43 +8,58 @@ import { USERENDPOINTS } from "/src/constants/ApiConstants";
 import Swal from "sweetalert2";
 import { List } from "lucide-react";
 import { usePaidTests } from "/src/hooks/usePaidTest";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCart } from "../../../redux/Cartslice";
 
 export default function Hero({ testDetails }) {
   const [cart, setCart] = useState([]);
  // State to hold cart data
- const [userCart, setuserCart] = useState([]);
-  const [isInCart, setIsInCart] = useState(false);
+//  const [userCart, setuserCart] = useState([]);
+//   const [isInCart, setIsInCart] = useState(false);
+
   const { user,token } = useContext(mainContext);
   const { paidTests, loading: paidTestsLoading, error: paidTestsError,refetch } =
   usePaidTests(token);
-  
-  useEffect(() => {
-    if (user._id) {
-      fetchCart();
+
+  const dispatch = useDispatch();
+  const { items: usercart, loading, error } = useSelector((state) => state.cart);
+
+  React.useEffect(() => {
+    if (token) {
+      dispatch(fetchCart(token));
     }
-  }, [user._id]);
-    // Fetch cart data on component mount
-    const fetchCart = async () => {
+  }, [dispatch, token]);
+  
+  const userCartIncludes = useMemo(() => usercart.includes(testDetails?._id), [usercart, testDetails?._id]);
+
+  
+  // useEffect(() => {
+  //   if (user._id) {
+  //     fetchCart();
+  //   }
+  // }, [user._id]);
+  //   // Fetch cart data on component mount
+  //   const fetchCart = async () => {
    
-      try {
-        const response = await axios.get(USERENDPOINTS.GET_CART, {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include user's token
-          },
-        });
+  //     try {
+  //       const response = await axios.get(USERENDPOINTS.GET_CART, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`, // Include user's token
+  //         },
+  //       });
        
         
 
-        if (response.status === 200) {
-          setuserCart(response.data.testIds); // Set cart data
-        } else {
-          toast.error("Failed to fetch cart data.");
-        }
-      } catch (error) {
-        toast.error("An error occurred while fetching cart data.");
-        console.error(error);
-      }
-    };
+  //       if (response.status === 200) {
+  //         setuserCart(response.data.testIds); // Set cart data
+  //       } else {
+  //         toast.error("Failed to fetch cart data.");
+  //       }
+  //     } catch (error) {
+  //       toast.error("An error occurred while fetching cart data.");
+  //       console.error(error);
+  //     }
+  //   };
 
     
   // Load cart from local storage on initial render
@@ -78,7 +93,7 @@ export default function Hero({ testDetails }) {
         // Check response status and display message
         if (response.status === 200) {
           toast.success(response.data.message); 
-          fetchCart();// Show success message from the backend
+         dispatch( fetchCart(token));// Show success message from the backend
         } else {
           toast.error("Failed to add item to the cart. Please try again."); // Handle unexpected status
         }
@@ -198,11 +213,11 @@ export default function Hero({ testDetails }) {
       console.error("Error creating Razorpay order:", error);
     }
   };
-  const userCar = useMemo(() => new Set(userCart), [userCart]);
+  // const userCar = useMemo(() => new Set(userCart), [userCart]);
 
   const isTestPurchased = paidTests.includes(testDetails?._id);
   // const userCartIncludes = userCart.includes(testDetails?._id)
-  const userCartIncludes = useMemo(() => userCar.has(testDetails?._id), [userCart, testDetails?._id]);
+  // const userCartIncludes = useMemo(() => userCart.has(testDetails?._id), [userCart, testDetails?._id]);
 
 
   return (
