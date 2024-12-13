@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import { IconShoppingCart, IconCreditCard } from "@tabler/icons-react";
+import { IconShoppingCart, IconCreditCard, IconLoader } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { mainContext } from "/src/context/mainContex";
 import { toast } from "react-toastify";
@@ -13,6 +13,7 @@ import { fetchCart } from "../../../redux/Cartslice";
 
 export default function Hero({ testDetails }) {
   const [cart, setCart] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
  // State to hold cart data
 //  const [userCart, setuserCart] = useState([]);
 //   const [isInCart, setIsInCart] = useState(false);
@@ -76,6 +77,7 @@ export default function Hero({ testDetails }) {
   }, [cart]);
 
   const addToCart = async (item) => {
+    setIsLoading(true);
     try {
       if (user._id) {
         // Send request to the backend
@@ -93,7 +95,8 @@ export default function Hero({ testDetails }) {
         // Check response status and display message
         if (response.status === 200) {
           toast.success(response.data.message); 
-         dispatch( fetchCart(token));// Show success message from the backend
+         dispatch( fetchCart(token));
+         setIsLoading(false);// Show success message from the backend
         } else {
           toast.error("Failed to add item to the cart. Please try again."); // Handle unexpected status
         }
@@ -310,13 +313,20 @@ Explore More
       </button>
       </Link>
       ) : (
-    <button
-      className="w-full flex items-center justify-center bg-gray-200 text-gray-800 py-2 px-3 rounded-lg text-sm hover:bg-gray-300 gap-2"
-      onClick={() => addToCart(testDetails)}
-    >
-      <IconShoppingCart size={16} />
-      Add to Cart
-    </button>
+        <button
+        className={`w-full flex items-center justify-center bg-gray-200 text-gray-800 py-2 px-3 rounded-lg text-sm hover:bg-gray-300 gap-2 ${
+          isLoading ? "cursor-not-allowed opacity-50" : ""
+        }`}
+        onClick={() => addToCart(testDetails)}
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <IconLoader className="animate-spin" size={16} />
+        ) : (
+          <IconShoppingCart size={16} />
+        )}
+        {isLoading ? "Adding..." : "Add to Cart"}
+      </button>
      )}
      
     {isTestPurchased ? (
