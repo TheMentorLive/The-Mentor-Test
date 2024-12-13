@@ -54,6 +54,7 @@ export const USERENDPOINTS = {
         DASHBOARD_DATA:`${API_BASE_URL}user/dashboard-data `,
         ADD_TO_CART:`${API_BASE_URL}user/addtoCart `,
         GET_CART:`${API_BASE_URL}user/get-cart`,
+        GET_CART_DETAILS:`${API_BASE_URL}user/get-cart-details`,
 }
 
 export const GEUESTENDPOINTS = {

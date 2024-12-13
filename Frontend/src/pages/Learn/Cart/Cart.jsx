@@ -1,22 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { Trash, Bookmark, Clock, FileText } from "lucide-react"; // Added icons
 import axios from "axios";
+import { USERENDPOINTS } from "/src/constants/ApiConstants";
+import { mainContext } from "/src/context/mainContex";
 
 export default function CartMain({ user }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const {token}= useContext(mainContext)
 
   // Fetch cart from backend or local storage
   const fetchCart = async () => {
     setLoading(true);
     try {
-      if (user && user._id) {
+      if (token) {
         // Fetch cart from backend
-        const response = await axios.get(`/api/cart/${user._id}`);
+        const response = await axios.get(USERENDPOINTS.GET_CART_DETAILS, {
+          headers: {
+              Authorization: `Bearer ${token}` // Include the token in the header
+          }
+      });
         if (response.status === 200) {
-          setItems(response.data.cartItems || []);
+          setItems(response.data.cartDetails || []);
         } else {
           console.error("Failed to fetch cart from backend.");
         }
@@ -34,7 +41,7 @@ export default function CartMain({ user }) {
 
   useEffect(() => {
     fetchCart();
-  }, [user]); // Refetch the cart if the user changes
+  }, [token]); // Refetch the cart if the user changes
 
   const removeItem = async (id) => {
     const newItems = items.filter((item) => item._id !== id);
@@ -77,7 +84,7 @@ export default function CartMain({ user }) {
           <div className="flex justify-between items-baseline mb-8">
             <h1 className="text-2xl font-semibold">Shopping Cart</h1>
             <p className="text-muted-foreground text-sm">
-              {items.length} Course{items.length !== 1 ? "s" : ""} in Cart
+              {items.length} Test{items.length !== 1 ? "s" : ""} in Cart
             </p>
           </div>
           <div className="grid lg:grid-cols-3 gap-4">
@@ -90,7 +97,7 @@ export default function CartMain({ user }) {
   <div className="space-y-4">
     {items.map((item) => (
       <div key={item.id} className="flex bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
-        <img src={item.image} alt={item.title} width={100} height={60} className="object-cover rounded" />
+        <img src={item.image||"https://img.freepik.com/premium-vector/test-icon-illustration_430232-32.jpg"} alt={item.title} width={100} height={60} className="object-cover rounded" />
         <div className="flex-1 min-w-0 px-4">
           <h3 className="text-lg font-semibold text-gray-900 line-clamp-2 hover:text-primary transition-colors duration-150">{item.title}</h3>
           <p className="text-xs text-muted-foreground mt-1">By {item.category}</p>

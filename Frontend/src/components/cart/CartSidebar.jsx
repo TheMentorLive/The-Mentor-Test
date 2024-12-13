@@ -1,21 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FaTimes, FaShoppingCart, FaTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { USERENDPOINTS } from '/src/constants/ApiConstants';
+import { mainContext } from '/src/context/mainContex';
+
 
 const CartSidebar = ({ isCartOpen, toggleCart, user }) => {
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
+    const {token}= useContext(mainContext)
 
     // Fetch cart items based on login state
     const fetchCart = async () => {
         setLoading(true);
         try {
-            if (user && user._id) {
+            if (token) {
                 // Fetch cart from backend
-                const response = await axios.get(`/api/cart/${user._id}`);
+                const response = await axios.get(USERENDPOINTS.GET_CART_DETAILS, {
+                    headers: {
+                        Authorization: `Bearer ${token}` // Include the token in the header
+                    }
+                });
+                console.log(response.data);
+                
                 if (response.status === 200) {
-                    setCartItems(response.data.cartItems || []);
+                    setCartItems(response.data.cartDetails || []);
                 } else {
                     console.error('Failed to fetch cart from backend.');
                 }
@@ -33,7 +43,7 @@ const CartSidebar = ({ isCartOpen, toggleCart, user }) => {
 
     useEffect(() => {
         fetchCart();
-    }, [user]); // Refetch cart if the user changes
+    }, [token]); // Refetch cart if the user changes
 
     // Listen for local storage changes
     useEffect(() => {
@@ -115,7 +125,7 @@ const CartSidebar = ({ isCartOpen, toggleCart, user }) => {
                                             className="course-item flex items-start border-b pb-2 hover:shadow-lg transition p-2 rounded-lg"
                                         >
                                             <img
-                                                src={test.image}
+                                                src={test.image||"https://img.freepik.com/premium-vector/test-icon-illustration_430232-32.jpg"}
                                                 alt={test.title}
                                                 className="w-16 h-16 rounded-md mr-3"
                                             />

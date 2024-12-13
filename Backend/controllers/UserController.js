@@ -540,6 +540,7 @@ const addTocart= async(req,res)=>{
           examType:test.examType,
           price:test.price,
           duration:test.duration,
+          category:test.category
         }],
       });
     } else {
@@ -554,6 +555,7 @@ const addTocart= async(req,res)=>{
           examType:test.examType,
           price:test.price,
           duration:test.duration,
+          category:test.category
         });
       } else {
         return res.status(400).json({ message: "Test is already in the cart" });
@@ -590,7 +592,42 @@ const addTocart= async(req,res)=>{
       res.status(500).json({ message: "Server error" });
     }
   };
+
+
+
+  const getCartDetails = async (req, res) => {
+    
+   try {
+          const userId = req.user.id; // Extract user ID from the request
+          if (!userId) {
+              return res.status(400).json({ message: "User ID is required" });
+          }
   
+          // Find the cart for the user
+          const cart = await Cart.findOne({ userId }).populate("tests.test", "title description examType price duration");
+  
+          if (!cart || cart.tests.length === 0) {
+              return res.status(404).json({ message: "Cart is empty or not found" });
+          }
+  
+          // Extract test details from the cart
+          const cartDetails = cart.tests.map((item) => ({
+              testId: item.test._id,
+              title: item.test.title || item.title,
+              description: item.test.description || item.description,
+              examType: item.test.examType || item.examType,
+              price: item.test.price || item.price,
+              duration: item.test.duration || item.duration,
+              category: item.test.category || item.category,
+          }));
+  
+  
+          return res.status(200).json({ cartDetails });
+      } catch (error) {
+          console.error("Error fetching cart details:", error);
+          return res.status(500).json({ message: "Internal Server Error" });
+      }
+  };
   
   module.exports={
     getTests,
@@ -612,6 +649,7 @@ const addTocart= async(req,res)=>{
     dashboardData,
   
     addTocart,
-    getCart
+    getCart,
+    getCartDetails
       
   }
