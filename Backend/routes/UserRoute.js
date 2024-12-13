@@ -27,7 +27,8 @@ router.get("/dashboard-data",authMiddleware,UserController.dashboardData);
 
 router.post("/addtoCart",authMiddleware,UserController.addTocart)
 router.get("/get-cart",authMiddleware,UserController.getCart)
-router.get("/get-cart-details",authMiddleware,UserController.getCartDetails)
+router.get("/get-cart-details",authMiddleware,UserController.getCartDetails),
+router.delete("/remove-from-cart/:id",authMiddleware,UserController.removeFromCart)
 
 
 
