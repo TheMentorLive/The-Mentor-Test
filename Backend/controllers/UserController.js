@@ -8,6 +8,7 @@ const UserModel = require("../model/UserModel");
 const Razorpay = require('razorpay');
 const { verifyRazorpaySignature } = require("../utils/verifyRazorpaySignature");
 const Cart = require("../model/Cart");
+const Wishlist = require("../model/Wishlist");
 dotenv.config();
 
 
@@ -667,27 +668,184 @@ const addTocart= async(req,res)=>{
    
    
    
-   module.exports={
-     getTests,
-     getTestsLanding,
-     getResults,
-     SubmitTest,
-     getHistory,
-     // scrapeJobs,
-   
-     guestJobs,
-   
-     upcommingGuestTest,
-     guestExamType,
-     guestTestByType,
-     guestTestById,
-     createPayment,
-     verifyPayment,
-     paidTest,
-     dashboardData,
-   
-     addTocart,
-     getCart,
-     getCartDetails,
-     removeFromCart
-   }
+   const addToWishlist= async(req,res)=>{
+    console.log(req.body);
+    try {
+      const { testId } = req.body;
+        const userId=req.user.id
+    
+      // Find the test by its ID
+      const test = await Test.findById(testId);
+      if (!test) {
+        return res.status(404).json({ message: "Test not found" });
+      }
+    
+      // Find the user's cart or create a new one
+      let wishlist = await Wishlist.findOne({ userId });
+    
+      if (!wishlist) {
+        // If no cart exists, create a new one with the test
+        wishlist = new Wishlist({
+          userId,
+          tests: [{
+            test: test._id,
+            title: test.title,
+            description:test.title,
+            examType:test.examType,
+            price:test.price,
+            duration:test.duration,
+            category:test.category
+          }],
+        });
+      } else {
+        // If the cart exists, add the test to the cart if it's not already there
+        const testExists = wishlist.tests.some(item => item.test.toString() === test._id.toString());
+    
+        if (!testExists) {
+          wishlist.tests.push({
+            test: test._id,
+            title: test.title,
+            description:test.title,
+            examType:test.examType,
+            price:test.price,
+            duration:test.duration,
+            category:test.category
+          });
+        } else {
+          return res.status(400).json({ message: "Test is already in the cart" });
+        }
+      }
+    
+      // Save the updated cart
+      await wishlist.save();
+    
+      res.status(200).json({ message: "Test added to whishlist successfully" });
+    } catch (error) {
+      console.error("Error adding test to whishlist:", error);
+      res.status(500).json({ message: "Server error" });
+    }
+    };
+    
+    const getWishlist = async (req, res) => {
+      try {
+        const userId = req.user.id;
+    
+        // Find the user's cart
+        const wishlist = await Wishlist.findOne({ userId }).populate('tests.test', 'title');
+    
+        if (!wishlist) {
+          return res.status(200).json({ testIds: [] }); // Return an empty array if no whishlist exists
+        }
+    
+        // Extract test IDs
+        const testIds = wishlist.tests.map((item) => item.test._id);
+    
+        res.status(200).json({ testIds });
+      } catch (error) {
+        console.error("Error fetching wishlist data:", error);
+        res.status(500).json({ message: "Server error" });
+      }
+    };
+    
+    
+    const getWishlistDetails = async (req, res) => {
+    
+      
+     try {
+            const userId = req.user.id; // Extract user ID from the request
+            if (!userId) {
+                return res.status(400).json({ message: "User ID is required" });
+            }
+    
+            // Find the cart for the user
+            const wishlist = await Wishlist.findOne({ userId }).populate("tests.test", "title description examType price duration");
+    
+            if (!wishlist || wishlist.tests.length === 0) {
+                return res.status(404).json({ message: "wishlist is empty or not found" });
+            }
+    
+            // Extract test details from the cart
+            const wishlistDetails = wishlist.tests.map((item) => ({
+                testId: item.test._id,
+                title: item.test.title || item.title,
+                description: item.test.description || item.description,
+                examType: item.test.examType || item.examType,
+                price: item.test.price || item.price,
+                duration: item.test.duration || item.duration,
+                category: item.test.category || item.category,
+                id: item.test._id || item._id,
+            }));
+    
+    
+            return res.status(200).json({ wishlistDetails });
+        } catch (error) {
+            console.error("Error fetching wishlist details:", error);
+            return res.status(500).json({ message: "Internal Server Error" });
+        }
+    };
+    
+    const removeFromWishlist = async (req, res) => {
+      console.log("remove funcyion",req.params);
+      
+      try {
+          const { id } = req.params; // Test ID
+          const userId = req.user.id; // User ID from authentication middleware
+    
+          // Find the user's cart
+          const wishlist = await Wishlist.findOne({ userId });
+    
+          if (!wishlist) {
+              return res.status(404).json({ message: "wishlist not found." });
+          }
+    
+          // Remove the test item from the cart
+          const updatedTests = wishlist.tests.filter((item) => item.test.toString() !== id);
+    
+          if (updatedTests.length === wishlist.tests.length) {
+              return res.status(404).json({ message: "Test not found in cart." });
+          }
+    
+          wishlist.tests = updatedTests;
+          await wishlist.save();
+    
+          return res.status(200).json({
+              message: "Test removed from wishlist successfully.",
+              wishlistDetails: wishlist,
+          });
+      } catch (error) {
+          console.error("Error removing test from cart:", error);
+          return res.status(500).json({ message: "Internal server error." });
+      }
+    };
+    
+  
+  
+  module.exports={
+    getTests,
+    getTestsLanding,
+    getResults,
+    SubmitTest,
+    getHistory,
+    // scrapeJobs,
+  
+    guestJobs,
+  
+    upcommingGuestTest,
+    guestExamType,
+    guestTestByType,
+    guestTestById,
+    createPayment,
+    verifyPayment,
+    paidTest,
+    dashboardData,
+  
+    addTocart,
+    getCart,
+    getCartDetails,
+    removeFromCart,
+  
+    addToWishlist,
+    getWishlist,
+    getWishlistDetails,
+    removeFromWishlist
+  }
