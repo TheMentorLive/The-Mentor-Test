@@ -77,7 +77,7 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/support" element={<Support/>} />
           <Route path="/details" element={<Product/>} />
           <Route path="/Dashboard" element={< Userdash/>} />
-          <Route path="/All-Tests" element={< AlltestspgMain/>} />
+        
 
 
 
