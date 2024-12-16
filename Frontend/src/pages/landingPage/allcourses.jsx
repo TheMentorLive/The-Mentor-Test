@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
+import { Link } from "react-router-dom";
 import { Navigation } from "swiper/modules";
 
 export default function AllCourses() {
@@ -58,9 +59,11 @@ export default function AllCourses() {
             <p className="text-sm md:text-base">
               Identify, develop, and execute impactful GenAI business strategies.
             </p>
+            <Link to="/All-Tests">
             <button className="mt-5 md:mt-7 px-3 py-2 md:px-4 md:py-2 bg-[#2563EB] text-white rounded-lg hover:bg-blue-600 focus:outline-none">
               View all Courses
             </button>
+            </Link>
           </div>
           <div className="col-span-3 space-y-4">
             {/* Category filter buttons */}

@@ -6,118 +6,40 @@ import { mainContext } from '/src/context/mainContex';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 function CourseListing() {
-  const { token } = useContext(mainContext);
-  const [tests, setTests] = useState([]);
-  const [filteredTests, setFilteredTests] = useState([]);
-  const [examTypeCounts, setExamTypeCounts] = useState({});
-  const [selectedFilters, setSelectedFilters] = useState({
-    examType: '',
-    category: '',
-    level: '',
-    price: '',
+  const [filtersVisible, setFiltersVisible] = useState(true);
+
+  const toggleFilters = () => {
+    setFiltersVisible((prev) => !prev);
+  };
+
+  const handleFavoriteToggle = (courseId) => {
+    setFavoriteCourses((prev) =>
+      prev.includes(courseId)
+        ? prev.filter((id) => id !== courseId) // Remove from favorites
+        : [...prev, courseId] // Add to favorites
+    );
+  };
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value); // Update search query state
+  };
+
+  const filteredCourses = courses.filter((course) => {
+    const categoryMatch =
+      selectedCategory === "All" ||
+      (selectedCategory === "JEE" && course.title.includes("JEE")) ||
+      (selectedCategory === "NEET" && course.title.includes("NEET"));
+
+    const levelMatch =
+      selectedLevel === "All" || course.level === selectedLevel;
+
+    const ratingMatch = course.rating >= minRating;
+
+    const searchMatch = course.title.toLowerCase().includes(searchQuery.toLowerCase()); // Check if title matches search query
+
+    return categoryMatch && levelMatch && ratingMatch && searchMatch;
   });
-  const [wishlist, setWishlist] = useState([]); // Store wishlist tests
-  const [searchTerm, setSearchTerm] = useState(''); // Store search input
-  const [currentPage, setCurrentPage] = useState(1); // For pagination
-  const [testsPerPage] = useState(6); // Set how many tests per page
-  const [loading,setLoading]= useState(false)
-  const history = useNavigate(); // To navigate to TestDetails page
 
-  useEffect(() => {
-    const fetchTests = async () => {
-      setLoading(true)
-      try {
-        const response = await axios.get(USERENDPOINTS.GET_ALL_TESTS, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        const fetchedTests = response.data;
-        setTests(fetchedTests);
-        setFilteredTests(fetchedTests);
-        
-
-        // Calculate the counts for each examType
-        const counts = fetchedTests.reduce((acc, test) => {
-          acc[test.examType] = (acc[test.examType] || 0) + 1;
-          return acc;
-        }, {});
-
-        setExamTypeCounts(counts);
-        setLoading(false)
-      } catch (error) {
-        console.error('Error fetching tests:', error);
-      }
-    };
-
-    if (token) {
-      fetchTests();
-    } else {
-      console.error('Token not available.');
-    }
-  }, [token]);
-
-  const handleFilterChange = (filterType, value) => {
-    setSelectedFilters((prev) => ({
-      ...prev,
-      [filterType]: value,
-    }));
-  };
-
-  // Search filter handler
-  useEffect(() => {
-    let filtered = [...tests];
-
-    if (selectedFilters.examType) {
-      filtered = filtered.filter(
-        (test) => test.examType === selectedFilters.examType
-      );
-    }
-
-    if (selectedFilters.category) {
-      filtered = filtered.filter(
-        (test) => test.category === selectedFilters.category
-      );
-    }
-
-    if (selectedFilters.level) {
-      filtered = filtered.filter(
-        (test) => test.level === selectedFilters.level
-      );
-    }
-
-    if (selectedFilters.price) {
-      filtered = filtered.filter(
-        (test) =>
-          selectedFilters.price === 'low' ? test.price < 500 :
-          selectedFilters.price === 'medium' ? test.price >= 500 && test.price <= 1000 :
-          selectedFilters.price === 'high' ? test.price > 1000 : true
-      );
-    }
-
-    // Apply search filter (by title, category, and examType)
-    if (searchTerm) {
-      filtered = filtered.filter(
-        (test) =>
-          test.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          test.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          test.examType.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    setFilteredTests(filtered);
-  }, [selectedFilters, tests, searchTerm]);
-
-  const handleWishlistToggle = (testId) => {
-    setWishlist((prevWishlist) => {
-      if (prevWishlist.includes(testId)) {
-        return prevWishlist.filter((id) => id !== testId); // Remove from wishlist
-      } else {
-        return [...prevWishlist, testId]; // Add to wishlist
-      }
-    });
-  };
 
   const handleTestClick = (testId) => {
     history(`/Testdetails?id=${testId}`); // Navigate to TestDetails page
@@ -138,147 +60,120 @@ function CourseListing() {
     );
   }
   return (
-    <div className="mx-auto py-8 ml-[100px] mr-[100px]">
+    <div className="mx-auto py-8 px-4 sm:px-6 lg:px-24">
       <h1 className="text-3xl font-bold mb-6 mt-10">All Tests</h1>
 
-      {/* Search Input */}
       <div className="relative bg-gray-100 p-2 rounded-lg flex items-center w-full mb-7">
-        <input
-          type="text"
-          placeholder="Search for test series..."
-          className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm on input change
-        />
-        <Search className="absolute left-5 text-gray-500 h-5 w-5" />
+  <input
+    type="text"
+    placeholder="Search for test series..."
+    className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+  <Search className="absolute left-5 text-gray-500 h-5 w-5" />
+</div>
+
+      <div className="flex justify-between items-center mb-4">
+        {/* Filter and Most Popular button */}
+        <div className="flex items-center gap-4">
+  <button onClick={toggleFilters} className="border border-gray-300 px-4 py-2 rounded w-28 h-10">
+    {filtersVisible ? "Filter" : "Filter"}
+  </button>
+  <div className="relative inline-block w-36">
+    <select className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight h-10">
+      <option value="popular">Most Popular</option>
+      <option value="rating">Highest Rated</option>
+      <option value="newest">Newest</option>
+    </select>
+  </div>
+</div>
+
+        
+        {/* Results text */}
+        <div className="text-sm text-gray-500">1,902 results</div>
       </div>
 
-      {/* Filters */}
-      <div className="flex gap-4 mb-6">
-        {/* Exam Type Filter */}
-        <div className="relative w-48">
-          <select
-            value={selectedFilters.examType}
-            onChange={(e) => handleFilterChange('examType', e.target.value)}
-            className="block w-full bg-white border border-gray-300 px-4 py-2 rounded shadow h-10"
-          >
-            <option value="">All Exam Types ({tests.length})</option>
-            {Object.keys(examTypeCounts).map((type) => (
-              <option key={type} value={type}>
-                {type} ({examTypeCounts[type]})
-              </option>
-            ))}
-          </select>
+      <div className="flex gap-6">
+        {/* Filters */}
+        <div
+          className={`w-64 flex-shrink-0 transition-all duration-500 ease-in-out ${
+            filtersVisible ? "opacity-100" : "opacity-0 w-0"
+          }`}
+        >
+         <div className="border rounded-lg divide-y">
+  <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
+    <span>Category</span>
+    <select className="border bg-white px-2 py-1 rounded">
+      <option value="category1">JEE</option>
+      <option value="category2">NEET</option>
+    </select>
+  </div>
+  <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
+    <span>Ratings</span>
+    
+  </div>
+  <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
+    <span>Level</span>
+    <select className="border bg-white px-2 py-1 rounded">
+      <option value="beginner">Beginner</option>
+      <option value="intermediate">Intermediate</option>
+      <option value="advanced">Advanced</option>
+    </select>
+  </div>
+  <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
+    <span>Price</span>
+    
+  </div>
+</div>
+
         </div>
 
-        {/* Category Filter */}
-        <div className="relative w-48">
-          <select
-            value={selectedFilters.category}
-            onChange={(e) => handleFilterChange('category', e.target.value)}
-            className="block w-full bg-white border border-gray-300 px-4 py-2 rounded shadow h-10"
-          >
-            <option value="">All Categories</option>
-            {[...new Set(tests.map((test) => test.category))].map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Level Filter */}
-        <div className="relative w-48">
-          <select
-            value={selectedFilters.level}
-            onChange={(e) => handleFilterChange('level', e.target.value)}
-            className="block w-full bg-white border border-gray-300 px-4 py-2 rounded shadow h-10"
-          >
-            <option value="">All Levels</option>
-            {[...new Set(tests.map((test) => test.level))].map((level) => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Price Filter */}
-        <div className="relative w-48">
-          <select
-            value={selectedFilters.price}
-            onChange={(e) => handleFilterChange('price', e.target.value)}
-            className="block w-full bg-white border border-gray-300 px-4 py-2 rounded shadow h-10"
-          >
-            <option value="">All Prices</option>
-            <option value="low">Low (Below ₹500)</option>
-            <option value="medium">Medium (₹500-₹1000)</option>
-            <option value="high">High (Above ₹1000)</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Test Cards */}
-      <div className="space-y-4">
-        {currentTests.map((test) => (
-          <div key={test._id} className="flex border rounded-lg overflow-hidden">
-            <img
-              src={test.image}
-              alt={test.title}
-              className="h-52 w-72 object-cover cursor-pointer"
-              onClick={() => handleTestClick(test._id)} // Navigate on image click
-            />
-            <div className="flex-1 p-4">
-              <div className="flex justify-between">
-                <div className="space-y-2">
-                  <h3
-                    className="font-bold text-lg cursor-pointer"
-                    onClick={() => handleTestClick(test._id)} // Navigate on title click
-                  >
-                    {test.title}
-                  </h3>
-                  <p className="text-sm text-gray-600">{test.description}</p>
-                  <p className="text-sm text-gray-600">{test.category}</p>
-                  <div className="text-sm">
-                    {test.duration} minutes • {test.level}
+        {/* Course Listings */}
+        <div className={`flex-1 ${filtersVisible ? "" : "-ml-7"}`}>
+          <div className="space-y-4">
+            {courses.map((course) => (
+              <div key={course.id} className="flex border rounded-lg overflow-hidden">
+                <img
+                  src={course.image}
+                  alt={course.title}
+                  className="h-52 w-72 object-cover"
+                />
+                <div className="flex-1 p-4">
+                  <div className="flex justify-between">
+                    <div className="space-y-2">
+                      <h3 className="font-bold text-lg">{course.title}</h3>
+                      <p className="text-sm text-gray-600">{course.description}</p>
+                      <p className="text-sm text-gray-600">{course.instructor}</p>
+                      <div className="flex items-center gap-1">
+                        <span className="font-bold">{course.rating}</span>
+                        <div className="flex text-yellow-400">
+                          {Array(Math.floor(course.rating))
+                            .fill(null)
+                            .map((_, i) => (
+                              <Star key={i} className="h-4 w-4 fill-current" />
+                            ))}
+                          {course.rating % 1 >= 0.5 && <StarHalf className="h-4 w-4 fill-current" />}
+                        </div>
+                        <span className="text-sm text-gray-600">({course.reviews.toLocaleString()})</span>
+                      </div>
+                      <div className="text-sm">
+                        {course.hours} total hours • {course.lectures} lectures • {course.level}
+                      </div>
+                      {course.isBestseller && (
+                        <span className="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">
+                          Bestseller
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold">₹{course.price}</div>
+                      <div className="text-sm text-gray-600 line-through">₹{course.originalPrice}</div>
+                    </div>
                   </div>
-                  <span className="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">
-                    {test.examType} ({examTypeCounts[test.examType]} tests)
-                  </span>
-                </div>
-                <div className="text-right flex flex-col justify-between">
-                  <div className="font-bold">₹{test.price}</div>
-                  <Heart
-                    className={`cursor-pointer text-xl ${wishlist.includes(test._id) ? 'text-red-500' : 'text-gray-500'}`}
-                    onClick={() => handleWishlistToggle(test._id)} // Add/remove from wishlist on click
-                  />
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-        {filteredTests.length === 0 && (
-          <p className="text-center text-gray-500">No tests found for the selected filters.</p>
-        )}
-      </div>
-
-      {/* Pagination */}
-      <div className="flex justify-center mt-6">
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-l-lg"
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span className="px-4 py-2">{currentPage}</span>
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-r-lg"
-          onClick={() => paginate(currentPage + 1)}
-          disabled={currentPage === Math.ceil(filteredTests.length / testsPerPage)}
-        >
-          Next
-        </button>
+        </div>
       </div>
     </div>
   );
