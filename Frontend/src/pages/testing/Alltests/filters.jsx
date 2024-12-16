@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { InfoIcon, Star, StarHalf, Search } from 'lucide-react';
+import { useState } from 'react'; 
+import { InfoIcon, Star, StarHalf, Search, Heart } from 'lucide-react'; // Import Heart icon
 
 const courses = [
   {
@@ -47,94 +47,135 @@ const courses = [
   },
 ];
 
-
 function CourseListing() {
   const [filtersVisible, setFiltersVisible] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedLevel, setSelectedLevel] = useState("All");
+  const [minRating, setMinRating] = useState(0);
+  const [favoriteCourses, setFavoriteCourses] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // New state for search query
 
   const toggleFilters = () => {
     setFiltersVisible((prev) => !prev);
   };
 
+  const handleFavoriteToggle = (courseId) => {
+    setFavoriteCourses((prev) =>
+      prev.includes(courseId)
+        ? prev.filter((id) => id !== courseId) // Remove from favorites
+        : [...prev, courseId] // Add to favorites
+    );
+  };
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value); // Update search query state
+  };
+
+  const filteredCourses = courses.filter((course) => {
+    const categoryMatch =
+      selectedCategory === "All" ||
+      (selectedCategory === "JEE" && course.title.includes("JEE")) ||
+      (selectedCategory === "NEET" && course.title.includes("NEET"));
+
+    const levelMatch =
+      selectedLevel === "All" || course.level === selectedLevel;
+
+    const ratingMatch = course.rating >= minRating;
+
+    const searchMatch = course.title.toLowerCase().includes(searchQuery.toLowerCase()); // Check if title matches search query
+
+    return categoryMatch && levelMatch && ratingMatch && searchMatch;
+  });
+
+
   return (
-    <div className="mx-auto py-8 ml-[100px] mr-[100px]">
+    <div className="mx-auto py-8 px-4 sm:px-6 lg:px-24">
       <h1 className="text-3xl font-bold mb-6 mt-10">All Tests</h1>
-
       <div className="relative bg-gray-100 p-2 rounded-lg flex items-center w-full mb-7">
-  <input
-    type="text"
-    placeholder="Search for test series..."
-    className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-  />
-  <Search className="absolute left-5 text-gray-500 h-5 w-5" />
-</div>
-
-      <div className="flex justify-between items-center mb-4">
-        {/* Filter and Most Popular button */}
-        <div className="flex items-center gap-4">
-  <button onClick={toggleFilters} className="border border-gray-300 px-4 py-2 rounded w-28 h-10">
-    {filtersVisible ? "Filter" : "Filter"}
-  </button>
-  <div className="relative inline-block w-36">
-    <select className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight h-10">
-      <option value="popular">Most Popular</option>
-      <option value="rating">Highest Rated</option>
-      <option value="newest">Newest</option>
-    </select>
-  </div>
-</div>
-
-        
-        {/* Results text */}
-        <div className="text-sm text-gray-500">1,902 results</div>
+        <input
+          type="text"
+          placeholder="Search for test series..."
+          className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={searchQuery} // Bind input to searchQuery state
+          onChange={handleSearch} // Update search query state on change
+        />
+        <Search className="absolute left-5 text-gray-500 h-5 w-5" />
       </div>
 
-      <div className="flex gap-6">
-        {/* Filters */}
-        <div
-          className={`w-64 flex-shrink-0 transition-all duration-500 ease-in-out ${
-            filtersVisible ? "opacity-100" : "opacity-0 w-0"
-          }`}
-        >
-         <div className="border rounded-lg divide-y">
-  <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
-    <span>Category</span>
-    <select className="border bg-white px-2 py-1 rounded">
-      <option value="category1">JEE</option>
-      <option value="category2">NEET</option>
-    </select>
-  </div>
-  <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
-    <span>Ratings</span>
-    
-  </div>
-  <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
-    <span>Level</span>
-    <select className="border bg-white px-2 py-1 rounded">
-      <option value="beginner">Beginner</option>
-      <option value="intermediate">Intermediate</option>
-      <option value="advanced">Advanced</option>
-    </select>
-  </div>
-  <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
-    <span>Price</span>
-    
-  </div>
-</div>
-
+      <div className="flex flex-wrap justify-between items-center mb-4 gap-4">
+        <div className="flex items-center gap-4">
+          <button onClick={toggleFilters} className="border border-gray-300 px-4 py-2 rounded w-28 h-10">
+            {filtersVisible ? "Filter" : "Filter"}
+          </button>
+          <div className="relative inline-block w-36">
+            <select className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight h-10">
+              <option value="popular">Most Popular</option>
+              <option value="rating">Highest Rated</option>
+              <option value="newest">Newest</option>
+            </select>
+          </div>
         </div>
 
-        {/* Course Listings */}
-        <div className={`flex-1 ${filtersVisible ? "" : "-ml-7"}`}>
+        <div className="text-sm text-gray-500">{filteredCourses.length} results</div>
+      </div>
+
+      <div className="flex flex-col lg:flex-row gap-6">
+        <div
+          className={`transition-all duration-500 ease-in-out ${filtersVisible ? "lg:w-64 opacity-100" : "lg:w-0 opacity-0 overflow-hidden"}`}
+        >
+          <div className="border rounded-lg divide-y">
+            <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
+              <span>Category</span>
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="border bg-white px-2 py-1 rounded"
+              >
+                <option value="All">All</option>
+                <option value="JEE">JEE</option>
+                <option value="NEET">NEET</option>
+              </select>
+            </div>
+            <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
+              <span>Ratings</span>
+              <select
+                value={minRating}
+                onChange={(e) => setMinRating(parseFloat(e.target.value))}
+                className="border bg-white px-2 py-1 rounded"
+              >
+                <option value={0}>All</option>
+                <option value={4.5}>4.5 & up</option>
+                <option value={4.0}>4.0 & up</option>
+                <option value={3.5}>3.5 & up</option>
+              </select>
+            </div>
+            <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
+              <span>Level</span>
+              <select
+                value={selectedLevel}
+                onChange={(e) => setSelectedLevel(e.target.value)}
+                className="border bg-white px-2 py-1 rounded"
+              >
+                <option value="All">All</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div className={`transition-all duration-500 ease-in-out ${filtersVisible ? "flex-1" : "w-full"}`}>
           <div className="space-y-4">
-            {courses.map((course) => (
-              <div key={course.id} className="flex border rounded-lg overflow-hidden">
+            {filteredCourses.map((course) => (
+              <div key={course.id} className="flex flex-col sm:flex-row border rounded-lg overflow-hidden">
                 <img
                   src={course.image}
                   alt={course.title}
-                  className="h-52 w-72 object-cover"
+                  className="h-52 w-full sm:w-72 object-cover"
                 />
                 <div className="flex-1 p-4">
-                  <div className="flex justify-between">
+                  <div className="flex flex-col sm:flex-row justify-between">
                     <div className="space-y-2">
                       <h3 className="font-bold text-lg">{course.title}</h3>
                       <p className="text-sm text-gray-600">{course.description}</p>
@@ -147,12 +188,17 @@ function CourseListing() {
                             .map((_, i) => (
                               <Star key={i} className="h-4 w-4 fill-current" />
                             ))}
-                          {course.rating % 1 >= 0.5 && <StarHalf className="h-4 w-4 fill-current" />}
+                          {course.rating % 1 >= 0.5 && (
+                            <StarHalf className="h-4 w-4 fill-current" />
+                          )}
                         </div>
-                        <span className="text-sm text-gray-600">({course.reviews.toLocaleString()})</span>
+                        <span className="text-sm text-gray-600">
+                          ({course.reviews.toLocaleString()})
+                        </span>
                       </div>
                       <div className="text-sm">
-                        {course.hours} total hours • {course.lectures} lectures • {course.level}
+                        {course.hours} total hours • {course.lectures} lectures •{" "}
+                        {course.level}
                       </div>
                       {course.isBestseller && (
                         <span className="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">
@@ -160,9 +206,18 @@ function CourseListing() {
                         </span>
                       )}
                     </div>
-                    <div className="text-right">
+                    <div className="text-right mt-4 sm:mt-0">
                       <div className="font-bold">₹{course.price}</div>
-                      <div className="text-sm text-gray-600 line-through">₹{course.originalPrice}</div>
+                      <div className="text-sm text-gray-600 line-through">
+                        ₹{course.originalPrice}
+                      </div>
+                      {/* Heart Button */}
+                      <button
+  onClick={() => handleFavoriteToggle(course.id)}
+  className={`text-red-500 hover:text-red-700 mt-2 ${favoriteCourses.includes(course.id) ? "text-red-700" : "text-red-500"}`}
+>
+  <Heart className={`h-6 w-6 ${favoriteCourses.includes(course.id) ? "fill-current text-red-700" : ""}`} />
+</button>
                     </div>
                   </div>
                 </div>
