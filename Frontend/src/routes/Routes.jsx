@@ -20,6 +20,7 @@ import Sidebar from '../components/userComponent/Sidebar-login';
 import Footer from '../components/Footer';
 import TestComponent from '../pages/user/Tests';
 import Userdash from '../pages/testing/User/dash';
+import AlltestspgMain from '../pages/testing/Alltests/main';
 
 const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -58,6 +59,7 @@ const AppRoutes = () => {
                     <Route path="/result" element={<TestResultsPage />} />
                     <Route path="/dashboard" element={< Userdash/>} />
                     <Route path="/test-history" element={<Navigate to="/" />} />
+                    <Route path="/all-in-one" element={< AlltestspgMain/>} />
                   </>
                 ) : (
                   <>

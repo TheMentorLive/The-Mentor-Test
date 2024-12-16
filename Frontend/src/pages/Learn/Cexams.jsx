@@ -1,7 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
+import { useContext } from "react";
+import { mainContext } from "/src/context/mainContex";
+import Swal from "sweetalert2";
 
 export default function Cexams({ exams }) {
+  const {user,token}= useContext(mainContext)
+    const navigate = useNavigate();
+  
+    const handleClick = () => {
+    ; // Check for ltoken in localStorage
+  
+      if (!user || !token) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'User Not Found',
+          text: 'Please log in to view all courses.',
+          confirmButtonText: 'OK',
+        });
+      } else {
+        navigate('/all-in-one'); // Navigate to the all-in-one page
+      }
+    };
   return (
     <section className="py-4 mt-8 mb-4 flex items-center justify-center md:ml-[140px] lg:ml-[75px] lg:mr-[100px]">
     <div className="container mx-auto px-4">
@@ -12,7 +32,7 @@ export default function Cexams({ exams }) {
           <p className="text-gray-600 text-xs sm:text-sm">
             Prepare for the top competitive exams in your field.
           </p>
-          <button className="mt-5 w-full md:w-[180px] md:mt-7 px-2 py-1 md:px-3 md:py-2 bg-[#2563EB] text-white rounded-lg hover:bg-blue-600 focus:outline-none">
+          <button className="mt-5 w-full md:w-[180px] md:mt-7 px-2 py-1 md:px-3 md:py-2 bg-[#2563EB] text-white rounded-lg hover:bg-blue-600 focus:outline-none" onClick={handleClick}>
             View all Courses
           </button>
         </div>
