@@ -712,7 +712,7 @@ const addTocart= async(req,res)=>{
             category:test.category
           });
         } else {
-          return res.status(400).json({ message: "Test is already in the cart" });
+          return res.status(400).json({ message: "Test is already in the wishlist" });
         }
       }
     
@@ -785,7 +785,7 @@ const addTocart= async(req,res)=>{
     };
     
     const removeFromWishlist = async (req, res) => {
-      console.log("remove funcyion",req.params);
+    
       
       try {
           const { id } = req.params; // Test ID
@@ -802,7 +802,7 @@ const addTocart= async(req,res)=>{
           const updatedTests = wishlist.tests.filter((item) => item.test.toString() !== id);
     
           if (updatedTests.length === wishlist.tests.length) {
-              return res.status(404).json({ message: "Test not found in cart." });
+              return res.status(404).json({ message: "Test not found in wishlist." });
           }
     
           wishlist.tests = updatedTests;
@@ -813,7 +813,7 @@ const addTocart= async(req,res)=>{
               wishlistDetails: wishlist,
           });
       } catch (error) {
-          console.error("Error removing test from cart:", error);
+          console.error("Error removing test from wishlist:", error);
           return res.status(500).json({ message: "Internal server error." });
       }
     };
