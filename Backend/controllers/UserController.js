@@ -632,7 +632,7 @@ const addTocart= async(req,res)=>{
    };
    
    const removeFromCart = async (req, res) => {
-     console.log("remove funcyion",req.params);
+   
      
      try {
          const { id } = req.params; // Test ID
