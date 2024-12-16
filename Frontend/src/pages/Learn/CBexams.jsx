@@ -41,14 +41,14 @@ export default function CompanyExams({ exams }) {
             <p className="text-gray-600 text-xs sm:text-sm">
               Prepare for the top Company-Based exams in your field.
             </p>
-            <Link to="/All-Tests">
+          
               <button
                 className="mt-5 w-full md:w-[180px] md:mt-7 px-2 py-1 md:px-3 md:py-2 bg-[#2563EB] text-white rounded-lg hover:bg-blue-600 focus:outline-none"
                 onClick={handleClick}
               >
                 View all Tests
               </button>
-            </Link>
+         
           </div>
 
           {/* Right Section (Cards or Message) */}
