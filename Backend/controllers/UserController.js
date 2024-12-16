@@ -818,6 +818,20 @@ const addTocart= async(req,res)=>{
       }
     };
     
+
+    const getAllTests = async(req,res)=>{
+
+    
+      try {
+        const tests = await Test.find(); // Fetch all tests from the database
+        console.log(tests);
+        
+        res.status(200).json(tests);
+      } catch (error) {
+        res.status(500).json({ message: 'Error fetching tests', error });
+      }
+    
+    }
   
   
   module.exports={
@@ -847,5 +861,6 @@ const addTocart= async(req,res)=>{
     addToWishlist,
     getWishlist,
     getWishlistDetails,
-    removeFromWishlist
+    removeFromWishlist,
+    getAllTests
   }
