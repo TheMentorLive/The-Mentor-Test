@@ -1,33 +1,53 @@
 import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { mainContext } from "/src/context/mainContex";
 import Swal from "sweetalert2";
 import { Heart } from 'lucide-react'; // Import Heart icon
+import useAddToWishlist from "/src/hooks/useAddWishlist";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchWishlist } from "../../redux/Wishlistslice";
+import React from "react";
 
 export default function Cexams({ exams }) {
   const { user, token } = useContext(mainContext);
   const navigate = useNavigate();
-  const [favoriteCourses, setFavoriteCourses] = useState([]);
+  const dispatch = useDispatch();
+  const { items: userwishlist, loading, error } = useSelector((state) => state.wishlist);
+  const { addToWishlist, isLoading } = useAddToWishlist(token, user);
 
-  const handleFavoriteToggle = (examId) => {
-    setFavoriteCourses((prev) =>
-      prev.includes(examId)
-        ? prev.filter((id) => id !== examId) // Remove from favorites
-        : [...prev, examId] // Add to favorites
-    );
+  // Fetch wishlist on component mount if token exists
+  React.useEffect(() => {
+    if (token) {
+      dispatch(fetchWishlist(token));
+    }
+  }, [dispatch, token]);
+
+  const handleAddToWishlist = (examId) => {
+    if (!token || !user) {
+      Swal.fire({
+        icon: "warning",
+        title: "User Not Found",
+        text: "Please log in to add items to your wishlist.",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+    addToWishlist(examId).then(() => {
+      dispatch(fetchWishlist(token)); // Refetch wishlist after adding to ensure state is updated
+    });
   };
 
   const handleClick = () => {
     if (!user || !token) {
       Swal.fire({
-        icon: 'warning',
-        title: 'User Not Found',
-        text: 'Please log in to view all courses.',
-        confirmButtonText: 'OK',
+        icon: "warning",
+        title: "User Not Found",
+        text: "Please log in to view all courses.",
+        confirmButtonText: "OK",
       });
     } else {
-      navigate('/all-in-one'); // Navigate to the all-in-one page
+      navigate("/all-in-one"); // Navigate to the all-in-one page
     }
   };
 
@@ -91,10 +111,16 @@ export default function Cexams({ exams }) {
                     </Link>
 
                     <button
-                      onClick={() => handleFavoriteToggle(exam._id)} // Use exam._id for toggling
-                      className={`text-red-500 hover:text-red-700  ${favoriteCourses.includes(exam._id) ? "text-red-700" : "text-red-500"}`}
+                      onClick={() => handleAddToWishlist(exam._id)}
+                      className={`text-red-500 hover:text-red-700 ${
+                        userwishlist.includes(exam._id) ? "text-red-700" : "text-red-500"
+                      }`}
                     >
-                      <Heart className={`h-6 w-6 ${favoriteCourses.includes(exam._id) ? "fill-current text-red-700" : ""}`} />
+                      <Heart
+                        className={`h-6 w-6 ${
+                          userwishlist.includes(exam._id) ? "fill-current text-red-700" : ""
+                        }`}
+                      />
                     </button>
                   </div>
                 </div>

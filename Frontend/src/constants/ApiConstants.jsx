@@ -59,7 +59,10 @@ export const USERENDPOINTS = {
         GET_ALL_TESTS:`${API_BASE_URL}user/get-all-test`,
 
          ADD_TO_WISHLIST:`${API_BASE_URL}user/addtoWishlist`,
-        GET_WISHLIST:`${API_BASE_URL}user/get-wishlist`
+        GET_WISHLIST:`${API_BASE_URL}user/get-wishlist`,
+        
+        GET_WISHLIST_DETAILS:`${API_BASE_URL}user/get-wishlist-details`,
+        REMOVE_FROM_WISHLIST:`${API_BASE_URL}user/remove-from-wishlist`,
 }
 
 export const GEUESTENDPOINTS = {

@@ -32,6 +32,8 @@ router.delete("/remove-from-cart/:id",authMiddleware,UserController.removeFromCa
 router.get("/get-all-test",authMiddleware,UserController.getAllTests)
 router.post("/addtoWishlist",authMiddleware,UserController.addToWishlist)
 router.get("/get-wishlist",authMiddleware,UserController.getWishlist)
+router.get("/get-wishlist-details",authMiddleware,UserController.getWishlistDetails)
+router.delete("/remove-from-wishlist/:id",authMiddleware,UserController.removeFromWishlist)
 
 
 
