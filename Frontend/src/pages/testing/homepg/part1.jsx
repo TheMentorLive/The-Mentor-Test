@@ -53,12 +53,12 @@ function Part1() {
     }
   };
   return (
-    <div className="App">
+    <div className="App container mx-auto">
       {/* Hero Section */}
-      <main className="  mlg:ml-48 mb-20 lg:ml-28">
+      <main className="   mb-20 lg:mx-20">
       <div className="mx-auto flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-36"> {/* Changed from space-x-8 to space-x-12 */}
          {/* Left Section: Text */}
-<div className="text-center md:text-left md:w-1/2 space-y-4 px-4 sm:px-6 md:px-0">
+<div className="text-center md:text-left md:w-1/2 space-y-4 px-4 sm:px-6 ">
   <p className="text-gray-500 text-sm sm:text-lg">One stop solution for all edtech needs</p>
   <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-600">
     Learn, Test and Grow

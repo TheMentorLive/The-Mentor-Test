@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Search, Heart } from 'lucide-react'; // Import Heart icon for wishlist
+import { Search, Heart } from 'lucide-react';
 import { USERENDPOINTS } from '/src/constants/ApiConstants';
 import { mainContext } from '/src/context/mainContex';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import { useNavigate } from 'react-router-dom';
 
 function CourseListing() {
   const { token } = useContext(mainContext);
@@ -16,16 +16,16 @@ function CourseListing() {
     level: '',
     price: '',
   });
-  const [wishlist, setWishlist] = useState([]); // Store wishlist tests
-  const [searchTerm, setSearchTerm] = useState(''); // Store search input
-  const [currentPage, setCurrentPage] = useState(1); // For pagination
-  const [testsPerPage] = useState(6); // Set how many tests per page
-  const [loading,setLoading]= useState(false)
-  const history = useNavigate(); // To navigate to TestDetails page
+  const [wishlist, setWishlist] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [testsPerPage] = useState(6);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTests = async () => {
-      setLoading(true)
+      setLoading(true);
       try {
         const response = await axios.get(USERENDPOINTS.GET_ALL_TESTS, {
           headers: {
@@ -36,16 +36,13 @@ function CourseListing() {
         const fetchedTests = response.data;
         setTests(fetchedTests);
         setFilteredTests(fetchedTests);
-        
 
-        // Calculate the counts for each examType
         const counts = fetchedTests.reduce((acc, test) => {
           acc[test.examType] = (acc[test.examType] || 0) + 1;
           return acc;
         }, {});
-
         setExamTypeCounts(counts);
-        setLoading(false)
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching tests:', error);
       }
@@ -65,7 +62,6 @@ function CourseListing() {
     }));
   };
 
-  // Search filter handler
   useEffect(() => {
     let filtered = [...tests];
 
@@ -90,13 +86,16 @@ function CourseListing() {
     if (selectedFilters.price) {
       filtered = filtered.filter(
         (test) =>
-          selectedFilters.price === 'low' ? test.price < 500 :
-          selectedFilters.price === 'medium' ? test.price >= 500 && test.price <= 1000 :
-          selectedFilters.price === 'high' ? test.price > 1000 : true
+          selectedFilters.price === 'low'
+            ? test.price < 500
+            : selectedFilters.price === 'medium'
+            ? test.price >= 500 && test.price <= 1000
+            : selectedFilters.price === 'high'
+            ? test.price > 1000
+            : true
       );
     }
 
-    // Apply search filter (by title, category, and examType)
     if (searchTerm) {
       filtered = filtered.filter(
         (test) =>
@@ -112,24 +111,23 @@ function CourseListing() {
   const handleWishlistToggle = (testId) => {
     setWishlist((prevWishlist) => {
       if (prevWishlist.includes(testId)) {
-        return prevWishlist.filter((id) => id !== testId); // Remove from wishlist
+        return prevWishlist.filter((id) => id !== testId);
       } else {
-        return [...prevWishlist, testId]; // Add to wishlist
+        return [...prevWishlist, testId];
       }
     });
   };
 
   const handleTestClick = (testId) => {
-    history(`/Testdetails?id=${testId}`); // Navigate to TestDetails page
+    navigate(`/Testdetails?id=${testId}`);
   };
 
-  // Pagination logic
   const indexOfLastTest = currentPage * testsPerPage;
   const indexOfFirstTest = indexOfLastTest - testsPerPage;
   const currentTests = filteredTests.slice(indexOfFirstTest, indexOfLastTest);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -137,9 +135,10 @@ function CourseListing() {
       </div>
     );
   }
+
   return (
-    <div className="mx-auto py-8 ml-[100px] mr-[100px]">
-      <h1 className="text-3xl font-bold mb-6 mt-10">All Tests</h1>
+    <div className="mx-auto py-8 px-4 sm:px-6 lg:px-24">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6 mt-10">All Tests</h1>
 
       {/* Search Input */}
       <div className="relative bg-gray-100 p-2 rounded-lg flex items-center w-full mb-7">
@@ -148,15 +147,14 @@ function CourseListing() {
           placeholder="Search for test series..."
           className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm on input change
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         <Search className="absolute left-5 text-gray-500 h-5 w-5" />
       </div>
 
       {/* Filters */}
-      <div className="flex gap-4 mb-6">
-        {/* Exam Type Filter */}
-        <div className="relative w-48">
+      <div className="flex flex-wrap gap-4 mb-6">
+        <div className="relative w-full sm:w-48">
           <select
             value={selectedFilters.examType}
             onChange={(e) => handleFilterChange('examType', e.target.value)}
@@ -171,15 +169,16 @@ function CourseListing() {
           </select>
         </div>
 
-        {/* Category Filter */}
-        <div className="relative w-48">
+        <div className="relative w-full sm:w-48">
           <select
             value={selectedFilters.category}
             onChange={(e) => handleFilterChange('category', e.target.value)}
             className="block w-full bg-white border border-gray-300 px-4 py-2 rounded shadow h-10"
           >
             <option value="">All Categories</option>
-            {[...new Set(tests.map((test) => test.category))].map((category) => (
+            {[
+              ...new Set(tests.map((test) => test.category)),
+            ].map((category) => (
               <option key={category} value={category}>
                 {category}
               </option>
@@ -187,15 +186,16 @@ function CourseListing() {
           </select>
         </div>
 
-        {/* Level Filter */}
-        <div className="relative w-48">
+        <div className="relative w-full sm:w-48">
           <select
             value={selectedFilters.level}
             onChange={(e) => handleFilterChange('level', e.target.value)}
             className="block w-full bg-white border border-gray-300 px-4 py-2 rounded shadow h-10"
           >
             <option value="">All Levels</option>
-            {[...new Set(tests.map((test) => test.level))].map((level) => (
+            {[
+              ...new Set(tests.map((test) => test.level)),
+            ].map((level) => (
               <option key={level} value={level}>
                 {level}
               </option>
@@ -203,17 +203,16 @@ function CourseListing() {
           </select>
         </div>
 
-        {/* Price Filter */}
-        <div className="relative w-48">
+        <div className="relative w-full sm:w-48">
           <select
             value={selectedFilters.price}
             onChange={(e) => handleFilterChange('price', e.target.value)}
             className="block w-full bg-white border border-gray-300 px-4 py-2 rounded shadow h-10"
           >
             <option value="">All Prices</option>
-            <option value="low">Low (Below ₹500)</option>
-            <option value="medium">Medium (₹500-₹1000)</option>
-            <option value="high">High (Above ₹1000)</option>
+            <option value="low">Low (&lt; ₹500)</option>
+            <option value="medium">Medium (₹500 - ₹1000)</option>
+            <option value="high">High (&gt; ₹1000)</option>
           </select>
         </div>
       </div>
@@ -221,19 +220,22 @@ function CourseListing() {
       {/* Test Cards */}
       <div className="space-y-4">
         {currentTests.map((test) => (
-          <div key={test._id} className="flex border rounded-lg overflow-hidden">
+          <div
+            key={test._id}
+            className="flex flex-col sm:flex-row border rounded-lg overflow-hidden"
+          >
             <img
               src={test.image}
               alt={test.title}
-              className="h-52 w-72 object-cover cursor-pointer"
-              onClick={() => handleTestClick(test._id)} // Navigate on image click
+              className="h-52 w-full sm:w-72 object-cover cursor-pointer"
+              onClick={() => handleTestClick(test._id)}
             />
             <div className="flex-1 p-4">
-              <div className="flex justify-between">
+              <div className="flex flex-col sm:flex-row justify-between">
                 <div className="space-y-2">
                   <h3
                     className="font-bold text-lg cursor-pointer"
-                    onClick={() => handleTestClick(test._id)} // Navigate on title click
+                    onClick={() => handleTestClick(test._id)}
                   >
                     {test.title}
                   </h3>
@@ -242,16 +244,18 @@ function CourseListing() {
                   <div className="text-sm">
                     {test.duration} minutes • {test.level}
                   </div>
-                  <span className="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">
-                    {test.examType} ({examTypeCounts[test.examType]} tests)
-                  </span>
                 </div>
-                <div className="text-right flex flex-col justify-between">
+                <div className="text-right flex sm:flex-col justify-between sm:items-end">
                   <div className="font-bold">₹{test.price}</div>
                   <Heart
-                    className={`cursor-pointer text-xl ${wishlist.includes(test._id) ? 'text-red-500' : 'text-gray-500'}`}
-                    onClick={() => handleWishlistToggle(test._id)} // Add/remove from wishlist on click
-                  />
+  className={`cursor-pointer text-2xl transition-all duration-300 ${
+    wishlist.includes(test._id)
+      ? "text-red-500 scale-110"
+      : " hover:text-gray-700 hover:scale-110"
+  }`}
+  onClick={() => handleWishlistToggle(test._id)}
+/>
+
                 </div>
               </div>
             </div>
@@ -265,7 +269,7 @@ function CourseListing() {
       {/* Pagination */}
       <div className="flex justify-center mt-6">
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-l-lg"
+          className="px-4 py-2 bg-blue-500 text-white rounded-l-lg disabled:opacity-50"
           onClick={() => paginate(currentPage - 1)}
           disabled={currentPage === 1}
         >
@@ -273,7 +277,7 @@ function CourseListing() {
         </button>
         <span className="px-4 py-2">{currentPage}</span>
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-r-lg"
+          className="px-4 py-2 bg-blue-500 text-white rounded-r-lg disabled:opacity-50"
           onClick={() => paginate(currentPage + 1)}
           disabled={currentPage === Math.ceil(filteredTests.length / testsPerPage)}
         >
