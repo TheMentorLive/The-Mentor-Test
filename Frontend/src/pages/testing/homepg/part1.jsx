@@ -53,10 +53,11 @@ function Part1() {
     }
   };
   return (
-    <div className="App container mx-auto">
+    <div className="mx-auto container ">
       {/* Hero Section */}
       <main className="   mb-20 lg:mx-20">
-      <div className="mx-auto flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-36"> {/* Changed from space-x-8 to space-x-12 */}
+      <div className="mx-auto flex flex-col md:flex-row items-center space-y-8  md:space-x-60 lg:space-x-60">
+ {/* Changed from space-x-8 to space-x-12 */}
          {/* Left Section: Text */}
 <div className="text-center md:text-left md:w-1/2 space-y-4 px-4 sm:px-6 ">
   <p className="text-gray-500 text-sm sm:text-lg">One stop solution for all edtech needs</p>
@@ -72,10 +73,11 @@ function Part1() {
 </div>
 
 
-          {/* Right Section: Image + Stats */}
+        
           
             {/* Form Section */}
-        <div className="w-full max-w-md bg-white border border-gray-200 rounded-lg shadow-md p-6 space-y-4 ">
+            <div className="w-full max-w-[400px]  bg-white border border-gray-200 rounded-lg shadow-md p-6 space-y-4 float-left">
+
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800 text-center">
             Get In Touch
           </h2>

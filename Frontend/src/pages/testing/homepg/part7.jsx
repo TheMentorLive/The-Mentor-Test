@@ -2,7 +2,8 @@ import { GraduationCap } from "lucide-react";
 
 export default function Part7() {
   return (
-    <section className="flex flex-wrap items-center justify-center p-8 lg:ml-36 lg:mr-36 mt-20 mb-24 space-y-8 lg:space-y-0 lg:justify-between">
+    <div className="container mx-auto">
+    <section className="flex flex-wrap items-center justify-center p-8 lg:mx-[100px] mt-20 mb-24 space-y-8 lg:space-y-0 lg:justify-between">
       <div className="text-3xl font-bold text-center lg:text-left">
         <p>The All-in-One Edtech</p>
         <p>Platform you've been</p>
@@ -19,5 +20,6 @@ export default function Part7() {
         ))}
       </div>
     </section>
+    </div>
   );
 }

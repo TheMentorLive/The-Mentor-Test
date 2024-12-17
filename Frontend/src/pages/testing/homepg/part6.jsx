@@ -2,7 +2,10 @@ import { FileText, Users, FileCheck } from 'lucide-react'
 
 export default function Part6() {
   return (
-    <section className="relative overflow-hidden mt-16 mb-10 md:mr-32 md:ml-36 lg:ml-36 lg:mr-32">
+    <div className='container mx-auto'>
+
+    
+    <section className="relative overflow-hidden mt-16 mb-10 md:mr-32 md:ml-36 lg:mx-[100px]">
       <div className="container px-4 md:px-6">
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
           <div className="flex flex-col justify-center space-y-4">
@@ -31,7 +34,7 @@ export default function Part6() {
               <div className="space-y-1">
                 <h3 className="font-medium"> Personalized Guidance -</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-               We’ve guided over 4,000 learners to success.
+               We’ve guided over 4,000 learners to success. and gained knowledge
                 </p>
               </div>
             </div>
@@ -42,7 +45,7 @@ export default function Part6() {
               <div className="space-y-1">
                 <h3 className="font-medium">Expert Mentors -</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                Our network of industry leaders ensures your growth.
+                Our network industry leaders ensures your growth.
                 </p>
               </div>
             </div>
@@ -53,7 +56,7 @@ export default function Part6() {
               <div className="space-y-1">
                 <h3 className="font-medium">Proven Results -</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                Trusted by learners and professionals worldwide.
+                Trusted by learners and professionals on worldwide.
                 </p>
               </div>
             </div>
@@ -61,5 +64,6 @@ export default function Part6() {
         </div>
       </div>
     </section>
+    </div>
   )
 }
