@@ -35,8 +35,8 @@ export default function Part2() {
 
   return (
     <section className="w-full items-center justify-center mb-20 bg-white">
-      <div className="container ">
-        <div className="mt-16 md:mr-40 md:ml-40 lg:ml-40 lg:mr-40">
+      <div className="container mx-auto ">
+        <div className="mt-16 md:mr-40 md:ml-40 lg:mx-[130px]">
           <div className="flex justify-between items-center mb-8">
             <div className="flex items-center space-x-4">
               <div className="bg-blue-600 text-white p-2 rounded-full">
@@ -91,7 +91,7 @@ export default function Part2() {
               ))}
             </div>
             <button
-  className="absolute -right-20 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white w-12 h-12 rounded-full shadow-xl hover:bg-blue-700 hover:scale-110 transition-transform duration-200 ease-in-out flex items-center justify-center"
+  className="absolute -right-5 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white w-12 h-12 rounded-full shadow-xl hover:bg-blue-700 hover:scale-110 transition-transform duration-200 ease-in-out flex items-center justify-center"
   onClick={scrollRight}
 >
   &rarr;

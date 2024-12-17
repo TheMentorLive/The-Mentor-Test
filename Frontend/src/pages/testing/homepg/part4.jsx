@@ -26,8 +26,11 @@ export default function Part4() {
   ];
 
   return (
-    <section className="py-12 px-4 md:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="container mx-auto">
+
+    
+    <section className="py-12 px-4 md:px-6 lg:mx-[100px]">
+      <div className=" mx-auto">
         <h2 className="text-center text-sm font-semibold text-gray-500 mb-4">
           5000+ Happy GEN AI Learning Users
         </h2>
@@ -63,6 +66,10 @@ export default function Part4() {
             </div>
           ))}
         </div>
+        
+        <div className="conatainer mx-auto">
+
+        </div>
         <div className="bg-blue-600 text-white rounded-lg p-8 text-center">
           <h3 className="text-2xl md:text-3xl font-bold mb-6">
           WHY THE MENTOR?<br/></h3>
@@ -75,5 +82,7 @@ Personalized guidance, real-world skills, and expert mentorship—all in one pla
         </div>
       </div>
     </section>
+    </div>
+    
   );
 }
