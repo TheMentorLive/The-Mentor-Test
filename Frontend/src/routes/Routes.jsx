@@ -21,6 +21,7 @@ import Footer from '../components/Footer';
 import TestComponent from '../pages/user/Tests';
 import Userdash from '../pages/testing/User/dash';
 import AlltestspgMain from '../pages/testing/Alltests/main';
+import ViewProfile from '../pages/user/ViewProfile';
 
 const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -59,7 +60,8 @@ const AppRoutes = () => {
                     <Route path="/result" element={<TestResultsPage />} />
                     <Route path="/dashboard" element={< Userdash/>} />
                     <Route path="/test-history" element={<Navigate to="/" />} />
-                    {/* <Route path="/all-in-one" element={< AlltestspgMain/>} /> */}
+                    <Route path="/all-in-one" element={< AlltestspgMain/>} />
+                    <Route path="/view-profile" element={<ViewProfile/>} />
                   </>
                 ) : (
                   <>
