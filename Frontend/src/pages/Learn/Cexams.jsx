@@ -111,17 +111,19 @@ export default function Cexams({ exams }) {
                     </Link>
 
                     <button
-                      onClick={() => handleAddToWishlist(exam._id)}
-                      className={`text-red-500 hover:text-red-700 ${
-                        userwishlist.includes(exam._id) ? "text-red-700" : "text-red-500"
-                      }`}
-                    >
-                      <Heart
-                        className={`h-6 w-6 ${
-                          userwishlist.includes(exam._id) ? "fill-current text-red-700" : ""
-                        }`}
-                      />
-                    </button>
+  onClick={() => handleAddToWishlist(exam._id)}
+  className={`relative p-2 rounded-full transition-all duration-200 ${
+    userwishlist.includes(exam._id)
+      ? "bg-red-100 text-red-700"
+      : " text-gray-500 hover:bg-gray-200"
+  }`}
+>
+  <Heart
+    className={`h-6 w-6 transition-transform duration-300 ${
+      userwishlist.includes(exam._id) ? "scale-110 fill-current" : "hover:scale-110"
+    }`}
+  />
+</button>
                   </div>
                 </div>
               ))

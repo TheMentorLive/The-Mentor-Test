@@ -5,30 +5,50 @@ export default function Part3() {
   const [activeTab, setActiveTab] = useState("all"); // State for active tab
 
   const examCategories = [
-    { name: "IPCC Group 1 - Taxation", category: "all" },
-    { name: "Lorem ipsum dolor sit", category: "competitive" },
-    { name: "Lorem ipsum dolor sit", category: "academic" },
-    { name: "Lorem ipsum dolor sit", category: "company" },
-    { name: "Lorem ipsum dolor sit", category: "all" },
-    { name: "Lorem ipsum dolor sit", category: "competitive" },
-    { name: "Lorem ipsum dolor sit", category: "all" },
-    { name: "Lorem ipsum dolor sit", category: "academic" },
+    // Competitive Exams
+    { name: "Civil Services Exam: UPSC", category: "competitive" },
+    { name: "JEE Mains + Advanced", category: "competitive" },
+    { name: "NEET", category: "competitive" },
+    { name: "GATE", category: "competitive" },
+    { name: "CAT", category: "competitive" },
+    { name: "Staff Selection Commission: SSC", category: "competitive" },
+    { name: "Railway Recruitment Board: RRB", category: "competitive" },
+    { name: "Chartered Accountancy: CA", category: "competitive" },
+    { name: "National Defence Academy: NDA", category: "competitive" },
+    { name: "CLAT", category: "competitive" },
+    { name: "NIFT/NIIT", category: "competitive" },
+    { name: "State Public Service Commission: State PSC", category: "competitive" },
+    { name: "IBPS", category: "competitive" },
+  
+    // Academic Exams
+    { name: "10th Grade Milestone: Achieve Excellence in Board Exams", category: "academic" },
+    { name: "Prepare for 12th Exams: Strategies for Success", category: "academic" },
+  
+    // Company-based Tests
+    { name: "TCS National Qualifier Test (TCS NQT)", category: "company" },
+    { name: "Infosys Certification Exam", category: "company" },
+    { name: "Wipro Elite National Talent Hunt (Wipro Elite NTH)", category: "company" },
+    { name: "Cognizant GenC Next and GenC Elevate Exams", category: "company" },
+    { name: "Deloitte Aptitude Test", category: "company" },
+    { name: "EY Young Tax Professional Program", category: "company" },
+    { name: "Tech Mahindra", category: "company" },
   ];
-
+  
   const tabs = [
     { label: "All", value: "all" },
     { label: "Competitive Exams", value: "competitive" },
     { label: "Academic Exams", value: "academic" },
     { label: "Company-based Tests", value: "company" },
   ];
-
+  
   // Filter exams based on active tab
   const filteredExams = examCategories.filter(
     (exam) => activeTab === "all" || exam.category === activeTab
   );
 
   return (
-    <div className=" mx-auto px-4 py-8 md:ml-40 md:mr-40 lg:ml-40 lg:mr-40 mb-7">
+    <div className="container mx-auto">
+    <div className=" mx-auto px-4 py-8 md:ml-40 md:mr-40 lg:mx-[110px] mb-7">
       <div className="mb-20">
         {/* Header Section */}
         <div className="flex items-center gap-3 mb-2">
@@ -97,6 +117,7 @@ export default function Part3() {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 }
