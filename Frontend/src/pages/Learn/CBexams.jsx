@@ -106,7 +106,7 @@ export default function CompanyExams({ exams }) {
                       </p>
                     </div>
                   </div>
-                  <div className="flex flex-row space-x-2 p-1 mt-auto">
+                  <div className="flex flex-row justify-center space-x-1 p-1 mt-auto">
                     <Link to={`/Testdetails?id=${exam._id}`}>
                       <button className="border border-gray-300 text-gray-700 py-1 px-2 rounded-md lg:text-[12px] md:text-[12px] text-[9px]">
                         Learn More
@@ -120,7 +120,7 @@ export default function CompanyExams({ exams }) {
 
                     <button
   onClick={() => handleAddToWishlist(exam._id)}
-  className={`relative p-2 rounded-full transition-all duration-200 ${
+  className={`relative  rounded-full transition-all duration-200 ${
     userwishlist.includes(exam._id)
       ? "bg-red-100 text-red-700"
       : " text-gray-500 hover:bg-gray-200"

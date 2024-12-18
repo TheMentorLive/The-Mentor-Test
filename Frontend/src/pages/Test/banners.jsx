@@ -36,7 +36,7 @@ export default function Banners() {
         <h2 className="text-center text-3xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl">
           Why take Gen AI Learning Test Series?
         </h2>
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 text-white lg:grid-cols-3">
+        <div className="mt-8 grid gap-8 sm:grid-cols-2 text-white lg:grid-cols-3">
           {features.map(({ title, description, Icon }, index) => (
             <div key={index} className="flex flex-col items-center text-center">
               <div className="mb-4 rounded-full bg-white p-3">
