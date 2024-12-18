@@ -224,7 +224,7 @@ export default function Hero({ testDetails }) {
 
 
   return (
-    <section className="relative flex flex-col md:flex-row items-center justify-center mb-10 md:mt-11 h-auto md:h-[400px]">
+    <section className="relative flex flex-col md:flex-row items-center justify-center mb-10 md:mt-11 h-auto  md:h-[400px]">
       {/* Background Image */}
       <img
         src="./test/test-hero.png"
@@ -233,9 +233,9 @@ export default function Hero({ testDetails }) {
       />
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-      <div className="relative z-10 flex flex-col-reverse md:flex-row items-center justify-between max-w-6xl w-full px-4 md:px-8 space-y-8 md:space-y-0">
+      <div className="relative z-10 mt-20 flex flex-col-reverse md:flex-row items-center justify-between max-w-6xl w-full px-4 md:px-8 space-y-8 md:space-y-0">
         {/* Hero Content */}
-        <div className="text-white md:w-2/4 flex flex-col items-center md:items-start lg:-ml-[110px] space-y-6">
+        <div className="text-white  md:w-2/4 flex flex-col items-center md:items-start lg:-ml-[50px] space-y-6">
           <h1 className="text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] p-2 font-bold tracking-tight leading-tight text-center md:text-left">
             {testDetails.category}
           </h1>

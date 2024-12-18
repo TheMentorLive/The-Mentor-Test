@@ -14,7 +14,7 @@ export default function Hero() {
 
             <div className="relative z-10 flex flex-col-reverse md:flex-row items-center justify-between max-w-[1200px] w-full px-[16px] md:px-[32px] space-y-8 md:space-y-0 md:space-x-[32px]">
                 {/* Hero Content */}
-                <div className="text-white flex flex-col items-center md:items-start lg:-ml-[40px] space-y-[16px]">
+                <div className="text-white flex flex-col items-center md:items-start lg:px-10 lg:container space-y-[16px]">
                     <h1 className="text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] p-[8px] font-bold tracking-tight leading-tight text-center md:text-left">
                         India's Structured Online Test series platform
                     </h1>
