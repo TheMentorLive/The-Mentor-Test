@@ -8,12 +8,13 @@ import { mainContext } from "/src/context/mainContex";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
-export default function CartMain({ user }) {
+export default function CartMain() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { token } = useContext(mainContext);
+  const { token ,user} = useContext(mainContext);
 
   // Fetch cart from backend or local storage
+
   const fetchCart = async () => {
     setLoading(true);
     try {
@@ -40,7 +41,6 @@ export default function CartMain({ user }) {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchCart();
   }, [token]); // Refetch the cart if the user changes or token changes
@@ -106,11 +106,113 @@ export default function CartMain({ user }) {
     // Add logic to save the item for later (backend or local storage)
   };
 
-  const handleCheckout = () => {
-    console.log("Proceeding to checkout");
-    // Add logic for handling checkout
+  const handleCheckout = async () => {
+    if (!token) {
+      // Show SweetAlert2 popup for login
+      Swal.fire({
+        title: "Login Required",
+        text: "You must log in to purchase this test.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Go to Login",
+        cancelButtonText: "Cancel",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Redirect to login page
+          window.location.href = "/login"; // Update with your actual login page route
+        }
+      });
+      return; // Exit the function if the user is not logged in
+    }
+  
+    // Collect all test IDs from the cart
+    const testIds = items.map((item) => item.id);
+  
+    try {
+      // Request to create Razorpay order
+      const response = await axios.post(USERENDPOINTS.CREATECARTPAYMENT, { testIds });
+      const data = response.data;
+  
+      if (data && data.order && data.order.id && data.order.amount) {
+        const { id, amount } = data.order;
+  
+        // Razorpay options for checkout
+        const options = {
+          key: "rzp_test_AVLwAyEyI2Fn5Q", // Replace with your Razorpay API key
+          amount: amount, // The amount to be charged (in paise)
+          currency: "INR", // Currency
+          order_id: id, // The order ID created in the backend
+          name: "The Mentor Payment", // Your company or test name
+          description: "Purchase Test",
+          image: "https://thementor.live/wp-content/uploads/2021/10/Google-Logo-300x124.png", // Your company logo
+  
+          handler: function (response) {
+            // Send the payment details to your backend for verification
+            axios
+              .post(
+                USERENDPOINTS.VERIFYCARTPAYMENT,
+                {
+                  paymentId: response.razorpay_payment_id,
+                  orderId: response.razorpay_order_id,
+                  signature: response.razorpay_signature,
+                  testIds: testIds, // Send all the test IDs
+                },
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`, // Send the token as Bearer token
+                  },
+                }
+              )
+              .then((res) => {
+                // Reload the cart after successful payment verification
+               window.location.reload() // Fetch the cart after the payment
+                console.log("Payment verified:", res.data);
+                toast.success("Payment verified successfully!");
+  
+                // Optionally, you can redirect or display a success message
+                // Example: window.location.href = "/payment-success";
+              })
+              .catch((err) => {
+                fetchCart(); // Refetch the cart in case of any error
+                console.error("Payment verification failed:", err);
+                toast.error("Payment verification failed.");
+              });
+          },
+          prefill: {
+            name: user.name,
+            email: user.email,
+            contact: user.contact,
+          },
+          notes: {
+            address: "Test address",
+          },
+          theme: {
+            color: "#FF5722",
+          },
+        };
+  
+        // Ensure Razorpay is loaded before calling the checkout
+        if (window.Razorpay) {
+          const rzp = new window.Razorpay(options);
+          rzp.open(); // Open Razorpay checkout
+        } else {
+          console.error("Razorpay script not loaded.");
+          toast.error("Razorpay script not loaded.");
+        }
+      } else {
+        console.error("Invalid response: Missing orderId or amount");
+        toast.error("Failed to create order.");
+      }
+    } catch (error) {
+      console.error("Error creating Razorpay order:", error);
+      toast.error("An error occurred while creating the payment.");
+    }
   };
+  
+  
 
+ 
   // Calculate total price
   let totalPrice = 0;
   items.forEach((item) => {

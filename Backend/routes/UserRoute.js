@@ -34,6 +34,8 @@ router.post("/addtoWishlist",authMiddleware,UserController.addToWishlist)
 router.get("/get-wishlist",authMiddleware,UserController.getWishlist)
 router.get("/get-wishlist-details",authMiddleware,UserController.getWishlistDetails)
 router.delete("/remove-from-wishlist/:id",authMiddleware,UserController.removeFromWishlist)
+router.post("/create-cart-payment",UserController.createCartPayment);
+router.post("/verify-cart-payment",authMiddleware,UserController.verifyCartPayment);
 
 
 

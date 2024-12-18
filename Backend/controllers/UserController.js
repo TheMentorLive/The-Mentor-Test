@@ -784,7 +784,7 @@ const addTocart= async(req,res)=>{
         }
     };
     
-    const removeFromWishlist = async (req, res) => {
+  const removeFromWishlist = async (req, res) => {
     
       
       try {
@@ -833,6 +833,107 @@ const addTocart= async(req,res)=>{
     
     }
   
+ const createCartPayment = async (req, res) => {
+  
+    
+      const { testIds } = req.body;  // Receive an array of test IDs from the frontend
+    
+      try {
+        // Fetch the test details from the database based on test IDs
+        const tests = await Test.find({ _id: { $in: testIds } }); // Fetch all tests using the provided test IDs
+    
+        if (!tests || tests.length === 0) {
+          return res.status(404).json({ error: "Tests not found" });
+        }
+    
+        // Calculate total amount by summing up the prices of all tests
+        const totalAmount = tests.reduce((acc, test) => acc + (test.price * 100), 0); // Razorpay expects amount in paise
+    
+        console.log(`Total Amount (in paise): ${totalAmount}`);
+    
+        // Create an order on Razorpay
+        const order = await razorpayInstance.orders.create({
+          amount: totalAmount, // Total amount in paise
+          currency: "INR",
+          receipt: `order_rcptid_${new Date().getTime()}`, // Unique receipt ID
+        });
+    
+        // Send the order ID and amount back to the frontend
+        res.json({
+          order: {
+            id: order.id,
+            amount: order.amount,
+          },
+        });
+      } catch (error) {
+        console.error("Error creating Razorpay order", error);
+        res.status(500).json({ error: "Failed to create Razorpay order" });
+      }
+    };
+    
+  
+    const verifyCartPayment = async (req, res) => {
+    
+      // Extract payment details and testIds from the request body
+      const { paymentId, orderId, signature, testIds } = req.body;
+    
+      try {
+        // Razorpay secret key for verification (ensure that this secret is properly configured in your environment variables)
+        const razorpaySecret = process.env.SECRET;
+    
+        // Verify Razorpay payment signature to ensure it was not tampered with
+        const isValid = verifyRazorpaySignature(paymentId, orderId, signature, razorpaySecret);
+       
+        if (isValid) {
+          // Fetch all tests using the provided testIds
+          const tests = await Test.find({ _id: { $in: testIds } });
+        
+          // Check if tests were found
+          if (!tests || tests.length === 0) {
+            return res.status(400).json({ error: 'Tests not found' });
+          }
+        
+          // Fetch the user based on the userId from the request body
+          const user = await UserModel.findById(req.user.id);  // Ensure userId is correct
+          if (!user) {
+            return res.status(400).json({ error: 'User not found' });
+          }
+          console.log( "Payment verification data 4 " );
+          // Create PaidTest records for each test in the 'tests' array
+          const paidTests = tests.map((test) => {
+            return new PaidTest({
+              userId: user._id,  // User ID associated with the payment
+              testId: test._id,  // Test ID from the test document
+              orderId: orderId,  // Razorpay order ID
+              paymentId: paymentId,  // Razorpay payment ID
+              amount: test.price,  // Price for the test
+              status: 'success',  // Status of the payment
+            });
+          });
+    
+          // Insert all the PaidTest records into the database in bulk
+          await PaidTest.insertMany(paidTests);
+  
+          await Cart.updateOne(
+            { userId: user._id },
+            { $pull: { tests: { test: { $in: testIds } } } }
+          );
+    
+    
+          // Send success response indicating that the payment was successful and tests are now added
+          res.json({ message: 'Payment successful, tests have been added to paid tests' });
+        } else {
+          // If payment verification failed, return error response
+          res.status(400).json({ error: 'Payment verification failed' });
+        }
+      } catch (error) {
+        // Catch and log any errors during payment verification or database operations
+        console.error("Error verifying payment", error);
+        res.status(500).json({ error: 'Payment verification failed' });
+      }
+    };
+    
+    
   
   module.exports={
     getTests,
@@ -841,9 +942,7 @@ const addTocart= async(req,res)=>{
     SubmitTest,
     getHistory,
     // scrapeJobs,
-  
     guestJobs,
-  
     upcommingGuestTest,
     guestExamType,
     guestTestByType,
@@ -852,15 +951,18 @@ const addTocart= async(req,res)=>{
     verifyPayment,
     paidTest,
     dashboardData,
-  
     addTocart,
     getCart,
     getCartDetails,
     removeFromCart,
-  
     addToWishlist,
     getWishlist,
     getWishlistDetails,
     removeFromWishlist,
-    getAllTests
+    getAllTests,
+  
+    createCartPayment,
+    verifyCartPayment
+  
+  
   }
