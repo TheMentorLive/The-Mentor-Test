@@ -10,15 +10,16 @@ export default function TestMain() {
     return(
         <div>
             <Header/>
-            <div className="mt-20">
+            
                 <Hero/>
+                <div className="mt-20 container px-auto">
                 <UPE/>
                 <div className="lg:mr-40 lg:ml-40">
                 <Searchsec/>
                 </div>
                 <Exams/>
                 
-                <div className="lg:mr-40 lg:ml-40">
+                <div className="lg:mx-20">
                 <Banners/>
                 </div>
                 <Footer/>
