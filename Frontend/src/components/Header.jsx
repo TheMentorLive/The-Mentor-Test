@@ -10,21 +10,37 @@ import CartSidebar from "./cart/CartSidebar"; // Cart Sidebar Component
 import TopHeader from "./userComponent/landingpageComponents/TopHeader";
 import { Bell, Heart, ShoppingCartIcon } from "lucide-react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { fetchCartDetails } from "../redux/CartDetailsSlice";
 
 const Header = () => {
    
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const { user, setToken, signOut } = useContext(mainContext);
+    const { user, setToken, signOut,token } = useContext(mainContext);
     const navigate = useNavigate();
 
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isCartOpen, setIsCartOpen] = useState(false); // State for cart sidebar
+    // const [isCartOpen, setIsCartOpen] = useState(false); // State for cart sidebar
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const toggleCart = () => setIsCartOpen(!isCartOpen); // Toggle cart sidebar
 
-   
+    const [isCartOpen, setIsCartOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  // Function to toggle the cart and dispatch the fetchCart action
+  const handleCartToggle = () => {
+    setIsCartOpen((prev) => !prev); // Toggle the cart visibility
+    useEffect(() => {
+      // Fetch cart details when the cart opens
+      if (isCartOpen) {
+        const token = localStorage.getItem("token"); // Retrieve token if needed
+        dispatch(fetchCartDetails(token)); // Dispatch the action to fetch cart items
+      }
+    }, [isCartOpen, dispatch]);}
+    // Dispatch the fetchCart action when opening the cart
+  
    
     const handleLogout = () => {
         signOut();
@@ -61,7 +77,7 @@ const Header = () => {
 
     return (
         <div className="items-center flex justify-center">
-           <header className="fixed top-0 left-0 w-full bg-white lg:h-[48px]  z-50  shadow-md">
+           <header className="fixed top-0 left-0 w-full bg-white lg:h-[48px]  z-50  ">
     {/* Top Header */}
     {/* <TopHeader /> */}
 
@@ -258,7 +274,7 @@ const Header = () => {
 
 
             {/* Cart Sidebar */}
-            <CartSidebar isCartOpen={isCartOpen} toggleCart={toggleCart} />
+            <CartSidebar isCartOpen={isCartOpen} toggleCart={handleCartToggle} />
         </div>
     );
 };
