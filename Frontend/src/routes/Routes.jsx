@@ -60,7 +60,7 @@ const AppRoutes = () => {
                     <Route path="/result" element={<TestResultsPage />} />
                     <Route path="/dashboard" element={< Userdash/>} />
                     <Route path="/test-history" element={<Navigate to="/" />} />
-                    {/* <Route path="/all-in-one" element={< AlltestspgMain/>} /> */}
+                    <Route path="/all-in-one" element={< AlltestspgMain/>} />
                     <Route path="/view-profile" element={<ViewProfile/>} />
                   </>
                 ) : (
