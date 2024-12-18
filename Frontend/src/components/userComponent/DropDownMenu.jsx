@@ -145,7 +145,7 @@ const DropdownMenu = ({ isLoggedIn }) => {
              onClick={() => setIsOpen(false)}
            >
              {/* <AccountCircleIcon className="mr-2" /> */}
-             <span>Profile</span>
+             <span>view-Profile</span>
            </Link>
            <Link
              to="/edit-profile"
