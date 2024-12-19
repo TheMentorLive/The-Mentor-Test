@@ -154,7 +154,7 @@ const Header = () => {
 
               {/* Right Section */}
               {/* Right Section */}
-              <div className="hidden lg:flex items-center space-x-4">
+              <div className=" lg:flex items-center space-x-4">
                 {/* Wishlist Icon */}
                 <button className="text-gray-600 hover:text-black transition-colors duration-200">
                   <Heart size={20} />
@@ -181,8 +181,24 @@ const Header = () => {
 
             </div>
           )}
-          <div className="flex lg:hidden md:hidden -mr-20">
-          {isLoggedIn && <DropdownMenu />}
+          <div className="flex lg:hidden md:hidden space-x-2 -mr-20">
+          {isLoggedIn &&
+          <div>
+          <button className="text-gray-600 hover:text-black transition-colors duration-200">
+                  <Heart size={20} />
+                </button>
+
+                {/* Cart Icon */}
+                <button onClick={toggleCart} className=" hidden lg:block text-gray-600 hover:text-black transition-colors duration-200">
+                  <ShoppingCartIcon size={20} />
+                </button>
+
+                {/* Notification Icon */}
+                <button className="text-gray-600 hover:text-black transition-colors duration-200">
+                  <Bell size={20} />
+                </button>
+           <DropdownMenu />
+           </div>}
           </div>
 
           {/* Mobile Menu Icon */}
