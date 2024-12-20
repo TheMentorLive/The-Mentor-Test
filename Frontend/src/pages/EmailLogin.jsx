@@ -123,33 +123,40 @@ export default function Login() {
 
   // Handle login
   const handleLogin = async () => {
-    setLoading(true)
+    setLoading(true);
+  
     if (!email || !password) {
       toast.error('Please enter both email and password.');
+      setLoading(false); // Stop the loading indicator in case of validation failure
       return;
     }
-
-    toast.info('Logging in...', { autoClose: 3000 });
-
+  
     try {
       const response = await axios.post(`${API_BASE_URL}auth/login`, { email, password });
-      console.log("datatatta", response.data); // Log response data to check its structure
-
-      if (response.data) {
-        setLoading(false)
-        setToken(response.data.token)
+      console.log("Response data:", response.data); // Log response data to check its structure
+  
+      if (response.data && response.data.token) {
+        setToken(response.data.token);
         // Store token and user details in local storage
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.user)); // Ensure user object exists
-
+        localStorage.setItem('user', JSON.stringify(response.data.user || {})); // Ensure user object exists
+  
         toast.success('Login successful!');
         navigate('/'); // Redirect to dashboard or another page
       } else {
-        toast.error(response.data.message);
+        toast.error(response.data.message || 'Login failed.');
       }
     } catch (error) {
-      toast.error('Login failed. Please try again.');
+      if (error.response && error.response.data && error.response.data.message) {
+        // Show the error message from the backend
+        toast.error(error.response.data.message);
+      } else {
+        // Fallback for network errors or unexpected issues
+        toast.error('Login failed. Please try again.');
+      }
       console.error('Error during login:', error);
+    } finally {
+      setLoading(false); // Ensure loading is stopped regardless of success or failure
     }
   };
 
