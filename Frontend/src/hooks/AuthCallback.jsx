@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { mainContext } from '../context/mainContex';
 
 const spinnerStyles = `
   @keyframes spin {
@@ -17,44 +18,40 @@ const spinnerStyles = `
 `;
 
 const AuthCallback = () => {
+
   const navigate = useNavigate();
+  const { setToken, fetchUserDetails } = useContext(mainContext);
 
   useEffect(() => {
+    
     const fetchAuthDetails = async () => {
       // Get token and user ID from URL parameters
       const queryParams = new URLSearchParams(window.location.search);
       const token = queryParams.get('token');
       const userId = queryParams.get('id');
 
-      if (token && userId) {
-        // Store token and user ID in local storage
-        localStorage.setItem('token', token);
-        // localStorage.setItem('userId', userId);
-
-        // Optionally, fetch user details from your backend
+      if (token) {
         try {
-          const response = await fetch('https://genai-backend-ten.vercel.app/api/auth/userDetails', {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          const userDetails = await response.json();
-          
-          // Store user details in local storage
-          localStorage.setItem('token', token);
-          localStorage.setItem('user', JSON.stringify(userDetails.user));
+          // Set token in context
+          setToken(token);
+
+          // Fetch user details via context function
+          await fetchUserDetails();
 
           // Redirect to the home or dashboard
           navigate('/');
         } catch (error) {
-          console.error('Error fetching user details:', error);
+          console.error('Error handling auth callback:', error);
+          navigate('/login'); // Redirect to login on failure
         }
       } else {
-        console.error('Token or User ID missing from URL');
+        console.error('Token missing from URL');
         navigate('/login'); // Redirect to login if there's an issue
       }
     };
 
     fetchAuthDetails();
-  }, [navigate]);
+  }, [navigate, setToken, fetchUserDetails]);
 
   return (
     <div className="flex justify-center items-center min-h-screen">
