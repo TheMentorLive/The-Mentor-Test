@@ -4,6 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { API_BASE_URL } from '../constants/ApiConstants';
 import { mainContext } from '../context/mainContex';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 // Button component
 function Button({ variant = "default", size = "medium", children, ...props }) {
@@ -115,12 +116,14 @@ export default function Login() {
   const{token,setToken}= useContext(mainContext)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading,setLoading]= useState(false)
   const [googleLoading, setGoogleLoading] = useState(false);
   const [linkedInLoading, setLinkedInLoading] = useState(false);
   const navigate = useNavigate();
 
   // Handle login
   const handleLogin = async () => {
+    setLoading(true)
     if (!email || !password) {
       toast.error('Please enter both email and password.');
       return;
@@ -133,6 +136,7 @@ export default function Login() {
       console.log("datatatta", response.data); // Log response data to check its structure
 
       if (response.data) {
+        setLoading(false)
         setToken(response.data.token)
         // Store token and user details in local storage
         localStorage.setItem('token', response.data.token);
@@ -210,9 +214,17 @@ export default function Login() {
               <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
             <br />
-            <Button variant="outline" className="flex w-full items-center text-white h-10 rounded-md bg-[#2563EB] hover:bg-blue-400 justify-center" onClick={handleLogin}>
-              Sign in
-            </Button>
+            <Button
+      variant="outline"
+      className="flex w-full items-center text-white h-10 rounded-md bg-[#2563EB] hover:bg-blue-400 justify-center"
+      onClick={handleLogin}
+      disabled={loading}
+    >
+      {loading ? (
+        <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+      ) : null}
+      Sign in
+    </Button>
           </div>
           <div className="relative">
 
