@@ -28,6 +28,7 @@ passport.use(
       const newUser = await new User({
         name: profile.displayName,
         email: profile.emails[0].value,
+        contact: profile.phoneNumber, 
         isVerified: true,
         isEmailVerified: true,
         otp: null,
