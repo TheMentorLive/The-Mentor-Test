@@ -13,6 +13,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       // Check if user already exists in our db
+      const phoneNumber = profile.phoneNumbers ? profile.phoneNumbers[0].value : null;
       const existingUser = await User.findOne({ email: profile.emails[0].value });
 
       if (existingUser) {
@@ -28,7 +29,7 @@ passport.use(
       const newUser = await new User({
         name: profile.displayName,
         email: profile.emails[0].value,
-        contact: profile.phoneNumber, 
+        contact: phoneNumber, 
         isVerified: true,
         isEmailVerified: true,
         otp: null,
