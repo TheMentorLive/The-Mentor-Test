@@ -210,20 +210,24 @@ function Part1() {
         <div className="mx-auto flex flex-col md:flex-row items-center space-y-8  md:space-x-60 lg:space-x-60">
           {/* Changed from space-x-8 to space-x-12 */}
           {/* Left Section: Text */}
-          <div className="text-center md:text-left md:w-1/2 space-y-4 px-4 sm:px-6">
-            <p className="text-gray-500 text-base sm:text-xl">One stop solution for all edtech needs</p>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-blue-600">
-              Learn, Test and Grow
-            </h1>
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-semibold">
-              with GenAi Learning
-            </h2>
-            <Link to="/register">
-            <button className="bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg mt-4 sm:mt-6 hover:bg-blue-700">
-              Log in / Sign up
-            </button>
-            </Link>
-          </div>
+          <div className="text-center md:text-left md:w-1/2 space-y-4 px-4 sm:px-6 max-w-full">
+  <p className="text-gray-500 text-base sm:text-xl leading-relaxed whitespace-normal">
+    One stop solution for all edtech needs
+  </p>
+  <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-blue-600 leading-tight whitespace-normal">
+    Learn, Test and Grow
+  </h1>
+  <h2 className="text-3xl sm:text-5xl md:text-6xl font-semibold leading-snug whitespace-normal">
+    with GenAi Learning
+  </h2>
+  <Link to="/register">
+    <button className="bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg mt-4 sm:mt-6 hover:bg-blue-700 transition duration-200 w-fit mx-auto md:mx-0">
+      Log in / Sign up
+    </button>
+  </Link>
+</div>
+
+
 
 
 

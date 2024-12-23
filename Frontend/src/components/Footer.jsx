@@ -37,11 +37,7 @@ const Footer = () => {
       <div className="mr-10 ml-10 ">
         <div className="container mx-auto flex flex-col md:flex-row md:justify-between md:ml-32 md:mr-32 lg:mx-0">
           <div className="flex flex-col items-start mb-8 md:mb-0 md:ml-4 md:mr-6">
-            <img
-              src="/The-mentor-logo.png"
-              alt="Brand Logo"
-              className="mb-1 w-36"
-            />
+          <h2 className="text-5xl font-bold">Gen AI</h2>
             <p className="py-4 text-sm md:text-base">
               Our platform provides comprehensive resources and tools to <br /> help you prepare for the JEE exam with confidence.
             </p>
