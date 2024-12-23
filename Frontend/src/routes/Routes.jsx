@@ -61,7 +61,6 @@ const AppRoutes = () => {
                     <Route path="/dashboard" element={< Userdash/>} />
                     <Route path="/test-history" element={<Navigate to="/" />} />
                     <Route path="/all-in-one" element={< AlltestspgMain/>} />
-                    <Route path="/All-Tests" element={< AllTests/>} />
                     <Route path="/view-profile" element={<ViewProfile/>} />
                   </>
                 ) : (
