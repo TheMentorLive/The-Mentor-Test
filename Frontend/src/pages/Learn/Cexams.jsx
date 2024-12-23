@@ -47,7 +47,7 @@ export default function Cexams({ exams }) {
         confirmButtonText: "OK",
       });
     } else {
-      navigate("/all-in-one"); // Navigate to the all-in-one page
+      navigate("/All-Tests"); // Navigate to the all-in-one page
     }
   };
 

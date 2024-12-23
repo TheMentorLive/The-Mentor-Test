@@ -1,12 +1,12 @@
 import React from 'react';
-import CourseListing from './filters';
+import AllTests from './All-tests';
 import Header from '../../../components/Header';
 
 const AlltestspgMain = () => {
   return (
     <div className="">
       <Header/>
-      <CourseListing/>
+      <AllTests/>
   
     </div>
   );
