@@ -51,7 +51,7 @@ function Input({ id, type = "text", placeholder, required, value, onChange }) {
 }
 
 // Icons
-function ChromeIcon(props) {
+function GoogleIcon(props) {
   return (
     <svg
       {...props}
@@ -245,7 +245,7 @@ export default function Login() {
               Linkedin
             </Button>
             <Button variant="outline" onClick={handleGoogleLogin} className="flex items-center text-black  h-10 rounded-md hover:bg-slate-100 bg-white border border-blue-500 justify-center">
-              <ChromeIcon className="mr-2 h-4 w-4" />
+              <GoogleIcon className="mr-2 h-4 w-4" />
               Google
             </Button>
           </div>
