@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
-import CompanyExams from "../CBexams";
-import More from "./more";
-import Tseries from "../../landingPage/tseries";
 
 export default function Item() {
   const cardRef = useRef(null);
@@ -15,7 +12,7 @@ export default function Item() {
       const buttonPosition = cardRef.current.getBoundingClientRect().bottom;
       const screenHeight = window.innerHeight;
       const offset = 1200; // Adjust this value to control when the card sticks
-      setIsSticky(buttonPosition < screenHeight - offset ? false : true);
+      setIsSticky(buttonPosition < screenHeight - offset);
     }
   };
 
@@ -33,12 +30,18 @@ export default function Item() {
     };
   }, []);
 
+  const courseSections = [
+    { title: "Front-End Web Development", duration: "10 hours", modules: "5 modules" },
+    { title: "Introduction to HTML", duration: "5 hours", modules: "3 modules" },
+    // Add more sections as needed
+  ];
+
   return (
     <div>
       <Header />
-      <div className="flex flex-col md:flex-row gap-4 px-4 sm:px-6 ml-[140px] ">
+      <div className="flex flex-col md:flex-row gap-4 px-4 sm:px-6 ml-[140px]">
 
-        {/* For small screens, show the card above the UPSC content */}
+        {/* Mobile card */}
         <div className="block md:hidden mt-4">
           <div className="w-full">
             <div className="p-4 border rounded shadow">
@@ -62,13 +65,10 @@ export default function Item() {
             <h1 className="mt-2 text-2xl font-bold">UPSC - Union Public Service Commission</h1>
             <p className="mt-1">UPSC</p>
             <div className="mt-2 flex items-center gap-2">
-              <span className="bg-gray-200 px-2 py-1 rounded text-xs font-semibold text-gray-700">
-                Bestseller
-              </span>
+              <span className="bg-gray-200 px-2 py-1 rounded text-xs font-semibold text-gray-700">Bestseller</span>
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
-              Created by{" "}
-              <a href="#" className="text-blue-500">User</a>, Developer and Lead Instructor
+              Created by <a href="#" className="text-blue-500">User</a>, Developer and Lead Instructor
             </p>
             <div className="mt-2 flex items-center text-sm text-muted-foreground">
               <div className="h-4 w-4 bg-black" />
@@ -97,10 +97,7 @@ export default function Item() {
 
           <div className="space-y-2 ml-4 md:ml-8 lg:ml-20 w-full lg:w-[650px]">
             {/* Course sections */}
-            {[{ title: "Front-End Web Development", duration: "10 hours", modules: "5 modules" },
-            { title: "Introduction to HTML", duration: "5 hours", modules: "3 modules" },
-              // Add other sections here
-            ].map(({ title, duration, modules }) => (
+            {courseSections.map(({ title, duration, modules }) => (
               <div key={title}>
                 <div className="flex items-center justify-between p-4 border rounded">
                   <div className="flex items-center cursor-pointer" onClick={() => toggleSection(title)}>
@@ -114,10 +111,7 @@ export default function Item() {
                     <a href="#" className="text-blue-600">Take test</a>
                   </div>
                 </div>
-                <div
-                  className={`ml-4 mt-2 transition-all duration-300 ease-in-out overflow-hidden ${expandedSections[title] ? "max-h-40" : "max-h-0"
-                    }`}
-                >
+                <div className={`ml-4 mt-2 transition-all duration-300 ease-in-out overflow-hidden ${expandedSections[title] ? "max-h-40" : "max-h-0"}`}>
                   <div className="text-sm text-muted-foreground">
                     <p><strong>Duration:</strong> {duration}</p>
                     <p><strong>Modules:</strong> {modules}</p>
@@ -151,15 +145,6 @@ export default function Item() {
         </div>
       </div>
 
-      <div className="w-full md:w-[1160px]"> {/* Adjust width as needed */}
-        <CompanyExams className="w-full" />
-      </div>
-
-      {/* <Features /> */}
-
-      <div className="w-full md:w-[1160px]"> {/* Adjust width as needed */}
-        <Tseries className="w-full" />
-      </div>
       
       <Footer />
     </div>

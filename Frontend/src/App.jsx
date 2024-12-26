@@ -22,6 +22,7 @@ import PrivacyPolicy from './components/PP';
 import Userdash from './pages/testing/User/dash';
 import AlltestspgMain from './pages/testing/Alltests/main';
 import AllTests from './pages/testing/Alltests/All-tests';
+import Item from './pages/Learn/detail/item';
 
 import VideoSection from './pages/user/courses/main';
 import {Admindash} from './components/adminComponent/admindash';
@@ -81,6 +82,8 @@ const user = JSON.parse(localStorage.getItem('user'))
 
           <Route path="/all-in-one" element={< AlltestspgMain/>} />
           <Route path="/All-Tests" element={< AllTests/>} />
+          <Route path="/Detail" element={< Item/>} />
+
         
 
 
