@@ -204,7 +204,7 @@ function Part1() {
     }
   };
   return (
-    <div className="mx-auto container ">
+    <div className="mx-auto ">
       {/* Hero Section */}
       <main className="   mb-20 lg:mx-20">
         <div className="mx-auto flex flex-col md:flex-row items-center space-y-8  md:space-x-60 lg:space-x-60">

@@ -52,7 +52,7 @@ export default function Part2({ testDetails }) {
   const isTestPurchased = paidTests.includes(testDetails?._id);
 
   return (
-    <div className="mx-auto conatainer p-6 lg:ml-9 mr-16">
+    <div className="mx-auto conatainer p-6 lg:ml-9 mr-16 lg:mr-[400px]">
       <div className="grid gap-6">
         <div className="space-y-8">
           {/* About the Test Section */}

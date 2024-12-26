@@ -12,7 +12,7 @@ export default function TestMain() {
             <Header/>
             
                 <Hero/>
-                <div className="mt-20 container px-auto">
+                <div className="mt-20  ">
                 <UPE/>
                 <div className="lg:mr-40 lg:ml-40">
                 <Searchsec/>
