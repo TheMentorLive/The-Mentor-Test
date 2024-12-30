@@ -18,6 +18,95 @@ function AllTests() {
   const [searchQuery, setSearchQuery] = useState(""); // New state for search query
 
 
+
+
+
+
+
+
+
+
+  {/* Form Section */}
+<div className="container mx-auto lg:mr-16">
+  <div className="flex flex-col lg:flex-row">
+    <div className="flex-1">
+      {/* Main content goes here */}
+      <div style={{ height: '1730px' }}>
+        {/* Simulating a tall content area */}
+        <p>Scroll down to see the sticky card in action.</p>
+      </div>
+    </div>
+    <div className="bg-white rounded-lg shadow-lg h-fit p-4 md:ml-auto w-full md:w-[300px] lg:w-[350px] lg:sticky lg:top-16">
+      <div className="space-y-3">
+        <img src={testDetails.image} alt="Hexagonal pattern" className="rounded-lg object-cover w-full h-[150px]" />
+        <h3 className="text-base font-bold">
+          {testDetails.title} / {testDetails.category}
+        </h3>
+        <div className="flex items-baseline gap-1">
+          <span className="text-sm font-bold">₹ {testDetails.price}/-</span>
+          <span className="text-xs text-gray-500 line-through">₹1000</span>
+          <span className="text-xs text-green-600">67% OFF</span>
+        </div>
+        <p className="text-xs text-gray-500">
+          In at iaculis lorem. Praesent tempor dictum tellus ut molestie.
+          Sed sed ullamcorper lorem
+        </p>
+        <div className="flex gap-3">
+          {isItemInCart(testDetails) || userCartIncludes ? (
+            <Link to="/cart">
+              <button className="w-full flex items-center justify-center bg-gray-200 text-gray-800 py-2 px-8 rounded-lg text-sm hover:bg-gray-300 ml-12">
+                <IconShoppingCart size={16} />
+                Go To Cart
+              </button>
+            </Link>
+          ) : (
+            <>
+              {isTestPurchased ? (
+                <Link to="/dashboard">
+                  <button className="w-full flex items-center justify-center bg-gray-200 text-gray-800 py-2 px-3 rounded-lg text-sm hover:bg-gray-300 gap-2">
+                    <List size={16} />
+                    Go To Learnings
+                  </button>
+                </Link>
+              ) : (
+                <button
+                  className={`w-full flex items-center justify-center bg-gray-200 text-gray-800 py-2 px-3 rounded-lg text-sm hover:bg-gray-300 gap-2 ${isLoading ? "cursor-not-allowed opacity-50" : ""}`}
+                  onClick={() => addToCart(testDetails)}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <IconLoader className="animate-spin" size={16} />
+                  ) : (
+                    <IconShoppingCart size={16} />
+                  )}
+                  {isLoading ? "Adding..." : "Add to Cart"}
+                </button>
+              )}
+
+              {isTestPurchased ? (
+                <p className="text-green-500">You own this test.</p>
+              ) : (
+                <button
+                  className="w-full flex items-center justify-center bg-blue-600 text-white py-2 px-3 rounded-lg text-sm hover:bg-blue-700 gap-2"
+                  onClick={() => handleBuyNow(testDetails._id)}
+                >
+                  <IconCreditCard size={16} />
+                  Checkout
+                </button>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
   const { token } = useContext(mainContext);
   const [tests, setTests] = useState([]);
   const [filteredTests, setFilteredTests] = useState([]);

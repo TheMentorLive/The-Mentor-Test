@@ -6,7 +6,7 @@ export default function Hero() {
    
     return (
 
-      <section className="relative flex flex-col md:flex-row items-center justify-center  md:mt-11 h-auto md:h-[400px]">
+      <section className="relative flex flex-col md:flex-row items-center  md:-mt-11 h-auto md:h-[400px]">
       {/* Background Image */}
       <img
         src="./test/test-hero.png"
@@ -15,9 +15,9 @@ export default function Hero() {
       />
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
     
-      <div className="relative z-10 flex flex-col-reverse md:flex-row items-center justify-between max-w-6xl w-full px-4 md:px-8 space-y-8 md:space-y-0 md:space-x-8">
+      <div className="relative z-10 flex flex-col-reverse md:flex-row items-center justify-between max-w-[1570px] w-full px-[16px] md:px-[32px] space-y-8 md:space-y-0 md:space-x-[32px]">
         {/* Hero Content */}
-        <div className="text-white flex flex-col items-center md:items-start lg:-ml-10 space-y-4">
+        <div className="text-white ml-[54px] mt-20 flex flex-col items-center md:items-start  space-y-6">
           <h1 className="text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] p-2 font-bold tracking-tight leading-tight text-center md:text-left">
           Revolutionizing Education for a Tech-Driven World
 
