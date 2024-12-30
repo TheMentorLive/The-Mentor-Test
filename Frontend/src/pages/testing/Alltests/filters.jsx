@@ -21,6 +21,7 @@ function CourseListing() {
   const [currentPage, setCurrentPage] = useState(1);
   const [testsPerPage] = useState(6);
   const [loading, setLoading] = useState(false);
+  const [filtersVisible, setFiltersVisible] = useState(true); // State to toggle filter visibility
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -122,6 +123,10 @@ function CourseListing() {
     navigate(`/Testdetails?id=${testId}`);
   };
 
+  const toggleFilters = () => {
+    setFiltersVisible((prev) => !prev);
+  };
+
   const indexOfLastTest = currentPage * testsPerPage;
   const indexOfFirstTest = indexOfLastTest - testsPerPage;
   const currentTests = filteredTests.slice(indexOfFirstTest, indexOfLastTest);
@@ -154,8 +159,8 @@ function CourseListing() {
 
       <div className="flex flex-wrap justify-between items-center mb-4 gap-4">
         <div className="flex items-center gap-4">
-          <button className="border border-gray-300 px-4 py-2 rounded w-28 h-10">
-            Filter
+          <button onClick={toggleFilters} className="border border-gray-300 px-4 py-2 rounded w-28 h-10">
+            {filtersVisible ? "Filter" : "Filter"}
           </button>
           <div className="relative inline-block w-[150px]">
             <select className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight h-10">
@@ -173,7 +178,7 @@ function CourseListing() {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6">
-        <div className="transition-all duration-500 ease-in-out lg:w-64 opacity-100">
+        <div className={`transition-all duration-500 ease-in-out ${filtersVisible ? "lg:w-64 opacity-100" : "lg:w-0 opacity-0 overflow-hidden"}`}>
           <div className="border rounded-lg divide-y">
             <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
               <span>Category</span>
