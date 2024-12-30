@@ -152,136 +152,147 @@ function CourseListing() {
         <Search className="absolute left-5 text-gray-500 h-5 w-5" />
       </div>
 
-      {/* Filters */}
-      <div className="flex flex-wrap gap-4 mb-6">
-        <div className="relative w-full sm:w-48">
-          <select
-            value={selectedFilters.examType}
-            onChange={(e) => handleFilterChange('examType', e.target.value)}
-            className="block w-full bg-white border border-gray-300 px-4 py-2 rounded shadow h-10"
-          >
-            <option value="">All Exam Types ({tests.length})</option>
-            {Object.keys(examTypeCounts).map((type) => (
-              <option key={type} value={type}>
-                {type} ({examTypeCounts[type]})
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="relative w-full sm:w-48">
-          <select
-            value={selectedFilters.category}
-            onChange={(e) => handleFilterChange('category', e.target.value)}
-            className="block w-full bg-white border border-gray-300 px-4 py-2 rounded shadow h-10"
-          >
-            <option value="">All Categories</option>
-            {[
-              ...new Set(tests.map((test) => test.category)),
-            ].map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="relative w-full sm:w-48">
-          <select
-            value={selectedFilters.level}
-            onChange={(e) => handleFilterChange('level', e.target.value)}
-            className="block w-full bg-white border border-gray-300 px-4 py-2 rounded shadow h-10"
-          >
-            <option value="">All Levels</option>
-            {[
-              ...new Set(tests.map((test) => test.level)),
-            ].map((level) => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="relative w-full sm:w-48">
-          <select
-            value={selectedFilters.price}
-            onChange={(e) => handleFilterChange('price', e.target.value)}
-            className="block w-full bg-white border border-gray-300 px-4 py-2 rounded shadow h-10"
-          >
-            <option value="">All Prices</option>
-            <option value="low">Low (&lt; ₹500)</option>
-            <option value="medium">Medium (₹500 - ₹1000)</option>
-            <option value="high">High (&gt; ₹1000)</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Test Cards */}
-      <div className="space-y-4">
-        {currentTests.map((test) => (
-          <div
-            key={test._id}
-            className="flex flex-col sm:flex-row border rounded-lg overflow-hidden"
-          >
-            <img
-              src={test.image}
-              alt={test.title}
-              className="h-52 w-full sm:w-72 object-cover cursor-pointer"
-              onClick={() => handleTestClick(test._id)}
-            />
-            <div className="flex-1 p-4">
-              <div className="flex flex-col sm:flex-row justify-between">
-                <div className="space-y-2">
-                  <h3
-                    className="font-bold text-lg cursor-pointer"
-                    onClick={() => handleTestClick(test._id)}
-                  >
-                    {test.title}
-                  </h3>
-                  <p className="text-sm text-gray-600">{test.description}</p>
-                  <p className="text-sm text-gray-600">{test.category}</p>
-                  <div className="text-sm">
-                    {test.duration} minutes • {test.level}
-                  </div>
-                </div>
-                <div className="text-right flex sm:flex-col justify-between sm:items-end">
-                  <div className="font-bold">₹{test.price}</div>
-                  <Heart
-                    className={`cursor-pointer text-2xl transition-all duration-300 ${
-                      wishlist.includes(test._id)
-                        ? "text-red-500 scale-110"
-                        : " hover:text-gray-700 hover:scale-110"
-                    }`}
-                    onClick={() => handleWishlistToggle(test._id)}
-                  />
-                </div>
-              </div>
+      <div className="flex flex-wrap justify-between items-center mb-4 gap-4">
+        <div className="flex items-center gap-4">
+          <button className="border border-gray-300 px-4 py-2 rounded w-28 h-10">
+            Filter
+          </button>
+          <div className="relative inline-block w-[150px]">
+            <select className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight h-10">
+              <option value="popular">Most Popular</option>
+              <option value="rating">Highest Rated</option>
+              <option value="newest">Newest</option>
+            </select>
+            <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+              <span className="text-gray-500 text-sm">▼</span>
             </div>
           </div>
-        ))}
-        {filteredTests.length === 0 && (
-          <p className="text-center text-gray-500">No tests found for the selected filters.</p>
-        )}
+        </div>
+
+        <div className="text-sm text-gray-500">{filteredTests.length} results</div>
       </div>
 
-      {/* Pagination */}
-      <div className="flex justify-center mt-6">
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-l-lg disabled:opacity-50"
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span className="px-4 py-2">{currentPage}</span>
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-r-lg disabled:opacity-50"
-          onClick={() => paginate(currentPage + 1)}
-          disabled={currentPage === Math.ceil(filteredTests.length / testsPerPage)}
-        >
-          Next
-        </button>
+      <div className="flex flex-col lg:flex-row gap-6">
+        <div className="transition-all duration-500 ease-in-out lg:w-64 opacity-100">
+          <div className="border rounded-lg divide-y">
+            <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
+              <span>Category</span>
+              <select
+                value={selectedFilters.category}
+                onChange={(e) => handleFilterChange('category', e.target.value)}
+                className="border bg-white px-2 py-1 rounded"
+              >
+                <option value="">All Categories</option>
+                {[
+                  ...new Set(tests.map((test) => test.category)),
+                ].map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
+              <span>Level</span>
+              <select
+                value={selectedFilters.level}
+                onChange={(e) => handleFilterChange('level', e.target.value)}
+                className="border bg-white px-2 py-1 rounded"
+              >
+                <option value="">All Levels</option>
+                {[
+                  ...new Set(tests.map((test) => test.level)),
+                ].map((level) => (
+                  <option key={level} value={level}>
+                    {level}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="px-4 py-2 cursor-pointer flex justify-between items-center">
+              <span>Price</span>
+              <select
+                value={selectedFilters.price}
+                onChange={(e) => handleFilterChange('price', e.target.value)}
+                className="border bg-white px-2 py-1 max-w-[140px] rounded"
+              >
+                <option value="">All Prices</option>
+                <option value="low">Low (&lt; ₹500)</option>
+                <option value="medium">Medium (₹500 - ₹1000)</option>
+                <option value="high">High (&gt; ₹1000)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div className="transition-all duration-500 ease-in-out flex-1">
+          {/* Test Cards */}
+          <div className="space-y-4">
+            {currentTests.map((test) => (
+              <div
+                key={test._id}
+                className="flex flex-col sm:flex-row border rounded-lg overflow-hidden"
+              >
+                <img
+                  src={test.image}
+                  alt={test.title}
+                  className="h-52 w-full sm:w-72 object-cover cursor-pointer"
+                  onClick={() => handleTestClick(test._id)}
+                />
+                <div className="flex-1 p-4">
+                  <div className="flex flex-col sm:flex-row justify-between">
+                    <div className="space-y-2">
+                      <h3
+                        className="font-bold text-lg cursor-pointer"
+                        onClick={() => handleTestClick(test._id)}
+                      >
+                        {test.title}
+                      </h3>
+                      <p className="text-sm text-gray-600">{test.description}</p>
+                      <p className="text-sm text-gray-600">{test.category}</p>
+                      <div className="text-sm">
+                        {test.duration} minutes • {test.level}
+                      </div>
+                    </div>
+                    <div className="text-right flex sm:flex-col justify-between sm:items-end">
+                      <div className="font-bold">₹{test.price}</div>
+                      <Heart
+                        className={`cursor-pointer text-2xl transition-all duration-300 ${
+                          wishlist.includes(test._id)
+                            ? "text-red-500 scale-110"
+                            : " hover:text-gray-700 hover:scale-110"
+                        }`}
+                        onClick={() => handleWishlistToggle(test._id)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {filteredTests.length === 0 && (
+              <p className="text-center text-gray-500">No tests found for the selected filters.</p>
+            )}
+          </div>
+
+          {/* Pagination */}
+          <div className="flex justify-center mt-6">
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded-l-lg disabled:opacity-50"
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span className="px-4 py-2">{currentPage}</span>
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded-r-lg disabled:opacity-50"
+              onClick={() => paginate(currentPage + 1)}
+              disabled={currentPage === Math.ceil(filteredTests.length / testsPerPage)}
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
