@@ -80,8 +80,8 @@ const user = JSON.parse(localStorage.getItem('user'))
           <Route path="/details" element={<Product/>} />
           <Route path="/Dashboard" element={< Userdash/>} />
 
-          <Route path="/all-in-one" element={< AlltestspgMain/>} />
-          <Route path="/All-Tests" element={< AllTests/>} />
+          {/* <Route path="/all-in-one" element={< AlltestspgMain/>} /> */}
+          <Route path="/All-Tests" element={< AlltestspgMain/>} />
           <Route path="/Detail" element={< Item/>} />
 
         
