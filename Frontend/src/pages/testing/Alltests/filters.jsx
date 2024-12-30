@@ -248,14 +248,13 @@ function CourseListing() {
                 <div className="text-right flex sm:flex-col justify-between sm:items-end">
                   <div className="font-bold">₹{test.price}</div>
                   <Heart
-  className={`cursor-pointer text-2xl transition-all duration-300 ${
-    wishlist.includes(test._id)
-      ? "text-red-500 scale-110"
-      : " hover:text-gray-700 hover:scale-110"
-  }`}
-  onClick={() => handleWishlistToggle(test._id)}
-/>
-
+                    className={`cursor-pointer text-2xl transition-all duration-300 ${
+                      wishlist.includes(test._id)
+                        ? "text-red-500 scale-110"
+                        : " hover:text-gray-700 hover:scale-110"
+                    }`}
+                    onClick={() => handleWishlistToggle(test._id)}
+                  />
                 </div>
               </div>
             </div>
