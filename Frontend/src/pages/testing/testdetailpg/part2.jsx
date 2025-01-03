@@ -8,9 +8,8 @@ export default function Part2({ testDetails }) {
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
   const [showAllModules, setShowAllModules] = useState(false); // State to toggle the visibility of all modules
   const navigate = useNavigate();
-  const{token,user}=useContext(mainContext)
-  const { paidTests, loading: paidTestsLoading, error: paidTestsError } =
-  usePaidTests(token);
+  const { token, user } = useContext(mainContext);
+  const { paidTests, loading: paidTestsLoading, error: paidTestsError } = usePaidTests(token);
 
   const toggleShowAllModules = () => {
     setShowAllModules((prevState) => !prevState); // Toggle the visibility of all modules
@@ -52,7 +51,7 @@ export default function Part2({ testDetails }) {
   const isTestPurchased = paidTests.includes(testDetails?._id);
 
   return (
-    <div className="mx-auto conatainer p-6 lg:ml-9 mr-16 lg:mr-[400px]">
+    <div className="mx-auto conatainer p-6 lg:ml-9 mr-16 lg:mr-[400px] ">
       <div className="grid gap-6">
         <div className="space-y-8">
           {/* About the Test Section */}
@@ -79,91 +78,94 @@ export default function Part2({ testDetails }) {
         </div>
 
         {/* Test Module Section */}
-       {/* Test Module Section */}
-<section className="">
-  <div className="rounded-lg border bg-gray-100">
-    <div className="flex justify-between items-center p-4">
-      <h2 className="text-lg font-medium">Test Module</h2>
-      <button
-        className="text-blue-500 text-xl"
-        onClick={toggleShowAllModules} // Toggle the visibility of all modules
-      >
-        {showAllModules ? "-" : "+"}
-      </button>
-    </div>
-    <div className="w-full">
-      {/* Render all test modules if showAllModules is true */}
-      {showAllModules && (
-  <div className="w-full">
-    {/* Iterate over each subject */}
-    {Object.keys(groupedBySubject).map((subject) => (
-      <div key={subject}>
-        <h2 className="text-xs font-bold mt-4 ml-4">{subject}</h2>
-
-        {/* Iterate over tests for the current subject */}
-        {groupedBySubject[subject].map((test, index) => (
-          <div key={test._id} className="border-b">
-            <div className="px-4 py-2">
-              <div className="flex justify-between items-center">
-                <div className="flex gap-2">
-                  <span className="text-gray-500 text-xs">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-sm">{test.testTitle}</span>
-                </div>
-
-                {/* Take Test Button */}
-                {!user._id ? (
-        <button className="bg-blue-500 text-white px-4 py-2 rounded text-xs">
-          Login
-        </button>
-      ) : !isTestPurchased ? (
-        <button
-          className="bg-green-500 text-white px-4 py-2 rounded text-xs"
-          onClick={() => {
-            // Handle purchase logic here
-            console.log("Proceed to purchase the test");
-          }}
-        >
-          Purchase
-        </button>
-      ) : (
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded text-xs"
-          onClick={() => handleTakeTest(testDetails._id, test._id)} // Pass both IDs
-        >
-          Take Test
-        </button>
-      )}
-              </div>
+        <section className="">
+          <div className="rounded-lg border bg-gray-100">
+            <div className="flex justify-between items-center p-4">
+              <h2
+                className="text-lg font-medium cursor-pointer"
+                onClick={toggleShowAllModules} // Toggle visibility when the title is clicked
+              >
+                Test Module
+              </h2>
+              <button
+                className="text-blue-500 text-xl"
+                onClick={toggleShowAllModules} // Toggle visibility when the "+" button is clicked
+              >
+                {showAllModules ? "-" : "+"}
+              </button>
             </div>
+            <div className="w-full">
+              {/* Render all test modules if showAllModules is true */}
+              {showAllModules && (
+                <div className="w-full">
+                  {/* Iterate over each subject */}
+                  {Object.keys(groupedBySubject).map((subject) => (
+                    <div key={subject}>
+                      <h2 className="text-xs font-bold mt-4 ml-4">{subject}</h2>
 
-            {/* Accordion content for test modules */}
-            <div className="px-4 pt-1 pb-3">
-              {test.testModules.map((module, moduleIndex) => (
-                <div key={moduleIndex} className="p-2 border rounded mt-2">
-                  <div className="flex justify-between text-xs">
-                    <span className="font-semibold">
-                      Module {module.moduleNumber}:
-                    </span>
-                    <span className="font-semibold">{module.title}</span>
-                  </div>
-                  <div className="mt-2 text-xs text-gray-600">
-                    {module.description}
-                  </div>
+                      {/* Iterate over tests for the current subject */}
+                      {groupedBySubject[subject].map((test, index) => (
+                        <div key={test._id} className="border-b">
+                          <div className="px-4 py-2">
+                            <div className="flex justify-between items-center">
+                              <div className="flex gap-2">
+                                <span className="text-gray-500 text-xs">
+                                  {String(index + 1).padStart(2, "0")}
+                                </span>
+                                <span className="text-sm">{test.testTitle}</span>
+                              </div>
+
+                              {/* Take Test Button */}
+                              {!user._id ? (
+                                <button className="bg-blue-500 text-white px-4 py-2 rounded text-xs">
+                                  Login
+                                </button>
+                              ) : !isTestPurchased ? (
+                                <button
+                                  className="bg-green-500 text-white px-4 py-2 rounded text-xs"
+                                  onClick={() => {
+                                    // Handle purchase logic here
+                                    console.log("Proceed to purchase the test");
+                                  }}
+                                >
+                                  Purchase
+                                </button>
+                              ) : (
+                                <button
+                                  className="bg-blue-500 text-white px-4 py-2 rounded text-xs"
+                                  onClick={() => handleTakeTest(testDetails._id, test._id)} // Pass both IDs
+                                >
+                                  Take Test
+                                </button>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Accordion content for test modules */}
+                          <div className="px-4 pt-1 pb-3">
+                            {test.testModules.map((module, moduleIndex) => (
+                              <div key={moduleIndex} className="p-2 border rounded mt-2">
+                                <div className="flex justify-between text-xs">
+                                  <span className="font-semibold">
+                                    Module {module.moduleNumber}:
+                                  </span>
+                                  <span className="font-semibold">{module.title}</span>
+                                </div>
+                                <div className="mt-2 text-xs text-gray-600">
+                                  {module.description}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
           </div>
-        ))}
-      </div>
-    ))}
-  </div>
-)}
-
-    </div>
-  </div>
-</section>
+        </section>
 
         {/* FAQ Section */}
         <section>
