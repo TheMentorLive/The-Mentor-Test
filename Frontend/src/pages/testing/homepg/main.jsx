@@ -7,9 +7,17 @@ import Part6 from './part6';
 import Part7 from './part7';
 import Cmpnycarousel from '../../../components/cmpny-carousel';
 import Header from '../../../components/Header';
+import Chatbot from '../chatbot/chatbot';
 
 const HomepgMain = () => {
   return (
+    <div className="">
+      {/* Other components like routes */}
+      <div className='z-100'>
+      <Chatbot />
+      </div>
+      
+   
     <div className="">
       <Header/>
      <Part1/>
@@ -20,6 +28,7 @@ const HomepgMain = () => {
      <Part6/>
      <Part4/>
   
+    </div>
     </div>
   );
 };
