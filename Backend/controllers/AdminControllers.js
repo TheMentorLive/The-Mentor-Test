@@ -666,6 +666,39 @@ const deleteExamType = async(req,res)=>{
   }
 }
 
+// const deleteExamType = async(req,res)=>{
+//   try {
+    
+//   } catch (error) {
+    
+//   }
+// }
+
+// const deleteExamType = async(req,res)=>{
+//   try {
+    
+//   } catch (error) {
+    
+//   }
+// }
+
+// const deleteExamType = async(req,res)=>{
+//   try {
+    
+//   } catch (error) {
+    
+//   }
+// }
+
+// const deleteExamType = async(req,res)=>{
+//   try {
+    
+//   } catch (error) {
+    
+//   }
+// }
+
+
 module.exports = {
   getUsers,
   getMessages,
