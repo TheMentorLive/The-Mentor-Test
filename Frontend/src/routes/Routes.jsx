@@ -2,7 +2,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Landingpage from '../pages/landingPage/LandingPage';
-import HomepgMain from '../pages/testing/homepg/main';
+import HomepgMain from '../pages/testing/homepg-old/main';
+import HomepgMain1 from '../pages/testing/homepg-new/main';
 import NotFound from '../pages/PageNotFound';
 import Header from '../components/Header';
 import ProfileComponent from '../pages/user/Profile';
@@ -36,8 +37,13 @@ const AppRoutes = () => {
 
       return (
         <>
-        <Header />
-          {!isFullScreenPage && !isLoggedIn && <Header />}
+       {
+  window.location.pathname !== "/home" && <Header />}
+
+        {!isFullScreenPage &&
+  !isLoggedIn &&
+  window.location.pathname !== "/home" && <Header />}
+
           <div className={`layout ${isLoggedIn && !isFullScreenPage ? 'sidebar-visible' : ''}`}>
             {/* {!isFullScreenPage && isLoggedIn && <Sidebar className="sidebar" />} */}
             <main className={`content ${isFullScreenPage ? 'pt-0' : 'pt-[80px]'}`}>
@@ -51,6 +57,7 @@ const AppRoutes = () => {
                     <Route path="/upcoming-test" element={<UpcomingTestsPage />} />
                     {/* Redirect logged-in users to /user-dashboard */}
                     <Route path="/user-dashboard" element={<Navigate to="/" />} />
+                    <Route path="/home" element={<Navigate to="/" />} />
                    
                     <Route path="/settings" element={<Navigate to="/" />} />
                     <Route path="/profile" element={<ProfileComponent />} />
@@ -67,6 +74,7 @@ const AppRoutes = () => {
                   <>
                     <Route path="/" element={<Navigate to="/user-dashboard" />} />
                     <Route path="/user-dashboard" element={<HomepgMain />} />
+                       <Route path="/home" element={<HomepgMain1 />} />
                    
                     <Route path="/profile" element={<Navigate to="/" />} />
                     <Route path="/settings" element={<Settings />} />
@@ -84,7 +92,10 @@ const AppRoutes = () => {
                 {/* Catch-all for undefined routes */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
-              {!isFullScreenPage && !isLoggedIn && <Footer />}
+              {!isFullScreenPage &&
+  !isLoggedIn &&
+  window.location.pathname !== "/home" && <Footer />}
+
             </main>
           </div>
         </>

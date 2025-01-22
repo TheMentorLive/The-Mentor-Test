@@ -31,7 +31,7 @@ import CartMain from './pages/Learn/Cart/Cart';
 import Payment from './pages/Learn/Payment/Payment';
 import Support from './pages/support';
 import LearnMain from './pages/testing/Learn/main';
-import HomepgMain from './pages/testing/homepg/main';
+import HomepgMain from './pages/testing/homepg-old/main';
 import TestdetailpgMain from './pages/testing/testdetailpg/main';
 import { Product } from './pages/Learn/Product/Product';
 import AuthCallback from './hooks/AuthCallback';
