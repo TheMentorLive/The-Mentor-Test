@@ -10,6 +10,7 @@ import WhyGenAiLearning from './whygenai';
 import HireSection from './hire';
 import TestimonialsSection from './testimonials';
 import Footer from './footer';
+import App from './section';
 
 const HomepgMain1 = () => {
   return (
@@ -17,6 +18,7 @@ const HomepgMain1 = () => {
       <NavBar/>
       <HeroSection/>
       <CompanyLogos/>
+      {/* <App/> */}
       <CoursesSection/>
       <LearningJourney/>
       <TestSection/>

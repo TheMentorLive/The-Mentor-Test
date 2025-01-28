@@ -60,15 +60,14 @@ const CoursesSection = () => {
 
       {/* Categories Navigation */}
       <nav className="">
-      <ul className="flex space-x-11 justify-center">
+        <ul className="flex space-x-11 justify-center">
           {categories.map((category) => (
             <li
               key={category}
-              className={`cursor-pointer ${
-                selectedCategory === category
+              className={`cursor-pointer ${selectedCategory === category
                   ? "text-blue-500 border-b-2  border-blue-500"
                   : "text-gray-600"
-              }`}
+                }`}
               onClick={() => setSelectedCategory(category)}
             >
               {category}
@@ -80,28 +79,28 @@ const CoursesSection = () => {
       <hr className="border-t-1 border-slate-300" />
 
 
-<div className="flex justify-center p-6">
-  {/* Left Arrow */}
-  <button className="bg-white border rounded-full p-2 shadow-md mr-2">
-    <ChevronLeft className="h-5 w-5 text-gray-500" />
-  </button>
+      <div className="flex justify-center p-6">
+        {/* Left Arrow */}
+        <button className="bg-white border rounded-full p-2 shadow-md mr-2">
+          <ChevronLeft className="h-5 w-5 text-gray-500" />
+        </button>
 
-  {/* Options */}
-  <div className="flex justify-center space-x-5 overflow-x-auto px-8">
-    <button className="bg-black text-white px-4 py-2 rounded-md">JavaScript</button>
-    <button className="bg-gray-100 px-4 py-2 rounded-md">React JS</button>
-    <button className="bg-gray-100 px-4 py-2 rounded-md">Angular</button>
-    <button className="bg-gray-100 px-4 py-2 rounded-md">Java</button>
-    <button className="bg-gray-100 px-4 py-2 rounded-md">Android Development</button>
-    <button className="bg-gray-100 px-4 py-2 rounded-md">iOS Development</button>
-    <button className="bg-gray-100 px-4 py-2 rounded-md">HTML</button>
-  </div>
+        {/* Options */}
+        <div className="flex justify-center space-x-5 overflow-x-auto px-8">
+          <button className="bg-black text-white px-4 py-2 rounded-md">JavaScript</button>
+          <button className="bg-gray-100 px-4 py-2 rounded-md">React JS</button>
+          <button className="bg-gray-100 px-4 py-2 rounded-md">Angular</button>
+          <button className="bg-gray-100 px-4 py-2 rounded-md">Java</button>
+          <button className="bg-gray-100 px-4 py-2 rounded-md">Android Development</button>
+          <button className="bg-gray-100 px-4 py-2 rounded-md">iOS Development</button>
+          <button className="bg-gray-100 px-4 py-2 rounded-md">HTML</button>
+        </div>
 
-  {/* Right Arrow */}
-  <button className="bg-white border rounded-full p-2 shadow-md ml-2">
-    <ChevronRight className="h-5 w-5 text-gray-500" />
-  </button>
-</div>
+        {/* Right Arrow */}
+        <button className="bg-white border rounded-full p-2 shadow-md ml-2">
+          <ChevronRight className="h-5 w-5 text-gray-500" />
+        </button>
+      </div>
 
       {/* Course Grid */}
       <div className="flex justify-center space-x-4 mt-8 flex-wrap">
@@ -127,8 +126,8 @@ const CoursesSection = () => {
 
 
       <div className="flex justify-center p-6 pt-16 pb-20">
-      <button className="bg-white border border-black text-black px-4 py-2 rounded-lg">Explore all courses →</button>
-</div>
+        <button className="bg-white border border-black text-black px-4 py-2 rounded-lg">Explore all courses →</button>
+      </div>
     </div>
   );
 };

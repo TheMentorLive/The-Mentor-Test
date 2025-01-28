@@ -1,35 +1,38 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
-const {
-  default: flattenColorPalette,
-} = require("tailwindcss/lib/util/flattenColorPalette");
+const { default: flattenColorPalette } = require("tailwindcss/lib/util/flattenColorPalette");
 
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  mode: 'jit', // Just-in-Time compilation mode for faster development builds
-  content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'], // Content sources to scan for class names
-  darkMode: 'media', // Use 'media' for dark mode based on user system settings
+  mode: 'jit', // Enable Just-In-Time mode for faster builds
+  content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'], // Specify the files Tailwind should scan
+  darkMode: 'media', // Enable dark mode based on user preferences
   theme: {
     extend: {
-      // Custom breakpoints for responsiveness
       screens: {
-        sm: '640px', // Small screens (e.g., mobile)
-        md: '468px', // Medium screens (e.g., tablets)
-        lg: '1024px', // Large screens (e.g., small desktops)
-        xl: '1280px', // Extra large screens (e.g., large desktops)
+        xs: '468px', // Extra small screens (custom)
+        sm: '640px', // Small screens (mobile)
+        md: '768px', // Medium screens (tablet)
+        lg: '1024px', // Large screens (desktop)
+        xl: '1280px', // Extra-large screens
         '2xl': '1536px', // 2x large screens
       },
-      // Custom colors
       colors: {
         primary: '#2563EB',
         secondary: '#3B86F7',
         danger: '#e3342f',
       },
-      // Set 'Inter' as the only font
       fontFamily: {
-        sans: ['Inter'],
+        sans: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"San Francisco"',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+          ...defaultTheme.fontFamily.sans,
+        ],
       },
-      // Animation settings
+      
       animation: {
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
@@ -43,24 +46,18 @@ module.exports = {
       },
     },
   },
-  variants: {
-    extend: {
-      // Custom variants
-    },
-  },
   plugins: [
-    // Plugin to hide scrollbars
     function ({ addUtilities }) {
       const newUtilities = {
         '.scrollbar-hide': {
-          '-ms-overflow-style': 'none',  /* Internet Explorer 10+ */
-          'scrollbar-width': 'none',     /* Firefox */
+          '-ms-overflow-style': 'none', /* IE 10+ */
+          'scrollbar-width': 'none', /* Firefox */
         },
         '.scrollbar-hide::-webkit-scrollbar': {
-          display: 'none',               /* Webkit browsers */
+          display: 'none', /* Chrome, Safari */
         },
-      }
-      addUtilities(newUtilities)
+      };
+      addUtilities(newUtilities);
     },
     addVariablesForColors,
   ],

@@ -2,7 +2,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 
 export function NavBar() {
   return (
-    <nav className="flex items-center justify-between lg:-mt-16 md:-mt-16 p-4 max-w-7xl mx-auto -mb-40">
+    <nav className="flex items-center justify-between lg:-mt-16 md:-mt-16 p-4 max-w-7xl mx-auto lg:-mb-40">
       <div className="flex items-center gap-24">
         <a href="/" className="flex items-center gap-2">
           <div className="w-8 h-8 bg-blue-600 rounded-full" />
